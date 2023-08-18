@@ -1,14 +1,11 @@
 <template>
   <div class="mob-card">
-    <!-- edit -->
-    <div class="mob-edit-buttons-container">
-      <button class="mob-edit-button">
-        edit
-      </button>
-      <button class="mob-edit-button">
-        duplicate
-      </button>
-    </div>
+    <!-- type -->
+    <MobTypes
+      :size="props.size"
+      :type="props.type"
+      :alignment="props.alignment"
+    />
     <!-- bio -->
     <MobBio
       :name="props.name"
@@ -17,18 +14,26 @@
     />
     <!-- HP controls -->
     <MobHpControls :base-hp="props.baseHp" />
+    <!-- ability scores -->
+    <MobAbiliyScores :ability-scores="props.abilityScores" />
   </div>
 </template>
 
 <script setup>
-import MobHpControls from './MobHpControls.vue'
+import MobTypes from './MobTypes.vue'
 import MobBio from './MobBio.vue'
+import MobHpControls from './MobHpControls.vue'
+import MobAbiliyScores from './MobAbilityScores.vue'
 
 const props = defineProps({
+  avatar: { type: String, default: '' },
   name: { type: String, default: '' },
   desc: { type: String, default: '' },
   baseHp: { type: Number, default: 0 },
-  avatar: { type: String, default: '' }
+  size: { type: String, default: '' },
+  type: { type: String, default: '' },
+  alignment: { type: String, default: '' },
+  abilityScores: { type: Array, default: () => [''] }
 })
 
 </script>
@@ -38,27 +43,15 @@ const props = defineProps({
   display: grid;
   gap: 16px;
   grid-template-areas:
-    'edit edit edit'
-    'bio bio bio'
-    'bio bio bio'
-    'hp-buttons . .';
+  'bio bio bio'
+  'bio bio bio'
+  'type type type'
+  'hp-buttons ability ability';
   grid-template-columns: 150px 1fr 1fr;
-  grid-template-rows: .25fr .75fr 1fr auto;
+  grid-template-rows: .75fr 1fr .25fr auto;
   padding: var(--space-lg);
   background: white;
   border: var(--border-w) black;
   border-radius: var(--space-md);
-}
-
-.mob-edit-buttons-container {
-  grid-area: edit;
-  display: grid;
-  gap: 8px;
-  grid-template-columns: 1fr 1fr;
-  justify-content: space-evenly;
-}
-
-.mob-edit-button {
-  padding: 8px 16px;
 }
 </style>

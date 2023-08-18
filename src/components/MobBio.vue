@@ -51,7 +51,6 @@ const props = defineProps({
 }
 
 .mob-desc {
-  font-size: var(--p-size-md);
 }
 
 .mob-avatar-frame {

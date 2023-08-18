@@ -105,13 +105,13 @@ function checkDead () {
 
 .hp-display-label {
   text-align: center;
-  font-size: 20px;
+  font-size: var(--h-size-sm);
   color: var(--text-md);
 }
 
 .hp-current-display {
   color: white;
-  font-size: 24px;
+  font-size: var(--h-size-md);
   font-weight: 500;
 }
 

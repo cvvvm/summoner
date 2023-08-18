@@ -16,6 +16,7 @@
   --accent-dk: rgb(50, 50, 50);
 
   /* FONTS */
-  --h-size-md: 20px;
-  --p-size-md: 14px;
+  --h-size-md: 24px;
+  --h-size-sm: 20px;
+  --p-size-sm: 14px;
 }

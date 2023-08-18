@@ -13,3 +13,7 @@ button {
   border: none;
   border-radius: var(--space-sm);
 }
+
+p {
+  font-size: var(--p-size-sm);
+}
