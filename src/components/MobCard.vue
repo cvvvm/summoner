@@ -28,8 +28,7 @@ const props = defineProps({
   name: { type: String, default: '' },
   desc: { type: String, default: '' },
   baseHp: { type: Number, default: 0 },
-  avatar: { type: String, default: '' },
-  items: { type: Array, default: () => {} }
+  avatar: { type: String, default: '' }
 })
 
 </script>

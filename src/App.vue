@@ -5,19 +5,19 @@
       @close="toggleModal"
     />
   </div>
-  <MobCards>
+  <MobCardsContainer>
     <button @click="toggleModal">
       new creature
     </button>
-  </MobCards>
+  </MobCardsContainer>
 </template>
 
 <script>
-import MobCards from './components/MobCards.vue'
+import MobCardsContainer from './components/MobCardsContainer.vue'
 import ModalAdd from './components/ModalAdd.vue'
 export default {
   name: 'App',
-  components: { MobCards, ModalAdd },
+  components: { MobCardsContainer, ModalAdd },
   data () {
     return {
       modalTitle: 'Summon new creature:',
