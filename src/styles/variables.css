@@ -1,0 +1,21 @@
+:root {
+  /* SIZING */
+  --border-w: 1px solid;
+
+  /* SPACING */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 20px;
+  --space-xl: 24px;
+
+  /* COLOR */
+  --text-md: rgb(175, 175, 175);
+  --accent-lt: rgb(200, 200, 200);
+  --accent-dk: rgb(50, 50, 50);
+
+  /* FONTS */
+  --h-size-md: 20px;
+  --p-size-md: 14px;
+}
