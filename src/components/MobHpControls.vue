@@ -4,16 +4,9 @@
     <div class="hp-display-container">
       <span class="hp-display-label">HP:</span>
       <span
-        v-show="!isDead"
         class="hp-current-display"
       >
         {{ props.baseHp - hpLost }}
-      </span>
-      <span
-        v-show="isDead"
-        class="hp-current-display"
-      >
-        DEAD
       </span>
     </div>
 
@@ -99,13 +92,13 @@ function checkDead () {
 .hp-display-container {
   display: grid;
   grid-template-columns: min-content 1fr;
-  padding: var(--space-md) var(--space-lg);
+  padding: var(--space-md);
   place-items: center;
 }
 
 .hp-display-label {
   text-align: center;
-  font-size: var(--h-size-sm);
+  font-size: var(--p-size-md);
   color: var(--text-md);
 }
 

@@ -46,7 +46,7 @@ const props = defineProps({
   'bio bio bio'
   'bio bio bio'
   'type type type'
-  'hp-buttons ability ability';
+  'ability ability hp-buttons';
   grid-template-columns: 150px 1fr 1fr;
   grid-template-rows: .75fr 1fr .25fr auto;
   padding: var(--space-lg);
