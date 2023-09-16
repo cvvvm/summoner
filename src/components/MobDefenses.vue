@@ -95,10 +95,10 @@ const props = defineProps({
 .defense-label {
     font-weight: 300;
     font-size: var(--p-size-xs);
-    color: var(--bg-color);
+    color: var(--grey-dk);
     margin: var(--space-xs);
     padding: var(--space-xxs) var(--space-xs);
     border-radius: var(--space-xs);
-    background: var(--grey-md);
+    background: var(--HP-low);
 }
 </style>

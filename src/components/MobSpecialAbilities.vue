@@ -37,9 +37,9 @@ const props = defineProps({
 <style>
 .sp-abilities-container {
     /* grid-area: bio; */
-    grid-column: span 2;
+    grid-column: span 1;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr ;
     gap: var(--space-lg);
     padding: var(--space-lg);
     border-radius: var(--space-sm);
@@ -52,10 +52,11 @@ const props = defineProps({
     padding: var(--space-md);
     border-radius: var(--space-xs);
     background: var(--grey-dk);
-}
-.sp-ability-desc-container {
-  display: grid;
-  gap: var(--space-md);
+  }
+  .sp-ability-desc-container {
+    display: grid;
+    gap: var(--space-md);
+    color: var(--grey-lt);
 }
 
 </style>

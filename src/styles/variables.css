@@ -25,6 +25,8 @@
   --HP-crit: rgb(255, 27, 27);
 
   /* FONT - headings */
+  --h-size-xl: 32px;
+  --h-size-lg: 28px;
   --h-size-md: 24px;
   --h-size-sm: 20px;
 

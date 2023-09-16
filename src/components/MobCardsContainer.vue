@@ -4,6 +4,35 @@
     :key="mob.index"
     class="cards-container"
   >
+    <MobCard
+      :name="mob.name.toLowerCase()"
+      :alignment="mob.alignment"
+      :size="mob.size.toLowerCase()"
+      :type="mob.type"
+      :ability-scores="[
+        { strength: mob.strength },
+        { dext: mob.dexterity },
+        { cons: mob.constitution },
+        { cons: mob.intelligence },
+        { cons: mob.wisdom },
+        { cons: mob.charisma },
+      ]"
+      :base-hp="mob.hit_points"
+      :armor-class="mob.armor_class"
+      :challenge-rating="mob.challenge_rating"
+      :xp-gained="mob.xp"
+      :damage-vulnerabilities="mob.damage_vulnerabilities"
+      :damage-resistances="mob.damage_resistances"
+      :damage-immunities="mob.damage_immunities"
+      :condition-immunities="mob.condition_immunities"
+      :special-abilities="mob.special_abilities"
+    />
+  </div>
+  <div
+    v-for="mob in mobs"
+    :key="mob.index"
+    class="cards-container"
+  >
     <div
       class="card-hold"
     >
@@ -67,29 +96,6 @@
         </div>
       </div>
     </div>
-    <MobCard
-      :name="mob.name.toLowerCase()"
-      :alignment="mob.alignment"
-      :size="mob.size.toLowerCase()"
-      :type="mob.type"
-      :ability-scores="[
-        {strength: mob.strength},
-        {dext: mob.dexterity},
-        {cons: mob.constitution},
-        {cons: mob.intelligence},
-        {cons: mob.wisdom},
-        {cons: mob.charisma},
-      ]"
-      :base-hp="mob.hit_points"
-      :armor-class="mob.armor_class"
-      :challenge-rating="mob.challenge_rating"
-      :xp-gained="mob.xp"
-      :damage-vulnerabilities="mob.damage_vulnerabilities"
-      :damage-resistances="mob.damage_resistances"
-      :damage-immunities="mob.damage_immunities"
-      :condition-immunities="mob.condition_immunities"
-      :special-abilities="mob.special_abilities"
-    />
   </div>
 </template>
 

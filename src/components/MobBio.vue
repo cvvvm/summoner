@@ -1,14 +1,14 @@
 <template>
   <div class="bio-container sub-container">
-    <h2 class="name">
+    <h1 class="name">
       {{ props.name }}
-    </h2>
+    </h1>
 
     <div class="types-container">
       <p>{{ props.size }} {{ props.type }}</p>
       <p>{{ props.alignment }}</p>
       <p>{{ props.xpGained }} XP</p>
-      <p>challenge: {{ props.challengeRating }}</p>
+      <p>chal. {{ props.challengeRating }}</p>
     </div>
   </div>
 </template>
@@ -32,27 +32,28 @@ const props = defineProps({
   /* grid-area: bio; */
   grid-column: span 2;
   display: grid;
-  grid-template-columns: 1fr auto;
-  place-items: center start;
-  gap: var(--space-md);
-  padding: var(--space-xl);
+  grid-template-columns: 1fr max-content;
+  gap: var(--space-xxxl);
+  padding: var(--space-lg);
 }
 
 .name {
-  place-self: end start;
-  font-size: var(--h-size-md);
-}
-
-.challenge-container {
-  color: white;
+  place-self: center;
+  padding: var(--space-sm) var(--space-xl);
+  font-size: var(--h-size-xl);
 }
 
 .types-container {
-  grid-column: span 2; /* temp layout */
   display: grid;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: 1fr;
   gap: var(--space-md);
-  place-self: start stretch;
-  place-items: center space-between;
+  place-content: center;
+}
+
+.types-container > p {
+  flex: 1 0 auto;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--space-xs);
+  background: var(--grey-dk);
 }
 </style>
