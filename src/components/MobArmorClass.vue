@@ -6,10 +6,10 @@
     <div
       v-for="(armorKey, index) in props.armorClass"
       :key="index"
-      class="armor-container"
+      class="armor-container sub-container"
     >
       <span class="armor-label">AC:</span>
-      {{ armorKey.value }}
+      <span class="armor-value">{{ armorKey.value }}</span>
       <span class="armor-label">{{ armorKey.type }}</span>
     </div>
   </div>
@@ -17,10 +17,10 @@
   <!-- IF EQUIPPED ARMOR -->
   <div
     v-if="props.armorClass.armor"
-    class="armor-container"
+    class="armor-container sub-container"
   >
     <span class="armor-label">AC:</span>
-    {{ props.armorClass.value }}
+    <span class="armor-value">{{ props.armorClass.value }}</span>
     <span class="armor-label">{{ props.armorClass.type }}</span>
 
     <!-- EQUIPPED ITEMS -->
@@ -49,22 +49,21 @@ const props = defineProps({
   .armor-container {
   /* grid-area: armor; */
   display: grid;
-  grid-template-columns: min-content .5fr 1fr;
+  grid-template-columns: .2fr min-content 1fr;
   padding: var(--space-md);
-  row-gap: var(--space-sm);
+  gap: var(--space-sm);
   place-items: center;
-  background: black;
-  border-radius: var(--space-md);
-
-  color: white;
-  font-size: var(--h-size-md);
-  font-weight: 700;
 }
 
 .armor-label {
   text-align: center;
   font-size: var(--p-size-sm);
-  color: var(--md-grey);
+  color: var(--grey-md);
+}
+
+.armor-value {
+  font-size: var(--h-size-md);
+  font-weight: 700;
 }
 
 .armor-equipped-container {
@@ -73,12 +72,12 @@ const props = defineProps({
   grid-column: span 3;
   row-gap: var(--space-sm);
   place-self: stretch;
-  color: var(--md-grey);
+  color: var(--grey-md);
 }
 
 .armor-equipped-item {
   border-radius: var(--space-xs);
   padding: var(--space-sm);
-  background: var(--dk-grey);
+  background: var(--grey-dk);
 }
 </style>

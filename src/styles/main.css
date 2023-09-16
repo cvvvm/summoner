@@ -11,9 +11,29 @@
 
 button {
   border: none;
-  border-radius: var(--space-sm);
+  border-radius: var(--space-xs);
+}
+
+/* TEXT STYLES */
+.section-title {
+  grid-column: 1 / -1;
+  font-size: var(--h-size-md);
 }
 
 p {
   font-size: var(--p-size-xs);
+}
+
+/* LAYOUT */
+.container {
+  display: grid;
+  gap: var(--space-md);
+  color: var(--text-color);
+  border-radius: var(--space-xl);
+  border: 1px solid var(--grey-md);
+  background: var(--text-color);
+}
+.sub-container {
+  border-radius: var(--space-md);
+  background: var(--bg-color);
 }

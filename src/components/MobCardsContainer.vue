@@ -7,17 +7,6 @@
     <div
       class="card-hold"
     >
-      <!-- CREATURE -->
-      <div style="grid-column: span 3;">
-        <h2>{{ mob.name.toLowerCase() }}</h2>
-        <p>
-          {{ mob.alignment }} {{ mob.size.toLowerCase() }} {{ mob.type }} <span v-if="mob.subtype">
-            {{ mob.subtype }}
-          </span>
-        </p>
-        <p>challenge: {{ mob.challenge_rating }}, {{ mob.xp }} XP</p>
-      </div>
-
       <!-- HP -->
       <div>
         <h3>health</h3>
@@ -37,47 +26,6 @@
         </div>
       </div>
 
-      <!-- RESIST -->
-      <div v-if="mob.damage_vulnerabilities.length != 0">
-        <h3>damage vunerabilities</h3>
-        <div
-          v-for="vulnerability in mob.damage_vulnerabilities"
-          :key="vulnerability"
-        >
-          <p>{{ vulnerability }}</p>
-        </div>
-      </div>
-
-      <div v-if="mob.damage_resistances.length != 0">
-        <h3>damage resistances</h3>
-        <div
-          v-for="resistance in mob.damage_resistances"
-          :key="resistance"
-        >
-          <p>{{ resistance }}</p>
-        </div>
-      </div>
-
-      <div v-if="mob.damage_immunities.length != 0">
-        <h3>damage immunities</h3>
-        <div
-          v-for="immunity in mob.damage_immunities"
-          :key="immunity"
-        >
-          <p>{{ immunity }}</p>
-        </div>
-      </div>
-
-      <div v-if="mob.condition_immunities.length != 0">
-        <h3>condition immunities</h3>
-        <div
-          v-for="immunity in mob.condition_immunities"
-          :key="immunity"
-        >
-          <p>{{ immunity }}</p>
-        </div>
-      </div>
-
       <!-- SENSES -->
       <div>
         <h3>senses</h3>
@@ -93,22 +41,6 @@
       <div>
         <h3>languages</h3>
         <p>{{ mob.languages.toLowerCase() }}</p>
-      </div>
-
-      <!-- SPECIAL ABILITIES -->
-      <div style="grid-column: span 2;">
-        <h3>abilities</h3>
-        <div
-          v-for="ability in mob.special_abilities"
-          :key="ability"
-        >
-          <h4>{{ ability.name.toLowerCase() }}</h4>
-          <p>{{ ability.desc.toLowerCase() }}</p>
-          <div v-if="ability.usage">
-            <h5>use {{ ability.usage.times }} times {{ ability.usage.type }}</h5>
-          </div>
-          <br>
-        </div>
       </div>
 
       <!-- ACTIONS -->
@@ -132,7 +64,6 @@
               <h5>{{ subaction.action_name.toLowerCase() }}: {{ subaction.count }}</h5>
             </div>
           </div>
-          <br>
         </div>
       </div>
     </div>
@@ -153,6 +84,11 @@
       :armor-class="mob.armor_class"
       :challenge-rating="mob.challenge_rating"
       :xp-gained="mob.xp"
+      :damage-vulnerabilities="mob.damage_vulnerabilities"
+      :damage-resistances="mob.damage_resistances"
+      :damage-immunities="mob.damage_immunities"
+      :condition-immunities="mob.condition_immunities"
+      :special-abilities="mob.special_abilities"
     />
   </div>
 </template>
@@ -338,10 +274,10 @@ const mobs = [{
       }
     }
   ],
-  damage_vulnerabilities: [],
-  damage_resistances: [],
-  damage_immunities: ['acid'],
-  condition_immunities: [],
+  damage_vulnerabilities: ['psychic', 'holy'],
+  damage_resistances: ['fire', 'ice'],
+  damage_immunities: ['acid', 'fire'],
+  condition_immunities: ['stun', 'exhaustion'],
   senses: {
     blindsight: '60 ft.',
     darkvision: '120 ft.',

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="hp-controls-container"
+    class="hp-controls-container sub-container"
   >
     <!-- HP display -->
     <div
@@ -114,7 +114,7 @@ function checkHP () {
   /* grid-area: hp; */
   display: grid;
   background: black;
-  border-radius: var(--space-md);
+  place-content: start stretch;
 }
 
 .hp-display-container {
@@ -127,7 +127,7 @@ function checkHP () {
 .hp-display-label {
   text-align: center;
   font-size: var(--p-size-md);
-  color: var(--md-grey);
+  color: var(--grey-md);
 }
 
 .hp-current-display {
@@ -141,7 +141,7 @@ function checkHP () {
   grid-template-columns: 1fr 1fr 1fr;
   gap: var(--space-sm);
   justify-content: space-evenly;
-  margin: var(--space-sm);
+  margin: var(--space-md);
   margin-top: 0;
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="mob-ability-scores-container">
+  <div class="ability-scores-container">
     <div
       v-for="(ability, index) in props.abilityScores"
       :key="index"
@@ -7,10 +7,10 @@
       <div
         v-for="(scoreValue, abilityName, scoreIndex) in ability"
         :key="scoreIndex"
-        class="mob-ability-name"
+        class="ability-name sub-container"
       >
         {{ abilityName.substring(0, 3) }}
-        <div class="mob-score-value">
+        <div class="score-value">
           {{ scoreValue }}
         </div>
       </div>
@@ -31,25 +31,24 @@ const props = defineProps({
 </script>
 
 <style>
-  .mob-ability-scores-container {
+  .ability-scores-container {
     /* grid-area: ability; */
     grid-column: span 2;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: var(--space-sm);
   }
-  .mob-ability-name {
+  .ability-name {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
     place-items: center;
     place-self: stretch;
-    color: var(--md-grey);
-    padding: var(--space-md) var(--space-lg);
+    color: var(--grey-md);
+    padding: var(--space-sm) var(--space-xl) var(--space-md);
     background: black;
-    border-radius: var(--space-sm);
   }
-  .mob-score-value {
+  .score-value {
     font-size: var(--h-size-sm);
     font-weight: 600;
     color: white;

@@ -3,6 +3,7 @@
   --border-w: 1px solid;
 
   /* SPACING */
+  --space-xxs: 2px;
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 12px;
@@ -12,10 +13,12 @@
   --space-xxxl: 28px;
 
   /* COLOR */
-  --md-grey: rgb(175, 175, 175);
-  --dk-grey: rgb(25, 25, 25);
-  --accent-lt: rgb(200, 200, 200);
-  --accent-dk: rgb(50, 50, 50);
+  --text-color: white;
+  --bg-color: black;
+
+  --grey-lt: rgb(200, 200, 200);
+  --grey-md: rgb(150, 150, 150);
+  --grey-dk: rgb(25, 25, 25);
 
   --HP-bonus: rgb(38, 176, 255);
   --HP-low: rgb(255, 191, 0);
@@ -29,4 +32,9 @@
   --p-size-md: 20px;
   --p-size-sm: 16px;
   --p-size-xs: 14px;
+
+  /* FONT - numbers */
+  --num-size-md: 20px;
+  --num-size-sm: 16px;
+  --num-size-xs: 14px;
 }
