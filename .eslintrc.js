@@ -30,7 +30,7 @@ module.exports = {
   rules: {
     quotes: ['error', 'single'],
     semi: ['error', 'never'], // force semicolons
-    indent: ['error', 2], // 2 space indent
+    indent: ['error', 2], // indent
     'no-multi-spaces': ['error'], // avoid extraneous spaces
     'object-curly-spacing': ['error', 'always', { arraysInObjects: true }],
     'comma-dangle': ['error', 'never']

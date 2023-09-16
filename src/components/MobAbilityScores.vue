@@ -32,9 +32,10 @@ const props = defineProps({
 
 <style>
   .mob-ability-scores-container {
-    grid-area: ability;
+    /* grid-area: ability; */
+    grid-column: span 2;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: var(--space-sm);
   }
   .mob-ability-name {
@@ -43,8 +44,8 @@ const props = defineProps({
     grid-template-rows: 1fr 1fr;
     place-items: center;
     place-self: stretch;
-    color: var(--text-md);
-    padding: var(--space-sm);
+    color: var(--md-grey);
+    padding: var(--space-md) var(--space-lg);
     background: black;
     border-radius: var(--space-sm);
   }

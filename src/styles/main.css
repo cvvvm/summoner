@@ -15,5 +15,5 @@ button {
 }
 
 p {
-  font-size: var(--p-size-sm);
+  font-size: var(--p-size-xs);
 }

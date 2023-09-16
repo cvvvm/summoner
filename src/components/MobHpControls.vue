@@ -1,23 +1,28 @@
 <template>
-  <div class="hp-controls-container">
+  <div
+    class="hp-controls-container"
+  >
     <!-- HP display -->
-    <div class="hp-display-container">
+    <div
+      class="hp-display-container"
+    >
       <span class="hp-display-label">HP:</span>
       <span
         class="hp-current-display"
+        :style="{ color: HPcolor }"
       >
-        {{ props.baseHp - hpLost }}
+        {{ props.baseHp - hpChange }}
       </span>
     </div>
 
     <!-- HP toggles -->
     <div
-      class="creature-hp-buttons-container"
-      @click="checkDead()"
+      class="hp-buttons-container"
+      @click="checkHP()"
     >
       <button
         v-show="!isDead"
-        class="creature-hp-button"
+        class="hp-button"
         @click.exact="dmgMob(1)"
         @click.shift="dmgMob(5)"
       >
@@ -25,32 +30,25 @@
       </button>
       <button
         v-show="!isDead"
-        class="creature-hp-button"
+        class="hp-button kill"
+        @click="hpChange = props.baseHp"
+      >
+        KILL
+      </button>
+      <button
+        v-show="!isDead"
+        class="hp-button"
         @click.exact="healMob(1)"
         @click.shift="healMob(5)"
       >
         +1
       </button>
       <button
-        v-show="!isDead"
-        class="creature-hp-button kill"
-        @click="hpLost = props.baseHp"
-      >
-        KILL
-      </button>
-      <button
         v-show="isDead"
-        class="creature-hp-button revive"
-        @click="hpLost = props.baseHp - 1"
+        class="hp-button revive"
+        @click="hpChange = props.baseHp - 1"
       >
         REVIVE
-      </button>
-      <button
-        v-show="isDead"
-        class="creature-hp-button revive"
-        @click="hpLost = 0"
-      >
-        FULL HP
       </button>
     </div>
   </div>
@@ -58,32 +56,62 @@
 
 <script setup>
 import { ref } from 'vue'
-const hpLost = ref(0)
+const hpChange = ref(0)
+const HPcolor = ref('white')
 const isDead = ref(false)
+const isHPBonus = ref(false)
+const isHPLow = ref(false)
+const isHPcrit = ref(false)
 
 const props = defineProps({
   baseHp: { type: Number, default: 0 }
 })
 
 function healMob (amountHeal) {
-  hpLost.value = hpLost.value - amountHeal
+  hpChange.value = hpChange.value - amountHeal
 }
 function dmgMob (amountDmg) {
-  hpLost.value = hpLost.value + amountDmg
+  hpChange.value = hpChange.value + amountDmg
 }
-function checkDead () {
-  if (hpLost.value >= props.baseHp) {
-    isDead.value = true
-    hpLost.value = props.baseHp
-  } else {
+function checkHP () {
+  /* bonus HP */ if (hpChange.value < 0) {
+    isHPBonus.value = true
+    isHPLow.value = false
+    isHPcrit.value = false
     isDead.value = false
+    HPcolor.value = 'var(--HP-bonus)'
+  } /* dead */ else if (hpChange.value >= props.baseHp) {
+    isHPBonus.value = false
+    isHPLow.value = false
+    isHPcrit.value = false
+    isDead.value = true
+    hpChange.value = props.baseHp
+    HPcolor.value = 'var(--HP-crit)'
+  } /* low */ else if (hpChange.value >= (props.baseHp * 0.6) && hpChange.value < (props.baseHp * 0.8)) {
+    isHPBonus.value = false
+    isHPLow.value = true
+    isHPcrit.value = false
+    isDead.value = false
+    HPcolor.value = 'var(--HP-low)'
+  } /* critical */ else if (hpChange.value >= (props.baseHp * 0.8)) {
+    isHPBonus.value = false
+    isHPLow.value = false
+    isHPcrit.value = true
+    isDead.value = false
+    HPcolor.value = 'var(--HP-crit)'
+  } else {
+    isHPBonus.value = false
+    isHPLow.value = false
+    isHPcrit.value = false
+    isDead.value = false
+    HPcolor.value = 'white'
   }
 }
 </script>
 
 <style>
 .hp-controls-container {
-  grid-area: hp-buttons;
+  /* grid-area: hp; */
   display: grid;
   background: black;
   border-radius: var(--space-md);
@@ -99,37 +127,36 @@ function checkDead () {
 .hp-display-label {
   text-align: center;
   font-size: var(--p-size-md);
-  color: var(--text-md);
+  color: var(--md-grey);
 }
 
 .hp-current-display {
   color: white;
   font-size: var(--h-size-md);
-  font-weight: 500;
+  font-weight: 700;
 }
 
-.creature-hp-buttons-container {
+.hp-buttons-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: var(--space-sm);
   justify-content: space-evenly;
   margin: var(--space-sm);
   margin-top: 0;
 }
 
-.creature-hp-button {
+.hp-button {
   font-weight: 600;
   padding: var(--space-sm);
 }
 
-.creature-hp-button.kill {
-  grid-column: span 2;
-  background: red;
+.hp-button.kill {
+  background: var(--HP-crit);
   color: white;
 }
 
-.creature-hp-button.revive {
-  grid-column: span 2;
+.hp-button.revive {
+  grid-column: span 3;
   background: green;
   color: white;
 }

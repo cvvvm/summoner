@@ -8,18 +8,25 @@
   --space-md: 12px;
   --space-lg: 16px;
   --space-xl: 20px;
-  --space-xl: 24px;
+  --space-xxl: 24px;
+  --space-xxxl: 28px;
 
   /* COLOR */
-  --text-md: rgb(175, 175, 175);
+  --md-grey: rgb(175, 175, 175);
+  --dk-grey: rgb(25, 25, 25);
   --accent-lt: rgb(200, 200, 200);
   --accent-dk: rgb(50, 50, 50);
+
+  --HP-bonus: rgb(38, 176, 255);
+  --HP-low: rgb(255, 191, 0);
+  --HP-crit: rgb(255, 27, 27);
 
   /* FONT - headings */
   --h-size-md: 24px;
   --h-size-sm: 20px;
 
   /* FONT - paragraph */
-  --p-size-md: 18px;
-  --p-size-sm: 14px;
+  --p-size-md: 20px;
+  --p-size-sm: 16px;
+  --p-size-xs: 14px;
 }
