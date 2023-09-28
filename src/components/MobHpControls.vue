@@ -61,6 +61,16 @@ const props = defineProps({
   baseHp: { type: Number, default: 0 }
 })
 
+// WIP HP CODE
+/* function rollHP(x) {
+  const splitVal = x.split('d')
+  const numDice = parseInt(splitVal[0])
+  const diceVal = parseInt(splitVal[1].split('+')[0])
+  const rollMod = parseInt(splitVal[1].split('+')[1])
+  // const totalHP = parseInt(mobFunctions.rollDice(numDice, diceVal, rollMod))
+  return parseInt(mobFunctions.rollDice(numDice, diceVal, rollMod)) // return [totalHP, numDice, diceVal, rollMod]
+} */
+
 function healMob (amountHeal) {
   hpChange.value = hpChange.value - amountHeal
 }

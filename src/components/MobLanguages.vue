@@ -1,7 +1,7 @@
 <template>
   <!-- LANGUAGES -->
   <div class="label">
-    <span>languages:</span>
+    <span>languages: </span>
     <span class="val-sm">{{ props.lang.toLowerCase() }}</span>
   </div>
 </template>

@@ -12,6 +12,11 @@ export const mobFunctions = {
       rollArray.push(roll)
     }
     rollAtkResult = rollArray.reduce((p, c) => p + c, 0)
+
+    if (rollMod) {
+      rollAtkResult += rollMod
+    }
+
     return rollAtkResult
   },
 

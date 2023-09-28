@@ -6,7 +6,9 @@
     </button>
 
     <p>hit: <span class="val-md">{{ hitResult }}</span></p>
-    <p>dmg: <span class="val-md">{{ dmgResult }}</span></p>
+    <p>
+      dmg: <span class="val-md">{{ dmgResult }}</span>
+    </p>
     <p style="grid-column: span 3;">
       {{ dmgRollMath.replace(/\(/, '').replace(/:,/g, '\(').replace(/\,\)/g, ')').replace(/\)\,\(/g, ') + ').replace(/,/g, '+') }}
     </p>
@@ -17,7 +19,7 @@
 import { ref } from 'vue'
 import { mobFunctions } from '../mobFunctions'
 const dmgResult = ref(0)
-const dmgRollMath = ref('awaiting roll...')
+const dmgRollMath = ref('awaiting attack...')
 const hitResult = ref(0)
 // const rollAtkMath = ref('')
 const props = defineProps({

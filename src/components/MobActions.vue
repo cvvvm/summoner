@@ -20,12 +20,7 @@
 
         <div v-if="action.usage">
           <p>
-            {{ action.usage.type }}: <span
-              v-for="index in action.usage.times"
-              :key="index"
-            >
-              <input type="checkbox">
-            </span>
+            {{ action.usage.type }} of <span class="val-sm">{{ action.usage.min_value }}</span> with <span class="val-sm">{{ action.usage.dice }}</span>
           </p>
         </div>
         <!-- damage -->

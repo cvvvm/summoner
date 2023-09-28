@@ -32,23 +32,6 @@
       :lang="mob.languages"
     />
   </div>
-  <div
-    v-for="mob in mobs"
-    :key="mob.index"
-    class="cards-container"
-  >
-    <div
-      class="card-hold"
-    >
-      <!-- HP -->
-      <div>
-        <h3>health</h3>
-        <h4>HP: {{ mob.hit_points }}</h4>
-        <p>hit dice: {{ mob.hit_dice }}</p>
-        <p>HP roll: {{ mob.hit_points_roll }}</p>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script setup>
