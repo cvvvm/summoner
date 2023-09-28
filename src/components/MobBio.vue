@@ -5,10 +5,18 @@
     </h1>
 
     <div class="types-container">
-      <p>{{ props.size }} {{ props.type }}</p>
-      <p>{{ props.alignment }}</p>
-      <p>{{ props.xpGained }} XP</p>
-      <p>chal. {{ props.challengeRating }}</p>
+      <p class="label">
+        {{ props.size }} {{ props.type }}
+      </p>
+      <p class="label">
+        {{ props.alignment }}
+      </p>
+      <p class="label">
+        {{ props.xpGained }} XP
+      </p>
+      <p class="label">
+        chal. {{ props.challengeRating }}
+      </p>
     </div>
   </div>
 </template>
@@ -48,12 +56,5 @@ const props = defineProps({
   grid-template-columns: 1fr;
   gap: var(--space-md);
   place-content: center;
-}
-
-.types-container > p {
-  flex: 1 0 auto;
-  padding: var(--space-xs) var(--space-md);
-  border-radius: var(--space-xs);
-  background: var(--grey-dk);
 }
 </style>

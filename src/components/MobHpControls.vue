@@ -1,18 +1,14 @@
 <template>
   <div
-    class="hp-controls-container sub-container"
+    class="val-container"
   >
-    <!-- HP display -->
+    <!-- HP VALUE -->
+    <div>health</div>
     <div
-      class="hp-display-container"
+      class="val-lg"
+      :style="{color: HPcolor}"
     >
-      <span class="hp-display-label">HP:</span>
-      <span
-        class="hp-current-display"
-        :style="{ color: HPcolor }"
-      >
-        {{ props.baseHp - hpChange }}
-      </span>
+      {{ props.baseHp - hpChange }}
     </div>
 
     <!-- HP toggles -->
@@ -21,12 +17,18 @@
       @click="checkHP()"
     >
       <button
-        v-show="!isDead"
         class="hp-button"
         @click.exact="dmgMob(1)"
         @click.shift="dmgMob(5)"
       >
         -1
+      </button>
+      <button
+        class="hp-button"
+        @click.exact="healMob(1)"
+        @click.shift="healMob(5)"
+      >
+        +1
       </button>
       <button
         v-show="!isDead"
@@ -36,17 +38,9 @@
         KILL
       </button>
       <button
-        v-show="!isDead"
-        class="hp-button"
-        @click.exact="healMob(1)"
-        @click.shift="healMob(5)"
-      >
-        +1
-      </button>
-      <button
         v-show="isDead"
         class="hp-button revive"
-        @click="hpChange = props.baseHp - 1"
+        @click="hpChange = 0"
       >
         REVIVE
       </button>
@@ -110,53 +104,26 @@ function checkHP () {
 </script>
 
 <style>
-.hp-controls-container {
-  /* grid-area: hp; */
-  display: grid;
-  background: black;
-  place-content: start stretch;
-}
-
-.hp-display-container {
-  display: grid;
-  grid-template-columns: min-content 1fr;
-  padding: var(--space-md);
-  place-items: center;
-}
-
-.hp-display-label {
-  text-align: center;
-  font-size: var(--p-size-md);
-  color: var(--grey-md);
-}
-
-.hp-current-display {
-  color: white;
-  font-size: var(--h-size-md);
-  font-weight: 700;
-}
-
 .hp-buttons-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: var(--space-sm);
-  justify-content: space-evenly;
-  margin: var(--space-md);
-  margin-top: 0;
+  margin-top: var(--space-xs);
 }
 
 .hp-button {
   font-weight: 600;
-  padding: var(--space-sm);
+  padding: var(--space-xs) var(--space-md);
 }
 
 .hp-button.kill {
+  grid-column: span 2;
   background: var(--HP-crit);
   color: white;
 }
 
 .hp-button.revive {
-  grid-column: span 3;
+  grid-column: span 2;
   background: green;
   color: white;
 }

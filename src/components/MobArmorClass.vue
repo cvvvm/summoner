@@ -6,22 +6,30 @@
     <div
       v-for="(armorKey, index) in props.armorClass"
       :key="index"
-      class="armor-container sub-container"
+      class="val-container"
     >
-      <span class="armor-label">AC:</span>
-      <span class="armor-value">{{ armorKey.value }}</span>
-      <span class="armor-label">{{ armorKey.type }}</span>
+      <div>armor</div>
+      <div class="val-lg">
+        {{ armorKey.value }}
+      </div>
+      <span class="label">{{ armorKey.type }}</span>
     </div>
   </div>
 
   <!-- IF EQUIPPED ARMOR -->
   <div
     v-if="props.armorClass.armor"
-    class="armor-container sub-container"
+    class="armor-container"
   >
-    <span class="armor-label">AC:</span>
-    <span class="armor-value">{{ props.armorClass.value }}</span>
-    <span class="armor-label">{{ props.armorClass.type }}</span>
+    <div class="val-container">
+      <div>armor</div>
+      <div class="val-lg">
+        {{ props.armorClass.value }}
+      </div>
+      <div class="label">
+        {{ props.armorClass.type }}
+      </div>
+    </div>
 
     <!-- EQUIPPED ITEMS -->
     <div class="armor-equipped-container">
@@ -30,7 +38,7 @@
         :key="equipArmor.index"
         class="armor-equipped-item"
       >
-        <p>+ {{ equipArmor.name.toLowerCase() }}</p>
+        <p>{{ equipArmor.name.toLowerCase() }}</p>
         <!-- <p>
           URL: {{ equipArmor.url }}
         </p> -->
@@ -41,7 +49,7 @@
 
 <script setup>
 const props = defineProps({
-  armorClass: { type: Array, default: () => [''] }
+  armorClass: { type: Object, default: () => { } }
 })
 </script>
 
@@ -49,35 +57,21 @@ const props = defineProps({
   .armor-container {
   /* grid-area: armor; */
   display: grid;
-  grid-template-columns: .2fr min-content 1fr;
-  padding: var(--space-md);
-  gap: var(--space-sm);
-  place-items: center;
-}
-
-.armor-label {
-  text-align: center;
-  font-size: var(--p-size-sm);
-  color: var(--grey-md);
-}
-
-.armor-value {
-  font-size: var(--h-size-md);
-  font-weight: 700;
+  grid-template-columns: min-content 1fr;
+  gap: var(--space-md);
+  place-items: start stretch;
 }
 
 .armor-equipped-container {
   display: grid;
   grid-template-columns: 1fr;
-  grid-column: span 3;
   row-gap: var(--space-sm);
-  place-self: stretch;
-  color: var(--grey-md);
 }
 
 .armor-equipped-item {
-  border-radius: var(--space-xs);
-  padding: var(--space-sm);
+  color: var(--grey-lt);
   background: var(--grey-dk);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--space-sm);
 }
 </style>

@@ -9,7 +9,7 @@
       :key="ability"
       class="sp-ability-container"
     >
-      <h4>{{ ability.name.toLowerCase() }}</h4>
+      <h3>{{ ability.name.toLowerCase() }}</h3>
       <div class="sp-ability-desc-container">
         <p>{{ ability.desc.toLowerCase() }}</p>
         <div v-if="ability.usage">
@@ -36,14 +36,13 @@ const props = defineProps({
 
 <style>
 .sp-abilities-container {
-    /* grid-area: bio; */
-    grid-column: span 1;
+    grid-column: span 2;
     display: grid;
-    grid-template-columns: 1fr ;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: var(--space-lg);
     padding: var(--space-lg);
     border-radius: var(--space-sm);
-    place-items: start;
+    place-items: start stretch;
   }
   .sp-ability-container {
     display: grid;

@@ -14,6 +14,7 @@ button {
   border-radius: var(--space-xs);
 }
 
+/* -------------------------------------------------------- */
 /* TEXT STYLES */
 .section-title {
   grid-column: 1 / -1;
@@ -24,6 +25,31 @@ p {
   font-size: var(--p-size-xs);
 }
 
+.val-lg {
+  color: var(--text-color);
+  font-size: var(--h-size-md);
+  font-weight: 800;
+}
+.val-md {
+  color: var(--text-color);
+  font-size: var(--h-size-sm);
+  font-weight: 600;
+}
+.val-sm {
+  color: var(--text-color);
+  font-size: var(--p-size-sm);
+  font-weight: 500;
+}
+
+.label {
+  font-size: var(--p-size-xs);
+  color: var(--grey-lt);
+  background: var(--grey-dk);
+  padding: var(--space-xxs) var(--space-sm);
+  border-radius: var(--space-xs);
+}
+
+/* -------------------------------------------------------- */
 /* LAYOUT */
 .container {
   display: grid;
@@ -35,5 +61,19 @@ p {
 }
 .sub-container {
   border-radius: var(--space-md);
+  background: var(--bg-color);
+}
+
+.val-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content 1fr;
+  gap: var(--space-xs);
+  place-items: center;
+
+  padding: var(--space-sm) var(--space-md) var(--space-md);
+  border-radius: var(--space-md);
+
+  color: var(--grey-md);
   background: var(--bg-color);
 }

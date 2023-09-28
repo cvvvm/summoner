@@ -7,10 +7,10 @@
       <div
         v-for="(scoreValue, abilityName, scoreIndex) in ability"
         :key="scoreIndex"
-        class="ability-name sub-container"
+        class="val-container"
       >
-        {{ abilityName.substring(0, 3) }}
-        <div class="score-value">
+        <div>{{ abilityName.substring(0, 3) }}</div>
+        <div class="val-lg">
           {{ scoreValue }}
         </div>
       </div>
@@ -32,25 +32,8 @@ const props = defineProps({
 
 <style>
   .ability-scores-container {
-    /* grid-area: ability; */
-    grid-column: span 2;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--space-sm);
-  }
-  .ability-name {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-    place-items: center;
-    place-self: stretch;
-    color: var(--grey-md);
-    padding: var(--space-sm) var(--space-xl) var(--space-md);
-    background: black;
-  }
-  .score-value {
-    font-size: var(--h-size-sm);
-    font-weight: 600;
-    color: white;
   }
 </style>

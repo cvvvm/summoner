@@ -10,12 +10,12 @@
       :size="mob.size.toLowerCase()"
       :type="mob.type"
       :ability-scores="[
-        { strength: mob.strength },
-        { dext: mob.dexterity },
-        { cons: mob.constitution },
-        { cons: mob.intelligence },
-        { cons: mob.wisdom },
-        { cons: mob.charisma },
+        { str: mob.strength },
+        { dex: mob.dexterity },
+        { con: mob.constitution },
+        { int: mob.intelligence },
+        { wis: mob.wisdom },
+        { cha: mob.charisma },
       ]"
       :base-hp="mob.hit_points"
       :armor-class="mob.armor_class"
@@ -26,6 +26,10 @@
       :damage-immunities="mob.damage_immunities"
       :condition-immunities="mob.condition_immunities"
       :special-abilities="mob.special_abilities"
+      :actions="mob.actions"
+      :speed="mob.speed"
+      :senses="mob.senses"
+      :lang="mob.languages"
     />
   </div>
   <div
@@ -42,58 +46,6 @@
         <h4>HP: {{ mob.hit_points }}</h4>
         <p>hit dice: {{ mob.hit_dice }}</p>
         <p>HP roll: {{ mob.hit_points_roll }}</p>
-      </div>
-
-      <!-- SPEED -->
-      <div>
-        <h3>speed</h3>
-        <div
-          v-for="(speedVal, speedType, index) in mob.speed"
-          :key="index"
-        >
-          <p>{{ speedType }}: {{ speedVal }}</p>
-        </div>
-      </div>
-
-      <!-- SENSES -->
-      <div>
-        <h3>senses</h3>
-        <div
-          v-for="(senseVal, senseKey) in mob.senses"
-          :key="senseVal"
-        >
-          <p>{{ senseKey.replace('_', ' ') }}: {{ senseVal }}</p>
-        </div>
-      </div>
-
-      <!-- LANGUAGES -->
-      <div>
-        <h3>languages</h3>
-        <p>{{ mob.languages.toLowerCase() }}</p>
-      </div>
-
-      <!-- ACTIONS -->
-      <div style="grid-column: span 3; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-xxl);">
-        <h3 style="grid-column: span 3;">
-          actions
-        </h3>
-        <div
-          v-for="action in mob.actions"
-          :key="action"
-        >
-          <h4>{{ action.name.toLowerCase() }}</h4>
-          <p>{{ action.desc.toLowerCase() }}</p>
-
-          <!-- subactions -->
-          <div v-if="action.actions.length > 0">
-            <div
-              v-for="(subaction, index) in action.actions"
-              :key="index"
-            >
-              <h5>{{ subaction.action_name.toLowerCase() }}: {{ subaction.count }}</h5>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -474,10 +426,6 @@ const mobs = [{
 </script>
 
   <style>
-    h3 {
-    color: blue;
-    margin-bottom: .25rem !important;
-    }
     .card-hold {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
