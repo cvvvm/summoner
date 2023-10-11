@@ -1,36 +1,53 @@
 <template>
+  <button @click="toggleModal()">
+    summon new
+  </button>
   <div v-show="modalOpen">
-    <ModalAdd
-      :title="modalTitle"
+    <SummonMob
+      :search-list="mobsSearchList.results"
+      @summon-mob="addMob"
       @close="toggleModal"
     />
   </div>
-  <MobCardsContainer>
-    <button @click="toggleModal">
-      new creature
-    </button>
-  </MobCardsContainer>
+
+  <MobCardsContainer :mobs="mobs" />
 </template>
 
-<script>
+<script setup>
+import { ref, reactive, onMounted } from 'vue'
 import MobCardsContainer from './components/MobCardsContainer.vue'
-import ModalAdd from './components/ModalAdd.vue'
-export default {
-  name: 'App',
-  components: { MobCardsContainer, ModalAdd },
-  data () {
-    return {
-      modalTitle: 'Summon new creature:',
-      modalOpen: false
-    }
-  },
-  methods: {
-    toggleModal () {
-      this.modalOpen = !this.modalOpen
-    }
-  }
+import SummonMob from './components/SummonMob.vue'
 
+const modalOpen = ref(false)
+const mobs = reactive([])
+const mobsSearchList = ref([])
+
+function toggleModal () {
+  modalOpen.value = !modalOpen.value
 }
+
+// add new mob
+function addMob (name) {
+  name = name.replace(/ /gm, '-').replace(/-$/gm, '').toLowerCase()
+  fetch('https://www.dnd5eapi.co/api/monsters/' + name)
+    .then(res => res.json())
+    .then(data => { mobs.push(data) })
+    .catch(err => console.log(err.message))
+}
+
+function getMobsSearchList () {
+  fetch('https://www.dnd5eapi.co/api/monsters')
+    .then(res => res.json())
+    .then(data => { mobsSearchList.value = data })
+    .catch(err => console.log(err.message))
+}
+
+onMounted(() => {
+  getMobsSearchList()
+  addMob('androsphinx')
+  addMob('adult black dragon')
+})
+
 </script>
 
 <style>

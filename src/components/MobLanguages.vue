@@ -1,6 +1,6 @@
 <template>
   <!-- LANGUAGES -->
-  <div class="label">
+  <div class="label languages-container">
     <span>languages: </span>
     <span class="val-sm">{{ props.lang.toLowerCase() }}</span>
   </div>
@@ -12,4 +12,5 @@ const props = defineProps({
 })
 </script>
 
-<style></style>
+<style>
+</style>

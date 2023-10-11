@@ -1,19 +1,21 @@
 <template>
   <div
-    class="val-container"
+    class="sub-container hp-container"
   >
-    <!-- HP VALUE -->
-    <div>health</div>
-    <div
-      class="val-lg"
-      :style="{color: HPcolor}"
-    >
-      {{ props.baseHp - hpChange }}
+    <div class="hp-val-container val-container">
+      <!-- HP VALUE -->
+      <div>health</div>
+      <div
+        class="val-lg"
+        :style="{color: HPcolor}"
+      >
+        {{ props.baseHp - hpChange }}
+      </div>
     </div>
 
     <!-- HP toggles -->
     <div
-      class="hp-buttons-container"
+      class="hp-toggles-container"
       @click="checkHP()"
     >
       <button
@@ -114,11 +116,26 @@ function checkHP () {
 </script>
 
 <style>
-.hp-buttons-container {
+
+.hp-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  padding: var(--space-md);
+}
+
+.hp-val-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-sm);
+  place-content: center;
+  place-items: center;
+}
+
+.hp-toggles-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-sm);
-  margin-top: var(--space-xs);
 }
 
 .hp-button {

@@ -42,10 +42,16 @@ p {
 }
 
 .label {
+  display: flex;
+  gap: var(--space-md);
+  align-items: baseline;
+  place-self: center stretch;
+  flex: 1 0 auto;
+
   font-size: var(--p-size-xs);
   color: var(--grey-lt);
   background: var(--grey-dk);
-  padding: var(--space-xxs) var(--space-sm);
+  padding: var(--space-xs) var(--space-md);
   border-radius: var(--space-xs);
 }
 

@@ -3,13 +3,12 @@
     <div
       v-for="(senseVal, senseType, index) in props.senses"
       :key="index"
+      class="label"
     >
-      <div class="label">
-        {{ senseType.replace('_', ' ') }}:
-        <span class="val-sm">
-          {{ senseVal }}
-        </span>
-      </div>
+      {{ senseType.replace('_', ' ') }}:
+      <span class="val-sm">
+        {{ senseVal }}
+      </span>
     </div>
   </div>
 </template>
@@ -22,7 +21,10 @@ const props = defineProps({
 
 <style>
     .senses-container {
-        display: grid;
-        gap: var(--space-sm);
+      display: flex;
+      gap: var(--space-sm);
+      place-items: stretch;
+      place-content: stretch;
+      place-self: stretch;
     }
 </style>

@@ -1,15 +1,14 @@
 <template>
-  <div class="senses-container">
+  <div class="speed-container">
     <div
       v-for="(speedVal, speedType, index) in props.speed"
       :key="index"
+      class="label"
     >
-      <div class="label">
-        {{ speedType }}:
-        <span class="val-sm">
-          {{ speedVal }}
-        </span>
-      </div>
+      {{ speedType }}:
+      <span class="val-sm">
+        {{ speedVal }}
+      </span>
     </div>
   </div>
 
@@ -28,4 +27,12 @@ const props = defineProps({
 </script>
 
 <style>
+  .speed-container {
+    display: flex;
+    gap: var(--space-sm);
+    place-items: stretch;
+    place-content: stretch;
+    place-self: stretch;
+  }
+
 </style>

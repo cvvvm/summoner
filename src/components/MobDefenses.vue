@@ -4,7 +4,7 @@
     v-if="props.damageVulnerabilities.length != 0"
     class="defenses-container sub-container"
   >
-    <h4>damage vunerabilities</h4>
+    <h4>damage vunerabilities:</h4>
     <div
       v-for="vulnerability in props.damageVulnerabilities"
       :key="vulnerability"
@@ -19,7 +19,7 @@
     v-if="props.damageResistances.length != 0"
     class="defenses-container sub-container"
   >
-    <h4>damage resistances</h4>
+    <h4>damage resistances:</h4>
     <div
       v-for="resistance in props.damageResistances"
       :key="resistance"
@@ -34,7 +34,7 @@
     v-if="props.damageImmunities.length != 0"
     class="defenses-container sub-container"
   >
-    <h4>damage immunities</h4>
+    <h4>damage immunities:</h4>
     <div
       v-for="immunity in props.damageImmunities"
       :key="immunity"
@@ -49,7 +49,7 @@
     v-if="props.conditionImmunities.length != 0"
     class="defenses-container sub-container"
   >
-    <h4>condition immunities</h4>
+    <h4>condition immunities:</h4>
     <div
       v-for="immunity in props.conditionImmunities"
       :key="immunity"

@@ -38,11 +38,13 @@ const props = defineProps({
 <style>
 .bio-container {
   /* grid-area: bio; */
-  grid-column: span 2;
   display: grid;
   grid-template-columns: 1fr max-content;
   gap: var(--space-xxxl);
   padding: var(--space-lg);
+
+  align-content: center;
+  align-items: center;
 }
 
 .name {
@@ -53,7 +55,7 @@ const props = defineProps({
 
 .types-container {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: var(--space-md);
   place-content: center;
 }

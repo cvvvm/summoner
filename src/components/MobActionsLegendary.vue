@@ -1,47 +1,36 @@
 <template>
   <!-- SPECIAL ABILITIES -->
-  <div class="actions-container sub-container">
+  <div
+    v-if="props.actionsLegendary.length > 0"
+    class="actions-container sub-container"
+  >
     <h2 class="section-title">
-      actions
+      legendary actions
     </h2>
     <div
-      v-for="action in props.actions"
+      v-for="action in props.actionsLegendary"
       :key="action"
       class="sp-action-container"
     >
       <h3>{{ action.name.toLowerCase() }}</h3>
+      <div v-if="action.usage">
+        <p>
+          {{ action.usage.type }} of <span class="val-sm">{{ action.usage.min_value }}</span> with <span
+            class="val-sm"
+          >{{ action.usage.dice }}</span>
+        </p>
+      </div>
       <!-- damage -->
       <div v-if="action.damage">
         <!-- <p><span class="val-sm">{{ damageFeat.damage_dice }}</span> {{ damageFeat.damage_type.name.toLowerCase() }}</p> -->
-
         <MobActionDmg :dmg-actions="action.damage" />
       </div>
-
       <div class="sp-action-desc-container">
-        <!--         <div>
-          <p>{{ action.desc.toLowerCase() }}</p>
-        </div> -->
         <div
-          v-for="subaction in action.desc.toLowerCase().replace('ft.', 'ft').split(/\. /g)"
+          v-for="subaction in action.desc.toLowerCase().split(/\. /g)"
           :key="subaction"
         >
-          <p>{{ subaction.replace('damage plus ', 'damage + ').replace('hit: ', '').replace(/\./gm, '') }}.</p>
-        </div>
-
-        <div v-if="action.usage">
-          <p v-if="action.usage.dice">
-            {{ action.usage.type }} of <span class="val-sm">{{ action.usage.min_value }}</span> with <span class="val-sm">{{ action.usage.dice }}</span>
-          </p>
-
-          <p v-if="action.usage.times">
-            {{ action.usage.type }}:
-            <span
-              v-for="index in action.usage.times"
-              :key="index"
-            >
-              <input type="checkbox">
-            </span>
-          </p>
+          <p>{{ subaction.replace('damage plus ', 'damage + ').replace('hit: ', '').replace(/\./gm, '') }}</p>
         </div>
       </div>
     </div>
@@ -52,7 +41,7 @@
 import MobActionDmg from './MobActionDmg.vue'
 
 const props = defineProps({
-  actions: { type: Object, default: () => { } }
+  actionsLegendary: { type: Object, default: () => { } }
 })
 
 </script>

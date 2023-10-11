@@ -36,9 +36,8 @@ const props = defineProps({
 
 <style>
 .sp-abilities-container {
-    grid-column: span 2;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: var(--space-lg);
     padding: var(--space-lg);
     border-radius: var(--space-sm);

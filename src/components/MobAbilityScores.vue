@@ -33,7 +33,8 @@ const props = defineProps({
 <style>
   .ability-scores-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: var(--space-sm);
+    place-items: center;
   }
 </style>
