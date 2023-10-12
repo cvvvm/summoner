@@ -2,7 +2,9 @@
   <button @click="toggleModal()">
     summon new
   </button>
-  <div v-show="modalOpen">
+  <div
+    v-show="modalOpen"
+  >
     <SummonMob
       :search-list="mobsSearchList.results"
       @summon-mob="addMob"

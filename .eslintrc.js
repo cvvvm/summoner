@@ -10,18 +10,16 @@ module.exports = {
     'plugin:vue/vue3-strongly-recommended',
     'plugin:vue/vue3-recommended'
   ],
-  overrides: [
+  // uncomment this if stuff breaks?
+  /*   overrides: [
     {
       env: {
         node: true
       },
-      files: ['.eslintrc.{js,cjs}'],
-      parser: 'vue-eslint-parser',
-      parserOptions: {
-        sourceType: 'script'
-      }
+      files: ['.eslintrc.{js,cjs}']
     }
-  ],
+  ], */
+  parser: 'vue-eslint-parser',
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module'
@@ -34,5 +32,23 @@ module.exports = {
     'no-multi-spaces': ['error'], // avoid extraneous spaces
     'object-curly-spacing': ['error', 'always', { arraysInObjects: true }],
     'comma-dangle': ['error', 'never']
+    /* 'vue/max-len': [
+      'warn',
+      {
+        code: 80,
+        template: 80,
+        tabWidth: 2,
+        comments: 80,
+        ignorePattern: '',
+        ignoreComments: false,
+        ignoreTrailingComments: false,
+        ignoreUrls: false,
+        ignoreStrings: false,
+        ignoreTemplateLiterals: false,
+        ignoreRegExpLiterals: false,
+        ignoreHTMLAttributeValues: false,
+        ignoreHTMLTextContents: false
+      }
+    ] */
   }
 }

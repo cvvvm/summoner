@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+// prettier.config.js
 module.exports = {
   content: ['./public/**/*.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   presets: [],
@@ -301,33 +302,9 @@ module.exports = {
       DEFAULT: '1'
     },
     fontFamily: {
-      sans: [
-        'ui-sans-serif',
-        'system-ui',
-        '-apple-system',
-        'BlinkMacSystemFont',
-        '"Segoe UI"',
-        'Roboto',
-        '"Helvetica Neue"',
-        'Arial',
-        '"Noto Sans"',
-        'sans-serif',
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-        '"Noto Color Emoji"'
-      ],
-      serif: ['ui-serif', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
-      mono: [
-        'ui-monospace',
-        'SFMono-Regular',
-        'Menlo',
-        'Monaco',
-        'Consolas',
-        '"Liberation Mono"',
-        '"Courier New"',
-        'monospace'
-      ]
+      sans: ['JetBrains Mono', 'monospace'],
+      serif: ['JetBrains Mono', 'monospace'],
+      mono: ['JetBrains Mono', 'monospace']
     },
     fontSize: {
       xs: ['0.75rem', { lineHeight: '1rem' }],
@@ -915,7 +892,8 @@ module.exports = {
       all: 'all',
       DEFAULT:
         'color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter',
-      colors: 'color, background-color, border-color, text-decoration-color, fill, stroke',
+      colors:
+        'color, background-color, border-color, text-decoration-color, fill, stroke',
       opacity: 'opacity',
       shadow: 'box-shadow',
       transform: 'transform'
@@ -987,6 +965,5 @@ module.exports = {
       40: '40',
       50: '50'
     }
-  },
-  plugins: []
+  }
 }
