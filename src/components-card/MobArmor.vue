@@ -1,7 +1,7 @@
 <template>
   <!-- ARMOR -->
   <div
-    class="armor-container sub-container"
+    class="armor-container container-lvl1"
   >
     <!-- class -->
     <div class="val-container">
@@ -33,7 +33,7 @@ const props = defineProps({
   .armor-container {
   /* grid-area: armor; */
   display: grid;
-  grid-template-columns: min-content max-content;
+  grid-template-columns: 1fr;
   gap: var(--space-md);
   place-items: stretch;
   padding: var(--space-md);

@@ -1,6 +1,5 @@
 @import url(./reset.css);
 @import url(./variables.css);
-
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,200;0,300;0,400;0,600;0,700;1,300&display=swap');
 
 #app {
@@ -11,7 +10,6 @@
 
 button {
   border: none;
-  border-radius: var(--space-xs);
 }
 
 /* -------------------------------------------------------- */
@@ -20,11 +18,9 @@ button {
   grid-column: 1 / -1;
   font-size: var(--h-size-md);
 }
-
 p {
   font-size: var(--p-size-xs);
 }
-
 .val-lg {
   color: var(--text-color);
   font-size: var(--h-size-md);
@@ -40,34 +36,43 @@ p {
   font-size: var(--p-size-sm);
   font-weight: 500;
 }
-
 .label {
   display: flex;
   gap: var(--space-md);
   align-items: baseline;
   place-self: center stretch;
+  place-content: center;
   flex: 1 0 auto;
 
   font-size: var(--p-size-xs);
   color: var(--grey-lt);
   background: var(--grey-dk);
   padding: var(--space-xs) var(--space-md);
-  border-radius: var(--space-xs);
 }
 
 /* -------------------------------------------------------- */
 /* LAYOUT */
-.container {
+.col-2 {
   display: grid;
-  gap: var(--space-md);
-  color: var(--text-color);
-  border-radius: var(--space-xl);
-  border: 1px solid var(--grey-md);
-  background: var(--text-color);
+  grid-template-columns: 1fr 1fr;
 }
-.sub-container {
-  border-radius: var(--space-md);
+.container-lvl0 {
+  display: grid;
+  gap: var(--space-xl);
+  padding: var(--space-md);
+  color: var(--text-color);
   background: var(--bg-color);
+}
+.container-lvl1 {
+  display: grid;
+  gap: var(--space-sm);
+  border: 1px solid var(--grey-md);
+}
+.container-lvl2 {
+  display: grid;
+  gap: var(--space-sm);
+  border: 1px solid var(--grey-dk);
+  background: var(--grey-dk);
 }
 
 .val-container {

@@ -1,13 +1,13 @@
 <template>
   <!-- SPECIAL ABILITIES -->
-  <div class="sp-abilities-container sub-container">
+  <div class="sp-abilities-container container-lvl1">
     <h2 class="section-title">
       abilities
     </h2>
     <div
       v-for="ability in props.specialAbilities"
       :key="ability"
-      class="sp-ability-block"
+      class="sp-ability-block container-lvl2"
     >
       <h3>{{ ability.name.toLowerCase() }}</h3>
       <div class="sp-ability-desc-block">
@@ -36,11 +36,8 @@ const props = defineProps({
 
 <style>
 .sp-abilities-container {
-    display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-lg);
     padding: var(--space-lg);
-    border-radius: var(--space-sm);
     place-items: start stretch;
   }
   .sp-ability-block {

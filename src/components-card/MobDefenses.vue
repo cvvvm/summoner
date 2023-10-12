@@ -1,10 +1,10 @@
 <template>
   <!-- DEFENSES -->
-  <div class="sub-container">
+  <div class="container-lvl1">
     <!-- dmg vul -->
     <div
       v-if="props.damageVulnerabilities.length != 0"
-      class="defenses-container sub-container"
+      class="defenses-container"
     >
       <div
         v-for="vulnerability in props.damageVulnerabilities.split(';')"
@@ -19,7 +19,7 @@
     <!-- dmg res -->
     <div
       v-if="props.damageResistances.length != 0"
-      class="defenses-container sub-container"
+      class="defenses-container"
     >
       <div
         v-for="resistance in props.damageResistances.split(';')"
@@ -34,7 +34,7 @@
     <!-- dmg imm -->
     <div
       v-if="props.damageImmunities.length != 0"
-      class="defenses-container sub-container"
+      class="defenses-container "
     >
       <div
         v-for="immunity in props.damageImmunities.split(';')"
@@ -49,7 +49,7 @@
     <!-- cond imm -->
     <div
       v-if="props.conditionImmunities.length != 0"
-      class="defenses-container sub-container"
+      class="defenses-container"
     >
       <div
         v-for="immunity in props.conditionImmunities.split(';')"

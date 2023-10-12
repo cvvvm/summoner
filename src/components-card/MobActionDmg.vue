@@ -1,18 +1,18 @@
 <template>
   <div class="atk-container">
-    <div class="atk-roll-container sub-container">
+    <div class="atk-roll-container">
       <p>hit: <span class="val-md">{{ hitResult }}</span></p>
       <p>
         dmg: <span class="val-md">{{ dmgResult }}</span>
       </p>
       <p
-        class="label"
+        class="label roll-calc"
         style="justify-content: center;"
       >
         {{ hitRollMath }}
       </p>
       <p
-        class="label"
+        class="label roll-calc"
         style="justify-content: center;"
       >
         {{ dmgRollMath }}
@@ -66,9 +66,10 @@ function rollAttackDmg (diceArray, numDmgs, rollDmgMod, rollAtkMod) {
     padding: var(--space-lg);
     border-radius: var(--space-sm);
     place-items: baseline center;
+    background-color: var(--bg-color);
 }
-
 .atk-roll-container > * {
   overflow: auto;
 }
+
 </style>

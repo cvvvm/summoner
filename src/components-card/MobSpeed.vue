@@ -28,7 +28,8 @@ const props = defineProps({
 
 <style>
   .speed-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: var(--space-sm);
     place-items: stretch;
     place-content: stretch;

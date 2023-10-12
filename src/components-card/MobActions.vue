@@ -1,13 +1,13 @@
 <template>
   <!-- SPECIAL ABILITIES -->
-  <div class="actions-container sub-container">
+  <div class="actions-container container-lvl1">
     <h2 class="section-title">
       actions
     </h2>
     <div
       v-for="action in props.actions"
       :key="action"
-      class="action-block"
+      class="action-block container-lvl2"
     >
       <!-- NAME -->
       <h3>{{ action.name.toLowerCase() }}</h3>
@@ -63,11 +63,8 @@ const props = defineProps({
 
 <style>
   .actions-container {
-      display: grid;
       grid-template-columns: 1fr;
-      gap: var(--space-lg);
       padding: var(--space-lg);
-      border-radius: var(--space-sm);
       place-items: start stretch;
     }
 
@@ -76,7 +73,6 @@ const props = defineProps({
       gap: var(--space-md);
       padding: var(--space-md);
       border-radius: var(--space-xs);
-      background: var(--grey-dk);
       place-content: start stretch;
       place-items: start stretch;
   }

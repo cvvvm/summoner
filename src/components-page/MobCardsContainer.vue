@@ -1,10 +1,11 @@
 <template>
   <div class="cards-container">
     <div
-      v-for="mob in props.mobs"
-      :key="mob.index"
+      v-for="mob, index in props.mobs"
+      :key="mob"
     >
       <MobCard
+        :mob-index="index"
         :name="mob.name.toLowerCase()"
         :alignment="mob.alignment"
         :size="mob.size.toLowerCase()"
@@ -30,7 +31,7 @@
           class: mob.armor_class,
           desc: mob.armor_desc,
         }]"
-        :challenge-rating="mob.challenge_rating"
+        :challenge-rating="mob.cr"
         :xp-gained="mob.xp"
         :damage-vulnerabilities="mob.damage_vulnerabilities"
         :damage-resistances="mob.damage_resistances"
@@ -58,7 +59,7 @@ const props = defineProps({
 <style>
   .cards-container {
     display: grid;
-    grid-template-columns: 95vw;
+    grid-template-columns: repeat(auto-fill, minMax(350px, 450px));
     grid-template-rows: auto;
     place-content: start;
     gap: var(--space-xxxl);

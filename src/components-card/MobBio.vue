@@ -1,5 +1,5 @@
 <template>
-  <div class="bio-container sub-container">
+  <div class="bio-container container-lvl1">
     <h1 class="name">
       {{ props.name }}
     </h1>
@@ -11,10 +11,10 @@
       <p class="label">
         {{ props.alignment }}
       </p>
-      <p class="label">
-        chal. {{ props.challengeRating }}
-      </p>
     </div>
+    <p class="label">
+      challenge rating: {{ props.challengeRating }}
+    </p>
   </div>
 </template>
 
@@ -26,8 +26,7 @@ const props = defineProps({
   size: { type: String, default: '' },
   type: { type: String, default: '' },
   alignment: { type: String, default: '' },
-  challengeRating: { type: String, default: '' }
-
+  challengeRating: { type: Number, default: 0 }
 })
 
 </script>
@@ -36,23 +35,19 @@ const props = defineProps({
 .bio-container {
   /* grid-area: bio; */
   display: grid;
-  grid-template-columns: 1fr max-content;
+  grid-template-columns: 1fr;
   gap: var(--space-xxxl);
   padding: var(--space-lg);
-
-  align-content: center;
-  align-items: center;
 }
 
 .name {
-  place-self: center;
-  padding: var(--space-sm) var(--space-xl);
   font-size: var(--h-size-xl);
+  text-align: center;
 }
 
 .types-container {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: var(--space-md);
   place-content: center;
 }

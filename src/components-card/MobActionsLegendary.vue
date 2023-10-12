@@ -1,6 +1,6 @@
 <template>
   <div
-    class="legendary-actions-container sub-container"
+    class="legendary-actions-container container-lvl1"
   >
     <h2 class="section-title">
       legendary actions
@@ -11,7 +11,7 @@
     <div
       v-for="action in props.legendaryActions"
       :key="action"
-      class="legendary-action-block"
+      class="legendary-action-block container-lvl2"
     >
       <h3>{{ action.name.toLowerCase() }}</h3>
       <div v-if="action.usage">
@@ -50,22 +50,19 @@ const props = defineProps({
 
 <style>
 .legendary-actions-container {
-    display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-lg);
-    padding: var(--space-lg);
-    border-radius: var(--space-sm);
     place-items: start stretch;
+    padding: var(--space-lg);
 }
 
 .legendary-action-block {
     display: grid;
     gap: var(--space-md);
-    padding: var(--space-md);
-    border-radius: var(--space-xs);
-    background: var(--grey-dk);
     place-content: start stretch;
     place-items: start stretch;
+
+    padding: var(--space-md);
+    border-radius: var(--space-xs);
 }
 
 .legendary-action-desc-block {

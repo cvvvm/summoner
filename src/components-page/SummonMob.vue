@@ -1,6 +1,6 @@
 <template>
   <div
-    className="backdrop"
+    className="summon-mob-backdrop"
     @click.self="closeModal"
   >
     <!-- search container -->
@@ -30,7 +30,7 @@
         </li>
       </ul>
 
-      {{ searchList }}
+      <!-- {{ searchList }} -->
 
       <!-- mob search list -->
       <h3>full list</h3>
@@ -76,7 +76,7 @@ function onChange () {
     border-radius: var(--space-md);
     background: white;
   }
-  .backdrop {
+  .summon-mob-backdrop {
     overflow: auto;
     position: fixed;
     display: flex;

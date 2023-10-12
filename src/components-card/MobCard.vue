@@ -1,5 +1,11 @@
 <template>
-  <div class="mob-card container">
+  <div class="mob-card container-lvl0">
+    <div class="col-2 container-lvl1">
+      <RemoveMob
+        :mob-index="props.mobIndex"
+        :name="props.name"
+      />
+    </div>
     <!-- bio -->
     <MobBio
       :name="props.name"
@@ -11,19 +17,21 @@
       :challenge-rating="props.challengeRating"
       :xp-gained="props.xpGained"
     />
-
-    <!-- speed -->
-    <MobSpeed :speed="props.speed" />
-    <!-- senses -->
-    <MobSenses :senses="props.senses" />
+    <div class="col-2 container-lvl1">
+      <!-- speed -->
+      <MobSpeed :speed="props.speed" />
+      <!-- senses -->
+      <MobSenses :senses="props.senses" />
+    </div>
     <!-- languages -->
     <MobLanguages :lang="props.lang" />
 
-    <!-- armor score -->
-    <MobArmor :armor="props.armor" />
-
-    <!-- HP controls -->
-    <MobHpControls :base-hp="props.baseHp" />
+    <div class="col-2 container-lvl1">
+      <!-- armor score -->
+      <MobArmor :armor="props.armor" />
+      <!-- HP controls -->
+      <MobHpControls :base-hp="props.baseHp" />
+    </div>
 
     <!-- ability scores -->
     <MobAbilityScores
@@ -53,6 +61,8 @@
 </template>
 
 <script setup>
+import RemoveMob from '../components-functions/RemoveMob'
+
 import MobBio from './MobBio.vue'
 import MobHpControls from './MobHpControls.vue'
 import MobAbilityScores from './MobAbilityScores.vue'
@@ -65,14 +75,17 @@ import MobLanguages from './MobLanguages.vue'
 import MobActions from './MobActions.vue'
 import MobActionsLegendary from './MobActionsLegendary.vue'
 
+// const emit = defineEmits(['emitRemoveMobCard'])
+
 const props = defineProps({
+  mobIndex: { type: Number, default: 0 },
   /* bio */
   name: { type: String, default: '' },
   size: { type: String, default: '' },
   type: { type: String, default: '' },
   alignment: { type: String, default: '' },
   xpGained: { type: Number, default: 0 },
-  challengeRating: { type: String, default: '' },
+  challengeRating: { type: Number, default: 0 },
   /* HP */
   baseHp: { type: Number, default: 0 },
   /* armor */
@@ -97,16 +110,19 @@ const props = defineProps({
 
 })
 
+/* function removeMobCard (indx) {
+  emit('removeMob', indx)
+  console.log(indx)
+} */
+
 </script>
 
 <style>
 
 .mob-card {
-  display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
   place-items: stretch;
-  padding: var(--space-md);
 }
 
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="sub-container hp-container"
+    class="container-lvl1 hp-container"
   >
     <div class="hp-val-container val-container">
       <!-- HP VALUE -->
@@ -32,7 +32,7 @@
       >
         +1
       </button>
-      <button
+      <!-- <button
         v-show="!isDead"
         class="hp-button kill"
         @click="hpChange = props.baseHp"
@@ -45,23 +45,23 @@
         @click="hpChange = 0"
       >
         REVIVE
-      </button>
+      </button> -->
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+const props = defineProps({
+  baseHp: { type: Number, default: 0 }
+})
 const hpChange = ref(0)
 const HPcolor = ref('white')
 const isDead = ref(false)
 const isHPBonus = ref(false)
 const isHPLow = ref(false)
 const isHPcrit = ref(false)
-
-const props = defineProps({
-  baseHp: { type: Number, default: 0 }
-})
+// const currHP = ref(props.baseHp)
 
 // WIP HP CODE
 /* function rollHP(x) {
@@ -119,7 +119,7 @@ function checkHP () {
 
 .hp-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: var(--space-md);
   padding: var(--space-md);
 }
