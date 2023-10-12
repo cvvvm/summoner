@@ -15,6 +15,22 @@
         </div>
       </div>
     </div>
+
+    <div
+      v-for="(ability, index) in props.abilitySaves"
+      :key="index"
+    >
+      <div
+        v-for="(scoreValue, abilityName, scoreIndex) in ability"
+        :key="scoreIndex"
+        class="val-container"
+      >
+        <div>save</div>
+        <div class="val-lg">
+          {{ scoreValue }}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -25,7 +41,8 @@
 <script setup>
 
 const props = defineProps({
-  abilityScores: { type: Array, default: () => [''] }
+  abilityScores: { type: Object, default: () => {} },
+  abilitySaves: { type: Object, default: () => {} }
 })
 
 </script>

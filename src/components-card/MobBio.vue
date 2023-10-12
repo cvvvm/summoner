@@ -6,13 +6,10 @@
 
     <div class="types-container">
       <p class="label">
-        {{ props.size }} {{ props.type }}
+        {{ props.size }} {{ props.type.toLowerCase() }}
       </p>
       <p class="label">
         {{ props.alignment }}
-      </p>
-      <p class="label">
-        {{ props.xpGained }} XP
       </p>
       <p class="label">
         chal. {{ props.challengeRating }}
@@ -29,8 +26,8 @@ const props = defineProps({
   size: { type: String, default: '' },
   type: { type: String, default: '' },
   alignment: { type: String, default: '' },
-  challengeRating: { type: Number, default: 0 },
-  xpGained: { type: Number, default: 0 }
+  challengeRating: { type: String, default: '' }
+
 })
 
 </script>
@@ -55,7 +52,7 @@ const props = defineProps({
 
 .types-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: var(--space-md);
   place-content: center;
 }

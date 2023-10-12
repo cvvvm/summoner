@@ -21,13 +21,16 @@
 
     <div class="row3">
       <!-- armor score -->
-      <MobArmorClass :armor-class="props.armorClass" />
+      <MobArmor :armor="props.armor" />
 
       <!-- HP controls -->
       <MobHpControls :base-hp="props.baseHp" />
 
       <!-- ability scores -->
-      <MobAbilityScores :ability-scores="props.abilityScores" />
+      <MobAbilityScores
+        :ability-scores="props.abilityScores"
+        :ability-saves="props.abilitySaves"
+      />
     </div>
 
     <!-- defense -->
@@ -44,9 +47,9 @@
     <MobActions :actions="props.actions" />
 
     <!-- actions (legendary) -->
-    <MobActionsLegendary
+    <!--     <MobActionsLegendary
       :actions-legendary="props.actionsLegendary"
-    />
+    /> -->
   </div>
 </template>
 
@@ -54,14 +57,14 @@
 import MobBio from './MobBio.vue'
 import MobHpControls from './MobHpControls.vue'
 import MobAbilityScores from './MobAbilityScores.vue'
-import MobArmorClass from './MobArmorClass.vue'
+import MobArmor from './MobArmor.vue'
 import MobDefenses from './MobDefenses.vue'
 import MobSpecialAbilities from './MobSpecialAbilities.vue'
 import MobSpeed from './MobSpeed.vue'
 import MobSenses from './MobSenses.vue'
 import MobLanguages from './MobLanguages.vue'
 import MobActions from './MobActions.vue'
-import MobActionsLegendary from './MobActionsLegendary.vue'
+// import MobActionsLegendary from './MobActionsLegendary.vue'
 
 const props = defineProps({
   /* bio */
@@ -70,22 +73,23 @@ const props = defineProps({
   type: { type: String, default: '' },
   alignment: { type: String, default: '' },
   xpGained: { type: Number, default: 0 },
-  challengeRating: { type: Number, default: 0 },
+  challengeRating: { type: String, default: '' },
   /* HP */
   baseHp: { type: Number, default: 0 },
   /* armor */
-  armorClass: { type: Object, default: () => {} },
-  /* ability scores */
+  armor: { type: Object, default: () => {} },
+  /* scores */
   abilityScores: { type: Object, default: () => {} },
+  abilitySaves: { type: Object, default: () => {} },
   /* speed */
   speed: { type: Object, default: () => {} },
   /* senses */
-  senses: { type: Object, default: () => {} },
+  senses: { type: String, default: '' },
   /* defenses */
-  damageVulnerabilities: { type: Object, default: () => {} },
-  damageResistances: { type: Object, default: () => {} },
-  damageImmunities: { type: Object, default: () => {} },
-  conditionImmunities: { type: Object, default: () => {} },
+  damageVulnerabilities: { type: String, default: '' },
+  damageResistances: { type: String, default: '' },
+  damageImmunities: { type: String, default: '' },
+  conditionImmunities: { type: String, default: '' },
   specialAbilities: { type: Object, default: () => {} },
   lang: { type: String, default: '' },
   actions: { type: Object, default: () => {} },

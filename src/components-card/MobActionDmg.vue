@@ -1,5 +1,16 @@
 <template>
   <!-- SPECIAL ABILITIES -->
+  <p class="label">
+    atk-bonus: {{ props.atkBonus }}
+  </p>
+  <p class="label">
+    dice: {{ props.dice }}
+    num: {{ props.dice.length }}
+  </p>
+  <p class="label">
+    dmg-bonus: {{ props.dmgBonus }}
+  </p>
+
   <div class="atk-roll-container sub-container">
     <button @click="rollAttackDmg(props.dmgActions, numDmgs)">
       attack
@@ -22,9 +33,10 @@ const dmgResult = ref(0)
 const dmgRollMath = ref('awaiting roll...')
 const hitResult = ref(0)
 const props = defineProps({
-  dmgActions: { type: Object, default: () => { } }
+  atkBonus: { type: Number, default: 0 },
+  dice: { type: Array, default: () => [] },
+  dmgBonus: { type: Number, default: 0 }
 })
-const numDmgs = props.dmgActions.length
 
 function rollAttackDmg (obj, numDmgs) {
   const rolls = mobFunctions.sumDmg(obj, numDmgs)

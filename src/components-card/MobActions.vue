@@ -9,18 +9,24 @@
       :key="action"
       class="sp-action-container"
     >
+      <!-- NAME -->
       <h3>{{ action.name.toLowerCase() }}</h3>
-      <!-- damage -->
-      <div v-if="action.damage">
-        <!-- <p><span class="val-sm">{{ damageFeat.damage_dice }}</span> {{ damageFeat.damage_type.name.toLowerCase() }}</p> -->
 
-        <MobActionDmg :dmg-actions="action.damage" />
+      <!-- DMG -->
+      <div v-if="action.damage_dice">
+        +{{ action.attack_bonus }}:
+        {{ action.damage_dice.split('+') }}
+        +{{ action.damage_bonus }}
+
+        <MobActionDmg
+          :atk-bonus="action.attack_bonus"
+          :dice="action.damage_dice.split('+')"
+          :dmg-bonus="action.damage_bonus"
+        />
       </div>
 
+      <!-- DESC -->
       <div class="sp-action-desc-container">
-        <!--         <div>
-          <p>{{ action.desc.toLowerCase() }}</p>
-        </div> -->
         <div
           v-for="subaction in action.desc.toLowerCase().replace('ft.', 'ft').split(/\. /g)"
           :key="subaction"

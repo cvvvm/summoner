@@ -17,8 +17,19 @@
           { wis: mob.wisdom },
           { cha: mob.charisma },
         ]"
+        :ability-saves="[
+          { str: mob.strength_save },
+          { dex: mob.dexterity_save },
+          { con: mob.constitution_save },
+          { int: mob.intelligence_save },
+          { wis: mob.wisdom_save },
+          { cha: mob.charisma_save },
+        ]"
         :base-hp="mob.hit_points"
-        :armor-class="mob.armor_class"
+        :armor="[{
+          class: mob.armor_class,
+          desc: mob.armor_desc,
+        }]"
         :challenge-rating="mob.challenge_rating"
         :xp-gained="mob.xp"
         :damage-vulnerabilities="mob.damage_vulnerabilities"
@@ -37,7 +48,7 @@
 </template>
 
 <script setup>
-import MobCard from './MobCard.vue'
+import MobCard from '../components-card/MobCard.vue'
 const props = defineProps({
   mobs: { type: Object, default: () => {} }
 })
@@ -46,7 +57,7 @@ const props = defineProps({
 <style>
   .cards-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 95vw;
     grid-template-rows: auto;
     place-content: start;
     gap: var(--space-xxxl);

@@ -1,13 +1,12 @@
 <template>
   <div class="senses-container">
     <div
-      v-for="(senseVal, senseType, index) in props.senses"
+      v-for="(senseVal, senseType, index) in props.senses.split(',')"
       :key="index"
       class="label"
     >
-      {{ senseType.replace('_', ' ') }}:
       <span class="val-sm">
-        {{ senseVal }}
+        {{ senseVal.toLowerCase() }}
       </span>
     </div>
   </div>
@@ -15,7 +14,7 @@
 
 <script setup>
 const props = defineProps({
-  senses: { type: Object, default: () => { } }
+  senses: { type: String, default: '' }
 })
 </script>
 

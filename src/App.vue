@@ -15,8 +15,8 @@
 
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
-import MobCardsContainer from './components/MobCardsContainer.vue'
-import SummonMob from './components/SummonMob.vue'
+import MobCardsContainer from './components-page/MobCardsContainer.vue'
+import SummonMob from './components-page/SummonMob.vue'
 
 const modalOpen = ref(false)
 const mobs = reactive([])
@@ -29,14 +29,14 @@ function toggleModal () {
 // add new mob
 function addMob (name) {
   name = name.replace(/ /gm, '-').replace(/-$/gm, '').toLowerCase()
-  fetch('https://www.dnd5eapi.co/api/monsters/' + name)
+  fetch('https://api.open5e.com/monsters/' + name)
     .then(res => res.json())
     .then(data => { mobs.push(data) })
     .catch(err => console.log(err.message))
 }
 
 function getMobsSearchList () {
-  fetch('https://www.dnd5eapi.co/api/monsters')
+  fetch('https://api.open5e.com/monsters/')
     .then(res => res.json())
     .then(data => { mobsSearchList.value = data })
     .catch(err => console.log(err.message))
@@ -45,6 +45,7 @@ function getMobsSearchList () {
 onMounted(() => {
   getMobsSearchList()
   addMob('androsphinx')
+  addMob('goblin')
   addMob('adult black dragon')
 })
 
