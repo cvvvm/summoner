@@ -5,9 +5,10 @@
       :key="index"
       class="label"
     >
-      <span class="val-sm">
-        {{ senseVal.toLowerCase() }}
-      </span>
+      {{ senseVal.toLowerCase() }}
+      <!-- <span class="val-sm"> -->
+      <!-- add value when able to parse -->
+      <!-- </span> -->
     </div>
   </div>
 </template>

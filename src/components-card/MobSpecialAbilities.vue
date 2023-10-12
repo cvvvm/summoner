@@ -7,10 +7,10 @@
     <div
       v-for="ability in props.specialAbilities"
       :key="ability"
-      class="sp-ability-container"
+      class="sp-ability-block"
     >
       <h3>{{ ability.name.toLowerCase() }}</h3>
-      <div class="sp-ability-desc-container">
+      <div class="sp-ability-desc-block">
         <p>{{ ability.desc.toLowerCase() }}</p>
         <div v-if="ability.usage">
           <p>
@@ -37,13 +37,13 @@ const props = defineProps({
 <style>
 .sp-abilities-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: var(--space-lg);
     padding: var(--space-lg);
     border-radius: var(--space-sm);
     place-items: start stretch;
   }
-  .sp-ability-container {
+  .sp-ability-block {
     display: grid;
     gap: var(--space-md);
     place-content: start;
@@ -51,7 +51,7 @@ const props = defineProps({
     border-radius: var(--space-xs);
     background: var(--grey-dk);
   }
-  .sp-ability-desc-container {
+  .sp-ability-desc-block {
     display: grid;
     gap: var(--space-md);
     color: var(--grey-lt);

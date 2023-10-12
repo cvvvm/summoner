@@ -19,19 +19,17 @@
     <!-- languages -->
     <MobLanguages :lang="props.lang" />
 
-    <div class="row3">
-      <!-- armor score -->
-      <MobArmor :armor="props.armor" />
+    <!-- armor score -->
+    <MobArmor :armor="props.armor" />
 
-      <!-- HP controls -->
-      <MobHpControls :base-hp="props.baseHp" />
+    <!-- HP controls -->
+    <MobHpControls :base-hp="props.baseHp" />
 
-      <!-- ability scores -->
-      <MobAbilityScores
-        :ability-scores="props.abilityScores"
-        :ability-saves="props.abilitySaves"
-      />
-    </div>
+    <!-- ability scores -->
+    <MobAbilityScores
+      :ability-scores="props.abilityScores"
+      :ability-saves="props.abilitySaves"
+    />
 
     <!-- defense -->
     <MobDefenses
@@ -47,9 +45,10 @@
     <MobActions :actions="props.actions" />
 
     <!-- actions (legendary) -->
-    <!--     <MobActionsLegendary
-      :actions-legendary="props.actionsLegendary"
-    /> -->
+    <MobActionsLegendary
+      :legendary-actions="props.legendaryActions"
+      :legendary-desc="props.legendaryDesc"
+    />
   </div>
 </template>
 
@@ -64,7 +63,7 @@ import MobSpeed from './MobSpeed.vue'
 import MobSenses from './MobSenses.vue'
 import MobLanguages from './MobLanguages.vue'
 import MobActions from './MobActions.vue'
-// import MobActionsLegendary from './MobActionsLegendary.vue'
+import MobActionsLegendary from './MobActionsLegendary.vue'
 
 const props = defineProps({
   /* bio */
@@ -93,18 +92,14 @@ const props = defineProps({
   specialAbilities: { type: Object, default: () => {} },
   lang: { type: String, default: '' },
   actions: { type: Object, default: () => {} },
-  actionsLegendary: { type: Object, default: () => {} }
+  legendaryActions: { type: Object, default: () => {} },
+  legendaryDesc: { type: String, default: '' }
 
 })
 
 </script>
 
 <style>
-
-.row3 {
-  display: flex;
-  gap: var(--space-md);
-}
 
 .mob-card {
   display: grid;

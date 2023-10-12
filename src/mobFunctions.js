@@ -2,51 +2,67 @@ export const mobFunctions = {
   // roll atk
   // -----------------------------------------------------------
   rollDice: function (numDice, diceVal, rollMod) {
-    let rollAtkResult = 0
-    // const rollAtkMath = ''
-    const rollArray = []
+    const hitResult = []
+    const hitMath = []
+
+    hitMath.push('(')
     for (let i = 0; i < numDice; ++i) {
       const roll = Math.floor(Math.random() * (diceVal - 1 + 1) + 1)
-      // rollAtkMath += numDice > 1 ? roll + ' + ' : roll
-      // rollAtkResult += roll
-      rollArray.push(roll)
+      hitResult.push(roll)
+      hitMath.push(roll)
     }
-    rollAtkResult = rollArray.reduce((p, c) => p + c, 0)
+    hitMath.push(')')
 
-    if (rollMod) {
-      rollAtkResult += rollMod
-    }
+    // add mod if value
+    if (rollMod > 0) hitResult.push(rollMod)
+    if (rollMod > 0) hitMath.push(rollMod)
 
-    return rollAtkResult
+    // format math string
+    const hitMathStr = hitMath
+      .toString()
+      .replace(/\),/gm, ') + ')
+      .replace(/\(,/gm, '(')
+      .replace(/,\)/gm, ')')
+      .replace(/,/gm, ' + ')
+
+    return [hitResult.reduce((p, c) => p + c, 0), hitMathStr]
   },
 
   // get roll dmg
   // -----------------------------------------------------------
-  sumDmg: function (obj, numDmgs) {
-    // let rollDmgMath = ''
+  sumDmg: function (diceArray, numDmgs, dmgMod) {
     const rolls = []
-    const dmgsSum = []
-    const rollsMath = []
-    // const rollsMathResult = ''
-    for (let i = 0; i < numDmgs; i++) {
-      const numDice = parseInt(obj[i].damage_dice.split('d')[0])
-      const diceVal = parseInt(obj[i].damage_dice.split('d')[1].split('+')[0])
-      const dmgMod = obj[i].damage_dice.split('d')[1].split('+')[1]
-      rolls.push(this.eachDmg(numDice, diceVal, dmgMod))
-    }
+    const dmgResult = []
+    const dmgMath = []
 
+    for (let i = 0; i < numDmgs; i++) {
+      const numDice = parseInt(diceArray[i].split('d')[0])
+      const diceVal = parseInt(diceArray[i].split('d')[1].split('+')[0])
+      rolls.push(this.eachDmg(numDice, diceVal))
+    }
     // sum total dmg + mods
     for (let x = 0; x < numDmgs; x++) {
-      dmgsSum.push(rolls[x][0])
-      const dmgType = '(' + obj[x].damage_type.name.toLowerCase() + ':'
+      dmgResult.push(rolls[x][0])
 
       // dmg math to array
-      rollsMath.push(dmgType)
-      rollsMath.push(rolls[x][1])
-      rollsMath.push(')')
+      dmgMath.push('(')
+      dmgMath.push(rolls[x][1])
+      dmgMath.push(')')
     }
 
-    return [dmgsSum.reduce((p, c) => p + c, 0), rollsMath] //
+    // add mod if value
+    if (dmgMod > 0) dmgResult.push(dmgMod)
+    if (dmgMod > 0) dmgMath.push(dmgMod)
+
+    // format math string
+    const dmgMathStr = dmgMath
+      .toString()
+      .replace(/\),/gm, ') + ')
+      .replace(/\(,/gm, '(')
+      .replace(/,\)/gm, ')')
+      .replace(/,/gm, '+')
+
+    return [dmgResult.reduce((p, c) => p + c, 0), dmgMathStr] //
   },
 
   // roll for each dmg
@@ -58,11 +74,6 @@ export const mobFunctions = {
     for (let i = 0; i < numDice; ++i) {
       const roll = Math.floor(Math.random() * (diceVal - 1 + 1) + 1)
       dmgArray.push(roll)
-    }
-
-    if (dmgMod) {
-      dmgMod = parseInt(dmgMod)
-      dmgArray.push(dmgMod)
     }
 
     rollDmgResult = dmgArray.reduce((p, c) => p + c, 0)

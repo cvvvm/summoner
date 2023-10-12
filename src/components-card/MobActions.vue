@@ -7,33 +7,22 @@
     <div
       v-for="action in props.actions"
       :key="action"
-      class="sp-action-container"
+      class="action-block"
     >
       <!-- NAME -->
       <h3>{{ action.name.toLowerCase() }}</h3>
 
-      <!-- DMG -->
-      <div v-if="action.damage_dice">
-        +{{ action.attack_bonus }}:
-        {{ action.damage_dice.split('+') }}
-        +{{ action.damage_bonus }}
-
-        <MobActionDmg
-          :atk-bonus="action.attack_bonus"
-          :dice="action.damage_dice.split('+')"
-          :dmg-bonus="action.damage_bonus"
-        />
-      </div>
-
       <!-- DESC -->
-      <div class="sp-action-desc-container">
+      <div class="action-desc-block">
         <div
           v-for="subaction in action.desc.toLowerCase().replace('ft.', 'ft').split(/\. /g)"
           :key="subaction"
         >
+          <!-- FIXME: add conditional for atk roll/no atk roll -->
           <p>{{ subaction.replace('damage plus ', 'damage + ').replace('hit: ', '').replace(/\./gm, '') }}.</p>
         </div>
 
+        <!-- IF USAGE -->
         <div v-if="action.usage">
           <p v-if="action.usage.dice">
             {{ action.usage.type }} of <span class="val-sm">{{ action.usage.min_value }}</span> with <span class="val-sm">{{ action.usage.dice }}</span>
@@ -50,6 +39,15 @@
           </p>
         </div>
       </div>
+
+      <!-- DMG -->
+      <div v-if="action.damage_dice">
+        <MobActionDmg
+          :hit-mod="action.attack_bonus"
+          :dice="action.damage_dice.split('+')"
+          :dmg-mod="action.damage_bonus"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -64,27 +62,28 @@ const props = defineProps({
 </script>
 
 <style>
-.actions-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-lg);
-    padding: var(--space-lg);
-    border-radius: var(--space-sm);
-    place-items: start stretch;
-}
+  .actions-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+      padding: var(--space-lg);
+      border-radius: var(--space-sm);
+      place-items: start stretch;
+    }
 
-.sp-action-container {
-    display: grid;
-    gap: var(--space-md);
-    place-content: start;
-    padding: var(--space-md);
-    border-radius: var(--space-xs);
-    background: var(--grey-dk);
-}
+  .action-block {
+      display: grid;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--space-xs);
+      background: var(--grey-dk);
+      place-content: start stretch;
+      place-items: start stretch;
+  }
 
-.sp-action-desc-container {
-    display: grid;
-    gap: var(--space-md);
-    color: var(--grey-lt);
-}
+  .action-desc-block {
+      display: grid;
+      gap: var(--space-md);
+      color: var(--grey-lt);
+  }
 </style>
