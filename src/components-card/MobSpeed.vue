@@ -1,5 +1,5 @@
 <template>
-  <div class="speed-container">
+  <div class="grid grid-cols-1 gap-1">
     <div
       v-for="(speedVal, speedType, index) in props.speed"
       :key="index"
@@ -27,13 +27,4 @@ const props = defineProps({
 </script>
 
 <style>
-  .speed-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-sm);
-    place-items: stretch;
-    place-content: stretch;
-    place-self: stretch;
-  }
-
 </style>

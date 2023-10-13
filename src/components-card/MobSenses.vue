@@ -1,5 +1,5 @@
 <template>
-  <div class="senses-container">
+  <div class="grid grid-cols-1 gap-1">
     <div
       v-for="(senseVal, senseType, index) in props.senses.split(',')"
       :key="index"
@@ -20,12 +20,4 @@ const props = defineProps({
 </script>
 
 <style>
-    .senses-container {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: var(--space-sm);
-      place-items: stretch;
-      place-content: stretch;
-      place-self: stretch;
-    }
 </style>

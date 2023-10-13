@@ -1,17 +1,26 @@
 <template>
-  <!-- ARMOR -->
   <div
-    class="armor-container container-lvl1"
+    class="grid grid-cols-[.5fr_1fr] grid-rows-1 gap-1
+    pl-2 py-2 px-4 rounded-lg
+    bg-zinc-950"
   >
-    <!-- class -->
-    <div class="val-container">
-      <div>armor</div>
+    <div
+      class="grid grid-cols-1 place-content-center place-items-center"
+    >
+      <!-- AC VALUE -->
+      <h4
+        class="
+      text-md
+      text-zinc-400"
+      >
+        AC
+      </h4>
       <div class="val-lg">
         {{ props.armor[0].class }}
       </div>
     </div>
     <!-- desc -->
-    <div class="armor-desc-container">
+    <div class="grid grid-cols-1 gap-1 content-center">
       <div
         v-for="type in props.armor[0].desc.split(',')"
         :key="type"
@@ -30,18 +39,4 @@ const props = defineProps({
 </script>
 
 <style>
-  .armor-container {
-  /* grid-area: armor; */
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-md);
-  place-items: stretch;
-  padding: var(--space-md);
-}
-
-.armor-desc-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  row-gap: var(--space-sm);
-}
 </style>

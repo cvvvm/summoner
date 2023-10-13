@@ -1,51 +1,49 @@
 <template>
   <div
-    class="container-lvl1 hp-container"
+    class="grid grid-cols-1 grid-rows-2 gap-1
+    p-4 pt-2 rounded-lg
+    bg-zinc-950"
+    :class="HPbgColor"
   >
-    <div class="hp-val-container val-container">
+    <div
+      class="grid grid-cols-[.75fr_1fr] place-content-center place-items-center"
+    >
       <!-- HP VALUE -->
-      <div>health</div>
-      <div
-        class="val-lg"
-        :style="{color: HPcolor}"
+      <h4 class="text-md text-zinc-400">
+        HP
+      </h4>
+      <p
+        :class="HPcolor"
+        class="text-2xl font-bold transition-colors"
       >
-        {{ props.baseHp - hpChange }}
-      </div>
+        {{ currHP }}
+      </p>
     </div>
 
     <!-- HP toggles -->
     <div
-      class="hp-toggles-container"
+      class="grid grid-cols-3 place-self-center"
       @click="checkHP()"
     >
       <button
-        class="hp-button"
-        @click.exact="dmgMob(1)"
-        @click.shift="dmgMob(5)"
+        class="rounded-s-lg rounded-e-none"
+        @click.exact="dmgMob(hpChange)"
       >
-        -1
+        -
       </button>
+      <input
+        v-model="hpChange"
+        type="number"
+        class="flex px-3 pr-0
+        text-zinc-950 bg-zinc-400
+          border border-zinc-500"
+      >
       <button
-        class="hp-button"
-        @click.exact="healMob(1)"
-        @click.shift="healMob(5)"
+        class="rounded-s-none rounded-e-lg"
+        @click.exact="healMob(hpChange)"
       >
-        +1
+        +
       </button>
-      <!-- <button
-        v-show="!isDead"
-        class="hp-button kill"
-        @click="hpChange = props.baseHp"
-      >
-        KILL
-      </button>
-      <button
-        v-show="isDead"
-        class="hp-button revive"
-        @click="hpChange = 0"
-      >
-        REVIVE
-      </button> -->
     </div>
   </div>
 </template>
@@ -55,13 +53,10 @@ import { ref } from 'vue'
 const props = defineProps({
   baseHp: { type: Number, default: 0 }
 })
-const hpChange = ref(0)
-const HPcolor = ref('white')
-const isDead = ref(false)
-const isHPBonus = ref(false)
-const isHPLow = ref(false)
-const isHPcrit = ref(false)
-// const currHP = ref(props.baseHp)
+const hpChange = ref(1)
+const HPcolor = ref('text-white')
+const HPbgColor = ref('bg-zinc-950')
+const currHP = ref(props.baseHp)
 
 // WIP HP CODE
 /* function rollHP(x) {
@@ -74,73 +69,41 @@ const isHPcrit = ref(false)
 } */
 
 function healMob (amountHeal) {
-  hpChange.value = hpChange.value - amountHeal
+  currHP.value += amountHeal
 }
 function dmgMob (amountDmg) {
-  hpChange.value = hpChange.value + amountDmg
+  currHP.value -= amountDmg
 }
 function checkHP () {
-  /* bonus HP */ if (hpChange.value < 0) {
-    isHPBonus.value = true
-    isHPLow.value = false
-    isHPcrit.value = false
-    isDead.value = false
-    HPcolor.value = 'var(--HP-bonus)'
-  } /* dead */ else if (hpChange.value >= props.baseHp) {
-    isHPBonus.value = false
-    isHPLow.value = false
-    isHPcrit.value = false
-    isDead.value = true
-    hpChange.value = props.baseHp
-    HPcolor.value = 'var(--HP-crit)'
-  } /* low */ else if (hpChange.value >= (props.baseHp * 0.6) && hpChange.value < (props.baseHp * 0.8)) {
-    isHPBonus.value = false
-    isHPLow.value = true
-    isHPcrit.value = false
-    isDead.value = false
-    HPcolor.value = 'var(--HP-low)'
-  } /* critical */ else if (hpChange.value >= (props.baseHp * 0.8)) {
-    isHPBonus.value = false
-    isHPLow.value = false
-    isHPcrit.value = true
-    isDead.value = false
-    HPcolor.value = 'var(--HP-crit)'
+  /* reset if less than 0 */
+  if (currHP.value <= 0) currHP.value = 0
+  /* bonus HP */ if (currHP.value > props.baseHp) {
+    HPcolor.value = 'text-emerald-400 drop-shadow-[0px_0px_10px_teal]'
+    HPbgColor.value = 'outline-2 outline outline-emerald-500' // drop-shadow-[0px_0px_4px_teal]'
+  } /* dead */ else if (currHP.value < (props.baseHp * 0.2)) {
+    HPcolor.value = 'text-red-500'
+    HPbgColor.value = 'outline-2 outline outline-red-500'
+  } /* low */ else if (currHP.value < (props.baseHp * 0.6) && currHP.value >= (props.baseHp * 0.3)) {
+    HPcolor.value = 'text-yellow-500'
+    HPbgColor.value = 'outline-2 outline outline-yellow-500'
+  } /* critical */ else if (currHP.value < (props.baseHp * 0.3) && currHP.value >= 0.2) {
+    HPcolor.value = 'text-orange-500'
+    HPbgColor.value = 'outline-2 outline outline-orange-500'
   } else {
-    isHPBonus.value = false
-    isHPLow.value = false
-    isHPcrit.value = false
-    isDead.value = false
-    HPcolor.value = 'white'
+    HPcolor.value = 'text-white'
+    HPbgColor.value = ''
   }
 }
 </script>
 
 <style>
 
-.hp-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-md);
-  padding: var(--space-md);
-}
-
 .hp-val-container {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-sm);
+
   place-content: center;
   place-items: center;
-}
-
-.hp-toggles-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-sm);
-}
-
-.hp-button {
-  font-weight: 600;
-  padding: var(--space-xs) var(--space-md);
 }
 
 .hp-button.kill {

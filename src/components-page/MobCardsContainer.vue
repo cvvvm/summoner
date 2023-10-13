@@ -1,5 +1,18 @@
 <template>
-  <div class="cards-container">
+  <!--
+      .cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minMax(350px, 450px));
+      grid-template-rows: auto;
+      place-content: start;
+      gap: var(--space-xxxl);
+      padding: var(--space-xxxl);
+    }
+  -->
+  <div
+    class="grid grid-cols-[repeat(_auto-fill,_minmax(320px,_500px))] gap-8
+            p-8"
+  >
     <div
       v-for="mob, index in props.mobs"
       :key="mob"
@@ -44,6 +57,8 @@
         :speed="mob.speed"
         :senses="mob.senses"
         :lang="mob.languages"
+        @pass-mob="$emit('passMob', $event);
+                   console.log($event.type + ' index ' + $event.data + ' passed from container')"
       />
     </div>
   </div>
@@ -51,18 +66,16 @@
 
 <script setup>
 import MobCard from '../components-card/MobCard.vue'
+defineEmits(['passMob'])
 const props = defineProps({
   mobs: { type: Object, default: () => {} }
 })
+
+/* function removeMobContainer (indx) {
+  emit('emitRemoveMobContainer', indx)
+  console.log(indx + ' container')
+} */
 </script>
 
 <style>
-  .cards-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minMax(350px, 450px));
-    grid-template-rows: auto;
-    place-content: start;
-    gap: var(--space-xxxl);
-    padding: var(--space-xxxl);
-  }
 </style>

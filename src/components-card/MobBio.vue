@@ -1,20 +1,24 @@
 <template>
-  <div class="bio-container container-lvl1">
-    <h1 class="name">
+  <div
+    class="grid grid-cols-1 gap-3
+          p-4 rounded-lg
+        bg-zinc-950"
+  >
+    <h1 class="py-2 text-3xl font-bold text-center">
       {{ props.name }}
     </h1>
 
-    <div class="types-container">
+    <div class="grid grid-cols-2 gap-1">
       <p class="label">
         {{ props.size }} {{ props.type.toLowerCase() }}
       </p>
       <p class="label">
         {{ props.alignment }}
       </p>
+      <p class="col-span-2 label">
+        challenge rating: {{ props.challengeRating }}
+      </p>
     </div>
-    <p class="label">
-      challenge rating: {{ props.challengeRating }}
-    </p>
   </div>
 </template>
 
@@ -32,23 +36,4 @@ const props = defineProps({
 </script>
 
 <style>
-.bio-container {
-  /* grid-area: bio; */
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-xxxl);
-  padding: var(--space-lg);
-}
-
-.name {
-  font-size: var(--h-size-xl);
-  text-align: center;
-}
-
-.types-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-md);
-  place-content: center;
-}
 </style>

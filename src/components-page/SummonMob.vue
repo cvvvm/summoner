@@ -1,4 +1,5 @@
 <template>
+  <!-- search backdrop -->
   <div
     className="summon-mob-backdrop"
     @click.self="closeModal"
@@ -60,9 +61,9 @@ function closeModal () {
   emit('close')
 }
 
-function onChange () {
+/* function onChange () {
   searchSuggRes.value = props.searchList.filter(item => item.toLowerCase().indexOf(searchSuggRes.value.toLowerCase()) > -1)
-}
+} */
 </script>
 
 <style>

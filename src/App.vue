@@ -1,18 +1,23 @@
 <template>
-  <button @click="toggleModal()">
-    summon new
-  </button>
+  <div class="p-4">
+    <button @click="toggleSummonModal()">
+      summon new
+    </button>
+  </div>
   <div
     v-show="modalOpen"
   >
     <SummonMob
       :search-list="mobsSearchList.results"
       @summon-mob="addMob"
-      @close="toggleModal"
+      @close="toggleSummonModal"
     />
   </div>
 
-  <MobCardsContainer :mobs="mobs" />
+  <MobCardsContainer
+    :mobs="mobs"
+    @pass-mob="handlePassedMob"
+  />
 </template>
 
 <script setup>
@@ -24,7 +29,7 @@ const modalOpen = ref(false)
 const mobs = reactive([])
 const mobsSearchList = ref([])
 
-function toggleModal () {
+function toggleSummonModal () {
   modalOpen.value = !modalOpen.value
 }
 
@@ -35,6 +40,16 @@ function addMob (name) {
     .then(res => res.json())
     .then(data => { mobs.push(data) })
     .catch(err => console.log(err.message))
+}
+
+// remove mob
+function handlePassedMob (e) {
+  console.log(e.type + ' index ' + e.data + ' passed from app')
+  if (e.type === 'banish') mobs.splice(e.data, 1)
+  if (e.type === 'clone') {
+    e.data = e.data.replace(/ /, '-')
+    addMob(e.data)
+  }
 }
 
 function getMobsSearchList () {

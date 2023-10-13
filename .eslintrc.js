@@ -32,23 +32,5 @@ module.exports = {
     'no-multi-spaces': ['error'], // avoid extraneous spaces
     'object-curly-spacing': ['error', 'always', { arraysInObjects: true }],
     'comma-dangle': ['error', 'never']
-    /* 'vue/max-len': [
-      'warn',
-      {
-        code: 80,
-        template: 80,
-        tabWidth: 2,
-        comments: 80,
-        ignorePattern: '',
-        ignoreComments: false,
-        ignoreTrailingComments: false,
-        ignoreUrls: false,
-        ignoreStrings: false,
-        ignoreTemplateLiterals: false,
-        ignoreRegExpLiterals: false,
-        ignoreHTMLAttributeValues: false,
-        ignoreHTMLTextContents: false
-      }
-    ] */
   }
 }
