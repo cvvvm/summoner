@@ -13,7 +13,7 @@
       fixed flex-initial flex
       place-content-center place-items-center
       top-0 left-0 h-full w-full
-      bg-red-600 bg-opacity-75"
+      bg-zinc-700 bg-opacity-75"
     @click.self="toggleBanishModal"
     @keypress.esc="toggleBanishModal"
   >
@@ -24,7 +24,8 @@
       relative flex-initial
       max-w-sm
       p-8 rounded-xl
-      bg-zinc-950 text-zinc-400"
+      bg-zinc-950 text-zinc-400
+      border border-yellow-600"
     >
       <!-- text container -->
       <div class="flex flex-col gap-2 px-3">

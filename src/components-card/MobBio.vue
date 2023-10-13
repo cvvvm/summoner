@@ -4,7 +4,11 @@
           p-4 rounded-lg
         bg-zinc-950"
   >
-    <h1 class="py-2 text-3xl font-bold text-center">
+    <h1
+      class="py-2
+    font-med
+    text-3xl text-center text-zinc-50"
+    >
       {{ props.name }}
     </h1>
 

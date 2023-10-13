@@ -6,27 +6,31 @@
     :class="HPbgColor"
   >
     <div
-      class="grid grid-cols-[.75fr_1fr] place-content-center place-items-center"
+      class="grid grid-cols-[1fr_2fr] place-content-center place-items-center"
     >
       <!-- HP VALUE -->
-      <h4 class="text-md text-zinc-400">
+      <h4 class="text-xl text-zinc-200">
         HP
       </h4>
-      <p
-        :class="HPcolor"
-        class="text-2xl font-bold transition-colors"
-      >
-        {{ currHP }}
-      </p>
+
+      <!-- HP VALUE CONTAINER-->
+      <div class="grid grid-cols-1 place-content-center place-items-baseline">
+        <p
+          :class="HPcolor"
+          class="text-xl font-semibold transition-colors"
+        >
+          {{ currHP }}<span class="text-lg text-zinc-400 font-light">/{{ props.baseHp }}</span>
+        </p>
+      </div>
     </div>
 
-    <!-- HP toggles -->
+    <!-- math & buttons container -->
     <div
-      class="grid grid-cols-3 place-self-center"
+      class="grid grid-cols-[.25fr_minmax(35px,_1fr)_.25fr] gap-1 place-self-center"
       @click="checkHP()"
     >
       <button
-        class="rounded-s-lg rounded-e-none"
+        class="rounded-md"
         @click.exact="dmgMob(hpChange)"
       >
         -
@@ -34,12 +38,13 @@
       <input
         v-model="hpChange"
         type="number"
-        class="flex px-3 pr-0
+        class="text-center
+        px-1 rounded-md
         text-zinc-950 bg-zinc-400
           border border-zinc-500"
       >
       <button
-        class="rounded-s-none rounded-e-lg"
+        class="rounded-md"
         @click.exact="healMob(hpChange)"
       >
         +
@@ -54,7 +59,7 @@ const props = defineProps({
   baseHp: { type: Number, default: 0 }
 })
 const hpChange = ref(1)
-const HPcolor = ref('text-white')
+const HPcolor = ref('text-zinc-200')
 const HPbgColor = ref('bg-zinc-950')
 const currHP = ref(props.baseHp)
 

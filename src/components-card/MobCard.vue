@@ -6,7 +6,10 @@
     bg-zinc-800
     border border-zinc-400"
   >
-    <div class="flex flex-row place-content-between">
+    <div
+      class="flex flex-row place-content-between
+    px-2 pb-2"
+    >
       <CloneMob
         :mob-index="props.mobIndex"
         :name="props.name"
@@ -45,11 +48,11 @@
       />
     </div>
 
-    <div class="grid grid-cols-[.75fr_1fr] gap-2">
-      <!-- HP controls -->
-      <MobHpControls :base-hp="props.baseHp" />
+    <div class="grid grid-cols-[1fr_.75fr] gap-2">
       <!-- armor score -->
       <MobArmor :armor="props.armor" />
+      <!-- HP controls -->
+      <MobHpControls :base-hp="props.baseHp" />
     </div>
 
     <!-- ability scores -->

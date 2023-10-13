@@ -10,12 +10,12 @@
       <!-- AC VALUE -->
       <h4
         class="
-      text-md
-      text-zinc-400"
+      text-xl
+      text-zinc-200"
       >
         AC
       </h4>
-      <div class="val-lg">
+      <div class="text-2xl">
         {{ props.armor[0].class }}
       </div>
     </div>
