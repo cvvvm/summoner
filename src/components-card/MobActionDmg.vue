@@ -1,22 +1,26 @@
 <template>
-  <div class="atk-container">
-    <div class="atk-roll-container">
-      <p>hit: <span class="val-md">{{ hitResult }}</span></p>
-      <p>
+  <!-- values + attack button container -->
+  <div
+    class="grid grid-cols-[1fr_.5fr] gap-2
+        rounded-md"
+  >
+    <!-- values container -->
+    <div
+      class="grid grid-cols-[90px_1fr] gap-4
+          place-items-center
+          px-4 pt-2 pb-3 rounded-lg
+          bg-zinc-950
+          overflow-clip"
+    >
+      <!-- hit col -->
+      <div>
+        hit: <span class="val-md">{{ hitResult }}</span>
+      </div>
+
+      <!-- dmg col -->
+      <div>
         dmg: <span class="val-md">{{ dmgResult }}</span>
-      </p>
-      <p
-        class="label roll-calc"
-        style="justify-content: center;"
-      >
-        {{ hitRollMath }}
-      </p>
-      <p
-        class="label roll-calc"
-        style="justify-content: center;"
-      >
-        {{ dmgRollMath }}
-      </p>
+      </div>
     </div>
 
     <!-- atk roll button -->
@@ -24,15 +28,27 @@
       attack
     </button>
   </div>
+  <!-- math container -->
+  <div
+    class="flex gap-2 place-content-evenly
+        pt-2"
+  >
+    <div class="text-sm text-zinc-500">
+      hit {{ hitRollMath }}
+    </div>
+    <div class="text-sm text-zinc-500">
+      dmg {{ dmgRollMath }}
+    </div>
+  </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { mobFunctions } from '../mobFunctions'
 const dmgResult = ref(0)
-const dmgRollMath = ref('dmg math')
+const dmgRollMath = ref('roll')
 const hitResult = ref(0)
-const hitRollMath = ref('hit math')
+const hitRollMath = ref('roll')
 const props = defineProps({
   hitMod: { type: Number, default: 0 },
   dice: { type: Array, default: () => [] },
@@ -52,24 +68,4 @@ function rollAttackDmg (diceArray, numDmgs, rollDmgMod, rollAtkMod) {
 </script>
 
 <style>
-.atk-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-md);
-  border-radius: var(--space-sm);
-  place-items: baseline stretch;
-}
-.atk-roll-container {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: var(--space-md);
-    padding: var(--space-lg);
-    border-radius: var(--space-sm);
-    place-items: baseline center;
-    background-color: var(--bg-color);
-}
-.atk-roll-container > * {
-  overflow: auto;
-}
-
 </style>

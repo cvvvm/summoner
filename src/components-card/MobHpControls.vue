@@ -2,7 +2,7 @@
   <div
     class="grid grid-cols-1 grid-rows-[1fr_min-content] gap-2
     p-2 pt-2 rounded-lg
-    bg-zinc-900"
+    bg-zinc-950"
     :class="HPbgColor"
   >
     <div

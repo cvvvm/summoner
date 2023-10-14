@@ -2,8 +2,8 @@
   <!-- card -->
   <div
     class="grid grid-cols-1 gap-4
-  p-4 rounded-xl
-  bg-black"
+      p-4 rounded-xl
+    bg-black"
   >
     <!-- clone / dupe + container -->
     <div
@@ -24,6 +24,7 @@
                      $event.data +' passed from card')"
       />
     </div>
+
     <!-- name -->
     <div
       class="flex-grow
@@ -33,46 +34,43 @@
       {{ props.name }}
     </div>
 
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-[.75fr_1fr] gap-4">
       <MobHpControls :base-hp="props.baseHp" />
       <MobArmor :armor="props.armor" />
     </div>
 
     <!-- toggles -->
-    <div class="grid grid-cols-4 gap-2">
+    <div class="grid grid-cols-3 gap-2">
       <!--  -->
       <!-- MAKE ONE TOGGLE VARIable?? -->
       <!-- idk what the layout looks like yet. -->
       <!--  -->
       <button
         class="border border-zinc-600 bg-zinc-950"
-        @click="showDetails = !showDetails"
+        :class="togglePanel == 'details' ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' : ''"
+        @click="togglePanel == 'details' ? togglePanel = '' : togglePanel = 'details'"
       >
         details
       </button>
       <button
         class="border border-zinc-600 bg-zinc-950"
-        @click="showAbilities = !showAbilities"
+        :class="togglePanel == 'abilities' ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' : ''"
+        @click="togglePanel == 'abilities' ? togglePanel = '' : togglePanel = 'abilities'"
       >
         abilities
       </button>
       <button
         class="border border-zinc-600 bg-zinc-950"
-        @click="showActions = !showActions"
+        :class="togglePanel == 'actions' ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' : ''"
+        @click="togglePanel == 'actions' ? togglePanel = '' : togglePanel = 'actions'"
       >
         actions
-      </button>
-      <button
-        class="border border-zinc-600 bg-zinc-950"
-        @click="showlegendaryAct = !showlegendaryAct"
-      >
-        legendary
       </button>
     </div>
 
     <!-- details-->
     <div
-      v-show="showDetails"
+      v-show="togglePanel == 'details'"
       class="grid grid-cols-[1fr_.9fr] gap-4"
     >
       <MobAbilityScores
@@ -111,19 +109,19 @@
     </div>
     <!-- special abilities -->
     <MobSpecialAbilities
-      v-show="showAbilities"
+      v-show="togglePanel == 'abilities'"
       :special-abilities="props.specialAbilities"
     />
 
     <!-- actions -->
     <MobActions
-      v-show="showActions"
+      v-show="togglePanel == 'actions'"
       :actions="props.actions"
     />
 
     <!-- actions (legendary) -->
     <MobActionsLegendary
-      v-show="showlegendaryAct"
+      v-show="togglePanel == 'actions'"
       :legendary-actions="props.legendaryActions"
       :legendary-desc="props.legendaryDesc"
     />
@@ -184,10 +182,10 @@ const props = defineProps({
   legendaryDesc: { type: String, default: '' }
 
 })
-const showDetails = ref(true)
-const showAbilities = ref(false)
-const showActions = ref(false)
-const showlegendaryAct = ref(false)
+const togglePanel = ref('details')
+// const showDetails = ref(false)
+// const showAbilities = ref(false)
+// tsconst showActions = ref(true)
 
 </script>
 

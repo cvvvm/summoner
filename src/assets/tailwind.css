@@ -40,7 +40,7 @@ button.warn:active {
           align-baseline self-start
           px-2 py-1 rounded-sm
           text-sm
-          text-zinc-300 bg-zinc-950;
+          text-zinc-300 bg-zinc-900;
 }
 
 .val-container {
@@ -119,18 +119,16 @@ button.warn:active {
   grid-template-columns: 1fr 1fr;
 }
 .container-lvl0 {
+  @apply bg-zinc-800;
   display: grid;
   gap: var(--space-xl);
   padding: var(--space-md);
   color: var(--text-color);
-  background: var(--bg-color);
 }
 .container-lvl1 {
   display: grid;
   gap: var(--space-sm);
 }
 .container-lvl2 {
-  display: grid;
-  gap: var(--space-sm);
-  background: var(--grey-dk);
+  @apply grid bg-zinc-900;
 }

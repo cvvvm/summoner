@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-6 gap-1 place-content-start">
+  <div class="grid grid-cols-6 gap-2 place-content-start">
     <div
       v-for="(ability, index) in props.abilityScores"
       :key="index"

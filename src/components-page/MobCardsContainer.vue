@@ -1,17 +1,8 @@
 <template>
-  <!--
-      .cards-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minMax(350px, 450px));
-      grid-template-rows: auto;
-      place-content: start;
-      gap: var(--space-xxxl);
-      padding: var(--space-xxxl);
-    }
-  -->
+  <!-- card container -->
   <div
     class="grid grid-cols-[repeat(_auto-fill,_minmax(320px,_500px))] gap-8
-            p-8"
+          p-8"
   >
     <div
       v-for="mob, index in props.mobs"

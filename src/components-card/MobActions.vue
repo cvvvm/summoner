@@ -7,7 +7,8 @@
     <div
       v-for="action in props.actions"
       :key="action"
-      class="action-block container-lvl2"
+      class="action-block
+      bg-zinc-900"
     >
       <!-- NAME -->
       <h3>{{ action.name.toLowerCase() }}</h3>
