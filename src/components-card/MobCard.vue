@@ -1,64 +1,98 @@
 <template>
-  <!-- clone / dupe container -->
+  <!-- card -->
   <div
-    class="flex flex-row place-content-between
-    p-2"
+    class="grid grid-cols-1 gap-4
+  p-4 rounded-xl
+  bg-black"
   >
-    <CloneMob
-      :mob-index="props.mobIndex"
-      :name="props.name"
-      @pass-mob="$emit('passMob', $event);
-                 console.log($event.type + ' index ' +
-                   $event.data +' passed from card')"
-    />
-    <BanishMob
-      :mob-index="props.mobIndex"
-      :name="props.name"
-      @pass-mob="$emit('passMob', $event);
-                 console.log($event.type + ' index ' +
-                   $event.data +' passed from card')"
-    />
-  </div>
-
-  <!-- mob details start-->
-  <div
-    class="grid grid-cols-1 gap-2
-    p-4 rounded-xl
-    bg-black
-    border border-zinc-400"
-  >
-    <div class="text-3xl text-zinc-200 text-center px-4 pb-2">
+    <!-- clone / dupe + container -->
+    <div
+      class="flex flex-row gap-2 justify-end"
+    >
+      <CloneMob
+        :mob-index="props.mobIndex"
+        :name="props.name"
+        @pass-mob="$emit('passMob', $event);
+                   console.log($event.type + ' index ' +
+                     $event.data +' passed from card')"
+      />
+      <BanishMob
+        :mob-index="props.mobIndex"
+        :name="props.name"
+        @pass-mob="$emit('passMob', $event);
+                   console.log($event.type + ' index ' +
+                     $event.data +' passed from card')"
+      />
+    </div>
+    <!-- name -->
+    <div
+      class="flex-grow
+      px-4 py-2
+      text-3xl text-zinc-200"
+    >
       {{ props.name }}
     </div>
+
     <div class="grid grid-cols-2 gap-4">
+      <MobHpControls :base-hp="props.baseHp" />
+      <MobArmor :armor="props.armor" />
+    </div>
+
+    <!-- toggles -->
+    <div class="grid grid-cols-4 gap-2">
+      <!--  -->
+      <!-- MAKE ONE TOGGLE VARIable?? -->
+      <!-- idk what the layout looks like yet. -->
+      <!--  -->
+      <button
+        class="border border-zinc-600 bg-zinc-950"
+        @click="showDetails = !showDetails"
+      >
+        details
+      </button>
+      <button
+        class="border border-zinc-600 bg-zinc-950"
+        @click="showAbilities = !showAbilities"
+      >
+        abilities
+      </button>
+      <button
+        class="border border-zinc-600 bg-zinc-950"
+        @click="showActions = !showActions"
+      >
+        actions
+      </button>
+      <button
+        class="border border-zinc-600 bg-zinc-950"
+        @click="showlegendaryAct = !showlegendaryAct"
+      >
+        legendary
+      </button>
+    </div>
+
+    <!-- details-->
+    <div
+      v-show="showDetails"
+      class="grid grid-cols-[1fr_.9fr] gap-4"
+    >
+      <MobAbilityScores
+        :ability-scores="props.abilityScores"
+        :ability-saves="props.abilitySaves"
+        class="col-span-2"
+      />
+      <MobBio
+        :size="props.size"
+        :type="props.type"
+        :alignment="props.alignment"
+        :challenge-rating="props.challengeRating"
+        class="col-span-2"
+      />
+
       <!-- left col -->
-      <!-- ability scores -->
-      <!-- HP controls -->
-      <!-- armor score -->
-      <div class="grid grid-cols-1 gap-4">
-        <MobHpControls :base-hp="props.baseHp" />
-        <MobArmor :armor="props.armor" />
-        <MobAbilityScores
-          :ability-scores="props.abilityScores"
-          :ability-saves="props.abilitySaves"
-        />
-      </div>
-      <!-- right col -->
-      <!-- bio -->
-      <!-- speed -->
-      <!-- senses -->
-      <!-- languages -->
-      <!-- defense -->
       <div class="grid grid-cols-1 gap-4 place-content-start">
-        <MobBio
-          :size="props.size"
-          :type="props.type"
-          :alignment="props.alignment"
-          :challenge-rating="props.challengeRating"
+        <MobSpeed
+          :speed="props.speed"
         />
-        <MobSpeed :speed="props.speed" />
-        <MobSenses :senses="props.senses" />
-        <MobLanguages :lang="props.lang" />
         <MobDefenses
           :damage-vulnerabilities="props.damageVulnerabilities"
           :damage-resistances="props.damageResistances"
@@ -66,31 +100,14 @@
           :condition-immunities="props.conditionImmunities"
         />
       </div>
-    </div>
 
-    <div class="grid grid-cols-3 gap-2 pt-8">
-      <!--  -->
-      <!-- MAKE ONE TOGGLE VARIable?? -->
-      <!-- idk what the layout looks like yet. -->
-      <!--  -->
-      <button
-        class="text-sm font-normal"
-        @click="showAbilities = !showAbilities"
-      >
-        abilities
-      </button>
-      <button
-        class="text-sm font-normal"
-        @click="showActions = !showActions"
-      >
-        actions
-      </button>
-      <button
-        class="text-sm font-normal"
-        @click="showlegendaryAct = !showlegendaryAct"
-      >
-        lg. actions
-      </button>
+      <!-- right col -->
+      <div class="grid grid-cols-1 gap-4 place-content-start">
+        <MobSenses :senses="props.senses" />
+        <MobLanguages
+          :lang="props.lang"
+        />
+      </div>
     </div>
     <!-- special abilities -->
     <MobSpecialAbilities
@@ -110,6 +127,8 @@
       :legendary-actions="props.legendaryActions"
       :legendary-desc="props.legendaryDesc"
     />
+
+    <!-- card end -->
   </div>
 </template>
 
@@ -165,6 +184,7 @@ const props = defineProps({
   legendaryDesc: { type: String, default: '' }
 
 })
+const showDetails = ref(true)
 const showAbilities = ref(false)
 const showActions = ref(false)
 const showlegendaryAct = ref(false)

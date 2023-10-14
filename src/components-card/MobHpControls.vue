@@ -1,8 +1,8 @@
 <template>
   <div
-    class="grid grid-cols-1 grid-rows-[1fr_min-content] gap-1
-    p-4 pt-2 rounded-lg
-    bg-zinc-950"
+    class="grid grid-cols-1 grid-rows-[1fr_min-content] gap-2
+    p-2 pt-2 rounded-lg
+    bg-zinc-900"
     :class="HPbgColor"
   >
     <div
@@ -60,7 +60,7 @@ const props = defineProps({
 })
 const hpChange = ref(1)
 const HPcolor = ref('text-zinc-200')
-const HPbgColor = ref('bg-zinc-950')
+const HPbgColor = ref('')
 const currHP = ref(props.baseHp)
 
 // WIP HP CODE

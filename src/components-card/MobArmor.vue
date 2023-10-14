@@ -2,7 +2,7 @@
   <div
     class="grid grid-cols-[.5fr_1fr] grid-rows-1 gap-1
     pl-2 py-2 px-4 rounded-lg
-    bg-zinc-950"
+    bg-zinc-900"
   >
     <div
       class="grid grid-cols-1 place-content-center place-items-center"

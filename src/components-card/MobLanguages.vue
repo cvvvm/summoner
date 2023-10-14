@@ -1,6 +1,6 @@
 <template>
   <!-- LANGUAGES -->
-  <div class="grid gap-2 ">
+  <div class="grid gap-2">
     <span class="label">languages: </span>
     <span class="px-2 val-sm">{{ props.lang.toLowerCase() }}</span>
   </div>

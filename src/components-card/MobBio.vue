@@ -1,13 +1,13 @@
 <template>
   <!-- attributes -->
-  <div class="grid grid-cols-1 gap-1">
-    <p class="label">
+  <div class="flex place-content-between gap-1 label">
+    <p>
       {{ props.size }} {{ props.type.toLowerCase() }}
     </p>
-    <p class="label">
+    <p>
       {{ props.alignment }}
     </p>
-    <p class="label">
+    <p>
       challenge: {{ props.challengeRating }}
     </p>
   </div>

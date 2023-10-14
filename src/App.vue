@@ -1,9 +1,12 @@
 <template>
   <!-- summon button container -->
   <div
-    class="flex place-content-center
-      p-4 w-full
-    bg-zinc-950"
+    class="
+    flex
+    place-content-center
+    p-4
+    w-full
+    bg-zinc-900"
   >
     <button @click="toggleSummonModal()">
       summon new
