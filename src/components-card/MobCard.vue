@@ -20,7 +20,7 @@
     />
   </div>
 
-  <!-- mob card start-->
+  <!-- mob details start-->
   <div
     class="grid grid-cols-1 gap-2
     p-4 rounded-xl
@@ -68,6 +68,30 @@
       </div>
     </div>
 
+    <div class="grid grid-cols-3 gap-2 pt-8">
+      <!--  -->
+      <!-- MAKE ONE TOGGLE VARIable?? -->
+      <!-- idk what the layout looks like yet. -->
+      <!--  -->
+      <button
+        class="text-sm font-normal"
+        @click="showAbilities = !showAbilities"
+      >
+        abilities
+      </button>
+      <button
+        class="text-sm font-normal"
+        @click="showActions = !showActions"
+      >
+        actions
+      </button>
+      <button
+        class="text-sm font-normal"
+        @click="showlegendaryAct = !showlegendaryAct"
+      >
+        lg. actions
+      </button>
+    </div>
     <!-- special abilities -->
     <MobSpecialAbilities
       v-show="showAbilities"
