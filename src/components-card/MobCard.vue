@@ -1,5 +1,7 @@
 <template>
   <!-- card -->
+  local: {{ toggledLocalPanel }} |
+  global: {{ props.toggleGlobalCardPanel }} |
   <div
     class="grid grid-cols-1 gap-4
       p-4 rounded-xl
@@ -28,41 +30,41 @@
     <!-- name -->
     <div
       class="flex-grow
-      px-4 py-2
+      px-4 py-2 pb-3
       text-3xl text-zinc-200"
     >
       {{ props.name }}
     </div>
 
-    <div class="grid grid-cols-[.75fr_1fr] gap-4">
+    <div class="grid grid-cols-[.8fr_1fr] gap-4">
       <MobHpControls :base-hp="props.baseHp" />
       <MobArmor :armor="props.armor" />
     </div>
 
     <!-- toggles -->
-    <div class="grid grid-cols-3 gap-2">
+    <div class="grid grid-cols-3 gap-0">
       <!--  -->
       <!-- MAKE ONE TOGGLE VARIable?? -->
       <!-- idk what the layout looks like yet. -->
       <!--  -->
       <button
-        class="border border-zinc-600 bg-zinc-950"
-        :class="togglePanel == 'details' ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' : ''"
-        @click="togglePanel == 'details' ? togglePanel = '' : togglePanel = 'details'"
+        class="rounded-s-md rounded-e-none"
+        :class="toggledLocalPanel == 'details' ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 ' : 'border border-zinc-600 bg-zinc-950'"
+        @click="toggledLocalPanel == 'details' ? toggledLocalPanel = '' : toggledLocalPanel = 'details'"
       >
         details
       </button>
       <button
-        class="border border-zinc-600 bg-zinc-950"
-        :class="togglePanel == 'abilities' ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' : ''"
-        @click="togglePanel == 'abilities' ? togglePanel = '' : togglePanel = 'abilities'"
+        class="rounded-none"
+        :class="toggledLocalPanel == 'abilities' ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' : 'border border-zinc-600 bg-zinc-950'"
+        @click="toggledLocalPanel == 'abilities' ? toggledLocalPanel = '' : toggledLocalPanel = 'abilities'"
       >
         abilities
       </button>
       <button
-        class="border border-zinc-600 bg-zinc-950"
-        :class="togglePanel == 'actions' ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' : ''"
-        @click="togglePanel == 'actions' ? togglePanel = '' : togglePanel = 'actions'"
+        class="rounded-s-none rounded-e-md"
+        :class="toggledLocalPanel == 'actions' ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' : 'border border-zinc-600 bg-zinc-950'"
+        @click="toggledLocalPanel == 'actions' ? toggledLocalPanel = '' : toggledLocalPanel = 'actions'"
       >
         actions
       </button>
@@ -70,7 +72,7 @@
 
     <!-- details-->
     <div
-      v-show="togglePanel == 'details'"
+      v-show="toggledLocalPanel == 'details'"
       class="grid grid-cols-[1fr_.9fr] gap-4"
     >
       <MobAbilityScores
@@ -109,19 +111,19 @@
     </div>
     <!-- special abilities -->
     <MobSpecialAbilities
-      v-show="togglePanel == 'abilities'"
+      v-show="toggledLocalPanel == 'abilities'"
       :special-abilities="props.specialAbilities"
     />
 
     <!-- actions -->
     <MobActions
-      v-show="togglePanel == 'actions'"
+      v-show="toggledLocalPanel == 'actions'"
       :actions="props.actions"
     />
 
     <!-- actions (legendary) -->
     <MobActionsLegendary
-      v-show="togglePanel == 'actions'"
+      v-show="toggledLocalPanel == 'actions'"
       :legendary-actions="props.legendaryActions"
       :legendary-desc="props.legendaryDesc"
     />
@@ -151,6 +153,7 @@ import MobActionsLegendary from './MobActionsLegendary.vue'
 defineEmits(['passMob'])
 
 const props = defineProps({
+  toggleGlobalCardPanel: { type: String, default: '' },
   mobIndex: { type: Number, default: 0 },
   /* bio */
   name: { type: String, default: '' },
@@ -182,10 +185,7 @@ const props = defineProps({
   legendaryDesc: { type: String, default: '' }
 
 })
-const togglePanel = ref('details')
-// const showDetails = ref(false)
-// const showAbilities = ref(false)
-// tsconst showActions = ref(true)
+const toggledLocalPanel = ref('details')
 
 </script>
 

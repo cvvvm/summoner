@@ -1,21 +1,45 @@
 <template>
-  <!-- summon button container -->
+  <!-- global buttons container -->
   <div
     class="
-    flex
-    place-content-center
+    flex justify-between
     p-4
     w-full
     bg-zinc-900"
   >
     <button @click="toggleSummonModal()">
-      summon new
+      + summon
     </button>
+
+    <div class="flex gap-2 items-center">
+      <p>sort:</p>
+      <button @click="sortArrayAlphaAsc">
+        a-z
+      </button>
+      <button @click="sortArrayHpAsc">
+        hp
+      </button>
+    </div>
+
+    <div class="flex gap-2">
+      {{ toggleGlobalCardPanel }}
+      <button @click="toggleGlobalCardPanel = ''">
+        collapse
+      </button>
+      <button @click="toggleGlobalCardPanel = 'details'">
+        details
+      </button>
+      <button @click="toggleGlobalCardPanel = 'abilities'">
+        abilities
+      </button>
+      <button @click="toggleGlobalCardPanel = 'actions'">
+        actions
+      </button>
+    </div>
   </div>
+
   <!-- summon (modal) -->
-  <div
-    v-show="summonModalOpen"
-  >
+  <div v-show="summonModalOpen">
     <SummonMob
       :search-list="mobsSearchList.results"
       @summon-mob="addMob"
@@ -25,6 +49,7 @@
 
   <MobCardsContainer
     :mobs="mobs"
+    :toggle-global-card-panel="toggleGlobalCardPanel"
     @pass-mob="handlePassedMob"
   />
 </template>
@@ -37,7 +62,40 @@ import SummonMob from './components-page/SummonMob.vue'
 const summonModalOpen = ref(false)
 const mobs = reactive([])
 const mobsSearchList = ref([])
+const toggleGlobalCardPanel = ref('details')
 
+// SORTING
+// -----------------------------------------------------------
+// alpha sort
+function sortArrayAlphaAsc () {
+  mobs.sort((a, b) => {
+    const fa = a.name.toLowerCase(); const fb = b.name.toLowerCase()
+    if (fa < fb) {
+      return -1
+    }
+    if (fa > fb) {
+      return 1
+    }
+    return 0
+  })
+}
+// hp sort
+function sortArrayHpAsc () {
+  mobs.sort((a, b) => {
+    const fa = a.hit_points; const fb = b.hit_points
+    if (fa < fb) {
+      return -1
+    }
+    if (fa > fb) {
+      return 1
+    }
+    return 0
+  })
+}
+
+// EDIT MOBS
+// -----------------------------------------------------------
+// open summoning window
 function toggleSummonModal () {
   summonModalOpen.value = !summonModalOpen.value
 }
@@ -62,7 +120,7 @@ function handlePassedMob (e) {
 }
 
 function getMobsSearchList () {
-  fetch('https://api.open5e.com/monsters/')
+  fetch('https://api.open5e.com/monsters')
     .then(res => res.json())
     .then(data => { mobsSearchList.value = data })
     .catch(err => console.log(err.message))

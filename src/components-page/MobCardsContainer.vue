@@ -1,5 +1,6 @@
 <template>
   <!-- card container -->
+  {{ props.toggleGlobalCardPanel }}
   <div
     class="grid grid-cols-[repeat(_auto-fill,_minmax(320px,_500px))] gap-8
           p-8"
@@ -9,6 +10,7 @@
       :key="mob"
     >
       <MobCard
+        :toggle-global-card-panel="props.toggleGlobalCardPanel"
         :mob-index="index"
         :name="mob.name.toLowerCase()"
         :alignment="mob.alignment"
@@ -59,13 +61,10 @@
 import MobCard from '../components-card/MobCard.vue'
 defineEmits(['passMob'])
 const props = defineProps({
-  mobs: { type: Object, default: () => {} }
+  mobs: { type: Object, default: () => {} },
+  toggleGlobalCardPanel: { type: String, default: '' }
 })
 
-/* function removeMobContainer (indx) {
-  emit('emitRemoveMobContainer', indx)
-  console.log(indx + ' container')
-} */
 </script>
 
 <style>

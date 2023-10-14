@@ -26,7 +26,7 @@ button:hover {
 }
 
 button.warn {
-  @apply font-bold text-yellow-950 bg-yellow-500 py-2 px-4 rounded-md transition-colors;
+  @apply font-bold text-yellow-950 bg-yellow-500 py-1 px-3 rounded-md transition-colors;
 }
 button.warn:hover {
   @apply text-orange-950 bg-orange-600;
@@ -92,11 +92,6 @@ button.warn:active {
 }
 
 /* -------------------------------------------------------- */
-/* TEXT STYLES */
-.section-title {
-  grid-column: 1 / -1;
-  font-size: var(--h-size-md);
-}
 
 .val-lg {
   @apply text-zinc-200 text-xl font-bold;

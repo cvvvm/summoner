@@ -1,7 +1,7 @@
 <template>
   <!-- SPECIAL ABILITIES -->
-  <div class="actions-container container-lvl1">
-    <h2 class="section-title">
+  <div class="actions-container container-lvl1 py-4">
+    <h2 class="text-lg px-4">
       actions
     </h2>
     <div
@@ -11,7 +11,9 @@
       bg-zinc-900"
     >
       <!-- NAME -->
-      <h3>{{ action.name.toLowerCase() }}</h3>
+      <h3 class="text-zinc-100">
+        {{ action.name.toLowerCase() }}
+      </h3>
 
       <!-- DESC -->
       <div class="action-desc-block">
@@ -65,7 +67,6 @@ const props = defineProps({
 <style>
   .actions-container {
       grid-template-columns: 1fr;
-      padding: var(--space-lg);
       place-items: start stretch;
     }
 

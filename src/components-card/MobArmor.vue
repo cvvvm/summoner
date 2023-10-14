@@ -20,13 +20,16 @@
       </div>
     </div>
     <!-- desc -->
-    <div class="grid grid-cols-1 gap-1 content-center">
+    <div
+      v-if="props.armor[0].desc"
+      class="grid grid-cols-1 gap-1 content-center"
+    >
       <div
         v-for="type in props.armor[0].desc.split(',')"
         :key="type"
         class="label"
       >
-        {{ type }}
+        {{ type.replace('\(', '').replace('\)', '') }}
       </div>
     </div>
   </div>

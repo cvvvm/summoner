@@ -1,7 +1,7 @@
 <template>
   <!-- SPECIAL ABILITIES -->
-  <div class="sp-abilities-container container-lvl1">
-    <h2 class="section-title">
+  <div class="sp-abilities-container container-lvl1 py-4">
+    <h2 class="text-lg px-4">
       abilities
     </h2>
     <div
@@ -9,7 +9,9 @@
       :key="ability"
       class="sp-ability-block container-lvl2"
     >
-      <h3>{{ ability.name.toLowerCase() }}</h3>
+      <h3 class="text-zinc-100">
+        {{ ability.name.toLowerCase() }}
+      </h3>
       <div class="sp-ability-desc-block">
         <p>{{ ability.desc.toLowerCase() }}</p>
         <div v-if="ability.usage">
@@ -37,7 +39,6 @@ const props = defineProps({
 <style>
 .sp-abilities-container {
     grid-template-columns: 1fr;
-    padding: var(--space-lg);
     place-items: start stretch;
   }
   .sp-ability-block {

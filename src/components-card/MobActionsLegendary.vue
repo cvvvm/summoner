@@ -2,18 +2,20 @@
   <div
     class="legendary-actions-container container-lvl1"
   >
-    <h2 class="section-title">
-      legendary actions
-    </h2>
-    <p>
-      {{ props.legendaryDesc }}
-    </p>
+    <div class="grid gap-2 px-4 pb-4">
+      <h2 class="text-lg">
+        legendary actions
+      </h2>
+      <p>{{ props.legendaryDesc }}</p>
+    </div>
     <div
       v-for="action in props.legendaryActions"
       :key="action"
       class="legendary-action-block container-lvl2"
     >
-      <h3>{{ action.name.toLowerCase() }}</h3>
+      <h3 class="text-zinc-100">
+        {{ action.name.toLowerCase() }}
+      </h3>
       <div v-if="action.usage">
         <p>
           {{ action.usage.type }} of <span class="val-sm">{{ action.usage.min_value }}</span> with <span
@@ -52,7 +54,6 @@ const props = defineProps({
 .legendary-actions-container {
     grid-template-columns: 1fr;
     place-items: start stretch;
-    padding: var(--space-lg);
 }
 
 .legendary-action-block {
