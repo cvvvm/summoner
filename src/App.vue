@@ -1,11 +1,17 @@
 <template>
-  <div class="p-4">
+  <!-- summon button container -->
+  <div
+    class="flex place-content-center
+      p-4 w-full
+    bg-zinc-950"
+  >
     <button @click="toggleSummonModal()">
       summon new
     </button>
   </div>
+  <!-- summon (modal) -->
   <div
-    v-show="modalOpen"
+    v-show="summonModalOpen"
   >
     <SummonMob
       :search-list="mobsSearchList.results"
@@ -25,12 +31,12 @@ import { ref, reactive, onMounted } from 'vue'
 import MobCardsContainer from './components-page/MobCardsContainer.vue'
 import SummonMob from './components-page/SummonMob.vue'
 
-const modalOpen = ref(false)
+const summonModalOpen = ref(false)
 const mobs = reactive([])
 const mobsSearchList = ref([])
 
 function toggleSummonModal () {
-  modalOpen.value = !modalOpen.value
+  summonModalOpen.value = !summonModalOpen.value
 }
 
 // add new mob

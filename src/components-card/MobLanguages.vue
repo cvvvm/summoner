@@ -1,8 +1,8 @@
 <template>
   <!-- LANGUAGES -->
-  <div class="label languages-container">
-    <span>languages: </span>
-    <span class="val-sm">{{ props.lang.toLowerCase() }}</span>
+  <div class="grid gap-2 ">
+    <span class="label">languages: </span>
+    <span class="px-2 val-sm">{{ props.lang.toLowerCase() }}</span>
   </div>
 </template>
 

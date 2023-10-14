@@ -1,6 +1,6 @@
 <template>
   <div
-    class="grid grid-cols-1 grid-rows-2 gap-1
+    class="grid grid-cols-1 grid-rows-[1fr_min-content] gap-1
     p-4 pt-2 rounded-lg
     bg-zinc-950"
     :class="HPbgColor"
@@ -17,9 +17,9 @@
       <div class="grid grid-cols-1 place-content-center place-items-baseline">
         <p
           :class="HPcolor"
-          class="text-xl font-semibold transition-colors"
+          class="text-xl font-medium transition-colors"
         >
-          {{ currHP }}<span class="text-lg text-zinc-400 font-light">/{{ props.baseHp }}</span>
+          {{ currHP }}<span class="text-xl text-zinc-400 font-light">/{{ props.baseHp }}</span>
         </p>
       </div>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-6 gap-0 gap-x-2">
+  <div class="grid grid-cols-3 gap-1">
     <div
       v-for="(ability, index) in props.abilityScores"
       :key="index"
@@ -8,7 +8,7 @@
         v-for="(scoreValue, abilityName, scoreIndex) in ability"
         :key="scoreIndex"
         class="grid grid-cols-1 place-items-center
-        p-2 pb-2 rounded-t-md
+        p-2 pb-2 rounded-md
         bg-zinc-950"
       >
         <div>{{ abilityName.substring(0, 3) }}</div>
@@ -27,13 +27,13 @@
         v-for="(scoreValue, abilityName, scoreIndex) in ability"
         :key="scoreIndex"
         class="grid grid-cols-1 place-items-center
-        py-1 rounded-b-md
+        py-1 rounded-md
         bg-zinc-900"
       >
         <div class="text-sm">
           save
         </div>
-        <span class="val-sm">+{{ (scoreValue == null) ? 0 : scoreValue }}</span>
+        <span class="val-sm">{{ abilityName.substring(0, 3) }} +{{ (scoreValue == null) ? 0 : scoreValue }}</span>
       </div>
     </div>
   </div>

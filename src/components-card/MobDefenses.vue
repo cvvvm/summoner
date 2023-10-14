@@ -1,64 +1,52 @@
 <template>
   <!-- DEFENSES -->
-  <div class="container-lvl1">
-    <!-- dmg vul -->
+  <div class="grid grid-cols-1 gap-4">
+    <!-- damage vul -->
     <div
       v-if="props.damageVulnerabilities.length != 0"
-      class="defenses-container"
+      class="grid grid-cols-1 gap-2
+        text-sm"
     >
-      <div
-        v-for="vulnerability in props.damageVulnerabilities.split(';')"
-        :key="vulnerability"
-      >
-        <p class="label">
-          {{ vulnerability }}<span class="defense-label">vul</span>
-        </p>
-      </div>
+      <span class="label">damage vulnerabilities:</span>
+      <p class="px-2">
+        {{ props.damageVulnerabilities }}
+      </p>
     </div>
 
-    <!-- dmg res -->
+    <!-- damage res -->
     <div
       v-if="props.damageResistances.length != 0"
-      class="defenses-container"
+      class="grid grid-cols-1 gap-2
+        text-sm"
     >
-      <div
-        v-for="resistance in props.damageResistances.split(';')"
-        :key="resistance"
-      >
-        <p class="label">
-          {{ resistance }}<span class="defense-label">res</span>
-        </p>
-      </div>
+      <span class="label">damage resistances:</span>
+      <p class="px-2">
+        {{ props.damageResistances }}
+      </p>
     </div>
 
-    <!-- dmg imm -->
+    <!-- damage imm -->
     <div
       v-if="props.damageImmunities.length != 0"
-      class="defenses-container "
+      class="grid grid-cols-1 gap-2
+        text-sm"
     >
-      <div
-        v-for="immunity in props.damageImmunities.split(';')"
-        :key="immunity"
-      >
-        <p class="label">
-          {{ immunity }}<span class="defense-label">imm</span>
-        </p>
-      </div>
+      <span class="label">damage immunities:</span>
+      <p class="px-2">
+        {{ props.damageImmunities }}
+      </p>
     </div>
 
     <!-- cond imm -->
     <div
       v-if="props.conditionImmunities.length != 0"
-      class="defenses-container"
+      class="grid grid-cols-1 gap-2
+        text-sm"
     >
-      <div
-        v-for="immunity in props.conditionImmunities.split(';')"
-        :key="immunity"
-      >
-        <p class="label">
-          {{ immunity }}<span class="defense-label">imm</span>
-        </p>
-      </div>
+      <span class="label">condition immunities:</span>
+      <p class="px-2">
+        {{ props.conditionImmunities }}
+      </p>
     </div>
   </div>
 </template>
@@ -74,33 +62,4 @@ const props = defineProps({
 </script>
 
 <style>
-
-.defenses-container {
-    display: flex;
-    flex-flow: row wrap;
-    place-items: flex-start;
-    gap: var(--space-md);
-    border-radius: var(--space-sm);
-    padding: var(--space-lg);
-}
-
-.score-value {
-    font-size: var(--h-size-sm);
-    font-weight: 600;
-    color: white;
-}
-
-.defense-type {
-    font-weight: 600;
-}
-
-.defense-label {
-    font-weight: 300;
-    font-size: var(--p-size-xs);
-    color: var(--grey-dk);
-    margin: var(--space-xs);
-    padding: var(--space-xxs) var(--space-xs);
-    border-radius: var(--space-xs);
-    background: var(--HP-low);
-}
 </style>

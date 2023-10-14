@@ -19,7 +19,7 @@ p {
 }
 
 button {
-  @apply font-bold text-zinc-300 bg-zinc-600 py-2 px-4 rounded-md transition-colors;
+  @apply font-bold text-zinc-300 bg-zinc-600 py-1 px-4 rounded-md transition-colors;
 }
 button:hover {
   @apply text-zinc-400 bg-zinc-700;
@@ -35,14 +35,11 @@ button.warn:active {
 }
 
 .label {
-  @apply text-zinc-300 bg-zinc-900;
-  display: flex;
-  gap: var(--space-xs);
-  align-items: baseline;
-  flex: 1 0 auto;
-  height: max-content;
-  font-size: var(--p-size-xs);
-  padding: var(--space-xs) var(--space-md);
+  @apply flex flex-initial flex-shrink-0 gap-1
+          align-baseline self-start
+          px-2 py-1 rounded-sm
+          text-sm
+          text-zinc-300 bg-zinc-900;
 }
 
 .val-container {

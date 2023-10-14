@@ -1,81 +1,88 @@
 <template>
-  <!-- duplicate + remove -->
+  <!-- clone / dupe container -->
+  <div
+    class="flex flex-row place-content-between
+    p-2"
+  >
+    <CloneMob
+      :mob-index="props.mobIndex"
+      :name="props.name"
+      @pass-mob="$emit('passMob', $event);
+                 console.log($event.type + ' index ' +
+                   $event.data +' passed from card')"
+    />
+    <BanishMob
+      :mob-index="props.mobIndex"
+      :name="props.name"
+      @pass-mob="$emit('passMob', $event);
+                 console.log($event.type + ' index ' +
+                   $event.data +' passed from card')"
+    />
+  </div>
+
+  <!-- mob card start-->
   <div
     class="grid grid-cols-1 gap-2
-    p-5 rounded-xl
-    bg-zinc-800
+    p-4 rounded-xl
+    bg-black
     border border-zinc-400"
   >
-    <div
-      class="flex flex-row place-content-between
-    px-2 pb-2"
-    >
-      <CloneMob
-        :mob-index="props.mobIndex"
-        :name="props.name"
-        @pass-mob="$emit('passMob', $event);
-                   console.log($event.type + ' index ' +
-                     $event.data +' passed from card')"
-      />
-      <BanishMob
-        :mob-index="props.mobIndex"
-        :name="props.name"
-        @pass-mob="$emit('passMob', $event);
-                   console.log($event.type + ' index ' +
-                     $event.data +' passed from card')"
-      />
+    <div class="text-3xl text-zinc-200 text-center px-4 pb-2">
+      {{ props.name }}
     </div>
-    <!-- bio -->
-    <MobBio
-      :name="props.name"
-      :desc="props.desc"
-      :avatar="props.avatar"
-      :size="props.size"
-      :type="props.type"
-      :alignment="props.alignment"
-      :challenge-rating="props.challengeRating"
-      :xp-gained="props.xpGained"
-    />
-    <div class="grid grid-cols-2 gap-1">
-      <!-- speed -->
-      <MobSpeed :speed="props.speed" />
-      <!-- senses -->
-      <MobSenses :senses="props.senses" />
-      <!-- languages -->
-      <MobLanguages
-        :lang="props.lang"
-        class="col-span-2"
-      />
-    </div>
-
-    <div class="grid grid-cols-[1fr_.75fr] gap-2">
-      <!-- armor score -->
-      <MobArmor :armor="props.armor" />
+    <div class="grid grid-cols-2 gap-4">
+      <!-- left col -->
+      <!-- ability scores -->
       <!-- HP controls -->
-      <MobHpControls :base-hp="props.baseHp" />
+      <!-- armor score -->
+      <div class="grid grid-cols-1 gap-4">
+        <MobHpControls :base-hp="props.baseHp" />
+        <MobArmor :armor="props.armor" />
+        <MobAbilityScores
+          :ability-scores="props.abilityScores"
+          :ability-saves="props.abilitySaves"
+        />
+      </div>
+      <!-- right col -->
+      <!-- bio -->
+      <!-- speed -->
+      <!-- senses -->
+      <!-- languages -->
+      <!-- defense -->
+      <div class="grid grid-cols-1 gap-4 place-content-start">
+        <MobBio
+          :size="props.size"
+          :type="props.type"
+          :alignment="props.alignment"
+          :challenge-rating="props.challengeRating"
+        />
+        <MobSpeed :speed="props.speed" />
+        <MobSenses :senses="props.senses" />
+        <MobLanguages :lang="props.lang" />
+        <MobDefenses
+          :damage-vulnerabilities="props.damageVulnerabilities"
+          :damage-resistances="props.damageResistances"
+          :damage-immunities="props.damageImmunities"
+          :condition-immunities="props.conditionImmunities"
+        />
+      </div>
     </div>
 
-    <!-- ability scores -->
-    <MobAbilityScores
-      :ability-scores="props.abilityScores"
-      :ability-saves="props.abilitySaves"
-    />
-
-    <!-- defense -->
-    <MobDefenses
-      :damage-vulnerabilities="props.damageVulnerabilities"
-      :damage-resistances="props.damageResistances"
-      :damage-immunities="props.damageImmunities"
-      :condition-immunities="props.conditionImmunities"
-    />
     <!-- special abilities -->
-    <MobSpecialAbilities :special-abilities="props.specialAbilities" />
+    <MobSpecialAbilities
+      v-show="showAbilities"
+      :special-abilities="props.specialAbilities"
+    />
 
     <!-- actions -->
-    <MobActions :actions="props.actions" />
+    <MobActions
+      v-show="showActions"
+      :actions="props.actions"
+    />
 
     <!-- actions (legendary) -->
     <MobActionsLegendary
+      v-show="showlegendaryAct"
       :legendary-actions="props.legendaryActions"
       :legendary-desc="props.legendaryDesc"
     />
@@ -83,6 +90,8 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+
 import BanishMob from '../components-functions/BanishMob'
 import CloneMob from '@/components-functions/CloneMob.vue'
 
@@ -132,11 +141,9 @@ const props = defineProps({
   legendaryDesc: { type: String, default: '' }
 
 })
-
-/* function removeMobCard (indx) {
-  emit('emitRemoveMobCard', indx)
-  console.log(indx + ' card')
-} */
+const showAbilities = ref(false)
+const showActions = ref(false)
+const showlegendaryAct = ref(false)
 
 </script>
 

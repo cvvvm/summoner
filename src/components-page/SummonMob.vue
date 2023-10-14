@@ -1,11 +1,21 @@
 <template>
   <!-- search backdrop -->
   <div
-    className="summon-mob-backdrop"
+    class="fixed flex-initial flex
+      place-content-center place-items-center
+      top-0 left-0 h-full w-full
+      bg-zinc-700 bg-opacity-75"
     @click.self="closeModal"
   >
     <!-- search container -->
-    <div class="summon-mob-container">
+    <div
+      class="
+      relative flex-initial
+      max-w-sm
+      p-8 rounded-xl
+      bg-zinc-950 text-zinc-400
+      border border-yellow-600"
+    >
       <button @click="$emit('close')">
         X
       </button>
@@ -67,25 +77,4 @@ function closeModal () {
 </script>
 
 <style>
-  .summon-mob-container {
-    position: relative;
-    flex: 0 1 auto;
-    max-width: 90vw;
-    height: 90vh;
-    padding: 2rem;
-    top: 15%;
-    border-radius: var(--space-md);
-    background: white;
-  }
-  .summon-mob-backdrop {
-    overflow: auto;
-    position: fixed;
-    display: flex;
-    place-content: center;
-    place-items: flex-start;
-    top: 0;
-    width: 100dvw;
-    height: 100dvh;
-    background: rgba(0,0,0,.5);
-  }
 </style>

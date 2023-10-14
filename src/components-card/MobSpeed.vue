@@ -1,11 +1,11 @@
 <template>
-  <div class="grid grid-cols-1 gap-1">
+  <div class="grid gap-1">
     <div
       v-for="(speedVal, speedType, index) in props.speed"
       :key="index"
       class="label"
     >
-      {{ speedType }}:
+      <span>{{ speedType }}:</span>
       <span class="val-sm">
         {{ speedVal }}
       </span>
