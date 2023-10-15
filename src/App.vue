@@ -21,9 +21,9 @@
       </button>
     </div>
 
-    <div class="flex gap-2">
-      {{ toggleGlobalCardPanel }}
-      <button @click="toggleGlobalCardPanel = ''">
+    <div class="flex gap-2 items-center">
+      <p>all cards: {{ toggleGlobalCardPanel }}</p>
+      <button @click="toggleGlobalCardPanel = 'collapse'">
         collapse
       </button>
       <button @click="toggleGlobalCardPanel = 'details'">
@@ -62,7 +62,7 @@ import SummonMob from './components-page/SummonMob.vue'
 const summonModalOpen = ref(false)
 const mobs = reactive([])
 const mobsSearchList = ref([])
-const toggleGlobalCardPanel = ref('details')
+const toggleGlobalCardPanel = ref('collapse')
 
 // SORTING
 // -----------------------------------------------------------
@@ -128,8 +128,9 @@ function getMobsSearchList () {
 
 onMounted(() => {
   getMobsSearchList()
-  addMob('androsphinx')
+  /* addMob('androsphinx')
   addMob('goblin')
+  addMob('air elemental') */
   addMob('adult black dragon')
 })
 

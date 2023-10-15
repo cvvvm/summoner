@@ -2,14 +2,19 @@
   <div
     class="grid grid-cols-1 grid-rows-[1fr_min-content] gap-2
     p-2 pt-2 rounded-lg
-    bg-zinc-950"
+    bg-zinc-900"
     :class="HPbgColor"
   >
+    <!-- HP CONTAINER -->
+    <!------------------------------------------------>
     <div
-      class="grid grid-cols-[1fr_2fr] place-content-center place-items-center"
+      class="grid grid-cols-[max-content_2fr] gap-2
+              place-content-center place-items-center
+              p-1 rounded-md
+              bg-zinc-950"
     >
       <!-- HP VALUE -->
-      <h4 class="text-xl text-zinc-200">
+      <h4 class="pl-1 text-xl text-zinc-200">
         HP
       </h4>
 
@@ -26,7 +31,7 @@
 
     <!-- math & buttons container -->
     <div
-      class="grid grid-cols-[.25fr_minmax(35px,_1fr)_.25fr] gap-1 place-self-center"
+      class="grid grid-cols-[.25fr_minmax(35px,_1fr)_.25fr] gap-2 place-self-center"
       @click="checkHP()"
     >
       <button
@@ -35,12 +40,14 @@
       >
         -
       </button>
+      <!-- HP MOD INPUT -->
+      <!------------------------------------------------>
       <input
         v-model="hpChange"
         type="number"
         class="text-center
         px-1 rounded-md
-        text-zinc-950 bg-zinc-400
+        text-zinc-200 bg-zinc-900
           border border-zinc-500"
       >
       <button

@@ -1,5 +1,7 @@
 <template>
   <div class="grid grid-cols-6 gap-2 place-content-start">
+    <!-- ABILITY SCORES -->
+    <!------------------------------------------------>
     <div
       v-for="(ability, index) in props.abilityScores"
       :key="index"
@@ -9,7 +11,7 @@
         :key="scoreIndex"
         class="grid grid-cols-1 place-items-center
         p-2 pb-2 rounded-md
-        bg-zinc-900"
+        bg-zinc-800"
       >
         <div>{{ abilityName.substring(0, 3) }}</div>
         <div class="val-lg">
@@ -18,7 +20,8 @@
       </div>
     </div>
 
-    <!-- saving throws -->
+    <!-- SAVING THROWS -->
+    <!------------------------------------------------>
     <div
       v-for="(ability, index) in props.abilitySaves"
       :key="index"
@@ -28,7 +31,7 @@
         :key="scoreIndex"
         class="grid grid-cols-1 place-items-center
         py-1 rounded-md
-        bg-zinc-950"
+        bg-zinc-900"
       >
         <div class="text-sm">
           save

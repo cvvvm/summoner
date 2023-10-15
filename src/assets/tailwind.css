@@ -40,7 +40,7 @@ button.warn:active {
           align-baseline self-start
           px-2 py-1 rounded-sm
           text-sm
-          text-zinc-300 bg-zinc-900;
+          text-zinc-300 bg-zinc-800;
 }
 
 .val-container {

@@ -24,20 +24,33 @@
     </div>
 
     <!-- atk roll button -->
-    <button @click="rollAttackDmg(props.dice, numDmgs, props.dmgMod, props.hitMod)">
+    <button
+      class="hover:text-red-200 hover:bg-red-600 active:text-red-200 active:bg-red-700"
+      @click="rollAttackDmg(props.dice, numDmgs, props.dmgMod, props.hitMod)"
+    >
       attack
     </button>
   </div>
-  <!-- math container -->
+  <!-- MATH CONTAINER -->
+  <!------------------------------------------------>
   <div
-    class="flex gap-2 place-content-evenly
-        pt-2"
+    class="flex place-content-start gap-4
+  pt-2 pl-2"
   >
-    <div class="text-sm text-zinc-500">
-      hit {{ hitRollMath }}
+    <!-- hit roll -->
+    <div class="flex text-sm text-zinc-500">
+      hit:<span
+        class="px-1 mr-1 bg-zinc-950"
+      >1d20</span>{{ hitRollMath }}
     </div>
-    <div class="text-sm text-zinc-500">
-      dmg {{ dmgRollMath }}
+
+    <!-- dmg roll -->
+    <div class="flex text-sm text-zinc-500">
+      dmg:<span
+        v-for="roll in props.dice"
+        :key="roll"
+        class="px-1 mr-1 bg-zinc-950"
+      >{{ roll }}</span>{{ dmgRollMath }}
     </div>
   </div>
 </template>
@@ -46,9 +59,9 @@
 import { ref } from 'vue'
 import { mobFunctions } from '../mobFunctions'
 const dmgResult = ref(0)
-const dmgRollMath = ref('roll')
+const dmgRollMath = ref('')
 const hitResult = ref(0)
-const hitRollMath = ref('roll')
+const hitRollMath = ref('')
 const props = defineProps({
   hitMod: { type: Number, default: 0 },
   dice: { type: Array, default: () => [] },

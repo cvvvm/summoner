@@ -20,7 +20,7 @@ export const mobFunctions = {
     // format math string
     const hitMathStr = hitMath
       .toString()
-      .replace(/\),/gm, ') + ')
+      .replace(/\),/gm, ')+')
       .replace(/\(,/gm, '(')
       .replace(/,\)/gm, ')')
       .replace(/,/gm, ' + ')
@@ -57,7 +57,7 @@ export const mobFunctions = {
     // format math string
     const dmgMathStr = dmgMath
       .toString()
-      .replace(/\),/gm, ') + ')
+      .replace(/\),/gm, ')+')
       .replace(/\(,/gm, '(')
       .replace(/,\)/gm, ')')
       .replace(/,/gm, '+')
