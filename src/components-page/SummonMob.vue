@@ -1,13 +1,14 @@
 <template>
-  <!-- search backdrop -->
+  <!-- backdrop -->
   <div
     class="fixed flex-initial flex
       place-content-center place-items-center
       top-0 left-0 h-full w-full
       bg-zinc-700 bg-opacity-75"
-    @click.self="closeModal"
+    @click.self="closeSummonModal"
+    @keypress.esc="closeSummonModal"
   >
-    <!-- search container -->
+    <!-- summon container -->
     <div
       class="
       relative flex-initial
@@ -74,7 +75,7 @@ const props = defineProps({
   searchList: { type: Array, default: () => {} }
 })
 
-function closeModal () {
+function closeSummonModal () {
   emit('close')
 }
 

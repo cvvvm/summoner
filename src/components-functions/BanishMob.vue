@@ -62,8 +62,8 @@ defineProps({
   mobIndex: { type: Number, default: 0 },
   name: { type: String, default: '' }
 })
-const isBanishModalOpen = ref(false)
 
+const isBanishModalOpen = ref(false)
 function toggleBanishModal () {
   isBanishModalOpen.value = !isBanishModalOpen.value
 }

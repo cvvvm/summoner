@@ -7,14 +7,37 @@
       p-4 rounded-xl
     bg-black"
   >
-    <!-- name -->
-    <h1
-      class="self-center
+    <!-- full screen + name container -->
+    <div class="flex">
+      <button
+        class="px-1 justify-self-start self-start"
+        @click="toggleFullCard"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"
+          />
+        </svg>
+      </button>
+
+      <!-- name -->
+      <h1
+        class="flex-grow
                 px-4 py-2 pt-3
-                text-2xl text-zinc-200"
-    >
-      {{ props.name }}
-    </h1>
+                text-2xl text-zinc-200 text-center"
+      >
+        {{ props.name }}
+      </h1>
+    </div>
 
     <!-- armor, HP -->
     <!------------------------------------------------>
@@ -71,6 +94,7 @@
       class="grid grid-cols-[1fr_.9fr] gap-4"
     >
       <MobAbilityScores
+        :col-num="6"
         :ability-scores="props.abilityScores"
         :ability-saves="props.abilitySaves"
         class="col-span-2"
@@ -124,6 +148,36 @@
       :legendary-desc="props.legendaryDesc"
     />
   </div> <!-- card end -->
+
+  <!-- FULL CARD -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <MobCardFull
+    v-show="isFullCardOpen"
+    :mob-index="props.mobIndex"
+    :name="props.name"
+    :alignment="props.alignment"
+    :size="props.size"
+    :type="props.type"
+    :ability-scores="props.abilityScores"
+    :ability-saves="props.abilitySaves"
+    :base-hp="props.baseHp"
+    :armor="props.armor"
+    :challenge-rating="props.challengeRating"
+    :damage-vulnerabilities="props.damageVulnerabilities"
+    :damage-resistances="props.damageResistances"
+    :damage-immunities="props.damageImmunities"
+    :condition-immunities="props.conditionImmunities"
+    :special-abilities="props.specialAbilities"
+    :actions="props.actions"
+    :legendary-actions="props.legendaryActions"
+    :legendary-desc="props.legendaryDesc"
+    :speed="props.speed"
+    :senses="props.senses"
+    :lang="props.lang"
+
+    @pass-toggle-full-card="toggleFullCard"
+  />
 </template>
 
 <script setup>
@@ -131,6 +185,7 @@ import { ref, reactive } from 'vue'
 
 import BanishMob from '../components-functions/BanishMob'
 import CloneMob from '@/components-functions/CloneMob.vue'
+import MobCardFull from './MobCardFull.vue'
 
 import MobBio from '../components-card/MobBio.vue'
 import MobHpControls from '../components-card/MobHpControls.vue'
@@ -144,7 +199,7 @@ import MobLanguages from '../components-card/MobLanguages.vue'
 import MobActions from '../components-card/MobActions.vue'
 import MobActionsLegendary from '../components-card/MobActionsLegendary.vue'
 
-defineEmits(['passMob'])
+defineEmits(['passMob', 'passToggleFullCard'])
 
 const props = defineProps({
   toggleGlobalCardPanel: { type: String, default: '' },
@@ -177,16 +232,12 @@ const props = defineProps({
 const panelsList = reactive(['details', 'abilities', 'actions'])
 const toggledLocalPanel = ref(props.toggleGlobalCardPanel)
 
+const isFullCardOpen = ref(false)
+function toggleFullCard () {
+  isFullCardOpen.value = !isFullCardOpen.value
+}
 </script>
 
 <style>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 225ms ease-in;
-}
 
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
 </style>

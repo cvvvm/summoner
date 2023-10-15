@@ -128,9 +128,9 @@ function getMobsSearchList () {
 
 onMounted(() => {
   getMobsSearchList()
-  /* addMob('androsphinx')
+  addMob('androsphinx')
   addMob('goblin')
-  addMob('air elemental') */
+  addMob('air elemental')
   addMob('adult black dragon')
 })
 

@@ -1,126 +1,139 @@
 <template>
-  local: {{ toggledLocalPanel }} |
-  global: {{ props.toggleGlobalCardPanel }} |
-  <!-- card -->
+  <!-- backdrop -->
   <div
-    class=" grid grid-cols-1 gap-4
-        p-4 rounded-xl
-        bg-black"
+    class="fixed top-0 left-0 h-full w-full
+        flex-initial flex place-content-center place-items-center
+        p-8
+        bg-zinc-700 bg-opacity-75"
+    @click.self="$emit('passToggleFullCard')"
   >
-    <!-- name -->
-    <h1
-      class="self-center
-                px-4 py-2 pt-3
-                text-2xl text-zinc-200"
-    >
-      {{ props.name }}
-    </h1>
-
-    <!-- armor, HP -->
-    <!------------------------------------------------>
-    <div class="grid grid-cols-[min-content_1.5fr_1.2fr] gap-3">
-      <!-- clone / dupe -->
-      <div class="flex flex-col gap-2 justify-center">
-        <CloneMob
-          :mob-index="props.mobIndex"
-          :name="props.name"
-          @pass-mob="$emit('passMob', $event);
-                     console.log($event.type + ' index ' +
-                       $event.data + ' passed from card')"
-        />
-        <BanishMob
-          :mob-index="props.mobIndex"
-          :name="props.name"
-          @pass-mob="$emit('passMob', $event);
-                     console.log($event.type + ' index ' +
-                       $event.data + ' passed from card')"
-        />
-      </div>
-      <MobArmor :armor="props.armor" />
-      <MobHpControls :base-hp="props.baseHp" />
-    </div>
-
-    <!-- panel toggles -->
-    <!------------------------------------------------>
-    <div class="grid grid-cols-3 gap-2">
-      <button
-        v-for="panel in panelsList"
-        :key="panel"
-        class="rounded-md"
-        :class="toggledLocalPanel == panel ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' : 'bg-zinc-900'"
-        @click="toggledLocalPanel == panel ? toggledLocalPanel = 'collapse' : toggledLocalPanel = panel"
-      >
-        {{ panel }}
-      </button>
-    </div>
-
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-    <!--  PANELS  -->
-
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-    <!-- details-->
-
+    <!-- CARD -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div
-      class="grid grid-cols-[1fr_.9fr] gap-4"
+      class="relative h-full w-full
+    grid grid-cols-[500px_1fr_1fr] gap-8
+    content-start items-start
+    p-4 rounded-xl
+    bg-black"
     >
-      <MobAbilityScores
-        :ability-scores="props.abilityScores"
-        :ability-saves="props.abilitySaves"
-        class="col-span-2"
-      />
-      <MobBio
-        :size="props.size"
-        :type="props.type"
-        :alignment="props.alignment"
-        :challenge-rating="props.challengeRating"
-        class="col-span-2"
-      />
+      <!--  COLUMN 1  -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <div
+        class="flex flex-col gap-4 content-start
+      overflow-y-scroll h-full  "
+      >
+        <!-- close button -->
+        <button
+          class="justify-self-center self-start px-1"
+          @click="$emit('passToggleFullCard')"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 9V4.5M9 9H4.5M9 9L3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5l5.25 5.25"
+            />
+          </svg>
+        </button>
 
-      <!-- left details col -->
-      <div class="grid grid-cols-1 gap-4 place-content-start">
+        <!-- name -->
+        <h1
+          class="self-center
+            text-2xl text-zinc-200"
+        >
+          {{ props.name }}
+        </h1>
+
+        <!-- armor, HP -->
+        <div class="grid grid-cols-2 gap-4">
+          <MobArmor :armor="props.armor" />
+          <MobHpControls :base-hp="props.baseHp" />
+        </div>
+
+        <MobAbilityScores
+          :col-num="6"
+          :ability-scores="props.abilityScores"
+          :ability-saves="props.abilitySaves"
+          class="col-span-2"
+        />
+
+        <MobBio
+          :size="props.size"
+          :type="props.type"
+          :alignment="props.alignment"
+          :challenge-rating="props.challengeRating"
+        />
+
+        <!-- details sub grid -->
+        <!------------------------------------------------>
+        <!-- <div class="grid grid-cols-2 gap-4"> -->
+        <!-- details column 1 -->
+        <!-- <div class="flex flex-col gap-4"> -->
         <MobSpeed :speed="props.speed" />
+        <MobLanguages :lang="props.lang" />
+        <!-- </div> -->
+        <!-- details column 2 -->
+        <!-- <div class="flex flex-col gap-4"> -->
         <MobDefenses
           :damage-vulnerabilities="props.damageVulnerabilities"
           :damage-resistances="props.damageResistances"
           :damage-immunities="props.damageImmunities"
           :condition-immunities="props.conditionImmunities"
         />
-      </div>
 
-      <!-- right details col -->
-      <div class="grid grid-cols-1 gap-4 place-content-start">
         <MobSenses :senses="props.senses" />
-        <MobLanguages :lang="props.lang" />
+        <!-- </div> -->
+        <!-- </div> --> <!-- end details sub grid -->
+      </div> <!-- end column 1 -->
+
+      <!-- COLUMN 2 -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- actions -->
+      <MobActions
+        class="content-start
+                overflow-y-scroll h-full"
+        :actions="props.actions"
+      />
+
+      <!-- COLUMN 3 -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <div
+        class="grid gap-8
+                content-start
+                overflow-y-auto h-full"
+      >
+        <!-- special abilities -->
+        <MobSpecialAbilities
+          class="overflow-y-auto"
+          :special-abilities="props.specialAbilities"
+        />
+
+        <!-- actions (legendary) -->
+        <MobActionsLegendary
+          class="overflow-y-auto"
+          :legendary-actions="props.legendaryActions"
+          :legendary-desc="props.legendaryDesc"
+        />
       </div>
-    </div> <!-- end details  -->
-
-    <!-- special abilities -->
-    <MobSpecialAbilities
-      :special-abilities="props.specialAbilities"
-    />
-
-    <!-- actions -->
-    <MobActions
-      :actions="props.actions"
-    />
-
-    <!-- actions (legendary) -->
-    <MobActionsLegendary
-      :legendary-actions="props.legendaryActions"
-      :legendary-desc="props.legendaryDesc"
-    />
-  </div> <!-- card end -->
+    </div> <!-- card end -->
+  </div> <!-- backdrop end -->
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
 
-import BanishMob from '../components-functions/BanishMob'
-import CloneMob from '@/components-functions/CloneMob.vue'
+// import BanishMob from '../components-functions/BanishMob'
+// import CloneMob from '@/components-functions/CloneMob.vue'
 
 import MobBio from '../components-card/MobBio.vue'
 import MobHpControls from '../components-card/MobHpControls.vue'
@@ -134,17 +147,15 @@ import MobLanguages from '../components-card/MobLanguages.vue'
 import MobActions from '../components-card/MobActions.vue'
 import MobActionsLegendary from '../components-card/MobActionsLegendary.vue'
 
-defineEmits(['passMob'])
+defineEmits(['passMob', 'passToggleFullCard'])
 
 const props = defineProps({
-  toggleGlobalCardPanel: { type: String, default: '' },
   mobIndex: { type: Number, default: 0 },
 
   name: { type: String, default: '' },
   size: { type: String, default: '' },
   type: { type: String, default: '' },
   alignment: { type: String, default: '' },
-  xpGained: { type: Number, default: 0 },
   challengeRating: { type: Number, default: 0 },
   baseHp: { type: Number, default: 0 },
   armor: { type: Object, default: () => { } },
@@ -163,10 +174,6 @@ const props = defineProps({
   legendaryDesc: { type: String, default: '' }
 
 })
-
-const panelsList = reactive(['details', 'abilities', 'actions'])
-const toggledLocalPanel = ref(props.toggleGlobalCardPanel)
-
 </script>
 
 <style>
