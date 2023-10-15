@@ -1,7 +1,6 @@
 <template>
   <div
-    class="grid gap-2 place-content-start"
-    :class="'grid-cols-'+ props.colNum"
+    class="grid gap-2 place-content-start grid-cols-6"
   >
     <!-- ABILITY SCORES -->
     <!------------------------------------------------>
@@ -52,8 +51,7 @@
 <script setup>
 const props = defineProps({
   abilityScores: { type: Object, default: () => {} },
-  abilitySaves: { type: Object, default: () => {} },
-  colNum: { type: Number, default: 0 }
+  abilitySaves: { type: Object, default: () => {} }
 })
 
 </script>

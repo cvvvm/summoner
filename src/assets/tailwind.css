@@ -10,6 +10,35 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+::-webkit-scrollbar {
+  width: min-content;
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  color: inherit;
+  width: 4px;
+}
+
+body::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.5);
+  color: inherit;
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: rgba(202, 138, 4, 1);
+  color: inherit;
+  width: 4px;
+}
+
+::-webkit-scrollbar:window-inactive {
+  visibility: hidden;
+}
+
+/*forms */
 input[type='number']::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }

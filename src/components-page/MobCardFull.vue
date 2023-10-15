@@ -1,7 +1,8 @@
 <template>
   <!-- backdrop -->
   <div
-    class="fixed top-0 left-0 h-full w-full
+    class="fixed top-0 left-0
+        h-full w-full
         flex-initial flex place-content-center place-items-center
         p-8
         bg-zinc-700 bg-opacity-75"
@@ -11,18 +12,18 @@
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div
-      class="relative h-full w-full
-    grid grid-cols-[500px_1fr_1fr] gap-8
-    content-start items-start
-    p-4 rounded-xl
-    bg-black"
+      class="relative w-full h-full
+            grid grid-cols-[500px_1fr_1fr] gap-8
+            content-start items-start
+            p-4 rounded-xl
+            bg-black"
     >
       <!--  COLUMN 1  -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <div
         class="flex flex-col gap-4 content-start
-      overflow-y-scroll h-full  "
+                overflow-y-auto h-full"
       >
         <!-- close button -->
         <button
@@ -48,6 +49,7 @@
         <!-- name -->
         <h1
           class="self-center
+            pb-6
             text-2xl text-zinc-200"
         >
           {{ props.name }}
@@ -60,10 +62,8 @@
         </div>
 
         <MobAbilityScores
-          :col-num="6"
           :ability-scores="props.abilityScores"
           :ability-saves="props.abilitySaves"
-          class="col-span-2"
         />
 
         <MobBio
@@ -101,7 +101,7 @@
       <!-- actions -->
       <MobActions
         class="content-start
-                overflow-y-scroll h-full"
+                overflow-y-auto h-full"
         :actions="props.actions"
       />
 
@@ -111,7 +111,8 @@
       <div
         class="grid gap-8
                 content-start
-                overflow-y-auto h-full"
+                h-full
+                overflow-y-auto"
       >
         <!-- special abilities -->
         <MobSpecialAbilities

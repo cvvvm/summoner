@@ -94,7 +94,6 @@
       class="grid grid-cols-[1fr_.9fr] gap-4"
     >
       <MobAbilityScores
-        :col-num="6"
         :ability-scores="props.abilityScores"
         :ability-saves="props.abilitySaves"
         class="col-span-2"
@@ -199,7 +198,7 @@ import MobLanguages from '../components-card/MobLanguages.vue'
 import MobActions from '../components-card/MobActions.vue'
 import MobActionsLegendary from '../components-card/MobActionsLegendary.vue'
 
-defineEmits(['passMob', 'passToggleFullCard'])
+defineEmits(['passMob'])
 
 const props = defineProps({
   toggleGlobalCardPanel: { type: String, default: '' },
