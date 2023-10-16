@@ -1,13 +1,17 @@
 <template>
-  <div
-    class="legendary-actions-container container-lvl1"
-  >
+  <!-- legendary actions container -->
+  <div class="grid grid-cols-1 items-start justify-items-stretch gap-4 py-4">
+    <!-- desc container -->
     <div class="grid gap-2 px-4 pb-4">
       <h2 class="text-lg">
         legendary actions
       </h2>
       <p>{{ props.legendaryDesc }}</p>
     </div>
+
+    <!-- legendary actions map -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div
       v-for="action in props.legendaryActions"
       :key="action"
@@ -28,7 +32,7 @@
         <!-- <p><span class="val-sm">{{ damageFeat.damage_dice }}</span> {{ damageFeat.damage_type.name.toLowerCase() }}</p> -->
         <MobActionDmg :dmg-actions="action.damage" />
       </div>
-      <div class="legendary-action-desc-block">
+      <div class="grid gap-2">
         <div
           v-for="subaction in action.desc.toLowerCase().split(/\. /g)"
           :key="subaction"

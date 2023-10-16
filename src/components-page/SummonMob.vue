@@ -3,6 +3,7 @@
   <div
     class="fixed flex-initial flex
       place-content-center place-items-center
+      z-50
       top-0 left-0 h-full w-full
       bg-zinc-700 bg-opacity-75"
     @click.self="closeSummonModal"
@@ -26,7 +27,8 @@
         @input="onChange"
         @keypress.enter="$emit('summonMob', mobSearch); $emit('close')"
       >
-      <div class="flex place-content-between gap-4">
+      <!-- buttons -->
+      <div class="grid grid-cols-2 gap-4">
         <button @click="$emit('close')">
           cancel
         </button>

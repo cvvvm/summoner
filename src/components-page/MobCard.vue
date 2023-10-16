@@ -44,16 +44,16 @@
     <div class="grid grid-cols-[min-content_1.5fr_1.2fr] gap-3">
       <!-- clone / dupe -->
       <div
-        class="flex flex-col gap-2 justify-center"
+        class="flex flex-col gap-4 justify-center"
       >
-        <CloneMob
+        <BanishMob
           :mob-index="props.mobIndex"
           :name="props.name"
           @pass-mob="$emit('passMob', $event);
                      console.log($event.type + ' index ' +
                        $event.data + ' passed from card')"
         />
-        <BanishMob
+        <CloneMob
           :mob-index="props.mobIndex"
           :name="props.name"
           @pass-mob="$emit('passMob', $event);
@@ -174,7 +174,6 @@
     :speed="props.speed"
     :senses="props.senses"
     :lang="props.lang"
-
     @pass-toggle-full-card="toggleFullCard"
   />
 </template>

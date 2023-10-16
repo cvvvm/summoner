@@ -1,9 +1,12 @@
 <template>
-  <!-- SPECIAL ABILITIES -->
-  <div class="actions-container container-lvl1 py-4">
+  <!-- actions container -->
+  <div class="grid grid-cols-1 items-start justify-items-stretch gap-4 py-4">
     <h2 class="text-lg px-4">
       actions
     </h2>
+    <!-- actions map -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div
       v-for="action in props.actions"
       :key="action"
@@ -16,7 +19,7 @@
       </h3>
 
       <!-- DESC -->
-      <div class="action-desc-block">
+      <div class="grid gap-2">
         <div
           v-for="subaction in action.desc.toLowerCase().replace('ft.', 'ft').split(/\. /g)"
           :key="subaction"
@@ -65,10 +68,6 @@ const props = defineProps({
 </script>
 
 <style>
-  .actions-container {
-      grid-template-columns: 1fr;
-      place-items: start stretch;
-    }
 
   .action-block {
       display: grid;

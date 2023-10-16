@@ -35,7 +35,7 @@
       @click="checkHP()"
     >
       <button
-        class="rounded-md"
+        class="rounded-md hover:bg-red-700 hover:text-red-200 active:bg-red-800 active:text-red-400"
         @click.exact="dmgMob(hpChange)"
       >
         -
@@ -51,7 +51,7 @@
           border border-zinc-500"
       >
       <button
-        class="rounded-md"
+        class="rounded-md hover:bg-green-800 hover:text-green-200 active:bg-green-900 active:text-green-400"
         @click.exact="healMob(hpChange)"
       >
         +
