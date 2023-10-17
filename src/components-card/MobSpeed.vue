@@ -5,8 +5,14 @@
       :key="index"
       class="flex gap-1 items-center"
     >
-      <span class="py-0.5 px-2 rounded-sm bg-zinc-900 text-sm">{{ speedType }}:</span>
-      <span class="text-sm text-zinc-50">{{ speedVal }}</span>
+      <span
+        v-if="speedVal != 0"
+        class="py-0.5 px-2 rounded-sm bg-zinc-900 text-sm"
+      >{{ speedType }}:</span>
+      <span
+        v-if="speedVal != 0"
+        class="text-sm text-zinc-50"
+      >{{ speedVal }}</span>
     </div>
   </div>
 

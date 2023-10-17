@@ -6,7 +6,7 @@
     bg-black"
   >
     <!-- full screen + name container -->
-    <div class="flex sticky top-14 bg-black py-4 shadow-[0px_8px_14px] shadow-black">
+    <div class="flex sticky top-14 bg-black py-4 shadow-[0px_8px_12px] shadow-black">
       <button
         class="justify-self-start self-start
               px-1
@@ -130,12 +130,12 @@
       </div>
 
       <!-- details col 2 -->
-      <div class="grid gap-4 content-start col-span-2 xs:col-span-1">
-        <MobLanguages
-          :lang="props.lang"
-        />
+      <div class="grid gap-4 gap-y-2 content-start col-span-2 xs:col-span-1">
         <MobSpeed
           :speed="props.speed"
+        />
+        <MobLanguages
+          :lang="props.lang"
         />
       </div>
 
@@ -145,7 +145,7 @@
         :damage-resistances="props.damageResistances"
         :damage-immunities="props.damageImmunities"
         :condition-immunities="props.conditionImmunities"
-        class="mt-4 xs:col-span-2"
+        class="xs:col-span-2"
       />
     </div> <!-- end details  -->
   </div> <!-- card end -->
@@ -180,7 +180,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 
 import BanishMob from '../components-functions/BanishMob'
 import CloneMob from '@/components-functions/CloneMob.vue'
@@ -228,7 +228,7 @@ const props = defineProps({
 
 })
 
-const panelsList = reactive(['actions', 'abilities', 'details'])
+const panelsList = ['actions', 'abilities', 'details']
 const toggledLocalPanel = ref(props.toggleGlobalCardPanel)
 
 const isFullCardOpen = ref(false)

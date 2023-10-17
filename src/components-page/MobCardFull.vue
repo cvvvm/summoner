@@ -9,26 +9,29 @@
         bg-zinc-700 bg-opacity-75"
     @click.self="$emit('passToggleFullCard')"
   >
-    <!--  COLUMN 1  -->
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- card start -->
     <div
-      class="relative w-fit h-full
-            grid grid-cols-1 lg:grid-cols-[450px_minmax(400px,_500px)]
-            gap-x-12 gap-y-12 lg:gap-y-0
+      class="relative w-fit max-w-[95vw] h-fit max-h-[95vh]
+            grid grid-cols-1 md:grid-cols-[minmax(425px,_500px)_minmax(300px,_500px)]
+            gap-x-4 gap-y-12 lg:gap-x-8 lg:gap-y-0
             content-start items-start
             p-4 rounded-xl
             bg-black"
     >
+      <!--  COLUMN 1  -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <div
         class="flex flex-col gap-4 content-start
+                max-h-[90vh]
                 md:row-span-2
                 overflow-y-auto h-full"
       >
         <!-- close + name container -->
         <div
           class="flex sticky top-0
-                    bg-black"
+                shadow-[0px_8px_12px] shadow-black
+                bg-black"
         >
           <!-- close button -->
           <button
@@ -81,11 +84,11 @@
         />
         <!-- details sub grid -->
         <!------------------------------------------------>
-        <div class="grid grid-cols-2 gap-4">
-          <div class="grid gap-4 content-start">
+        <div class="grid grid-cols-[.8fr_1fr] gap-4 gap-y-2">
+          <div class="grid gap-4 gap-y-2 content-start">
             <MobSenses :senses="props.senses" />
           </div>
-          <div class="grid gap-4 content-start">
+          <div class="grid gap-4 gap-y-2 content-start">
             <MobSpeed :speed="props.speed" />
             <MobLanguages :lang="props.lang" />
           </div>
@@ -102,9 +105,9 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <div
-        class="grid gap-8
+        class="grid gap-4
+                max-h-[90vh]
                 items-start
-                h-full
                 overflow-y-auto"
       >
         <!-- toggle buttons -->
@@ -112,7 +115,8 @@
           class="sticky top-0
                     flex justify-center
                     gap-4
-                    pb-4
+                    pt-4 pb-4
+                    shadow-[0px_8px_12px] shadow-black
                     bg-black"
         >
           <button
