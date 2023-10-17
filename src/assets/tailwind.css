@@ -48,7 +48,7 @@ p {
 
 button {
   @apply text-sm font-normal text-zinc-300 bg-zinc-700 py-1 px-3 rounded-md transition-colors
-  hover:text-zinc-400 hover:bg-zinc-800;
+  hover:text-zinc-400 hover:bg-zinc-700;
 }
 
 button.warn {

@@ -7,6 +7,12 @@
           p-8 py-24"
   >
     <div
+      v-show="props.mobs.length === 0"
+      class="col-span-full text-center"
+    >
+      summon a monster to begin your command
+    </div>
+    <div
       v-for="mob, index in props.mobs"
       :key="mob"
     >
