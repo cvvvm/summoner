@@ -11,10 +11,10 @@
                 "
     >
       <div class="flex gap-2 items-center">
-        result: <span class="grow h-[28px] px-2 p-1 rounded-md bg-zinc-900 text-zinc-200"> {{ abilityRollResult[0] }}</span>
+        roll: <span class="grow h-[28px] px-2 p-1 rounded-md bg-zinc-900 text-zinc-200">{{ abilityRollResult[1] }}</span>
       </div>
       <div class="flex gap-2 items-center">
-        roll: <span class="grow h-[28px] px-2 p-1 rounded-md bg-zinc-900 text-zinc-200">{{ abilityRollResult[1] }}</span>
+        result: <span class="grow h-[28px] px-2 p-1 rounded-md bg-zinc-900 text-zinc-200"> {{ abilityRollResult[0] }}</span>
       </div>
     </div>
     <!-- ABILITY SCORES MAP -->
