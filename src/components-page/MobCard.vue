@@ -228,7 +228,7 @@ const props = defineProps({
 
 })
 
-const panelsList = reactive(['abilities', 'actions', 'details'])
+const panelsList = reactive(['actions', 'abilities', 'details'])
 const toggledLocalPanel = ref(props.toggleGlobalCardPanel)
 
 const isFullCardOpen = ref(false)

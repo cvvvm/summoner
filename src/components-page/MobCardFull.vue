@@ -5,7 +5,7 @@
         z-[9999]
         h-full w-full
         flex-initial flex place-content-center place-items-center
-        p-12
+        p-4
         bg-zinc-700 bg-opacity-75"
     @click.self="$emit('passToggleFullCard')"
   >
