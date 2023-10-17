@@ -129,9 +129,6 @@
         <!-- ACTIONS -->
         <!------------------------------------------------>
         <div v-show="toggledLocalPanel == 'actions'">
-          <h2 class="text-lg px-2">
-            actions
-          </h2>
           <MobActions
             :actions="props.actions"
           />
@@ -146,9 +143,6 @@
         <!-- ABILITIES -->
         <!------------------------------------------------>
         <div v-show="toggledLocalPanel == 'abilities'">
-          <h2 class="text-lg px-2">
-            abilities
-          </h2>
           <MobSpecialAbilities
             :special-abilities="props.specialAbilities"
           />
