@@ -1,9 +1,9 @@
 <template>
   <!-- backdrop -->
   <div
-    class="fixed flex-initial flex
+    class="fixed z-[9999]
+      flex-initial flex flex-wrap gap-12
       place-content-center place-items-center
-      z-[9999]
       top-0 left-0 h-full w-full
       bg-zinc-700 bg-opacity-75"
     @click.self="closeSummonModal"
@@ -15,7 +15,7 @@
       relative flex-initial
       grid grid-cols-1 gap-4
       max-w-sm
-      p-8 rounded-xl
+      p-8 pb-4 rounded-xl
       bg-zinc-950 text-zinc-400
       border border-yellow-600"
     >
@@ -47,17 +47,20 @@
     <!-- mob search list -->
     <div
       class="relative flex-initial
-      grid grid-cols-1 gap-4
-      max-w-sm
+      flex flex-row flex-wrap gap-4
+      max-h-full
       p-8 rounded-xl
       bg-zinc-950 text-zinc-400
       border border-yellow-600"
     >
-      <h3>full list</h3>
-      <ul>
+      <ul
+        class="flex flex-row flex-wrap gap-4
+      max-h-full"
+      >
         <li
           v-for="mob in props.searchList"
           :key="mob"
+          class="px-2 py-1 bg-zinc-700 hover:bg-zinc-500 hover:text-zinc-800 transition-colors"
           @click="mobSearch = mob.name"
         >
           {{ mob.name }}
@@ -70,7 +73,7 @@
 <script setup>
 import { ref } from 'vue'
 const emit = defineEmits(['close', 'summonMob'])
-const mobSearch = ref('Androsphinx')
+const mobSearch = ref('')
 // const searchSuggRes = ref([])
 
 const props = defineProps({
