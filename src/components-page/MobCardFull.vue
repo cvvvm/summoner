@@ -13,9 +13,9 @@
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div
-      class="relative w-full h-full
-            grid grid-cols-1 lg:grid-cols-[450px_1fr]
-            gap-12
+      class="relative w-fit h-full
+            grid grid-cols-1 lg:grid-cols-[450px_minmax(400px,_500px)]
+            gap-x-12 gap-y-12 lg:gap-y-0
             content-start items-start
             p-4 rounded-xl
             bg-black"
@@ -83,19 +83,19 @@
         <!------------------------------------------------>
         <div class="grid grid-cols-2 gap-4">
           <div class="grid gap-4 content-start">
-            <MobSpeed :speed="props.speed" />
-            <MobLanguages :lang="props.lang" />
             <MobSenses :senses="props.senses" />
           </div>
           <div class="grid gap-4 content-start">
-            <MobDefenses
-              :damage-vulnerabilities="props.damageVulnerabilities"
-              :damage-resistances="props.damageResistances"
-              :damage-immunities="props.damageImmunities"
-              :condition-immunities="props.conditionImmunities"
-            />
+            <MobSpeed :speed="props.speed" />
+            <MobLanguages :lang="props.lang" />
           </div>
         </div>
+        <MobDefenses
+          :damage-vulnerabilities="props.damageVulnerabilities"
+          :damage-resistances="props.damageResistances"
+          :damage-immunities="props.damageImmunities"
+          :condition-immunities="props.conditionImmunities"
+        />
       </div> <!-- end column 1 -->
 
       <!-- COLUMN 2 -->
