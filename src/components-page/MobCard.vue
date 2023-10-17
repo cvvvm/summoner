@@ -42,7 +42,7 @@
     <div class="grid grid-cols-[min-content_1.5fr_1.2fr] gap-3">
       <!-- clone / dupe -->
       <div
-        class="flex flex-col gap-4 justify-center"
+        class="flex flex-col gap-3 justify-center"
       >
         <BanishMob
           :mob-index="props.mobIndex"
