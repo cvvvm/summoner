@@ -14,8 +14,8 @@ export const mobFunctions = {
     hitMath.push(')')
 
     // add mod if value
-    if (rollMod > 0) hitResult.push(rollMod)
-    if (rollMod > 0) hitMath.push(rollMod)
+    if (rollMod) hitResult.push(rollMod)
+    if (rollMod) hitMath.push(rollMod)
 
     // format math string
     const hitMathStr = hitMath

@@ -1,6 +1,4 @@
 <template>
-  local: {{ toggledLocalPanel }} |
-  global: {{ props.toggleGlobalCardPanel }} |
   <!-- card -->
   <div
     class="grid grid-cols-1 gap-4
@@ -65,14 +63,19 @@
       <MobHpControls :base-hp="props.baseHp" />
     </div>
 
+    <MobAbilityScores
+      :ability-scores="props.abilityScores"
+      :ability-saves="props.abilitySaves"
+    />
+
     <!-- panel toggles -->
     <!------------------------------------------------>
-    <div class="grid grid-cols-3 gap-2">
+    <div class="grid grid-cols-3 gap-2 mt-2">
       <button
         v-for="panel in panelsList"
         :key="panel"
         class="rounded-md"
-        :class="toggledLocalPanel == panel ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' : 'bg-zinc-900'"
+        :class="toggledLocalPanel == panel ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' : 'text-zinc-400 border bg-zinc-950 border-zinc-700  hover:border-yellow-500'"
         @click="toggledLocalPanel == panel ? toggledLocalPanel = 'collapse' : toggledLocalPanel = panel"
       >
         {{ panel }}
@@ -87,17 +90,29 @@
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-    <!-- details-->
+    <!-- special abilities -->
+    <MobSpecialAbilities
+      v-show="toggledLocalPanel == 'abilities'"
+      :special-abilities="props.specialAbilities"
+    />
 
+    <!-- actions -->
+    <MobActions
+      v-show="toggledLocalPanel == 'actions'"
+      :actions="props.actions"
+    />
+
+    <!-- actions (legendary) -->
+    <MobActionsLegendary
+      v-show="toggledLocalPanel == 'actions'"
+      :legendary-actions="props.legendaryActions"
+      :legendary-desc="props.legendaryDesc"
+    />
+    <!-- details-->
     <div
       v-show="toggledLocalPanel == 'details'"
       class="grid grid-cols-[1fr_.9fr] gap-4"
     >
-      <MobAbilityScores
-        :ability-scores="props.abilityScores"
-        :ability-saves="props.abilitySaves"
-        class="col-span-2"
-      />
       <MobBio
         :size="props.size"
         :type="props.type"
@@ -127,25 +142,6 @@
         />
       </div>
     </div> <!-- end details  -->
-
-    <!-- special abilities -->
-    <MobSpecialAbilities
-      v-show="toggledLocalPanel == 'abilities'"
-      :special-abilities="props.specialAbilities"
-    />
-
-    <!-- actions -->
-    <MobActions
-      v-show="toggledLocalPanel == 'actions'"
-      :actions="props.actions"
-    />
-
-    <!-- actions (legendary) -->
-    <MobActionsLegendary
-      v-show="toggledLocalPanel == 'actions'"
-      :legendary-actions="props.legendaryActions"
-      :legendary-desc="props.legendaryDesc"
-    />
   </div> <!-- card end -->
 
   <!-- FULL CARD -->
@@ -159,7 +155,6 @@
     :size="props.size"
     :type="props.type"
     :ability-scores="props.abilityScores"
-    :ability-saves="props.abilitySaves"
     :base-hp="props.baseHp"
     :armor="props.armor"
     :challenge-rating="props.challengeRating"
@@ -227,7 +222,7 @@ const props = defineProps({
 
 })
 
-const panelsList = reactive(['details', 'abilities', 'actions'])
+const panelsList = reactive(['abilities', 'actions', 'details'])
 const toggledLocalPanel = ref(props.toggleGlobalCardPanel)
 
 const isFullCardOpen = ref(false)

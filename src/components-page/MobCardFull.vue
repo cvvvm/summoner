@@ -2,6 +2,7 @@
   <!-- backdrop -->
   <div
     class="fixed top-0 left-0
+        z-[9999]
         h-full w-full
         flex-initial flex place-content-center place-items-center
         p-8
@@ -99,11 +100,15 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- actions -->
-      <MobActions
-        class="content-start
-                overflow-y-auto h-full"
-        :actions="props.actions"
-      />
+      <div class="grid gap-4 content-start h-full overflow-y-auto">
+        <h2 class="text-lg px-2">
+          actions
+        </h2>
+        <MobActions
+          class=" overflow-y-auto"
+          :actions="props.actions"
+        />
+      </div>
 
       <!-- COLUMN 3 -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -115,10 +120,15 @@
                 overflow-y-auto"
       >
         <!-- special abilities -->
-        <MobSpecialAbilities
-          class="overflow-y-auto"
-          :special-abilities="props.specialAbilities"
-        />
+        <div class="grid gap-4 overflow-y-auto">
+          <h2 class="text-lg px-2">
+            abilities
+          </h2>
+          <MobSpecialAbilities
+            class="overflow-y-auto"
+            :special-abilities="props.specialAbilities"
+          />
+        </div>
 
         <!-- actions (legendary) -->
         <MobActionsLegendary

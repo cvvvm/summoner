@@ -1,8 +1,23 @@
 <template>
   <div
-    class="grid gap-2 place-content-start grid-cols-6"
+    class="grid grid-cols-6 gap-2 place-content-start mt-2"
   >
-    <!-- ABILITY SCORES -->
+    <!-- roll math container -->
+    <div
+      class="grid grid-cols-2 col-span-6
+                justify-evenly
+                gap-4
+                text-sm
+                "
+    >
+      <div class="flex gap-2 items-center">
+        result: <span class="grow h-[28px] px-2 p-1 rounded-md bg-zinc-900 text-zinc-200"> {{ abilityRollResult[0] }}</span>
+      </div>
+      <div class="flex gap-2 items-center">
+        roll: <span class="grow h-[28px] px-2 p-1 rounded-md bg-zinc-900 text-zinc-200">{{ abilityRollResult[1] }}</span>
+      </div>
+    </div>
+    <!-- ABILITY SCORES MAP -->
     <!------------------------------------------------>
     <div
       v-for="(ability, index) in props.abilityScores"
@@ -11,49 +26,65 @@
       <div
         v-for="(scoreValue, abilityName, scoreIndex) in ability"
         :key="scoreIndex"
-        class="grid grid-cols-1 place-items-center
-        p-2 pb-2 rounded-md
-        bg-zinc-800"
+        class="grid"
       >
-        <div>{{ abilityName.substring(0, 3) }}</div>
-        <div class="val-lg">
-          {{ scoreValue }}
-        </div>
-      </div>
-    </div>
+        <!-- score button -->
+        <!------------------------------------------------>
+        <button
+          class="grid grid-cols-1 place-items-center
+                p-2 pb-2 rounded-md
+              text-zinc-400 bg-zinc-800"
+          :class="abilityButtonHover"
+          @click="abilityRoll(Math.floor((scoreValue.score - 10) / 2))"
+        >
+          <div>{{ abilityName }}</div>
+          <div class="flex gap-1 items-center">
+            <div class="val-lg">
+              {{ scoreValue.score }}
+            </div>
+            <span class="text-sm text-zinc-400">{{ calcAbilityMod(scoreValue.score) }}</span>
+          </div>
+        </button>
 
-    <!-- SAVING THROWS -->
-    <!------------------------------------------------>
-    <div
-      v-for="(ability, index) in props.abilitySaves"
-      :key="index"
-    >
-      <div
-        v-for="(scoreValue, abilityName, scoreIndex) in ability"
-        :key="scoreIndex"
-        class="grid grid-cols-1 place-items-center
-        py-1 rounded-md
-        bg-zinc-900"
-      >
-        <div class="text-sm">
-          save
-        </div>
-        <span class="val-sm">{{ abilityName.substring(0, 3) }} +{{ (scoreValue == null) ? 0 : scoreValue }}</span>
+        <!-- save button -->
+        <!------------------------------------------------>
+        <button
+          class="flex justify-center out
+                      p-1 pt-0.5 mt-1 rounded-md
+                      text-sm text-zinc-400
+                      bg-zinc-900"
+          :class="abilityButtonHover"
+          @click="abilityRoll(scoreValue.saveMod ? scoreValue.saveMod : Math.floor((scoreValue.score - 10) / 2))"
+        >
+          save<span class="val-sm">{{ scoreValue.saveMod ? '+' + scoreValue.saveMod : calcAbilityMod(scoreValue.score) }}</span>
+        </button>
       </div>
     </div>
   </div>
 </template>
 
-<!-- <template v-for="(value, index) in otherclients">
-  <li v-for="(note, note_index) in value.doc.notes">{{ note.text }}</li>
-</template> -->
-
 <script setup>
+import { ref } from 'vue'
+import { mobFunctions } from '@/mobFunctions'
+
+const abilityRollResult = ref(0)
+const abilityBgColor = 'zinc'
+const abilityButtonHover = 'hover:outline hover:outline-2 hover:outline-yellow-500 hover:bg-' + abilityBgColor + '-900 hover:text-' + abilityBgColor + '-100 active:bg-' + abilityBgColor + '-800 active:text-' + abilityBgColor + '-300 transition-colors'
+
+function abilityRoll (mod) {
+  abilityRollResult.value = mobFunctions.rollDice(1, 20, mod)
+}
+
 const props = defineProps({
   abilityScores: { type: Object, default: () => {} },
   abilitySaves: { type: Object, default: () => {} }
 })
 
+function calcAbilityMod (scoreVal) {
+  const modAmt = Math.floor((scoreVal - 10) / 2)
+  if (modAmt < 0) return modAmt
+  else return '+' + modAmt
+}
 </script>
 
 <style>

@@ -47,20 +47,14 @@ p {
 }
 
 button {
-  @apply text-sm font-normal text-zinc-300 bg-zinc-700 py-1 px-3 rounded-md transition-colors;
-}
-button:hover {
-  @apply text-zinc-400 bg-zinc-800;
+  @apply text-sm font-normal text-zinc-300 bg-zinc-700 py-1 px-3 rounded-md transition-colors
+  hover:text-zinc-400 hover:bg-zinc-800;
 }
 
 button.warn {
-  @apply font-bold text-yellow-950 bg-yellow-500 py-1 px-3 rounded-md transition-colors;
-}
-button.warn:hover {
-  @apply text-orange-950 bg-orange-600;
-}
-button.warn:active {
-  @apply text-red-950 bg-red-600;
+  @apply font-bold text-yellow-950 bg-yellow-500 py-1 px-3 rounded-md transition-colors
+  hover:text-orange-950 hover:bg-orange-600
+  active:text-red-950 active:bg-red-600;
 }
 
 .label {

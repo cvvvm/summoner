@@ -1,8 +1,11 @@
 <template>
   <!-- legendary actions container -->
-  <div class="grid grid-cols-1 items-start justify-items-stretch gap-4 py-4">
+  <div
+    v-if="props.legendaryActions"
+    class="grid grid-cols-1 items-start justify-items-stretch gap-4"
+  >
     <!-- desc container -->
-    <div class="grid gap-2 px-4 pb-4">
+    <div class="grid gap-2 px-2">
       <h2 class="text-lg">
         legendary actions
       </h2>

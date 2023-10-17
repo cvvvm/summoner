@@ -27,7 +27,7 @@
     class="
       fixed flex-initial flex
       place-content-center place-items-center
-      z-50
+      z-[9999]
       top-0 left-0 h-full w-full
       bg-zinc-700 bg-opacity-75"
     @click.self="toggleBanishModal"

@@ -1,9 +1,6 @@
 <template>
   <!-- SPECIAL ABILITIES -->
-  <div class="grid grid-cols-1 items-start justify-items-stretch gap-4 py-4">
-    <h2 class="text-lg px-4">
-      abilities
-    </h2>
+  <div class="grid grid-cols-1 items-start justify-items-stretch gap-4">
     <!-- abilities map -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->

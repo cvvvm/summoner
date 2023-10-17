@@ -1,9 +1,6 @@
 <template>
   <!-- actions container -->
-  <div class="grid grid-cols-1 items-start justify-items-stretch gap-4 py-4">
-    <h2 class="text-lg px-4">
-      actions
-    </h2>
+  <div class="grid grid-cols-1 items-start justify-items-stretch gap-4">
     <!-- actions map -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->

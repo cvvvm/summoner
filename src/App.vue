@@ -1,7 +1,10 @@
 <template>
   <!-- global buttons container -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <div
     class="
+    fixed z-[1000]
     flex justify-between
     p-4
     w-full
@@ -22,21 +25,16 @@
     </div>
 
     <div class="flex gap-2 items-center">
-      <p>all cards: {{ toggleGlobalCardPanel }}</p>
-      <button @click="toggleGlobalCardPanel = 'collapse'">
-        collapse
-      </button>
-      <button @click="toggleGlobalCardPanel = 'details'">
-        details
-      </button>
-      <button @click="toggleGlobalCardPanel = 'abilities'">
-        abilities
-      </button>
-      <button @click="toggleGlobalCardPanel = 'actions'">
-        actions
+      <p>all cards:</p>
+      <button
+        v-for="panelToggle in globalPanelOptions"
+        :key="panelToggle"
+        @click="toggleGlobalCardPanel = panelToggle; forceRefreshKey += 1"
+      >
+        {{ panelToggle }}
       </button>
     </div>
-  </div>
+  </div> <!-- end global buttons container -->
 
   <!-- summon (modal) -->
   <div v-show="summonModalOpen">
@@ -47,11 +45,30 @@
     />
   </div>
 
+  <!-- content container -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <MobCardsContainer
+    :key="forceRefreshKey"
+    class="min-h-[95vh]"
     :mobs="mobs"
     :toggle-global-card-panel="toggleGlobalCardPanel"
     @pass-mob="handlePassedMob"
   />
+
+  <!-- footer -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <footer
+    class="flex place-content-center place-items-center
+            min-h-[5vh]
+          bg-zinc-900"
+  >
+    <a
+      class="text-sm underline underline-offset-2 text-zinc-300 decoration-zinc-500 hover:text-zinc-100 hover:decoration-zinc-500 transition-colors"
+      href="https://open5e.com"
+    >data from open5e</a>
+  </footer>
 </template>
 
 <script setup>
@@ -62,7 +79,10 @@ import SummonMob from './components-page/SummonMob.vue'
 const summonModalOpen = ref(false)
 const mobs = reactive([])
 const mobsSearchList = ref([])
+
+const globalPanelOptions = ['collapse', 'abilities', 'actions', 'details']
 const toggleGlobalCardPanel = ref('collapse')
+const forceRefreshKey = ref(0)
 
 // SORTING
 // -----------------------------------------------------------
@@ -132,6 +152,7 @@ onMounted(() => {
   addMob('goblin')
   addMob('air elemental')
   addMob('adult black dragon')
+  addMob('axe beak')
 })
 
 </script>
