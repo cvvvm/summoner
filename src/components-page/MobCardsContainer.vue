@@ -4,7 +4,7 @@
     class="relative
           grid grid-cols-[repeat(_auto-fill,_minmax(320px,_525px))]
           content-start gap-8
-          p-8 py-24"
+          p-2 sm:p-4"
   >
     <div
       v-show="props.mobs.length === 0"

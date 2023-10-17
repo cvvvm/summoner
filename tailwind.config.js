@@ -78,8 +78,8 @@ module.exports = {
       md: '12px',
       lg: '16px',
       xl: '24px',
-      '2xl': '40px',
-      '3xl': '64px'
+      xxl: '40px',
+      xxxl: '64px'
     },
     borderColor: ({ theme }) => ({
       ...theme('colors'),
@@ -93,8 +93,8 @@ module.exports = {
       md: '0.375rem',
       lg: '0.5rem',
       xl: '0.75rem',
-      '2xl': '1rem',
-      '3xl': '1.5rem',
+      xxl: '1rem',
+      xxxl: '1.5rem',
       full: '9999px'
     },
     borderSpacing: ({ theme }) => ({
@@ -113,7 +113,7 @@ module.exports = {
       md: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
       lg: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
       xl: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
-      '2xl': '0 25px 50px -12px rgb(0 0 0 / 0.25)',
+      xxl: '0 25px 50px -12px rgb(0 0 0 / 0.25)',
       inner: 'inset 0 2px 4px 0 rgb(0 0 0 / 0.05)',
       none: 'none'
     },
@@ -182,8 +182,8 @@ module.exports = {
       md: '28rem',
       lg: '32rem',
       xl: '36rem',
-      '2xl': '42rem',
-      '3xl': '48rem',
+      xxl: '42rem',
+      xxxl: '48rem',
       '4xl': '56rem',
       '5xl': '64rem',
       '6xl': '72rem',
@@ -249,7 +249,7 @@ module.exports = {
       md: ['0 4px 3px rgb(0 0 0 / 0.07)', '0 2px 2px rgb(0 0 0 / 0.06)'],
       lg: ['0 10px 8px rgb(0 0 0 / 0.04)', '0 4px 3px rgb(0 0 0 / 0.1)'],
       xl: ['0 20px 13px rgb(0 0 0 / 0.03)', '0 8px 5px rgb(0 0 0 / 0.08)'],
-      '2xl': '0 25px 25px rgb(0 0 0 / 0.15)',
+      xxl: '0 25px 25px rgb(0 0 0 / 0.15)',
       none: '0 0 #0000'
     },
     fill: ({ theme }) => ({
@@ -312,8 +312,8 @@ module.exports = {
       base: ['1rem', { lineHeight: '1.5rem' }],
       lg: ['1.125rem', { lineHeight: '1.75rem' }],
       xl: ['1.25rem', { lineHeight: '1.75rem' }],
-      '2xl': ['1.5rem', { lineHeight: '2rem' }],
-      '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
+      xxl: ['1.5rem', { lineHeight: '2rem' }],
+      xxxl: ['1.875rem', { lineHeight: '2.25rem' }],
       '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
       '5xl': ['3rem', { lineHeight: '1' }],
       '6xl': ['3.75rem', { lineHeight: '1' }],
@@ -611,8 +611,8 @@ module.exports = {
       md: '28rem',
       lg: '32rem',
       xl: '36rem',
-      '2xl': '42rem',
-      '3xl': '48rem',
+      xxl: '42rem',
+      xxxl: '48rem',
       '4xl': '56rem',
       '5xl': '64rem',
       '6xl': '72rem',
@@ -757,11 +757,13 @@ module.exports = {
       150: '1.5'
     },
     screens: {
+      xxs: '300px',
+      xs: '500px',
       sm: '640px',
       md: '768px',
       lg: '1024px',
       xl: '1280px',
-      '2xl': '1536px'
+      xxl: '1536px'
     },
     scrollMargin: ({ theme }) => ({
       ...theme('spacing')

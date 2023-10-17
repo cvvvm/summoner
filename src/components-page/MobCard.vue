@@ -2,13 +2,15 @@
   <!-- card -->
   <div
     class="grid grid-cols-1 gap-4
-      p-4 rounded-xl
+      p-4 pt-0 rounded-xl
     bg-black"
   >
     <!-- full screen + name container -->
-    <div class="flex">
+    <div class="flex sticky top-14 bg-black py-4 shadow-[0px_8px_14px] shadow-black">
       <button
-        class="px-1 justify-self-start self-start"
+        class="justify-self-start self-start
+              px-1
+              hidden md:inline-block"
         @click="toggleFullCard"
       >
         <svg
@@ -29,20 +31,15 @@
 
       <!-- name -->
       <h1
-        class="flex-grow
-                px-4 py-2 pt-3
-                text-2xl text-zinc-200 text-center"
+        class="flex-grow place-self-center
+                px-4 pt-4
+                text-xxl text-zinc-200 text-center"
       >
         {{ props.name }}
       </h1>
-    </div>
-
-    <!-- armor, HP -->
-    <!------------------------------------------------>
-    <div class="grid grid-cols-[min-content_1.5fr_1.2fr] gap-3">
       <!-- clone / dupe -->
       <div
-        class="flex flex-col gap-3 justify-center"
+        class="flex flex-col gap-2 justify-center"
       >
         <BanishMob
           :mob-index="props.mobIndex"
@@ -59,6 +56,11 @@
                        $event.data + ' passed from card')"
         />
       </div>
+    </div>
+
+    <!-- armor, HP -->
+    <!------------------------------------------------>
+    <div class="grid grid-cols-2 gap-3">
       <MobArmor :armor="props.armor" />
       <MobHpControls :base-hp="props.baseHp" />
     </div>
@@ -70,12 +72,12 @@
 
     <!-- panel toggles -->
     <!------------------------------------------------>
-    <div class="grid grid-cols-3 gap-2 mt-2">
+    <div class="grid grid-cols-3 gap-2 mt-3">
       <button
         v-for="panel in panelsList"
         :key="panel"
         class="rounded-md"
-        :class="toggledLocalPanel == panel ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' : 'text-zinc-400 border bg-zinc-950 border-zinc-700  hover:border-yellow-500'"
+        :class="toggledLocalPanel == panel ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' : 'text-zinc-400 border bg-zinc-950 border-zinc-700'"
         @click="toggledLocalPanel == panel ? toggledLocalPanel = 'collapse' : toggledLocalPanel = panel"
       >
         {{ panel }}
@@ -111,7 +113,7 @@
     <!-- details-->
     <div
       v-show="toggledLocalPanel == 'details'"
-      class="grid grid-cols-[1fr_.9fr] gap-4"
+      class="grid grid-cols-1 xs:grid-cols-[.8fr_1fr] gap-4"
     >
       <MobBio
         :size="props.size"
@@ -120,27 +122,31 @@
         :challenge-rating="props.challengeRating"
         class="col-span-2"
       />
-
-      <!-- left details col -->
-      <div class="grid grid-cols-1 gap-4 place-content-start">
-        <MobSpeed
-          :speed="props.speed"
-        />
-        <MobDefenses
-          :damage-vulnerabilities="props.damageVulnerabilities"
-          :damage-resistances="props.damageResistances"
-          :damage-immunities="props.damageImmunities"
-          :condition-immunities="props.conditionImmunities"
+      <!-- details col 1 -->
+      <div class="grid gap-4 content-start col-span-2 xs:col-span-1">
+        <MobSenses
+          :senses="props.senses"
         />
       </div>
 
-      <!-- right details col -->
-      <div class="grid grid-cols-1 gap-4 place-content-start">
-        <MobSenses :senses="props.senses" />
+      <!-- details col 2 -->
+      <div class="grid gap-4 content-start col-span-2 xs:col-span-1">
         <MobLanguages
           :lang="props.lang"
         />
+        <MobSpeed
+          :speed="props.speed"
+        />
       </div>
+
+      <MobDefenses
+        v-if="props.damageVulnerabilities || props.damageResistances || props.damageImmunities || props.conditionImmunities"
+        :damage-vulnerabilities="props.damageVulnerabilities"
+        :damage-resistances="props.damageResistances"
+        :damage-immunities="props.damageImmunities"
+        :condition-immunities="props.conditionImmunities"
+        class="mt-4 xs:col-span-2"
+      />
     </div> <!-- end details  -->
   </div> <!-- card end -->
 

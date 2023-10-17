@@ -46,9 +46,10 @@
         v-model="hpChange"
         type="number"
         class="text-center
-        px-1 rounded-md
+          px-1 rounded-md
         text-zinc-200 bg-zinc-900
-          border border-zinc-500"
+          border border-zinc-500 hover:border-zinc-300
+          transition-colors"
       >
       <button
         class="rounded-md hover:bg-green-800 hover:text-green-200 active:bg-green-900 active:text-green-400"
@@ -81,9 +82,11 @@ const currHP = ref(props.baseHp)
 } */
 
 function healMob (amountHeal) {
+  currHP.value = parseInt(currHP.value)
   currHP.value += amountHeal
 }
 function dmgMob (amountDmg) {
+  currHP.value = parseInt(currHP.value)
   currHP.value -= amountDmg
 }
 function checkHP () {

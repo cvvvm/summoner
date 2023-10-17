@@ -4,7 +4,7 @@
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <div
     class="
-    fixed z-[1000]
+    sticky top-0 z-[1000]
     flex justify-between
     p-4
     w-full
@@ -25,13 +25,13 @@
     </div>
 
     <div class="flex gap-2 items-center">
-      <p>all cards:</p>
+      <p>cards:</p>
       <button
         v-for="panelToggle in globalPanelOptions"
         :key="panelToggle"
         @click="toggleGlobalCardPanel = panelToggle; forceRefreshKey += 1"
       >
-        {{ panelToggle }}
+        {{ panelToggle.substring(0,3) }}
       </button>
     </div>
   </div> <!-- end global buttons container -->

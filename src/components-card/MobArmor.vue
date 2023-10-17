@@ -17,7 +17,7 @@
       >
         AC
       </h4>
-      <div class="text-2xl">
+      <div class="text-xxl">
         {{ props.armor[0].class }}
       </div>
     </div>

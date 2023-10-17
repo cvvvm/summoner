@@ -1,20 +1,24 @@
 <template>
   <div
-    class="grid grid-cols-6 gap-2 place-content-start mt-2"
+    class="grid
+          grid-cols-3 xs:grid-cols-6
+          gap-2 place-content-start mt-2"
   >
     <!-- roll math container -->
     <div
-      class="grid grid-cols-2 col-span-6
-                justify-evenly
-                gap-4
-                text-sm
-                "
+      class="grid
+            grid-cols-2
+            col-span-3 xs:col-span-6
+            justify-evenly
+            gap-x-4 gap-y-2
+            text-sm
+            "
     >
       <div class="flex gap-2 items-center">
-        roll: <span class="grow h-[28px] px-2 p-1 rounded-md bg-zinc-900 text-zinc-200">{{ abilityRollResult[1] }}</span>
+        dice: <span class="grow h-[28px] px-2 p-1 rounded-md bg-zinc-900 text-zinc-200">{{ abilityRollResult[1] }}</span>
       </div>
       <div class="flex gap-2 items-center">
-        result: <span class="grow h-[28px] px-2 p-1 rounded-md bg-zinc-900 text-zinc-200"> {{ abilityRollResult[0] }}</span>
+        roll: <span class="grow h-[28px] px-2 p-1 rounded-md bg-zinc-900 text-zinc-200"> {{ abilityRollResult[0] }}</span>
       </div>
     </div>
     <!-- ABILITY SCORES MAP -->
@@ -31,13 +35,17 @@
         <!-- score button -->
         <!------------------------------------------------>
         <button
-          class="grid grid-cols-1 place-items-center
+          class="grid
+                grid-cols-[.75fr_1fr] xs:grid-cols-1
+                justify-items-start items-center xs:place-items-center
                 p-2 pb-2 rounded-md
               text-zinc-400 bg-zinc-800"
           :class="abilityButtonHover"
           @click="abilityRoll(Math.floor((scoreValue.score - 10) / 2))"
         >
-          <div>{{ abilityName }}</div>
+          <div class="justify-self-center px-1">
+            {{ abilityName }}
+          </div>
           <div class="flex gap-1 items-center">
             <div class="val-lg">
               {{ scoreValue.score }}
@@ -49,10 +57,11 @@
         <!-- save button -->
         <!------------------------------------------------>
         <button
-          class="flex justify-center out
-                      p-1 pt-0.5 mt-1 rounded-md
-                      text-sm text-zinc-400
-                      bg-zinc-900"
+          class="flex justify-center
+                  gap-2 xs:gap-1
+                  p-1 pt-0.5 mt-1 rounded-md
+                  text-sm text-zinc-400
+                  bg-zinc-900"
           :class="abilityButtonHover"
           @click="abilityRoll(scoreValue.saveMod ? scoreValue.saveMod : Math.floor((scoreValue.score - 10) / 2))"
         >

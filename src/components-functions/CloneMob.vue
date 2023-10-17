@@ -1,7 +1,8 @@
 <template>
   <!-- open modal button -->
   <button
-    class="px-1"
+    class="px-1
+            hover:bg-emerald-700 hover:text-emerald-200"
     @click="$emit('passMob', { data: name, type: 'clone' });
             console.log('clone ' + name + ' passed from button')"
   >

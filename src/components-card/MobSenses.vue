@@ -1,9 +1,12 @@
 <template>
-  <div class="grid grid-cols-1 gap-1">
+  <div
+    class="flex flex-wrap
+          justify-items-start gap-2"
+  >
     <div
       v-for="(senseVal, senseType, index) in props.senses.split(',')"
       :key="index"
-      class="label"
+      class="py-0.5 px-2 text-sm text-zinc-400 bg-zinc-900"
     >
       {{ senseVal.toLowerCase() }}
       <!-- <span class="val-sm"> -->

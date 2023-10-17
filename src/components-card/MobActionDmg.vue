@@ -1,7 +1,7 @@
 <template>
   <!-- values + attack button container -->
   <div
-    class="grid grid-cols-[1fr_.5fr] gap-2
+    class="grid grid-cols-[1fr_.25fr] gap-2
         rounded-md"
   >
     <!-- values container -->
@@ -34,8 +34,10 @@
   <!-- MATH CONTAINER -->
   <!------------------------------------------------>
   <div
-    class="flex place-content-start gap-4
-  pt-2 pl-2"
+    class="grid grid-cols-1 xs:grid-cols-[max-content_1fr]
+            gap-8 gap-y-2
+            pt-2 pl-2
+            "
   >
     <!-- hit roll -->
     <div class="flex text-sm text-zinc-500">
