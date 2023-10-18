@@ -1,12 +1,13 @@
 <template>
   <!-- card -->
   <div
-    class="grid grid-cols-1 gap-4
+    class="grid grid-cols-1 gap-0
       p-4 pt-0 rounded-xl
     bg-black"
   >
     <!-- full screen + name container -->
-    <div class="flex sticky top-14 bg-black py-4 shadow-[0px_8px_12px] shadow-black">
+    <!-- shadow-[0px_8px_12px] shadow-black -->
+    <div class="flex sticky top-14 bg-black py-4">
       <button
         class="justify-self-start self-start
               px-1
@@ -32,23 +33,23 @@
       <!-- name -->
       <h1
         class="flex-grow place-self-center
-                px-4 pt-4
+                px-4
                 text-xxl text-zinc-200 text-center"
       >
         {{ props.name }}
       </h1>
       <!-- clone / dupe -->
       <div
-        class="flex flex-col gap-2 justify-center"
+        class="flex flex-row gap-2 justify-end items-start"
       >
-        <BanishMob
+        <CloneMob
           :mob-index="props.mobIndex"
           :name="props.name"
           @pass-mob="$emit('passMob', $event);
                      console.log($event.type + ' index ' +
                        $event.data + ' passed from card')"
         />
-        <CloneMob
+        <BanishMob
           :mob-index="props.mobIndex"
           :name="props.name"
           @pass-mob="$emit('passMob', $event);
@@ -93,90 +94,103 @@
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
     <!-- special abilities -->
-    <MobSpecialAbilities
-      v-show="toggledLocalPanel == 'abilities'"
-      :special-abilities="props.specialAbilities"
-    />
+    <transition appear>
+      <MobSpecialAbilities
+        v-show="toggledLocalPanel == 'abilities'"
+        class="pt-4"
+        :special-abilities="props.specialAbilities"
+      />
+    </transition>
 
     <!-- actions -->
-    <MobActions
-      v-show="toggledLocalPanel == 'actions'"
-      :actions="props.actions"
-    />
+    <transition appear>
+      <MobActions
+        v-show="toggledLocalPanel == 'actions'"
+        class="pt-4"
+        :actions="props.actions"
+      />
+    </transition>
 
     <!-- actions (legendary) -->
     <MobActionsLegendary
       v-show="toggledLocalPanel == 'actions'"
+      class="pt-4"
       :legendary-actions="props.legendaryActions"
       :legendary-desc="props.legendaryDesc"
     />
+
     <!-- details-->
-    <div
-      v-show="toggledLocalPanel == 'details'"
-      class="grid grid-cols-1 xs:grid-cols-[.8fr_1fr] gap-4"
-    >
-      <MobBio
-        :size="props.size"
-        :type="props.type"
-        :alignment="props.alignment"
-        :challenge-rating="props.challengeRating"
-        class="col-span-2"
-      />
-      <!-- details col 1 -->
-      <div class="grid gap-4 content-start col-span-2 xs:col-span-1">
-        <MobSenses
-          :senses="props.senses"
+    <transition appear>
+      <div
+        v-show="toggledLocalPanel == 'details'"
+        class="grid grid-cols-1 xs:grid-cols-[.8fr_1fr] gap-4
+            pt-4"
+      >
+        <MobBio
+          :size="props.size"
+          :type="props.type"
+          :alignment="props.alignment"
+          :challenge-rating="props.challengeRating"
+          class="col-span-2"
         />
-      </div>
+        <!-- details col 1 -->
+        <div class="grid gap-4 content-start col-span-2 xs:col-span-1">
+          <MobSenses
+            :senses="props.senses"
+          />
+        </div>
 
-      <!-- details col 2 -->
-      <div class="grid gap-4 gap-y-2 content-start col-span-2 xs:col-span-1">
-        <MobSpeed
-          :speed="props.speed"
-        />
-        <MobLanguages
-          :lang="props.lang"
-        />
-      </div>
+        <!-- details col 2 -->
+        <div class="grid gap-4 gap-y-2 content-start col-span-2 xs:col-span-1">
+          <MobSpeed
+            :speed="props.speed"
+          />
+          <MobLanguages
+            :lang="props.lang"
+          />
+        </div>
 
-      <MobDefenses
-        v-if="props.damageVulnerabilities || props.damageResistances || props.damageImmunities || props.conditionImmunities"
-        :damage-vulnerabilities="props.damageVulnerabilities"
-        :damage-resistances="props.damageResistances"
-        :damage-immunities="props.damageImmunities"
-        :condition-immunities="props.conditionImmunities"
-        class="xs:col-span-2"
-      />
-    </div> <!-- end details  -->
+        <MobDefenses
+          v-if="props.damageVulnerabilities || props.damageResistances || props.damageImmunities || props.conditionImmunities"
+          :damage-vulnerabilities="props.damageVulnerabilities"
+          :damage-resistances="props.damageResistances"
+          :damage-immunities="props.damageImmunities"
+          :condition-immunities="props.conditionImmunities"
+          class="xs:col-span-2"
+        />
+      </div> <!-- end details  -->
+    </transition>
   </div> <!-- card end -->
 
   <!-- FULL CARD -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-  <MobCardFull
-    v-show="isFullCardOpen"
-    :mob-index="props.mobIndex"
-    :name="props.name"
-    :alignment="props.alignment"
-    :size="props.size"
-    :type="props.type"
-    :ability-scores="props.abilityScores"
-    :base-hp="props.baseHp"
-    :armor="props.armor"
-    :challenge-rating="props.challengeRating"
-    :damage-vulnerabilities="props.damageVulnerabilities"
-    :damage-resistances="props.damageResistances"
-    :damage-immunities="props.damageImmunities"
-    :condition-immunities="props.conditionImmunities"
-    :special-abilities="props.specialAbilities"
-    :actions="props.actions"
-    :legendary-actions="props.legendaryActions"
-    :legendary-desc="props.legendaryDesc"
-    :speed="props.speed"
-    :senses="props.senses"
-    :lang="props.lang"
-    @pass-toggle-full-card="toggleFullCard"
-  />
+  <transition name="fade">
+    <MobCardFull
+      v-show="isFullCardOpen"
+      :mob-index="props.mobIndex"
+      :name="props.name"
+      :alignment="props.alignment"
+      :size="props.size"
+      :type="props.type"
+      :ability-scores="props.abilityScores"
+      :base-hp="props.baseHp"
+      :armor="props.armor"
+      :challenge-rating="props.challengeRating"
+      :damage-vulnerabilities="props.damageVulnerabilities"
+      :damage-resistances="props.damageResistances"
+      :damage-immunities="props.damageImmunities"
+      :condition-immunities="props.conditionImmunities"
+      :special-abilities="props.specialAbilities"
+      :actions="props.actions"
+      :legendary-actions="props.legendaryActions"
+      :legendary-desc="props.legendaryDesc"
+      :speed="props.speed"
+      :senses="props.senses"
+      :lang="props.lang"
+      @pass-toggle-full-card="toggleFullCard"
+    />
+  </transition>
 </template>
 
 <script setup>
@@ -238,5 +252,35 @@ function toggleFullCard () {
 </script>
 
 <style>
+/* FADE */
+.fade-leave-active, .fade-enter-active {
+transition: opacity .2s ease-out;/* cubic-bezier(1, 0.5, 0.8, 1); */
+}
+.fade-leave-to, .fade-enter-from {
+  opacity: 0;
+}
+
+/* SCALE FADE */
+.scale-fade-enter-active .inner{
+  transition-delay: 0.25s;
+transition: transform .2s ease-out;/* cubic-bezier(1, 0.5, 0.8, 1); */
+}
+.scale-fade-leave-active {}
+.scale-fade-enter-from .inner{
+  transform: scale(.2);
+}
+.scale-fade-leave-to {}
+
+/* SLIDE DOWN */
+.v-leave-active {
+  transition: transform 0s ease-in, opacity 0s ease-in;
+}
+.v-enter-active {
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+.v-enter-from, .v-leave-to{
+  transform: translateY(-10px);
+  opacity: 0;
+}
 
 </style>
