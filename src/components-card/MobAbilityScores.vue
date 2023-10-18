@@ -2,7 +2,7 @@
   <div
     class="grid
           grid-cols-3 xs:grid-cols-6
-          gap-2 place-content-start mt-2"
+          gap-2 place-content-start"
   >
     <!-- roll math container -->
     <div

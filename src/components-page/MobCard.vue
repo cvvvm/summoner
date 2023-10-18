@@ -1,13 +1,19 @@
 <template>
   <!-- card -->
   <div
-    class="grid grid-cols-1 gap-0
+    class="grid grid-cols-1 gap-2
       p-4 pt-0 rounded-xl
     bg-black"
   >
     <!-- full screen + name container -->
-    <!-- shadow-[0px_8px_12px] shadow-black -->
-    <div class="flex sticky top-14 bg-black py-4">
+
+    <div
+      class="flex sticky
+            pt-4 pb-2
+            top-14
+            bg-black
+            shadow-[0px_4px_12px] shadow-black"
+    >
       <button
         class="justify-self-start self-start
               px-1
@@ -66,14 +72,9 @@
       <MobHpControls :base-hp="props.baseHp" />
     </div>
 
-    <MobAbilityScores
-      :ability-scores="props.abilityScores"
-      :ability-saves="props.abilitySaves"
-    />
-
     <!-- panel toggles -->
     <!------------------------------------------------>
-    <div class="grid grid-cols-3 gap-2 mt-3">
+    <div class="grid grid-cols-3 gap-2 mt-2">
       <button
         v-for="panel in panelsList"
         :key="panel"
@@ -94,7 +95,10 @@
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
     <!-- special abilities -->
-    <transition appear>
+    <transition
+      name="slide-down"
+      appear
+    >
       <MobSpecialAbilities
         v-show="toggledLocalPanel == 'abilities'"
         class="pt-4"
@@ -103,7 +107,10 @@
     </transition>
 
     <!-- actions -->
-    <transition appear>
+    <transition
+      name="slide-down"
+      appear
+    >
       <MobActions
         v-show="toggledLocalPanel == 'actions'"
         class="pt-4"
@@ -120,12 +127,20 @@
     />
 
     <!-- details-->
-    <transition appear>
+    <transition
+      name="slide-down"
+      appear
+    >
       <div
         v-show="toggledLocalPanel == 'details'"
         class="grid grid-cols-1 xs:grid-cols-[.8fr_1fr] gap-4
             pt-4"
       >
+        <MobAbilityScores
+          :ability-scores="props.abilityScores"
+          :ability-saves="props.abilitySaves"
+          class="xs:col-span-2"
+        />
         <MobBio
           :size="props.size"
           :type="props.type"
@@ -262,7 +277,6 @@ transition: opacity .2s ease-out;/* cubic-bezier(1, 0.5, 0.8, 1); */
 
 /* SCALE FADE */
 .scale-fade-enter-active .inner{
-  transition-delay: 0.25s;
 transition: transform .2s ease-out;/* cubic-bezier(1, 0.5, 0.8, 1); */
 }
 .scale-fade-leave-active {}
@@ -272,13 +286,13 @@ transition: transform .2s ease-out;/* cubic-bezier(1, 0.5, 0.8, 1); */
 .scale-fade-leave-to {}
 
 /* SLIDE DOWN */
-.v-leave-active {
+.slide-down-leave-active {
   transition: transform 0s ease-in, opacity 0s ease-in;
 }
-.v-enter-active {
-  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+.slide-down-enter-active {
+  transition: transform 0.25s ease-out, opacity 0.25s ease-out;
 }
-.v-enter-from, .v-leave-to{
+.slide-down-enter-from, .v-leave-to{
   transform: translateY(-10px);
   opacity: 0;
 }

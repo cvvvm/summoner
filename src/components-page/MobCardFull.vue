@@ -28,6 +28,7 @@
           class="flex flex-col gap-4 content-start
                 max-h-[90vh]
                 md:row-span-2
+                pr-1
                 overflow-y-auto h-full"
         >
           <!-- close + name container -->
