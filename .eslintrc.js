@@ -26,7 +26,7 @@ module.exports = {
   },
   plugins: ['vue'],
   rules: {
-    quotes: ['error', 'single'],
+    quotes: ['warn', 'single'],
     semi: ['error', 'never'], // force semicolons
     indent: ['error', 2], // indent
     'no-multi-spaces': ['error'], // avoid extraneous spaces

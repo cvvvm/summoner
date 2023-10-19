@@ -10,7 +10,9 @@
     w-full
     bg-zinc-900"
   >
-    <button @click="toggleSummonModal()">
+    <button
+      @click="toggleSummonModal()"
+    >
       + summon
     </button>
 
@@ -39,9 +41,8 @@
   <!-- summon (modal) -->
   <div v-show="summonModalOpen">
     <SummonMob
-      :search-list="mobsSearchList.results"
       @summon-mob="addMob"
-      @close="toggleSummonModal"
+      @close-summon-modal="toggleSummonModal"
     />
   </div>
 
@@ -76,9 +77,9 @@ import { ref, reactive, onMounted } from 'vue'
 import MobCardsContainer from './components-page/MobCardsContainer.vue'
 import SummonMob from './components-page/SummonMob.vue'
 
-const summonModalOpen = ref(false)
+const summonModalOpen = ref(true)
 const mobs = reactive([])
-const mobsSearchList = ref([])
+// const mobsSearchList = ref([])
 
 const globalPanelOptions = ['collapse', 'abilities', 'actions', 'details']
 const toggleGlobalCardPanel = ref('collapse')
@@ -139,20 +140,22 @@ function handlePassedMob (e) {
   }
 }
 
-function getMobsSearchList () {
+// get monster list from API
+/* function getMobsSearchList () {
   fetch('https://api.open5e.com/monsters')
     .then(res => res.json())
     .then(data => { mobsSearchList.value = data })
     .catch(err => console.log(err.message))
-}
+} */
 
 onMounted(() => {
-  getMobsSearchList()
+  // getMobsSearchList()
   addMob('androsphinx')
   addMob('goblin')
   addMob('air elemental')
   addMob('adult black dragon')
   addMob('axe beak')
+  addMob('drake venom')
 })
 
 </script>

@@ -3,15 +3,18 @@
   <div
     class="relative
           grid grid-cols-[repeat(_auto-fill,_minmax(320px,_525px))]
-          content-start gap-8
+          content-start gap-2 md:gap-4
           p-2 sm:p-4"
   >
+    <!-- empty page text -->
     <div
       v-show="props.mobs.length === 0"
       class="col-span-full text-center"
     >
       summon a monster to begin your command
     </div>
+
+    <!-- mob cards -->
     <div
       v-for="mob, index in props.mobs"
       :key="mob"
@@ -19,7 +22,7 @@
       <MobCard
         :toggle-global-card-panel="props.toggleGlobalCardPanel"
         :mob-index="index"
-        :name="mob.name.toLowerCase()"
+        :name="processMobName(mob.name)"
         :alignment="mob.alignment"
         :size="mob.size.toLowerCase()"
         :type="mob.type"
@@ -64,6 +67,15 @@ const props = defineProps({
   mobs: { type: Object, default: () => {} },
   toggleGlobalCardPanel: { type: String, default: '' }
 })
+
+function processMobName (name) {
+  if (name.indexOf(',') === -1) {
+    return name.toLowerCase()
+  } else {
+    // return name.push(name.splice(1, 1)[0])
+    return (name.split(',')[1] + ' ' + name.split(',')[0]).toLowerCase()
+  }
+}
 
 </script>
 

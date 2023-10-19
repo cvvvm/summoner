@@ -146,7 +146,7 @@
           :type="props.type"
           :alignment="props.alignment"
           :challenge-rating="props.challengeRating"
-          class="col-span-2"
+          class="xs:col-span-2 mt-2"
         />
         <!-- details col 1 -->
         <div class="grid gap-4 content-start col-span-2 xs:col-span-1">
