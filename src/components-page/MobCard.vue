@@ -2,6 +2,8 @@
   <!-- card -->
   <div
     class="grid grid-cols-1 gap-2
+      flex-[1_1_30%]
+      min-w-[400px] max-w-[500px]
       p-4 pt-0 rounded-xl
     bg-black"
   >
@@ -50,7 +52,7 @@
       >
         <CloneMob
           :mob-index="props.mobIndex"
-          :name="props.name"
+          :slug="props.slug"
           @pass-mob="$emit('passMob', $event);
                      console.log($event.type + ' index ' +
                        $event.data + ' passed from card')"
@@ -234,6 +236,7 @@ const props = defineProps({
   mobIndex: { type: Number, default: 0 },
 
   name: { type: String, default: '' },
+  slug: { type: String, default: '' },
   size: { type: String, default: '' },
   type: { type: String, default: '' },
   alignment: { type: String, default: '' },

@@ -3,8 +3,8 @@
   <button
     class="px-1
             hover:bg-emerald-700 hover:text-emerald-200"
-    @click="$emit('passMob', { data: name, type: 'clone' });
-            console.log('clone ' + name + ' passed from button')"
+    @click="$emit('passMob', { data: slug, type: 'clone' });
+            console.log('clone ' + slug + ' passed from button')"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +27,7 @@
 defineEmits(['passMob'])
 defineProps({
   mobIndex: { type: Number, default: 0 },
-  name: { type: String, default: '' }
+  slug: { type: String, default: '' }
 })
 
 </script>

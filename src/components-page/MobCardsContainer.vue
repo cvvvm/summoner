@@ -1,9 +1,12 @@
 <template>
   <!-- card container -->
+  <!-- grid grid-cols-[repeat(_auto-fill,_minmax(320px,_525px))] -->
   <div
     class="relative
-          grid grid-cols-[repeat(_auto-fill,_minmax(320px,_525px))]
-          content-start gap-2 md:gap-4
+          flex flex-row flex-wrap
+          content-start
+          w-full min-h-screen
+          gap-2 md:gap-4
           p-2 sm:p-4"
   >
     <!-- empty page text -->
@@ -23,6 +26,7 @@
         :toggle-global-card-panel="props.toggleGlobalCardPanel"
         :mob-index="index"
         :name="processMobName(mob.name)"
+        :slug="mob.slug"
         :alignment="mob.alignment"
         :size="mob.size.toLowerCase()"
         :type="mob.type"

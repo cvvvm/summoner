@@ -1,13 +1,13 @@
 <template>
-  <!-- global buttons container -->
+  <!-- command bar -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <div
     class="
     sticky top-0 z-[1000]
-    flex justify-between
+    flex flex-row flex-wrap gap-x-8 gap-y-4 justify-start sm:justify-between
     p-4
-    w-full
+
     bg-zinc-900"
   >
     <button
@@ -27,7 +27,7 @@
     </div>
 
     <div class="flex gap-2 items-center">
-      <p>cards:</p>
+      <p>toggle:</p>
       <button
         v-for="panelToggle in globalPanelOptions"
         :key="panelToggle"
@@ -51,7 +51,6 @@
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <MobCardsContainer
     :key="forceRefreshKey"
-    class="min-h-[95vh]"
     :mobs="mobs"
     :toggle-global-card-panel="toggleGlobalCardPanel"
     @pass-mob="handlePassedMob"
@@ -61,14 +60,15 @@
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <footer
-    class="flex place-content-center place-items-center
-            min-h-[5vh]
+    class="flex place-content-around place-items-center
+          min-h-[5vh]
           bg-zinc-900"
   >
     <a
       class="text-sm underline underline-offset-2 text-zinc-300 decoration-zinc-500 hover:text-zinc-100 hover:decoration-zinc-500 transition-colors"
       href="https://open5e.com"
     >data from open5e</a>
+    <p>built with Vue + Tailwind</p>
   </footer>
 </template>
 
@@ -77,11 +77,11 @@ import { ref, reactive, onMounted } from 'vue'
 import MobCardsContainer from './components-page/MobCardsContainer.vue'
 import SummonMob from './components-page/SummonMob.vue'
 
-const summonModalOpen = ref(true)
+const summonModalOpen = ref(false)
 const mobs = reactive([])
 // const mobsSearchList = ref([])
 
-const globalPanelOptions = ['collapse', 'abilities', 'actions', 'details']
+const globalPanelOptions = ['collapse', 'actions', 'abilities', 'details']
 const toggleGlobalCardPanel = ref('collapse')
 const forceRefreshKey = ref(0)
 
@@ -140,19 +140,10 @@ function handlePassedMob (e) {
   }
 }
 
-// get monster list from API
-/* function getMobsSearchList () {
-  fetch('https://api.open5e.com/monsters')
-    .then(res => res.json())
-    .then(data => { mobsSearchList.value = data })
-    .catch(err => console.log(err.message))
-} */
-
 onMounted(() => {
-  // getMobsSearchList()
-  addMob('androsphinx')
   addMob('goblin')
-  addMob('air elemental')
+  addMob('air-elemental')
+  addMob('baliri-demon')
   addMob('adult black dragon')
   addMob('axe beak')
   addMob('drake venom')
