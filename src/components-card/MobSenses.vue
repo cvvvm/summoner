@@ -8,7 +8,7 @@
       :key="index"
       class="py-0.5 px-2 text-sm text-neutral-400 bg-neutral-900"
     >
-      {{ senseVal.toLowerCase() }}
+      {{ senseVal.toLowerCase().replace('\'', ' ft.') }}
       <!-- <span class="val-sm"> -->
       <!-- add value when able to parse -->
       <!-- </span> -->

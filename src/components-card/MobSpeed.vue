@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row flex-wrap gap-3">
+  <div class="flex flex-row flex-wrap gap-2">
     <div
       v-for="(speedVal, speedType, index) in props.speed"
       :key="index"
@@ -8,11 +8,7 @@
       <span
         v-if="speedVal != 0"
         class="py-0.5 px-2 rounded-sm bg-neutral-900 text-sm"
-      >{{ speedType }}:</span>
-      <span
-        v-if="speedVal != 0"
-        class="text-sm text-neutral-50"
-      >{{ speedVal }}</span>
+      >{{ speedType }}:{{ speedVal }}</span>
     </div>
   </div>
 
