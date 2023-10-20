@@ -6,7 +6,7 @@
     <div
       v-for="(senseVal, senseType, index) in props.senses.split(',')"
       :key="index"
-      class="py-0.5 px-2 text-sm text-zinc-400 bg-zinc-900"
+      class="py-0.5 px-2 text-sm text-neutral-400 bg-neutral-900"
     >
       {{ senseVal.toLowerCase() }}
       <!-- <span class="val-sm"> -->

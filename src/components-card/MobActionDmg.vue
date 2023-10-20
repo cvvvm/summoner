@@ -9,7 +9,7 @@
       class="grid grid-cols-[90px_1fr] gap-4
           place-items-center
           px-4 pt-2 pb-3 rounded-lg
-          bg-zinc-950
+          bg-neutral-950
           overflow-clip"
     >
       <!-- hit col -->
@@ -40,18 +40,18 @@
             "
   >
     <!-- hit roll -->
-    <div class="flex text-sm text-zinc-500">
+    <div class="flex text-sm text-neutral-500">
       hit:<span
-        class="px-1 mr-1 bg-zinc-950"
+        class="px-1 mr-1 bg-neutral-950"
       >1d20</span>{{ hitRollMath }}
     </div>
 
     <!-- dmg roll -->
-    <div class="flex text-sm text-zinc-500">
+    <div class="flex text-sm text-neutral-500">
       dmg:<span
         v-for="roll in props.dice"
         :key="roll"
-        class="px-1 mr-1 bg-zinc-950"
+        class="px-1 mr-1 bg-neutral-950"
       >{{ roll }}</span>{{ dmgRollMath }}
     </div>
   </div>
@@ -60,6 +60,7 @@
 <script setup>
 import { ref } from 'vue'
 import { mobFunctions } from '../mobFunctions'
+
 const dmgResult = ref(0)
 const dmgRollMath = ref('')
 const hitResult = ref(0)

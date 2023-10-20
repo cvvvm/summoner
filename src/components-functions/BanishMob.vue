@@ -29,7 +29,7 @@
       place-content-center place-items-center
       z-[9999]
       top-0 left-0 h-full w-full
-      bg-zinc-700 bg-opacity-75"
+      bg-neutral-700 bg-opacity-75"
     @click.self="toggleBanishModal"
   >
     <!-- modal -->
@@ -39,12 +39,12 @@
       relative flex-initial
       max-w-sm
       p-8 rounded-xl
-      bg-zinc-950 text-zinc-400
+      bg-neutral-950 text-neutral-400
       border border-yellow-600"
     >
       <!-- text container -->
       <div class="flex flex-col gap-2 px-3">
-        <h2 class="text-xl font-semibold text-zinc-100">
+        <h2 class="text-xl font-semibold text-neutral-100">
           beginning banishment...
         </h2>
         <p>surely this <strong>{{ name }}</strong> has served it's purpose.</p>

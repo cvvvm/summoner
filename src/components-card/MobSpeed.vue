@@ -7,11 +7,11 @@
     >
       <span
         v-if="speedVal != 0"
-        class="py-0.5 px-2 rounded-sm bg-zinc-900 text-sm"
+        class="py-0.5 px-2 rounded-sm bg-neutral-900 text-sm"
       >{{ speedType }}:</span>
       <span
         v-if="speedVal != 0"
-        class="text-sm text-zinc-50"
+        class="text-sm text-neutral-50"
       >{{ speedVal }}</span>
     </div>
   </div>

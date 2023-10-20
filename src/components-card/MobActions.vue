@@ -8,10 +8,10 @@
       v-for="action in props.actions"
       :key="action"
       class="action-block
-      bg-zinc-900"
+      bg-neutral-900"
     >
       <!-- NAME -->
-      <h3 class="text-zinc-100">
+      <h3 class="text-neutral-100">
         {{ action.name.toLowerCase() }}
       </h3>
       {{ processAtkText(action.desc.toLowerCase()) }}
@@ -19,7 +19,7 @@
       <!-- DESC -->
       <p
         v-show="!atkObj.type"
-        class="text-zinc-400"
+        class="text-neutral-400"
       >
         {{ action.desc }}
       </p>
@@ -28,16 +28,16 @@
         v-show="atkObj.type"
         class="flex flex-wrap gap-x-4 gap-2"
       >
-        <p class="flex gap-1 text-zinc-100">
-          <span class="text-zinc-400 bg-zinc-950 px-1">{{ atkObj.type }}</span>
+        <p class="flex gap-1 text-neutral-100">
+          <span class="text-neutral-400 bg-neutral-950 px-1">{{ atkObj.type }}</span>
         </p>
-        <p class="flex gap-1 text-zinc-100">
-          <span class="text-zinc-400 bg-zinc-950 px-1">range:</span> {{ atkObj.range }} ft.
+        <p class="flex gap-1 text-neutral-100">
+          <span class="text-neutral-400 bg-neutral-950 px-1">range</span> {{ atkObj.range }} ft.
         </p>
-        <p class="flex gap-1 text-zinc-100">
-          <span class="text-zinc-400 bg-zinc-950 px-1">dmg:</span> {{ atkObj.dmgTypes }}
+        <p class="flex gap-1 text-neutral-100">
+          <span class="text-neutral-400 bg-neutral-950 px-1">dmg</span> {{ atkObj.dmgTypes }}
         </p>
-        <p class="text-zinc-500">
+        <p class="text-neutral-500">
           {{ action.desc.toLowerCase() }}
         </p>
       </div>

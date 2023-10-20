@@ -15,10 +15,10 @@
             "
     >
       <div class="flex gap-2 items-center">
-        dice: <span class="grow h-[28px] px-2 p-1 rounded-md bg-zinc-900 text-zinc-200">{{ abilityRollResult[1] }}</span>
+        dice: <span class="grow h-[28px] px-2 p-1 rounded-md bg-neutral-900 text-neutral-200">{{ abilityRollResult[1] }}</span>
       </div>
       <div class="flex gap-2 items-center">
-        roll: <span class="grow h-[28px] px-2 p-1 rounded-md bg-zinc-900 text-zinc-200"> {{ abilityRollResult[0] }}</span>
+        roll: <span class="grow h-[28px] px-2 p-1 rounded-md bg-neutral-900 text-neutral-200"> {{ abilityRollResult[0] }}</span>
       </div>
     </div>
     <!-- ABILITY SCORES MAP -->
@@ -39,7 +39,7 @@
                 grid-cols-[.75fr_1fr] xs:grid-cols-1
                 justify-items-start items-center xs:place-items-center
                 p-2 pb-2 rounded-md
-              text-zinc-400 bg-zinc-800"
+              text-neutral-400 bg-neutral-800"
           :class="abilityButtonHover"
           @click="abilityRoll(Math.floor((scoreValue.score - 10) / 2))"
         >
@@ -50,7 +50,7 @@
             <div class="val-lg">
               {{ scoreValue.score }}
             </div>
-            <span class="text-sm text-zinc-400">{{ calcAbilityMod(scoreValue.score) }}</span>
+            <span class="text-sm text-neutral-400">{{ calcAbilityMod(scoreValue.score) }}</span>
           </div>
         </button>
 
@@ -60,8 +60,8 @@
           class="flex justify-center
                   gap-2 xs:gap-1
                   p-1 pt-0.5 mt-1 rounded-md
-                  text-sm text-zinc-400
-                  bg-zinc-900"
+                  text-sm text-neutral-400
+                  bg-neutral-900"
           :class="abilityButtonHover"
           @click="abilityRoll(scoreValue.saveMod ? scoreValue.saveMod : Math.floor((scoreValue.score - 10) / 2))"
         >
@@ -77,8 +77,9 @@ import { ref } from 'vue'
 import { mobFunctions } from '@/mobFunctions'
 
 const abilityRollResult = ref(0)
-const abilityBgColor = 'zinc'
-const abilityButtonHover = 'hover:outline hover:outline-2 hover:outline-yellow-500 hover:bg-' + abilityBgColor + '-900 hover:text-' + abilityBgColor + '-100 active:bg-' + abilityBgColor + '-800 active:text-' + abilityBgColor + '-300 transition-colors'
+const abilityButtonHover = ('hover:outline hover:outline-2 hover:outline-yellow-500 ' +
+                            'hover:bg-neutral-900 hover:text-yellow-500 ' +
+                            'active:bg-neutral-900 active:text-neutral-300 transition-colors')
 
 function abilityRoll (mod) {
   abilityRollResult.value = mobFunctions.rollDice(1, 20, mod)

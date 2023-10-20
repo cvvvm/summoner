@@ -20,7 +20,7 @@
       :key="action"
       class="legendary-action-block container-lvl2"
     >
-      <h3 class="text-zinc-100">
+      <h3 class="text-neutral-100">
         {{ action.name.toLowerCase() }}
       </h3>
       <div v-if="action.usage">

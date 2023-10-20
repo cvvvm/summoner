@@ -1,13 +1,13 @@
 <template>
   <!-- attributes -->
   <div class="flex flex-wrap gap-2">
-    <p class="py-0.5 px-2 bg-zinc-900">
+    <p class="py-0.5 px-2 bg-neutral-900">
       {{ props.size }} {{ props.type.toLowerCase() }}
     </p>
-    <p class="py-0.5 px-2 bg-zinc-900">
+    <p class="py-0.5 px-2 bg-neutral-900">
       {{ props.alignment }}
     </p>
-    <p class="py-0.5 px-2 bg-zinc-900">
+    <p class="py-0.5 px-2 bg-neutral-900">
       challenge: {{ props.challengeRating }}
     </p>
   </div>

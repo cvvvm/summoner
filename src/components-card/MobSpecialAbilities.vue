@@ -9,7 +9,7 @@
       :key="ability"
       class="sp-ability-block container-lvl2"
     >
-      <h3 class="text-zinc-100">
+      <h3 class="text-neutral-100">
         {{ ability.name.toLowerCase() }}
       </h3>
       <div class="grid gap-2">

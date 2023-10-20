@@ -5,16 +5,13 @@
   <div
     class="
     sticky top-0 z-[1000]
-    flex flex-row flex-wrap gap-x-8 gap-y-4 justify-start sm:justify-between
+    flex flex-row flex-wrap gap-x-8 gap-y-4 justify-between
     p-4
-
-    bg-zinc-900"
+    bg-neutral-900"
   >
-    <button
-      @click="toggleSummonModal()"
-    >
-      + summon
-    </button>
+    <SummonMob
+      @summon-mob="addMob"
+    />
 
     <div class="flex gap-2 items-center">
       <p>sort:</p>
@@ -26,7 +23,10 @@
       </button>
     </div>
 
-    <div class="flex gap-2 items-center">
+    <div
+      class="hidden sm:flex
+                gap-2 items-center"
+    >
       <p>toggle:</p>
       <button
         v-for="panelToggle in globalPanelOptions"
@@ -37,14 +37,6 @@
       </button>
     </div>
   </div> <!-- end global buttons container -->
-
-  <!-- summon (modal) -->
-  <div v-show="summonModalOpen">
-    <SummonMob
-      @summon-mob="addMob"
-      @close-summon-modal="toggleSummonModal"
-    />
-  </div>
 
   <!-- content container -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -62,10 +54,10 @@
   <footer
     class="flex place-content-around place-items-center
           min-h-[5vh]
-          bg-zinc-900"
+          bg-neutral-900"
   >
     <a
-      class="text-sm underline underline-offset-2 text-zinc-300 decoration-zinc-500 hover:text-zinc-100 hover:decoration-zinc-500 transition-colors"
+      class="text-sm underline underline-offset-2 text-neutral-300 decoration-neutral-500 hover:text-neutral-100 hover:decoration-neutral-500 transition-colors"
       href="https://open5e.com"
     >data from open5e</a>
     <p>built with Vue + Tailwind</p>
@@ -77,12 +69,11 @@ import { ref, reactive, onMounted } from 'vue'
 import MobCardsContainer from './components-page/MobCardsContainer.vue'
 import SummonMob from './components-page/SummonMob.vue'
 
-const summonModalOpen = ref(false)
 const mobs = reactive([])
 // const mobsSearchList = ref([])
 
-const globalPanelOptions = ['collapse', 'actions', 'abilities', 'details']
-const toggleGlobalCardPanel = ref('collapse')
+const globalPanelOptions = ['none', 'actions', 'abilities', 'details']
+const toggleGlobalCardPanel = ref('none')
 const forceRefreshKey = ref(0)
 
 // SORTING
@@ -116,11 +107,6 @@ function sortArrayHpAsc () {
 
 // EDIT MOBS
 // -----------------------------------------------------------
-// open summoning window
-function toggleSummonModal () {
-  summonModalOpen.value = !summonModalOpen.value
-}
-
 // add new mob
 function addMob (name) {
   name = name.replace(/ /gm, '-').replace(/-$/gm, '').toLowerCase()

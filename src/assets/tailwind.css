@@ -5,7 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,200;0,300;0,400;0,600;0,700;1,300&display=swap');
 
 #app {
-  @apply text-zinc-400 font-normal;
+  @apply text-neutral-400 font-normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -47,8 +47,9 @@ p {
 }
 
 button {
-  @apply text-sm font-normal text-zinc-300 bg-zinc-700 py-1 px-3 rounded-md transition-colors
-  hover:text-zinc-200 hover:bg-zinc-600;
+  @apply text-sm font-normal text-neutral-300 hover:text-neutral-200
+      bg-neutral-700 hover:bg-neutral-800
+      py-1 px-3 rounded-md transition-colors;
 }
 
 button.warn {
@@ -62,11 +63,11 @@ button.warn {
           align-baseline self-start
           px-2 py-1 rounded-sm
           text-sm
-          text-zinc-300 bg-zinc-800;
+          text-neutral-300 bg-neutral-800;
 }
 
 .val-container {
-  @apply grid grid-cols-1 grid-rows-[min-content_1fr] gap-0 place-items-center px-6 py-2 bg-zinc-950 rounded-md;
+  @apply grid grid-cols-1 grid-rows-[min-content_1fr] gap-0 place-items-center px-6 py-2 bg-neutral-950 rounded-md;
 }
 
 :root {
@@ -116,7 +117,7 @@ button.warn {
 /* -------------------------------------------------------- */
 
 .val-lg {
-  @apply text-zinc-200 text-xl font-bold;
+  @apply text-neutral-200 text-xl font-bold;
 }
 .val-md {
   color: var(--text-color);
@@ -136,7 +137,7 @@ button.warn {
   grid-template-columns: 1fr 1fr;
 }
 .container-lvl0 {
-  @apply bg-zinc-800;
+  @apply bg-neutral-800;
   display: grid;
   gap: var(--space-xl);
   padding: var(--space-md);
@@ -147,5 +148,49 @@ button.warn {
   gap: var(--space-sm);
 }
 .container-lvl2 {
-  @apply grid bg-zinc-900;
+  @apply grid bg-neutral-900;
+}
+
+/* -------------------------------------------------------- */
+/* animations */
+
+/* FADE */
+.fade-leave-active,
+.fade-enter-active {
+  transition: opacity 0.2s ease-out; /* cubic-bezier(1, 0.5, 0.8, 1); */
+}
+.fade-leave-to,
+.fade-enter-from {
+  opacity: 0;
+}
+
+/* SCALE FADE */
+.scale-fade-enter-active,
+.scale-fade-leave-active {
+  transition:
+    transform 0.2s ease-out,
+    opacity 0.2s ease-out; /* cubic-bezier(1, 0.5, 0.8, 1); */
+}
+
+.scale-fade-enter-from,
+.scale-fade-leave-to {
+  transform: scale(0.95);
+  opacity: 0;
+}
+
+/* SLIDE DOWN */
+.slide-down-leave-active {
+  transition:
+    transform 0s ease-in,
+    opacity 0s ease-in;
+}
+.slide-down-enter-active {
+  transition:
+    transform 0.25s ease-out,
+    opacity 0.25s ease-out;
+}
+.slide-down-enter-from,
+.slide-down-leave-to {
+  transform: translateY(-10px);
+  opacity: 0;
 }

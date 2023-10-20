@@ -2,7 +2,7 @@
   <div
     class="grid grid-cols-1 grid-rows-[1fr_min-content] gap-2
     p-2 pt-2 rounded-lg
-    bg-zinc-900"
+    bg-neutral-900"
     :class="HPbgColor"
   >
     <!-- HP CONTAINER -->
@@ -11,10 +11,10 @@
       class="grid grid-cols-[max-content_2fr] gap-2
               place-content-center place-items-center
               p-1 rounded-md
-              bg-zinc-950"
+              bg-neutral-950"
     >
       <!-- HP VALUE -->
-      <h4 class="pl-1 text-xl text-zinc-200">
+      <h4 class="pl-1 text-xl text-neutral-200">
         HP
       </h4>
 
@@ -24,7 +24,7 @@
           :class="HPcolor"
           class="text-xl font-medium transition-colors"
         >
-          {{ currHP }}<span class="text-xl text-zinc-400 font-light">/{{ props.baseHp }}</span>
+          {{ currHP }}<span class="text-xl text-neutral-400 font-light">/{{ props.baseHp }}</span>
         </p>
       </div>
     </div>
@@ -47,8 +47,8 @@
         type="number"
         class="text-center
           px-1 rounded-md
-        text-zinc-200 bg-zinc-900
-          border border-zinc-500 hover:border-zinc-300
+        text-neutral-200 bg-neutral-900
+          border border-neutral-500 hover:border-neutral-300
           transition-colors"
       >
       <button
@@ -67,7 +67,7 @@ const props = defineProps({
   baseHp: { type: Number, default: 0 }
 })
 const hpChange = ref(1)
-const HPcolor = ref('text-zinc-200')
+const HPcolor = ref('text-neutral-200')
 const HPbgColor = ref('')
 const currHP = ref(props.baseHp)
 

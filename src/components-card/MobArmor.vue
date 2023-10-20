@@ -2,18 +2,18 @@
   <div
     class="grid grid-cols-[max-content_1fr] grid-rows-1 gap-2
     p-2 rounded-lg
-    bg-zinc-900"
+    bg-neutral-900"
   >
     <div
       class="grid grid-cols-1 place-content-center place-items-center
             py-1 px-3 rounded-md
-            bg-zinc-950"
+            bg-neutral-950"
     >
       <!-- AC VALUE -->
       <h4
         class="
       text-xl
-      text-zinc-200"
+      text-neutral-200"
       >
         AC
       </h4>
