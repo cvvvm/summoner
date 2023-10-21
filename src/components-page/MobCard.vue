@@ -146,13 +146,14 @@
     >
       <div
         v-show="toggledLocalPanel == 'details'"
-        class="grid grid-cols-1 xs:grid-cols-[.8fr_1fr] gap-y-4 gap-x-2
-            pt-2"
+        class="grid gap-y-4 gap-x-2
+              grid-cols-1 xs:grid-cols-[.8fr_1fr]
+              pt-2"
       >
         <MobAbilityScores
           :ability-scores="props.abilityScores"
           :ability-saves="props.abilitySaves"
-          class="xs:col-span-2"
+          class="col-span-2"
         />
         <MobBio
           :size="props.size"
