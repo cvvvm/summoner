@@ -73,7 +73,7 @@ const mobs = reactive([])
 // const mobsSearchList = ref([])
 
 const globalPanelOptions = ['none', 'actions', 'abilities', 'details']
-const toggleGlobalCardPanel = ref('details')
+const toggleGlobalCardPanel = ref('none')
 const forceRefreshKey = ref(0)
 
 // SORTING
