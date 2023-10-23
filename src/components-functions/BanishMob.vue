@@ -22,6 +22,7 @@
   </button>
 
   <!-- backdrop -->
+  <!------------------------------------------------>
   <div
     v-show="isBanishModalOpen"
     class="
@@ -33,6 +34,7 @@
     @click.self="toggleBanishModal"
   >
     <!-- modal -->
+    <!------------------------------------------------>
     <div
       class="
       grid gap-6
