@@ -15,11 +15,11 @@
 
     <div class="flex gap-2 items-center">
       <p>sort:</p>
-      <button @click="sortArrayAlphaAsc">
-        a-z
+      <button @click="alphaSort">
+        {{ alphaSortDirection }}
       </button>
-      <button @click="sortArrayHpAsc">
-        hp
+      <button @click="hpSort">
+        {{ hpSortDirection }}
       </button>
     </div>
 
@@ -70,15 +70,22 @@ import MobCardsContainer from './components-page/MobCardsContainer.vue'
 import SummonMob from './components-page/SummonMob.vue'
 
 const mobs = reactive([])
-// const mobsSearchList = ref([])
-
 const globalPanelOptions = ['none', 'actions', 'abilities', 'details']
 const toggleGlobalCardPanel = ref('none')
 const forceRefreshKey = ref(0)
 
 // SORTING
-// -----------------------------------------------------------
+// ------------------------------------------------------------------------------------
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 // alpha sort
+// -----------------------------------------------------------
+const alphaSortDirection = ref('a-z')
+function alphaSort () {
+  if (alphaSortDirection.value === 'a-z') sortArrayAlphaAsc()
+  else if (alphaSortDirection.value === 'z-a') sortArrayAlphaDesc()
+}
+// sort asc
 function sortArrayAlphaAsc () {
   mobs.sort((a, b) => {
     const fa = a.name.toLowerCase(); const fb = b.name.toLowerCase()
@@ -90,8 +97,31 @@ function sortArrayAlphaAsc () {
     }
     return 0
   })
+  alphaSortDirection.value = 'z-a'
 }
+// sort desc
+function sortArrayAlphaDesc () {
+  mobs.sort((a, b) => {
+    const fa = a.name.toLowerCase(); const fb = b.name.toLowerCase()
+    if (fa < fb) {
+      return 1
+    }
+    if (fa > fb) {
+      return -1
+    }
+    return 0
+  })
+  alphaSortDirection.value = 'a-z'
+}
+
 // hp sort
+// -----------------------------------------------------------
+const hpSortDirection = ref('hp >')
+function hpSort () {
+  if (hpSortDirection.value === 'hp >') sortArrayHpAsc()
+  else if (hpSortDirection.value === 'hp <') sortArrayHpDesc()
+}
+// sort asc
 function sortArrayHpAsc () {
   mobs.sort((a, b) => {
     const fa = a.hit_points; const fb = b.hit_points
@@ -103,6 +133,21 @@ function sortArrayHpAsc () {
     }
     return 0
   })
+  hpSortDirection.value = 'hp <'
+}
+// sort desc
+function sortArrayHpDesc () {
+  mobs.sort((a, b) => {
+    const fa = a.hit_points; const fb = b.hit_points
+    if (fa < fb) {
+      return 1
+    }
+    if (fa > fb) {
+      return -1
+    }
+    return 0
+  })
+  hpSortDirection.value = 'hp >'
 }
 
 // EDIT MOBS
@@ -112,7 +157,7 @@ function addMob (name) {
   name = name.replace(/ /gm, '-').replace(/-$/gm, '').toLowerCase()
   fetch('https://api.open5e.com/monsters/' + name)
     .then(res => res.json())
-    .then(data => { mobs.push(data) })
+    .then(data => { mobs.unshift(data) })
     .catch(err => console.log(err.message))
 }
 
@@ -127,12 +172,11 @@ function handlePassedMob (e) {
 }
 
 onMounted(() => {
-  addMob('goblin')
-  addMob('air-elemental')
-  addMob('baliri-demon')
-  addMob('adult black dragon')
-  addMob('axe beak')
-  addMob('drake venom')
+  addMob('aatxe')
+  addMob('cave goat')
+  addMob('giant spider')
+  addMob('silenal')
+  addMob('zmey')
 })
 
 </script>
