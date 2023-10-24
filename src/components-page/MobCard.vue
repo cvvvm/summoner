@@ -1,7 +1,7 @@
 <template>
   <!-- card -->
   <Transition
-    name="slide-up"
+    name="slide-up-sm"
     appear
   >
     <div

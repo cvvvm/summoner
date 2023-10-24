@@ -152,9 +152,15 @@ button.warn {
 }
 
 /* -------------------------------------------------------- */
+/* -------------------------------------------------------- */
+
 /* animations */
 
+/* -------------------------------------------------------- */
+/* -------------------------------------------------------- */
+
 /* FADE */
+/* -------------------------------------------------------- */
 .fade-leave-active {
   transition: opacity 0.2s ease-in;
 }
@@ -167,6 +173,7 @@ button.warn {
 }
 
 /* SCALE FADE */
+/* -------------------------------------------------------- */
 .scale-fade-enter-active {
   transition:
     transform 200ms ease-in,
@@ -174,17 +181,18 @@ button.warn {
 }
 .scale-fade-leave-active {
   transition:
-    transform 200ms ease-out,
+    transform 300ms ease-out,
     opacity 200ms ease-out;
 }
 
 .scale-fade-enter-from,
 .scale-fade-leave-to {
-  transform: scale(0.95);
+  transform: scale(0.9);
   opacity: 0;
 }
 
 /* SLIDE DOWN */
+/* -------------------------------------------------------- */
 .slide-down-leave-active {
   transition:
     transform 0s ease-in,
@@ -201,26 +209,44 @@ button.warn {
   opacity: 0;
 }
 
-/* SLIDE UP */
-.slide-up-leave-active {
+/* SLIDE UP SMALL */
+/* -------------------------------------------------------- */
+.slide-up-sm-leave-active {
   transition:
     transform 200ms ease-in,
-    opacity 200ms ease-in,
-    scale 200ms ease-in;
+    opacity 200ms ease-in;
 }
-.slide-up-enter-active {
+.slide-up-sm-enter-active {
   transition:
     transform 150ms ease-in,
-    opacity 150ms ease-out,
-    scale 150ms ease-out;
+    opacity 150ms ease-out;
 }
-.slide-up-leave-to {
+.slide-up-sm-leave-to {
   transform: translateY(-10px);
   opacity: 0;
-  scale: 0.9;
 }
-.slide-up-enter-from {
+.slide-up-sm-enter-from {
   transform: translateY(20px);
   opacity: 0;
-  scale: 0.9;
+}
+
+/* SLIDE UP MD */
+/* -------------------------------------------------------- */
+.slide-up-md-leave-active {
+  transition:
+    transform 300ms ease-in,
+    opacity 200ms ease-in;
+}
+.slide-up-md-enter-active {
+  transition:
+    transform 200ms ease-out,
+    opacity 200ms ease-out;
+}
+.slide-up-md-leave-to {
+  transform: translateY(-100px);
+  opacity: 0;
+}
+.slide-up-md-enter-from {
+  transform: translateY(100px);
+  opacity: 0;
 }
