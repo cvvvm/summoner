@@ -125,7 +125,7 @@ function toggleSummonModal () {
 }
 
 function updateSearchSuggest () {
-  searchSuggest.value = mobNames.list.filter(mob => mob.name.includes(mobSearchInput.value))
+  searchSuggest.value = mobNames.list.filter(mob => mob.name.includes(mobSearchInput.value.toLowerCase()))
   // alphabetize list
   searchSuggest.value = searchSuggest.value.sort((a, b) => {
     const fa = a.name.toLowerCase(); const fb = b.name.toLowerCase()
