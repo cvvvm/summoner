@@ -27,7 +27,7 @@
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <Transition
     appear
-    name="scale-fade"
+    name="slide-up-sm"
   >
     <!-- card container -->
     <div

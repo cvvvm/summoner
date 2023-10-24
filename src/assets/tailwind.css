@@ -222,7 +222,7 @@ button.warn {
     opacity 150ms ease-out;
 }
 .slide-up-sm-leave-to {
-  transform: translateY(-10px);
+  transform: translateY(-20px);
   opacity: 0;
 }
 .slide-up-sm-enter-from {
