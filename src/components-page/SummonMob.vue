@@ -35,9 +35,9 @@
         v-model="mobSearchInput"
         placeholder="who to summon?"
         class="flex-1
-                  p-2 rounded-md
-                  text-neutral-800
-                 bg-neutral-300"
+                p-2 rounded-md
+                text-neutral-800
+                bg-neutral-300"
         @input="updateSearchSuggest()"
       >
     </div>
@@ -49,7 +49,7 @@
     <div
       class="flex flex-row flex-wrap gap-2
                 place-content-start
-                max-h-[35vh] h-[12rem]
+                h-[40vh] xs:h-[12rem]
                 overflow-y-auto"
     >
       <button
