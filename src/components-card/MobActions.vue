@@ -28,27 +28,29 @@
         v-show="atkObj.type"
         class="flex flex-wrap gap-x-4 gap-2"
       >
+        <!-- type/range -->
         <p class="flex gap-1 text-neutral-100">
-          <span class="text-neutral-400 bg-neutral-950 px-1">{{ atkObj.type }}</span>
+          <span class="text-neutral-400 bg-neutral-950 px-1">{{ atkObj.type }}</span>{{ atkObj.range }} ft.
         </p>
-        <p class="flex gap-1 text-neutral-100">
-          <span class="text-neutral-400 bg-neutral-950 px-1">range</span> {{ atkObj.range }} ft.
-        </p>
-        <p class="flex gap-1 text-neutral-100">
+        <!-- dmg type -->
+        <p
+          v-show="atkObj.dmgTypes"
+          class="flex gap-1 text-neutral-100"
+        >
           <span class="text-neutral-400 bg-neutral-950 px-1">dmg</span> {{ atkObj.dmgTypes }}
         </p>
+        <!-- save -->
+        <p
+          v-show="atkObj.saveThrow"
+          class="flex gap-1 text-neutral-100"
+        >
+          <span class="text-neutral-400 bg-neutral-950 px-1">dc</span> {{ atkObj.saveThrow }}
+        </p>
+        <!-- desc -->
         <p class="text-neutral-500">
           {{ action.desc.toLowerCase() }}
         </p>
       </div>
-
-      <!--       <div class="grid gap-2">
-        <div
-          v-for="subaction in action.desc.toLowerCase().replace('ft.', 'ft').split(/\. /g)"
-          :key="subaction"
-        >
-          <p>{{ subaction.replace('damage plus ', 'damage + ').replace('hit: ', '').replace(/\./gm, '') }}.</p>
-        </div> -->
 
       <div v-if="action.usage">
         <p v-if="action.usage.dice">
@@ -85,7 +87,7 @@ import MobActionDmg from './MobActionDmg.vue'
 const props = defineProps({
   actions: { type: Object, default: () => { } }
 })
-const atkObj = ({ type: '', hitMod: 0, dmgMod: 0, range: '', numTargets: '', dice: '', dmgTypes: '', save: '' })
+const atkObj = ({ type: '', hitMod: 0, dmgMod: 0, range: '', numTargets: '', dice: '', dmgTypes: '', saveThrow: '' })
 
 // process actions attack text
 // ------------------------------------------------------------------------------------
@@ -121,7 +123,7 @@ function findAtkReach (s) {
 
 // 4. find num atk targets
 function findNumAtkTargets (s) {
-  if (s.match(/ target/)) return s.replace(/ target.*| targets.*/, '')
+  if (s.match(/ target/)) return s.replace(/ target.*| targets.*| creature.*| creatures.*/, '')
 }
 
 // 5. find dmg dice
@@ -142,6 +144,14 @@ function findDmgTypes (o) {
     }
   }
   return [diceArray, dmgTypesArray]
+}
+
+// 7. find save
+function findSaveThrow (o) {
+  const foundMatch = o.match(/dc \d{1,3} .*/)
+  if (foundMatch) {
+    return foundMatch[0].replace(/ saving.*| check.*/, '').replace('dc ', '')
+  }
 }
 
 // final: process atk
@@ -176,8 +186,11 @@ function processAtkText (a) {
   atkObj.dmgTypes = diceDmgs[1].join(', ')
   atkObj.dmgMod = parseInt(diceDmgs[0].join('+').replace(/\d{1,3}d\d{1,3}\+/, '').replace(/\+\d{1,3}d\d{1,3}/, ''))
 
-  // console.log('looped')
   // 7
+  const saveThrow = findSaveThrow(processStr)
+  atkObj.saveThrow = saveThrow
+
+  // console.log('looped')
 }
 </script>
 

@@ -138,7 +138,7 @@ import SummonMob from '../components-page/SummonMob.vue'
 
 const mobs = reactive([])
 const globalPanelOptions = ['none', 'actions', 'abilities', 'details']
-const toggleGlobalCardPanel = ref('none')
+const toggleGlobalCardPanel = ref('actions')
 const forceRefreshKey = ref(0)
 
 // PROCESS MOBS
