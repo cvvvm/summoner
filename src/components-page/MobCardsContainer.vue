@@ -197,8 +197,8 @@ function sortArrayAlphaDesc () {
 // hp sort
 // -----------------------------------------------------------
 function hpSort () {
-  if (hpSortDirection.value === 'hp ↑') sortArrayHpAsc()
-  else if (hpSortDirection.value === 'hp ↓') sortArrayHpDesc()
+  if (hpSortDirection.value === 'hp ↓') sortArrayHpAsc()
+  else if (hpSortDirection.value === 'hp ↑') sortArrayHpDesc()
 }
 // sort hp asc
 function sortArrayHpAsc () {
@@ -212,7 +212,7 @@ function sortArrayHpAsc () {
     }
     return 0
   })
-  hpSortDirection.value = 'hp ↓'
+  hpSortDirection.value = 'hp ↑'
 }
 // sort hp desc
 function sortArrayHpDesc () {
@@ -226,14 +226,14 @@ function sortArrayHpDesc () {
     }
     return 0
   })
-  hpSortDirection.value = 'hp ↑'
+  hpSortDirection.value = 'hp ↓'
 }
 
 // ac sort
 // -----------------------------------------------------------
 function acSort () {
-  if (acSortDirection.value === 'ac ↑') sortArrayAcAsc()
-  else if (acSortDirection.value === 'ac ↓') sortArrayHAcesc()
+  if (acSortDirection.value === 'ac ↓') sortArrayAcAsc()
+  else if (acSortDirection.value === 'ac ↑') sortArrayHAcesc()
 }
 // sort hp asc
 function sortArrayAcAsc () {
@@ -247,7 +247,7 @@ function sortArrayAcAsc () {
     }
     return 0
   })
-  acSortDirection.value = 'ac ↓'
+  acSortDirection.value = 'ac ↑'
 }
 // sort hp desc
 function sortArrayHAcesc () {
@@ -261,7 +261,7 @@ function sortArrayHAcesc () {
     }
     return 0
   })
-  acSortDirection.value = 'ac ↑'
+  acSortDirection.value = 'ac ↓'
 }
 
 // open summoning window
