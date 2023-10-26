@@ -293,11 +293,11 @@ function handlePassedMob (e) {
 }
 
 onMounted(() => {
-  addMob('aatxe')
+/*   addMob('aatxe')
   addMob('cave goat')
   addMob('giant spider')
   addMob('silenal')
-  addMob('zmey')
+  addMob('zmey') */
 })
 
 </script>
