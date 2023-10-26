@@ -79,7 +79,7 @@
       <!-- empty page text -->
       <div
         v-show="mobs.length === 0"
-        class="col-span-full text-center"
+        class="grow text-center"
       >
         summon a monster to begin your command
       </div>

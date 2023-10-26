@@ -42,16 +42,16 @@
     <!-- hit roll -->
     <div class="flex text-sm text-neutral-500">
       hit:<span
-        class="px-1 mr-1 bg-neutral-950"
+        class="px-1 mr-1 bg-neutral-950 self-start"
       >1d20</span>{{ hitRollMath }}
     </div>
 
     <!-- dmg roll -->
-    <div class="flex text-sm text-neutral-500">
+    <div class="flex flex-row flex-wrap text-sm text-neutral-500 overflow-x-hidden">
       dmg:<span
         v-for="roll in props.dice"
         :key="roll"
-        class="px-1 mr-1 bg-neutral-950"
+        class="px-1 mr-1 bg-neutral-950 self-start"
       >{{ roll }}</span>{{ dmgRollMath }}
     </div>
   </div>
