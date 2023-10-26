@@ -45,6 +45,9 @@
         <button @click="hpSort">
           {{ hpSortDirection }}
         </button>
+        <button @click="acSort">
+          {{ acSortDirection }}
+        </button>
       </div>
 
       <!-- panel toggles -->
@@ -153,10 +156,11 @@ function processMobName (name) {
 // SORTING
 // ------------------------------------------------------------------------------------
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+const alphaSortDirection = ref('a-z')
+const hpSortDirection = ref('hp ↑')
+const acSortDirection = ref('ac ↑')
 // alpha sort
 // -----------------------------------------------------------
-const alphaSortDirection = ref('a-z')
 function alphaSort () {
   if (alphaSortDirection.value === 'a-z') sortArrayAlphaAsc()
   else if (alphaSortDirection.value === 'z-a') sortArrayAlphaDesc()
@@ -192,10 +196,9 @@ function sortArrayAlphaDesc () {
 
 // hp sort
 // -----------------------------------------------------------
-const hpSortDirection = ref('hp >')
 function hpSort () {
-  if (hpSortDirection.value === 'hp >') sortArrayHpAsc()
-  else if (hpSortDirection.value === 'hp <') sortArrayHpDesc()
+  if (hpSortDirection.value === 'hp ↑') sortArrayHpAsc()
+  else if (hpSortDirection.value === 'hp ↓') sortArrayHpDesc()
 }
 // sort hp asc
 function sortArrayHpAsc () {
@@ -209,7 +212,7 @@ function sortArrayHpAsc () {
     }
     return 0
   })
-  hpSortDirection.value = 'hp <'
+  hpSortDirection.value = 'hp ↓'
 }
 // sort hp desc
 function sortArrayHpDesc () {
@@ -223,7 +226,42 @@ function sortArrayHpDesc () {
     }
     return 0
   })
-  hpSortDirection.value = 'hp >'
+  hpSortDirection.value = 'hp ↑'
+}
+
+// ac sort
+// -----------------------------------------------------------
+function acSort () {
+  if (acSortDirection.value === 'ac ↑') sortArrayAcAsc()
+  else if (acSortDirection.value === 'ac ↓') sortArrayHAcesc()
+}
+// sort hp asc
+function sortArrayAcAsc () {
+  mobs.sort((a, b) => {
+    const fa = a.armor_class; const fb = b.armor_class
+    if (fa < fb) {
+      return -1
+    }
+    if (fa > fb) {
+      return 1
+    }
+    return 0
+  })
+  acSortDirection.value = 'ac ↓'
+}
+// sort hp desc
+function sortArrayHAcesc () {
+  mobs.sort((a, b) => {
+    const fa = a.armor_class; const fb = b.armor_class
+    if (fa < fb) {
+      return 1
+    }
+    if (fa > fb) {
+      return -1
+    }
+    return 0
+  })
+  acSortDirection.value = 'ac ↑'
 }
 
 // open summoning window
