@@ -1,20 +1,42 @@
 <template>
   <!-- page container -->
   <!------------------------------------------------>
-  <div class="grid grid-rows-[min-content,_1fr]">
+  <div
+    class="grid grid-rows-[fit-content,_1fr]"
+  >
     <!-- command bar -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div
       class="sticky top-0 z-[1000]
-            flex flex-row flex-wrap gap-x-8 gap-y-4 justify-between
+            flex flex-row flex-wrap
+            gap-x-8 gap-y-4
+            justify-between items-end
             p-4
             bg-neutral-900"
     >
-      <SummonMob
-        @summon-mob="addMob"
-      />
+      <!-- summon mob -->
+      <!------------------------------------------------>
+      <Transition
+        appear
+        name="slide-down-md"
+      >
+        <SummonMob
+          v-show="isSummonModalOpen"
+          @summon-mob="addMob"
+          @toggle-summon-modal="toggleSummonModal"
+        />
+      </Transition>
 
+      <button
+        class="place-self-center"
+        @click="toggleSummonModal()"
+      >
+        + summon
+      </button>
+
+      <!-- sort -->
+      <!------------------------------------------------>
       <div class="flex gap-2 items-center">
         <p>sort:</p>
         <button @click="alphaSort">
@@ -25,6 +47,8 @@
         </button>
       </div>
 
+      <!-- panel toggles -->
+      <!------------------------------------------------>
       <div
         class="hidden sm:flex
                 gap-2 items-center"
@@ -200,6 +224,13 @@ function sortArrayHpDesc () {
     return 0
   })
   hpSortDirection.value = 'hp >'
+}
+
+// open summoning window
+// -----------------------------------------------------------
+const isSummonModalOpen = ref(false)
+function toggleSummonModal () {
+  isSummonModalOpen.value = !isSummonModalOpen.value
 }
 
 // EDIT MOBS
