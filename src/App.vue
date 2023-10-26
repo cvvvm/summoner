@@ -1,52 +1,8 @@
 <template>
-  <!-- command bar -->
-  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-  <div
-    class="
-    sticky top-0 z-[1000]
-    flex flex-row flex-wrap gap-x-8 gap-y-4 justify-between
-    p-4
-    bg-neutral-900"
-  >
-    <SummonMob
-      @summon-mob="addMob"
-    />
-
-    <div class="flex gap-2 items-center">
-      <p>sort:</p>
-      <button @click="alphaSort">
-        {{ alphaSortDirection }}
-      </button>
-      <button @click="hpSort">
-        {{ hpSortDirection }}
-      </button>
-    </div>
-
-    <div
-      class="hidden sm:flex
-                gap-2 items-center"
-    >
-      <p>toggle:</p>
-      <button
-        v-for="panelToggle in globalPanelOptions"
-        :key="panelToggle"
-        @click="toggleGlobalCardPanel = panelToggle; forceRefreshKey += 1"
-      >
-        {{ panelToggle.substring(0,3) }}
-      </button>
-    </div>
-  </div> <!-- end global buttons container -->
-
   <!-- content container -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-  <MobCardsContainer
-    :key="forceRefreshKey"
-    :mobs="mobs"
-    :toggle-global-card-panel="toggleGlobalCardPanel"
-    @pass-mob="handlePassedMob"
-  />
+  <MobCardsContainer />
 
   <!-- footer -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -65,11 +21,10 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
 import MobCardsContainer from './components-page/MobCardsContainer.vue'
-import SummonMob from './components-page/SummonMob.vue'
+// import SummonMob from './components-page/SummonMob.vue'
 
-const mobs = reactive([])
+/* const mobs = reactive([])
 const globalPanelOptions = ['none', 'actions', 'abilities', 'details']
 const toggleGlobalCardPanel = ref('none')
 const forceRefreshKey = ref(0)
@@ -178,7 +133,7 @@ onMounted(() => {
   addMob('silenal')
   addMob('zmey')
 })
-
+ */
 </script>
 
 <style>

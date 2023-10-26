@@ -10,14 +10,10 @@
             bg-neutral-950"
     >
       <!-- AC VALUE -->
-      <h4
-        class="
-      text-xl
-      text-neutral-200"
-      >
+      <h4 class="text-xl">
         AC
       </h4>
-      <div class="text-xxl">
+      <div class="text-xl text-neutral-200">
         {{ props.armor[0].class }}
       </div>
     </div>

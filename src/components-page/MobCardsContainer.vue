@@ -2,6 +2,43 @@
   <!-- page container -->
   <!------------------------------------------------>
   <div class="grid grid-rows-[min-content,_1fr]">
+    <!-- command bar -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <div
+      class="sticky top-0 z-[1000]
+            flex flex-row flex-wrap gap-x-8 gap-y-4 justify-between
+            p-4
+            bg-neutral-900"
+    >
+      <SummonMob
+        @summon-mob="addMob"
+      />
+
+      <div class="flex gap-2 items-center">
+        <p>sort:</p>
+        <button @click="alphaSort">
+          {{ alphaSortDirection }}
+        </button>
+        <button @click="hpSort">
+          {{ hpSortDirection }}
+        </button>
+      </div>
+
+      <div
+        class="hidden sm:flex
+                gap-2 items-center"
+      >
+        <p>toggle:</p>
+        <button
+          v-for="panelToggle in globalPanelOptions"
+          :key="panelToggle"
+          @click="toggleGlobalCardPanel = panelToggle; forceRefreshKey += 1"
+        >
+          {{ panelToggle.substring(0, 3) }}
+        </button>
+      </div>
+    </div> <!-- end command bar -->
     <!-- card container -->
     <!------------------------------------------------>
     <div
@@ -14,7 +51,7 @@
     >
       <!-- empty page text -->
       <div
-        v-show="props.mobs.length === 0"
+        v-show="mobs.length === 0"
         class="col-span-full text-center"
       >
         summon a monster to begin your command
@@ -22,10 +59,11 @@
 
       <!-- mob cards -->
       <div
-        v-for="mob, index in props.mobs"
+        v-for="mob, index in mobs"
         :key="mob"
       >
         <MobCard
+          :key="forceRefreshKey"
           :mob-index="index"
           :name="processMobName(mob.name)"
           :slug="mob.slug"
@@ -58,9 +96,8 @@
           :speed="mob.speed"
           :senses="mob.senses"
           :lang="mob.languages"
-          :toggle-global-card-panel="props.toggleGlobalCardPanel"
-          @pass-mob="$emit('passMob', $event);
-                     console.log($event.type + ' index ' + $event.data + ' passed from container');"
+          :toggle-global-card-panel="toggleGlobalCardPanel"
+          @pass-mob="handlePassedMob"
         />
       </div>
     </div> <!-- end cards container -->
@@ -68,14 +105,18 @@
 </template>
 
 <script setup>
+import { ref, reactive, onMounted } from 'vue'
 import MobCard from './MobCard.vue'
+import SummonMob from '../components-page/SummonMob.vue'
 
-defineEmits(['passMob'])
-const props = defineProps({
-  mobs: { type: Object, default: () => {} },
-  toggleGlobalCardPanel: { type: String, default: '' }
-})
+const mobs = reactive([])
+const globalPanelOptions = ['none', 'actions', 'abilities', 'details']
+const toggleGlobalCardPanel = ref('none')
+const forceRefreshKey = ref(0)
 
+// PROCESS MOBS
+// ------------------------------------------------------------------------------------
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function processMobName (name) {
   if (name.indexOf(',') === -1) {
     return name.toLowerCase()
@@ -84,6 +125,111 @@ function processMobName (name) {
     return (name.split(',')[1] + ' ' + name.split(',')[0]).toLowerCase()
   }
 }
+
+// SORTING
+// ------------------------------------------------------------------------------------
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// alpha sort
+// -----------------------------------------------------------
+const alphaSortDirection = ref('a-z')
+function alphaSort () {
+  if (alphaSortDirection.value === 'a-z') sortArrayAlphaAsc()
+  else if (alphaSortDirection.value === 'z-a') sortArrayAlphaDesc()
+}
+// sort alpha asc
+function sortArrayAlphaAsc () {
+  mobs.sort((a, b) => {
+    const fa = a.name.toLowerCase(); const fb = b.name.toLowerCase()
+    if (fa < fb) {
+      return -1
+    }
+    if (fa > fb) {
+      return 1
+    }
+    return 0
+  })
+  alphaSortDirection.value = 'z-a'
+}
+// sort alpha desc
+function sortArrayAlphaDesc () {
+  mobs.sort((a, b) => {
+    const fa = a.name.toLowerCase(); const fb = b.name.toLowerCase()
+    if (fa < fb) {
+      return 1
+    }
+    if (fa > fb) {
+      return -1
+    }
+    return 0
+  })
+  alphaSortDirection.value = 'a-z'
+}
+
+// hp sort
+// -----------------------------------------------------------
+const hpSortDirection = ref('hp >')
+function hpSort () {
+  if (hpSortDirection.value === 'hp >') sortArrayHpAsc()
+  else if (hpSortDirection.value === 'hp <') sortArrayHpDesc()
+}
+// sort hp asc
+function sortArrayHpAsc () {
+  mobs.sort((a, b) => {
+    const fa = a.hit_points; const fb = b.hit_points
+    if (fa < fb) {
+      return -1
+    }
+    if (fa > fb) {
+      return 1
+    }
+    return 0
+  })
+  hpSortDirection.value = 'hp <'
+}
+// sort hp desc
+function sortArrayHpDesc () {
+  mobs.sort((a, b) => {
+    const fa = a.hit_points; const fb = b.hit_points
+    if (fa < fb) {
+      return 1
+    }
+    if (fa > fb) {
+      return -1
+    }
+    return 0
+  })
+  hpSortDirection.value = 'hp >'
+}
+
+// EDIT MOBS
+// -----------------------------------------------------------
+// add new mob
+function addMob (name) {
+  name = name.replace(/ /gm, '-').replace(/-$/gm, '').toLowerCase()
+  fetch('https://api.open5e.com/monsters/' + name)
+    .then(res => res.json())
+    .then(data => { mobs.unshift(data) })
+    .catch(err => console.log(err.message))
+}
+
+// remove mob
+function handlePassedMob (e) {
+  console.log(e.type + ' index ' + e.data + ' passed from app')
+  if (e.type === 'banish') mobs.splice(e.data, 1)
+  if (e.type === 'clone') {
+    e.data = e.data.replace(/ /, '-')
+    addMob(e.data)
+  }
+}
+
+onMounted(() => {
+  addMob('aatxe')
+  addMob('cave goat')
+  addMob('giant spider')
+  addMob('silenal')
+  addMob('zmey')
+})
 
 </script>
 

@@ -14,7 +14,7 @@
               bg-neutral-950"
     >
       <!-- HP VALUE -->
-      <h4 class="pl-1 text-xl text-neutral-200">
+      <h4 class="pl-1 text-xl">
         HP
       </h4>
 

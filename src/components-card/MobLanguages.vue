@@ -9,7 +9,7 @@
     <span
       v-if="!lang || lang === '—'"
       class="text-sm text-neutral-200"
-    >none spoken</span>
+    >none</span>
   </div>
 </template>
 

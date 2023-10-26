@@ -36,21 +36,25 @@
         <!------------------------------------------------>
         <button
           class="grid
-                grid-cols-[.75fr_1fr] xs:grid-cols-1
+                grid-cols-[2fr_1fr] xs:grid-cols-1
+                gap-x-2
                 justify-items-start items-center xs:place-items-center
                 p-2 pb-2 rounded-md
-              text-neutral-400 bg-neutral-800"
+             bg-neutral-800"
           :class="abilityButtonHover"
           @click="abilityRoll(Math.floor((scoreValue.score - 10) / 2))"
         >
-          <div class="justify-self-center px-1">
-            {{ abilityName }}
+          <div
+            class="flex gap-1
+                      justify-self-center items-center
+                      text-base font-bold text-neutral-200"
+          >
+            {{ abilityName }}<span class="text-sm text-neutral-400 font-normal">{{ calcAbilityMod(scoreValue.score) }}</span>
           </div>
           <div class="flex gap-1 items-center">
-            <div class="val-lg">
+            <div class="text-neutral-400 text-xl font-medium">
               {{ scoreValue.score }}
             </div>
-            <span class="text-sm text-neutral-400">{{ calcAbilityMod(scoreValue.score) }}</span>
           </div>
         </button>
 

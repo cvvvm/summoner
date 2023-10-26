@@ -155,7 +155,7 @@
             <button
               v-show="props.actions"
               class="flex-1 rounded-md border"
-              :class="toggledLocalPanel == 'actions' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-400 bg-neutral-950 border-neutral-700'"
+              :class="toggledLocalPanel == 'actions' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-400 bg-neutral-950 border-neutral-950 hover:border-b-yellow-500'"
               @click="toggledLocalPanel = 'actions'"
             >
               actions
@@ -163,7 +163,7 @@
             <button
               v-show="props.specialAbilities"
               class="flex-1 rounded-md border"
-              :class="toggledLocalPanel == 'abilities' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-400 bg-neutral-950 border-neutral-700'"
+              :class="toggledLocalPanel == 'abilities' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-400 bg-neutral-950 border-neutral-950 hover:border-b-yellow-500'"
               @click="toggledLocalPanel = 'abilities'"
             >
               abilities

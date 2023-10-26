@@ -120,10 +120,6 @@ button.warn {
 }
 
 /* -------------------------------------------------------- */
-
-.val-lg {
-  @apply text-neutral-200 text-xl font-bold;
-}
 .val-md {
   color: var(--text-color);
   font-size: var(--h-size-sm);

@@ -47,7 +47,7 @@
         <h1
           class="flex-grow place-self-center
                 px-4
-                text-xxl text-neutral-200 text-center"
+                text-xl text-neutral-200"
         >
           {{ props.name }}
         </h1>
@@ -87,7 +87,7 @@
         <button
           v-show="props.actions || props.legendaryActions"
           class="flex-1 rounded-md border"
-          :class="toggledLocalPanel == 'actions' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-400 bg-neutral-950 border-neutral-700'"
+          :class="toggledLocalPanel == 'actions' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-400 bg-neutral-950 border-neutral-950 hover:border-b-yellow-500'"
           @click="toggledLocalPanel == 'actions' ? toggledLocalPanel = '' : toggledLocalPanel = 'actions'"
         >
           actions
@@ -96,7 +96,7 @@
         <button
           v-show="props.specialAbilities"
           class="flex-1 rounded-md border"
-          :class="toggledLocalPanel == 'abilities' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-400 bg-neutral-950 border-neutral-700'"
+          :class="toggledLocalPanel == 'abilities' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-400 bg-neutral-950 border-neutral-950 hover:border-b-yellow-500'"
           @click="toggledLocalPanel == 'abilities' ? toggledLocalPanel = '' : toggledLocalPanel = 'abilities'"
         >
           abilities
@@ -104,7 +104,7 @@
 
         <button
           class="flex-1 rounded-md border"
-          :class="toggledLocalPanel == 'details' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-400 bg-neutral-950 border-neutral-700'"
+          :class="toggledLocalPanel == 'details' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-400 bg-neutral-950 border-neutral-950 hover:border-b-yellow-500'"
           @click="toggledLocalPanel == 'details' ? toggledLocalPanel = '' : toggledLocalPanel = 'details'"
         >
           details
