@@ -98,7 +98,10 @@
           <!-- armor, HP -->
           <div class="grid grid-cols-2 gap-4">
             <MobArmor :armor="props.armor" />
-            <MobHpControls :base-hp="props.baseHp" />
+            <MobHpControls
+              :base-hp="props.baseHp"
+              @pass-hp-full-card="$emit('passHpCard', $event)"
+            />
           </div>
 
           <MobAbilityScores
@@ -225,7 +228,7 @@ import MobActions from '../components-card/MobActions.vue'
 import MobActionsLegendary from '../components-card/MobActionsLegendary.vue'
 import { ref } from 'vue'
 
-defineEmits(['passMob', 'passToggleFullCard'])
+defineEmits(['passMob', 'passToggleFullCard', 'passHpCard'])
 
 const props = defineProps({
   mobIndex: { type: Number, default: 0 },

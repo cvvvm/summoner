@@ -24,7 +24,7 @@
           :class="HPcolor"
           class="text-xl font-medium transition-colors"
         >
-          {{ currHP }}<span class="text-xl text-neutral-400 font-light">/{{ props.baseHp }}</span>
+          {{ currHpVal }}<span class="text-xl text-neutral-400 font-light">/{{ props.baseHp }}</span>
         </p>
       </div>
     </div>
@@ -32,7 +32,7 @@
     <!-- math & buttons container -->
     <div
       class="grid grid-cols-[.25fr_minmax(35px,_1fr)_.25fr] gap-2 place-self-center"
-      @click="checkHP()"
+      @click="checkHP(); $emit('passHpFullCard', currHP)"
     >
       <button
         class="rounded-md hover:bg-red-700 hover:text-red-200 active:bg-red-800 active:text-red-400"
@@ -63,45 +63,39 @@
 
 <script setup>
 import { ref } from 'vue'
+
 const props = defineProps({
   baseHp: { type: Number, default: 0 }
+  /* currHp: { type: Number, default: 0 } */
 })
+defineEmits(['passHpFullCard'])
+
 const hpChange = ref(1)
 const HPcolor = ref('text-neutral-200')
 const HPbgColor = ref('')
-const currHP = ref(props.baseHp)
-
-// WIP HP CODE
-/* function rollHP(x) {
-  const splitVal = x.split('d')
-  const numDice = parseInt(splitVal[0])
-  const diceVal = parseInt(splitVal[1].split('+')[0])
-  const rollMod = parseInt(splitVal[1].split('+')[1])
-  // const totalHP = parseInt(mobFunctions.rollDice(numDice, diceVal, rollMod))
-  return parseInt(mobFunctions.rollDice(numDice, diceVal, rollMod)) // return [totalHP, numDice, diceVal, rollMod]
-} */
+const currHpVal = ref(props.baseHp)
 
 function healMob (amountHeal) {
-  currHP.value = parseInt(currHP.value)
-  currHP.value += amountHeal
+  currHpVal.value = parseInt(currHpVal.value)
+  currHpVal.value += amountHeal
 }
 function dmgMob (amountDmg) {
-  currHP.value = parseInt(currHP.value)
-  currHP.value -= amountDmg
+  currHpVal.value = parseInt(currHpVal.value)
+  currHpVal.value -= amountDmg
 }
 function checkHP () {
   /* reset if less than 0 */
-  if (currHP.value <= 0) currHP.value = 0
-  /* bonus HP */ if (currHP.value > props.baseHp) {
+  if (currHpVal.value <= 0) currHpVal.value = 0
+  /* bonus HP */ if (currHpVal.value > props.baseHp) {
     HPcolor.value = 'text-emerald-400 drop-shadow-[0px_0px_10px_teal]'
     HPbgColor.value = 'outline-2 outline outline-emerald-500' // drop-shadow-[0px_0px_4px_teal]'
-  } /* dead */ else if (currHP.value < (props.baseHp * 0.2)) {
+  } /* dead */ else if (currHpVal.value < (props.baseHp * 0.2)) {
     HPcolor.value = 'text-red-500'
     HPbgColor.value = 'outline-2 outline outline-red-500'
-  } /* low */ else if (currHP.value < (props.baseHp * 0.6) && currHP.value >= (props.baseHp * 0.3)) {
+  } /* low */ else if (currHpVal.value < (props.baseHp * 0.6) && currHpVal.value >= (props.baseHp * 0.3)) {
     HPcolor.value = 'text-yellow-500'
     HPbgColor.value = 'outline-2 outline outline-yellow-500'
-  } /* critical */ else if (currHP.value < (props.baseHp * 0.3) && currHP.value >= 0.2) {
+  } /* critical */ else if (currHpVal.value < (props.baseHp * 0.3) && currHpVal.value >= 0.2) {
     HPcolor.value = 'text-orange-500'
     HPbgColor.value = 'outline-2 outline outline-orange-500'
   } else {
@@ -112,7 +106,6 @@ function checkHP () {
 </script>
 
 <style>
-
 .hp-val-container {
   display: grid;
   grid-template-columns: 1fr;
@@ -120,13 +113,11 @@ function checkHP () {
   place-content: center;
   place-items: center;
 }
-
 .hp-button.kill {
   grid-column: span 2;
   background: var(--HP-crit);
   color: white;
 }
-
 .hp-button.revive {
   grid-column: span 2;
   background: green;

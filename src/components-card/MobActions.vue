@@ -176,7 +176,7 @@ function processAtkText (a) {
   atkObj.dmgTypes = diceDmgs[1].join(', ')
   atkObj.dmgMod = parseInt(diceDmgs[0].join('+').replace(/\d{1,3}d\d{1,3}\+/, '').replace(/\+\d{1,3}d\d{1,3}/, ''))
 
-  console.log('looped')
+  // console.log('looped')
   // 7
 }
 </script>

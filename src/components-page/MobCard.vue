@@ -41,6 +41,7 @@
           :speed="props.speed"
           :senses="props.senses"
           :lang="props.lang"
+          @pass-hp-card="updateHpVal($event)"
         />
         <!-- name -->
         <h1
@@ -75,7 +76,9 @@
       <!------------------------------------------------>
       <div class="grid grid-cols-2 gap-3">
         <MobArmor :armor="props.armor" />
-        <MobHpControls :base-hp="props.baseHp" />
+        <MobHpControls
+          :base-hp="props.baseHp"
+        />
       </div>
 
       <!-- panel toggles -->
@@ -247,6 +250,15 @@ const props = defineProps({
 
 })
 const toggledLocalPanel = ref(props.toggleGlobalCardPanel)
+
+// HP update from full card
+// ------------------------------------------------------------------------------------
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* const currHP = ref()
+function updateHpVal (e) {
+  currHP.value = e
+  console.log(e)
+} */
 </script>
 
 <style>
