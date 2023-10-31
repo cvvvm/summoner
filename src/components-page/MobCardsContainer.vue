@@ -333,6 +333,7 @@ function sortArrayHAcesc () {
 // modal toggles
 // ------------------------------------------------------------------------------------
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 // toggle summoning modal
 // -----------------------------------------------------------
 const isSummonModalOpen = ref(false)
@@ -340,13 +341,15 @@ function toggleSummonModal () {
   isSummonModalOpen.value = !isSummonModalOpen.value
 }
 // toggle dice roller
-const isDiceRollerOpen = ref(true)
+const isDiceRollerOpen = ref(false)
 function toggleDiceRoller () {
   isDiceRollerOpen.value = !isDiceRollerOpen.value
 }
 
 // EDIT MOBS
-// -----------------------------------------------------------
+// ------------------------------------------------------------------------------------
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 // add new mob
 function addMob (name) {
   name = name.replace(/ /gm, '-').replace(/-$/gm, '').toLowerCase()
