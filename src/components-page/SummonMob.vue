@@ -1,67 +1,83 @@
 <template>
-  <!-- summon card -->
+  <!-- card page container -->
   <!------------------------------------------------>
   <div
-    class="grid grid-cols-1 gap-4
-            items-start justify-items-stretch
-            w-full
-            p-6 rounded-xl
-            bg-black"
+    class="fixed z-[8000]
+              max-w-[100dvw] sm:max-w-[600px]
+              h-[100dvh]
+              p-4"
   >
-    <!-- input/buttons container -->
-    <!------------------------------------------------>
-    <div class="flex gap-4 items-center">
-      <!-- buttons -->
-      <button
-        class="px-1 hover:bg-red-600 hover:text-red-300"
-        @click="$emit('toggleSummonModal')"
+    <!-- summon card -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <div
+      class="grid grid-cols-1 gap-4
+            items-start justify-items-stretch
+            h-full
+            p-6 rounded-xl
+            bg-black
+            border-2 border-yellow-500"
+    >
+      <!-- input/buttons container -->
+      <!------------------------------------------------>
+      <div
+        class="flex flex-row flex-wrap gap-4 items-center"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1"
-          stroke="currentColor"
-          class="w-6 h-6"
+        <!-- buttons -->
+        <button
+          class="px-1 hover:bg-red-600 hover:text-red-300"
+          @click="$emit('toggleSummonModal')"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
-      </button>
-      <input
-        v-model="mobSearchInput"
-        placeholder="who to summon?"
-        class="flex-1
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+
+        <!-- seach bar -->
+        <input
+          v-model="mobSearchInput"
+          placeholder="who to summon?"
+          class="flex-1
                 p-2 rounded-md
                 text-neutral-800
                 bg-neutral-300"
-        @input="updateSearchSuggest()"
-      >
-    </div>
+          @input="updateSearchSuggest()"
+        >
+        <!-- results number -->
+        <p class="text-center w-full">
+          monsters: {{ searchSuggest.length }}
+        </p>
+      </div>
 
-    <p class="place-self-center">
-      monsters: {{ searchSuggest.length }}
-    </p>
-    <!-- mob search list -->
-    <div
-      class="flex flex-row flex-wrap gap-2
+      <!-- mob search list -->
+      <div
+        class="flex flex-row flex-wrap gap-2
                 place-content-start
-                h-[40vh] xs:h-[12rem]
+                h-full
                 overflow-y-auto"
-    >
-      <button
-        v-for="mob in searchSuggest"
-        :key="mob"
-        class="px-4 py-2 rounded-sm text-base bg-neutral-800 hover:bg-yellow-500 hover:text-yellow-950 transition-colors"
-        @click="$emit('summonMob', mob.slug)"
       >
-        {{ mob.name }}
-      </button>
-    </div><!-- end search list -->
-  </div><!-- end summon card -->
+        <button
+          v-for="mob in searchSuggest"
+          :key="mob"
+          class="px-4 py-2 rounded-sm text-base bg-neutral-800 hover:bg-yellow-500 hover:text-yellow-950 transition-colors"
+          @click="$emit('summonMob', mob.slug); confirmSummon(mob);"
+        >
+          {{ mob.name }}
+        </button>
+      </div><!-- end search list -->
+    </div><!-- end summon card -->
+  </div> <!-- end card page container -->
 </template>
 
 <script setup>
@@ -86,8 +102,16 @@ function updateSearchSuggest () {
     return 0
   })
 }
-
+// fire on load, loads all monsters
 updateSearchSuggest()
+
+function confirmSummon (x) {
+  const nameHold = x.name
+  x.name = 'summoned'
+  setTimeout(() => {
+    x.name = nameHold
+  }, '750')
+}
 
 </script>
 

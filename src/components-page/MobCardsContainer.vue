@@ -1,137 +1,199 @@
 <template>
-  <DiceRoller />
-  <!-- page container -->
+  <!-- action modals -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+  <!-- summon mob -->
   <!------------------------------------------------>
-  <div
-    class="grid grid-rows-[fit-content,_1fr]"
+  <Transition
+    name="mob-card"
   >
-    <!-- command bar -->
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <div
-      class="sticky top-0 z-[1000]
+    <SummonMob
+      v-show="isSummonModalOpen"
+      @summon-mob="addMob"
+      @toggle-summon-modal="toggleSummonModal"
+    />
+  </Transition>
+
+  <Transition name="dice-roller">
+    <DiceRoller v-show="isDiceRollerOpen" />
+  </Transition>
+
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+  <!-- page container -->
+
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+  <!-- action buttons container -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <div
+    class="fixed bottom-0 right-0
+              flex flex-col gap-4
+              p-4"
+  >
+    <!-- dice roller -->
+
+    <!-- toggle open / close button -->
+    <!------------------------------------------------>
+    <button
+      class="z-50 p-3 rounded-xl text-yellow-950 bg-yellow-600"
+      @click="toggleDiceRoller"
+    >
+      <!--open icon-->
+      <svg
+        v-show="!isDiceRollerOpen"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V13.5zm0 2.25h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V18zm2.498-6.75h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V13.5zm0 2.25h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V18zm2.504-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zm0 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V18zm2.498-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zM8.25 6h7.5v2.25h-7.5V6zM12 2.25c-1.892 0-3.758.11-5.593.322C5.307 2.7 4.5 3.65 4.5 4.757V19.5a2.25 2.25 0 002.25 2.25h10.5a2.25 2.25 0 002.25-2.25V4.757c0-1.108-.806-2.057-1.907-2.185A48.507 48.507 0 0012 2.25z"
+        />
+      </svg>
+      <!--close icon-->
+      <svg
+        v-show="isDiceRollerOpen"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
+    <!-- toggle summon menu -->
+    <button
+      class="py-2 px-4 rounded-xl
+          bg-yellow-500
+            text-xxl text-yellow-950"
+      @click="toggleSummonModal()"
+    >
+      +
+    </button>
+  </div>
+
+  <!-- command bar -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <div
+    class="sticky top-0 z-[1000]
             flex flex-row flex-wrap
             gap-x-8 gap-y-4
             justify-between items-end
             p-4
             bg-neutral-900"
-    >
-      <!-- summon mob -->
-      <!------------------------------------------------>
-      <Transition
-        appear
-        name="slide-down-md"
-      >
-        <SummonMob
-          v-show="isSummonModalOpen"
-          @summon-mob="addMob"
-          @toggle-summon-modal="toggleSummonModal"
-        />
-      </Transition>
-
-      <button
-        class="place-self-center"
-        @click="toggleSummonModal()"
-      >
-        + summon
+  >
+    <!-- sort -->
+    <!------------------------------------------------>
+    <div class="flex gap-2 items-center">
+      <p>sort:</p>
+      <button @click="alphaSort">
+        {{ alphaSortDirection }}
       </button>
+      <button @click="hpSort">
+        {{ hpSortDirection }}
+      </button>
+      <button @click="acSort">
+        {{ acSortDirection }}
+      </button>
+    </div>
 
-      <!-- sort -->
-      <!------------------------------------------------>
-      <div class="flex gap-2 items-center">
-        <p>sort:</p>
-        <button @click="alphaSort">
-          {{ alphaSortDirection }}
-        </button>
-        <button @click="hpSort">
-          {{ hpSortDirection }}
-        </button>
-        <button @click="acSort">
-          {{ acSortDirection }}
-        </button>
-      </div>
-
-      <!-- panel toggles -->
-      <!------------------------------------------------>
-      <div
-        class="hidden sm:flex
-                gap-2 items-center"
-      >
-        <p>toggle:</p>
-        <button
-          v-for="panelToggle in globalPanelOptions"
-          :key="panelToggle"
-          @click="toggleGlobalCardPanel = panelToggle; forceRefreshKey += 1"
-        >
-          {{ panelToggle.substring(0, 3) }}
-        </button>
-      </div>
-    </div> <!-- end command bar -->
-    <!-- card container -->
+    <!-- panel toggles -->
     <!------------------------------------------------>
     <div
-      class="relative
-          flex flex-row flex-wrap
+      class="hidden sm:flex
+                gap-2 items-center"
+    >
+      <p>toggle:</p>
+      <button
+        v-for="panelToggle in globalPanelOptions"
+        :key="panelToggle"
+        @click="toggleGlobalCardPanel = panelToggle; forceRefreshKey += 1"
+      >
+        {{ panelToggle.substring(0, 3) }}
+      </button>
+    </div>
+  </div> <!-- end command bar -->
+
+  <!-- card container -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <div
+    class="flex flex-row flex-wrap
           content-start
           w-full min-h-screen
           gap-2 md:gap-4
           p-2 sm:p-4"
+  >
+    <!-- empty page text -->
+    <div
+      v-show="mobs.length === 0"
+      class="grow text-center"
     >
-      <!-- empty page text -->
-      <div
-        v-show="mobs.length === 0"
-        class="grow text-center"
-      >
-        summon a monster to begin your command
-      </div>
+      summon a monster to begin your command
+    </div>
 
-      <!-- mob cards container -->
-      <TransitionGroup name="slide-up-sm">
-        <div
-          v-for="mob, index in mobs"
-          :key="mob"
-        >
-          <MobCard
-            :key="forceRefreshKey"
-            :mob-index="index"
-            :name="processMobName(mob.name)"
-            :slug="mob.slug"
-            :alignment="mob.alignment"
-            :size="mob.size.toLowerCase()"
-            :type="mob.type"
-            :ability-scores="[
-              { str: {'score': mob.strength, 'saveMod': mob.strength_save} },
-              { dex: {'score': mob.dexterity, 'saveMod': mob.dexterity_save} },
-              { con: {'score': mob.constitution, 'saveMod': mob.constitution_save} },
-              { int: {'score': mob.intelligence, 'saveMod': mob.intelligence_save} },
-              { wis: {'score': mob.wisdom, 'saveMod': mob.wisdom_save} },
-              { cha: {'score': mob.charisma, 'saveMod': mob.charisma_save} },
-            ]"
-            :base-hp="mob.hit_points"
-            :armor="[{
-              class: mob.armor_class,
-              desc: mob.armor_desc,
-            }]"
-            :challenge-rating="mob.cr"
-            :xp-gained="mob.xp"
-            :damage-vulnerabilities="mob.damage_vulnerabilities"
-            :damage-resistances="mob.damage_resistances"
-            :damage-immunities="mob.damage_immunities"
-            :condition-immunities="mob.condition_immunities"
-            :special-abilities="mob.special_abilities"
-            :actions="mob.actions"
-            :legendary-actions="mob.legendary_actions"
-            :legendary-desc="mob.legendary_desc"
-            :speed="mob.speed"
-            :senses="mob.senses"
-            :lang="mob.languages"
-            :toggle-global-card-panel="toggleGlobalCardPanel"
-            @pass-mob="handlePassedMob"
-          />
-        </div>
-      </TransitionGroup>
-    </div> <!-- end cards container -->
-  </div> <!-- end page container -->
+    <!-- mob cards container -->
+    <TransitionGroup name="mob-card">
+      <div
+        v-for="mob, index in mobs"
+        :key="mob"
+      >
+        <MobCard
+          :key="forceRefreshKey"
+          :mob-index="index"
+          :name="processMobName(mob.name)"
+          :slug="mob.slug"
+          :alignment="mob.alignment"
+          :size="mob.size.toLowerCase()"
+          :type="mob.type"
+          :ability-scores="[
+            { str: {'score': mob.strength, 'saveMod': mob.strength_save} },
+            { dex: {'score': mob.dexterity, 'saveMod': mob.dexterity_save} },
+            { con: {'score': mob.constitution, 'saveMod': mob.constitution_save} },
+            { int: {'score': mob.intelligence, 'saveMod': mob.intelligence_save} },
+            { wis: {'score': mob.wisdom, 'saveMod': mob.wisdom_save} },
+            { cha: {'score': mob.charisma, 'saveMod': mob.charisma_save} },
+          ]"
+          :base-hp="mob.hit_points"
+          :armor="[{
+            class: mob.armor_class,
+            desc: mob.armor_desc,
+          }]"
+          :challenge-rating="mob.cr"
+          :xp-gained="mob.xp"
+          :damage-vulnerabilities="mob.damage_vulnerabilities"
+          :damage-resistances="mob.damage_resistances"
+          :damage-immunities="mob.damage_immunities"
+          :condition-immunities="mob.condition_immunities"
+          :special-abilities="mob.special_abilities"
+          :actions="mob.actions"
+          :legendary-actions="mob.legendary_actions"
+          :legendary-desc="mob.legendary_desc"
+          :speed="mob.speed"
+          :senses="mob.senses"
+          :lang="mob.languages"
+          :toggle-global-card-panel="toggleGlobalCardPanel"
+          @pass-mob="handlePassedMob"
+        />
+      </div>
+    </TransitionGroup>
+  </div> <!-- end cards container -->
 </template>
 
 <script setup>
@@ -268,11 +330,19 @@ function sortArrayHAcesc () {
   acSortDirection.value = 'ac ↓'
 }
 
-// open summoning window
+// modal toggles
+// ------------------------------------------------------------------------------------
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// toggle summoning modal
 // -----------------------------------------------------------
 const isSummonModalOpen = ref(false)
 function toggleSummonModal () {
   isSummonModalOpen.value = !isSummonModalOpen.value
+}
+// toggle dice roller
+const isDiceRollerOpen = ref(true)
+function toggleDiceRoller () {
+  isDiceRollerOpen.value = !isDiceRollerOpen.value
 }
 
 // EDIT MOBS
@@ -282,7 +352,7 @@ function addMob (name) {
   name = name.replace(/ /gm, '-').replace(/-$/gm, '').toLowerCase()
   fetch('https://api.open5e.com/monsters/' + name)
     .then(res => res.json())
-    .then(data => { mobs.unshift(data) })
+    .then(data => { mobs.push(data) })
     .catch(err => console.log(err.message))
 }
 
@@ -297,7 +367,7 @@ function handlePassedMob (e) {
 }
 
 onMounted(() => {
-  /* addMob('aatxe')
+/*   addMob('aatxe')
   addMob('cave goat')
   addMob('giant spider')
   addMob('silenal')
@@ -308,4 +378,30 @@ onMounted(() => {
 </script>
 
 <style>
+
+.mob-card-leave-active {
+  transition:
+    transform 150ms ease-out,
+}
+.mob-card-enter-active {
+  transition:
+    transform 200ms ease-out,
+}
+.mob-card-leave-to,
+.mob-card-enter-from {
+  transform: translateX(-150%);
+}
+
+.dice-roller-leave-active {
+  transition:
+    transform 150ms ease-out,
+}
+.dice-roller-enter-active {
+  transition:
+    transform 200ms ease-out,
+}
+.dice-roller-leave-to,
+.dice-roller-enter-from {
+  transform: translateY(150%);
+}
 </style>
