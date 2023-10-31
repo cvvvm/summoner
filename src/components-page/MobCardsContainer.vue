@@ -1,4 +1,5 @@
 <template>
+  <DiceRoller />
   <!-- page container -->
   <!------------------------------------------------>
   <div
@@ -84,49 +85,51 @@
         summon a monster to begin your command
       </div>
 
-      <!-- mob cards -->
-      <div
-        v-for="mob, index in mobs"
-        :key="mob"
-      >
-        <MobCard
-          :key="forceRefreshKey"
-          :mob-index="index"
-          :name="processMobName(mob.name)"
-          :slug="mob.slug"
-          :alignment="mob.alignment"
-          :size="mob.size.toLowerCase()"
-          :type="mob.type"
-          :ability-scores="[
-            { str: {'score': mob.strength, 'saveMod': mob.strength_save} },
-            { dex: {'score': mob.dexterity, 'saveMod': mob.dexterity_save} },
-            { con: {'score': mob.constitution, 'saveMod': mob.constitution_save} },
-            { int: {'score': mob.intelligence, 'saveMod': mob.intelligence_save} },
-            { wis: {'score': mob.wisdom, 'saveMod': mob.wisdom_save} },
-            { cha: {'score': mob.charisma, 'saveMod': mob.charisma_save} },
-          ]"
-          :base-hp="mob.hit_points"
-          :armor="[{
-            class: mob.armor_class,
-            desc: mob.armor_desc,
-          }]"
-          :challenge-rating="mob.cr"
-          :xp-gained="mob.xp"
-          :damage-vulnerabilities="mob.damage_vulnerabilities"
-          :damage-resistances="mob.damage_resistances"
-          :damage-immunities="mob.damage_immunities"
-          :condition-immunities="mob.condition_immunities"
-          :special-abilities="mob.special_abilities"
-          :actions="mob.actions"
-          :legendary-actions="mob.legendary_actions"
-          :legendary-desc="mob.legendary_desc"
-          :speed="mob.speed"
-          :senses="mob.senses"
-          :lang="mob.languages"
-          :toggle-global-card-panel="toggleGlobalCardPanel"
-          @pass-mob="handlePassedMob"
-        />
-      </div>
+      <!-- mob cards container -->
+      <TransitionGroup name="slide-up-sm">
+        <div
+          v-for="mob, index in mobs"
+          :key="mob"
+        >
+          <MobCard
+            :key="forceRefreshKey"
+            :mob-index="index"
+            :name="processMobName(mob.name)"
+            :slug="mob.slug"
+            :alignment="mob.alignment"
+            :size="mob.size.toLowerCase()"
+            :type="mob.type"
+            :ability-scores="[
+              { str: {'score': mob.strength, 'saveMod': mob.strength_save} },
+              { dex: {'score': mob.dexterity, 'saveMod': mob.dexterity_save} },
+              { con: {'score': mob.constitution, 'saveMod': mob.constitution_save} },
+              { int: {'score': mob.intelligence, 'saveMod': mob.intelligence_save} },
+              { wis: {'score': mob.wisdom, 'saveMod': mob.wisdom_save} },
+              { cha: {'score': mob.charisma, 'saveMod': mob.charisma_save} },
+            ]"
+            :base-hp="mob.hit_points"
+            :armor="[{
+              class: mob.armor_class,
+              desc: mob.armor_desc,
+            }]"
+            :challenge-rating="mob.cr"
+            :xp-gained="mob.xp"
+            :damage-vulnerabilities="mob.damage_vulnerabilities"
+            :damage-resistances="mob.damage_resistances"
+            :damage-immunities="mob.damage_immunities"
+            :condition-immunities="mob.condition_immunities"
+            :special-abilities="mob.special_abilities"
+            :actions="mob.actions"
+            :legendary-actions="mob.legendary_actions"
+            :legendary-desc="mob.legendary_desc"
+            :speed="mob.speed"
+            :senses="mob.senses"
+            :lang="mob.languages"
+            :toggle-global-card-panel="toggleGlobalCardPanel"
+            @pass-mob="handlePassedMob"
+          />
+        </div>
+      </TransitionGroup>
     </div> <!-- end cards container -->
   </div> <!-- end page container -->
 </template>
@@ -135,6 +138,7 @@
 import { ref, reactive, onMounted } from 'vue'
 import MobCard from './MobCard.vue'
 import SummonMob from '../components-page/SummonMob.vue'
+import DiceRoller from '../dice-roller/DiceRoller.vue'
 
 const mobs = reactive([])
 const globalPanelOptions = ['none', 'actions', 'abilities', 'details']
@@ -293,11 +297,12 @@ function handlePassedMob (e) {
 }
 
 onMounted(() => {
-/*   addMob('aatxe')
+  /* addMob('aatxe')
   addMob('cave goat')
   addMob('giant spider')
   addMob('silenal')
-  addMob('zmey') */
+  addMob('zmey')
+  addMob('abaasy') */
 })
 
 </script>

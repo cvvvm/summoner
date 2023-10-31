@@ -23,7 +23,7 @@ export const mobFunctions = {
       .replace(/\),/gm, ')+')
       .replace(/\(,/gm, '(')
       .replace(/,\)/gm, ')')
-      .replace(/,/gm, ' + ')
+      .replace(/,/gm, '+')
 
     return [hitResult.reduce((p, c) => p + c, 0), hitMathStr]
   },

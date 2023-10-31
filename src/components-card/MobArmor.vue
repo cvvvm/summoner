@@ -28,7 +28,7 @@
         :key="type"
         class="label"
       >
-        {{ type.replace('\(', '').replace('\)', '') }}
+        {{ type.replace('\(', '').replace('\)', '').toLowerCase() }}
       </div>
     </div>
 

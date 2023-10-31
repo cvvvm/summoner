@@ -12,11 +12,13 @@
 
 ::-webkit-scrollbar {
   width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
   color: inherit;
   width: 4px;
+  height: 4px;
 }
 
 body::-webkit-scrollbar-thumb {
@@ -24,6 +26,7 @@ body::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.5);
   color: inherit;
   width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -31,6 +34,7 @@ body::-webkit-scrollbar-thumb {
   background: rgba(202, 138, 4, 1);
   color: inherit;
   width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar:window-inactive {
@@ -45,6 +49,7 @@ input[type='number']::-webkit-outer-spin-button {
 input[type='number'] {
   -moz-appearance: textfield;
   appearance: textfield;
+  @apply transition-colors;
 }
 
 p {

@@ -21,7 +21,7 @@
         v-show="!atkObj.type"
         class="text-neutral-400"
       >
-        {{ action.desc }}
+        {{ action.desc.toLowerCase() }}
       </p>
 
       <div
@@ -94,7 +94,10 @@ const atkObj = ({ type: '', hitMod: 0, dmgMod: 0, range: '', numTargets: '', dic
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // 1. find atk type
 function findAtkType (s) {
-  if (s.includes('melee weapon attack')) {
+  if (s.match(/.* or .* weapon attack/)) {
+    const atkType = 'melee/ranged'
+    return atkType
+  } else if (s.includes('melee weapon attack')) {
     const atkType = 'melee'
     return atkType
   } else if (s.includes('ranged weapon attack')) {
@@ -139,7 +142,7 @@ function findDmgTypes (o) {
   if (o) {
     for (let i = 0; i < o.length; i++) {
       const splitArray = o[i].split(' ')
-      diceArray.push(splitArray[0].replace(/\(|\)/g, ''))
+      diceArray.push(splitArray[0].replace(/\(|\)/gm, ''))
       dmgTypesArray.push(splitArray[1])
     }
   }
@@ -148,9 +151,9 @@ function findDmgTypes (o) {
 
 // 7. find save
 function findSaveThrow (o) {
-  const foundMatch = o.match(/dc \d{1,3} .*/)
+  const foundMatch = o.match(/dc \d{1,3} .../)
   if (foundMatch) {
-    return foundMatch[0].replace(/ saving.*| check.*/, '').replace('dc ', '')
+    return foundMatch[0].replace(/ saving.*| check.*| save.*/, '').replace('dc ', '')
   }
 }
 
@@ -162,7 +165,7 @@ function processAtkText (a) {
 
   // 1
   const atkType = findAtkType(processStr)
-  processStr = processStr.replace(atkType + ' weapon attack ', '')
+  processStr = processStr.replace(/.* weapon attack | .* or .* weapon attack/, '')
   atkObj.type = atkType
 
   // 2
