@@ -59,7 +59,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { mobFunctions } from '../mobFunctions'
+import { mobFunctions } from '../functions/funcDiceRolls'
 
 const dmgResult = ref(0)
 const dmgRollMath = ref('')

@@ -78,7 +78,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { mobFunctions } from '@/mobFunctions'
+import { mobFunctions } from '@/functions/funcDiceRolls'
 
 const abilityRollResult = ref(0)
 const abilityButtonHover = ('hover:outline hover:outline-2 hover:outline-yellow-500 ' +

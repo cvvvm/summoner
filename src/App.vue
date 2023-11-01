@@ -5,7 +5,7 @@
 
   <!-- footer -->
   <!------------------------------------------------>
-  <footer
+<!--   <footer
     class="flex place-content-around place-items-center
           min-h-[5vh]
           bg-neutral-900"
@@ -15,7 +15,7 @@
       href="https://open5e.com"
     >data from open5e</a>
     <p>built with Vue + Tailwind</p>
-  </footer>
+  </footer> -->
 </template>
 
 <script setup>

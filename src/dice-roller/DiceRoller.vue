@@ -84,7 +84,7 @@
 </template>
 
 <script setup>
-import { mobFunctions } from '../mobFunctions'
+import { mobFunctions } from '../functions/funcDiceRolls'
 import { ref, reactive } from 'vue'
 import InputNumDice from './InputNumDice'
 

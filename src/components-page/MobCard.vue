@@ -1,8 +1,8 @@
 <template>
   <!-- card -->
+  <!-- min-w-[350px] max-w-[400px] -->
   <div
     class="grid grid-cols-1 gap-2
-          min-w-[350px] max-w-[500px]
           p-4 pt-0 rounded-xl
         bg-black"
   >

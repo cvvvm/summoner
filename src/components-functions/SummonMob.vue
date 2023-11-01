@@ -14,9 +14,9 @@
       class="grid grid-cols-1 gap-4
             items-start justify-items-stretch
             h-full sm:max-w-[600px]
-            p-6 rounded-xl
+            p-4 rounded-xl
             bg-neutral-950
-            border-2 border-yellow-500"
+            border border-yellow-500"
     >
       <!-- input/buttons container -->
       <!------------------------------------------------>

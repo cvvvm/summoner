@@ -5,7 +5,7 @@
       {{ props.size }} {{ props.type.toLowerCase() }}
     </p>
     <p class="py-0.5 px-2 bg-neutral-900">
-      {{ props.alignment }}
+      {{ props.alignment ? props.alignment : 'unaligned' }}
     </p>
     <p class="py-0.5 px-2 bg-neutral-900">
       challenge: {{ props.challengeRating }}
