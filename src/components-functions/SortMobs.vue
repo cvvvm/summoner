@@ -2,9 +2,6 @@
   <!-- sort-->
   <!------------------------------------------------>
   <div class="flex gap-2 items-center">
-    <p>
-      sort:
-    </p>
     <button @click="alphaSort(props.mobsObj)">
       {{ alphaSortDirection }}
     </button>

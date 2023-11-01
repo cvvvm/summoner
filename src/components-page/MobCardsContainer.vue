@@ -27,15 +27,45 @@
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <div
-    class="grid grid-row-[min-content,_1fr,_min-content]
-            h-[100dvh]"
+    class="h-[100dvh]"
   >
+    <!-- cards control bar -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- cards control container -->
+    <div
+      class="flex
+            place-content-around items-center
+            w-full h-fit
+            p-4"
+    >
+      <!-- bar -->
+      <div
+        class="flex flex-row flex-wrap gap-8
+            p-2 rounded-xl
+            bg-neutral-900"
+      >
+        <SortMobs :mobs-obj="mobs" />
+        <ToggleMobCardPanels @refresh-panel="refreshTogglePanel += 1; toggleGlobalCardPanel = $event" />
+      </div> <!-- end cards control -->
+
+      <!-- toggle summon menu -->
+      <button
+        class="py-2 px-4"
+        :class="isSummonModalOpen ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' : ''"
+        @click="toggleSummonModal()"
+      >
+        summon
+      </button>
+    </div> <!-- end cards control container -->
+
     <!-- action buttons bar -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div
       class="flex flex-row gap-2
             place-content-center self-start justify-self-center
+            h-fit
             p-2 m-4 rounded-xl
             bg-neutral-900"
     >
@@ -47,14 +77,6 @@
         @click="toggleDiceRoller"
       >
         dice
-      </button>
-      <!-- toggle summon menu -->
-      <button
-        class="py-1 px-4"
-        :class="isSummonModalOpen ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' : '' "
-        @click="toggleSummonModal()"
-      >
-        summon
       </button>
     </div>
 
@@ -89,7 +111,7 @@
           :key="mob"
         >
           <MobCard
-            :key="forceRefreshKey"
+            :key="refreshTogglePanel"
             :mob-index="index"
             :name="processMobName(mob.name)"
             :slug="mob.slug"
@@ -128,42 +150,6 @@
         </div>
       </TransitionGroup>
     </div> <!-- end cards container -->
-
-    <!-- cards control bar -->
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <!-- cards control container -->
-    <div
-      class="flex
-            place-content-center items-end
-            w-full
-            p-4"
-    >
-      <!-- bar -->
-      <div
-        class="flex flex-row flex-wrap gap-8
-            p-2 rounded-xl
-            bg-neutral-900"
-      >
-        <SortMobs :mobs-obj="mobs" />
-
-        <!-- panel toggles -->
-        <!------------------------------------------------>
-        <div
-          class="hidden sm:flex
-              gap-2 items-center"
-        >
-          <p>toggle:</p>
-          <button
-            v-for="panelToggle in globalPanelOptions"
-            :key="panelToggle"
-            @click="toggleGlobalCardPanel = panelToggle; forceRefreshKey += 1"
-          >
-            {{ panelToggle.substring(0, 3) }}
-          </button>
-        </div>
-      </div> <!-- end cards control -->
-    </div> <!-- end cards control container -->
   </div> <!-- end page container -->
 </template>
 
@@ -172,12 +158,15 @@ import { ref, reactive, onMounted } from 'vue'
 import MobCard from './MobCard.vue'
 import SummonMob from '../components-functions/SummonMob.vue'
 import SortMobs from '../components-functions/SortMobs.vue'
+import ToggleMobCardPanels from '../components-functions/ToggleMobCardPanels.vue'
 import DiceRoller from '../dice-roller/DiceRoller.vue'
 
+// currently summoned mob(s)
 const mobs = reactive([])
-const globalPanelOptions = ['none', 'actions', 'abilities', 'details']
-const toggleGlobalCardPanel = ref('none')
-const forceRefreshKey = ref(0)
+
+// toggled global panel
+const toggleGlobalCardPanel = ref('')
+const refreshTogglePanel = ref(0)
 
 // modal toggles
 // ------------------------------------------------------------------------------------
