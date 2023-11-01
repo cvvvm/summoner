@@ -32,15 +32,15 @@
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <div
     class="fixed bottom-0 right-0 z-[1000]
-            flex flex-col flex-wrap gap-4
+            flex flex-col flex-wrap gap-2
             justify-center
-            p-4 m-4 rounded-xxxl
+            p-2 m-4 rounded-xl
             bg-neutral-900"
   >
     <!-- toggle open / close button -->
     <!------------------------------------------------>
     <button
-      class="py-2 px-4 rounded-xl"
+      class="py-2 px-4"
       @click="toggleDiceRoller"
     >
       <!--open icon-->
@@ -54,7 +54,7 @@
     </button>
     <!-- toggle summon menu -->
     <button
-      class="py-2 px-4 rounded-xl
+      class="py-2 px-4
           bg-yellow-500
           text-yellow-950"
       @click="toggleSummonModal()"
@@ -70,13 +70,15 @@
     class="sticky top-0 z-[1000]
             flex flex-row flex-wrap gap-4
             justify-between items-end
-            p-4
+            p-2 m-4 rounded-xl
             bg-neutral-900"
   >
     <!-- sort -->
     <!------------------------------------------------>
     <div class="flex gap-2 items-center">
-      <p>sort:</p>
+      <p class="pl-1">
+        sort:
+      </p>
       <button @click="alphaSort">
         {{ alphaSortDirection }}
       </button>

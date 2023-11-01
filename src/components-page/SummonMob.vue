@@ -3,7 +3,7 @@
   <!------------------------------------------------>
   <div
     class="fixed z-[8000]
-              max-w-[100dvw] sm:max-w-[600px]
+              max-w-[100dvw]
               h-[100dvh]
               p-4"
   >
@@ -13,9 +13,9 @@
     <div
       class="grid grid-cols-1 gap-4
             items-start justify-items-stretch
-            h-full
+            h-full sm:max-w-[600px]
             p-6 rounded-xl
-            bg-black
+            bg-neutral-950
             border-2 border-yellow-500"
     >
       <!-- input/buttons container -->
@@ -70,7 +70,7 @@
         <button
           v-for="mob in searchSuggest"
           :key="mob"
-          class="px-4 py-2 rounded-sm text-base bg-neutral-800 hover:bg-yellow-500 hover:text-yellow-950 transition-colors"
+          class="px-4 py-2 rounded-sm text-base bg-neutral-900 hover:bg-yellow-500 hover:text-yellow-950 transition-colors"
           @click="$emit('summonMob', mob.slug); confirmSummon(mob);"
         >
           {{ mob.name }}
