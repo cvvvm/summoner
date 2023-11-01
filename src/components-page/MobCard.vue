@@ -1,10 +1,12 @@
 <template>
   <!-- card -->
-  <!-- min-w-[350px] max-w-[400px] -->
+
   <div
-    class="grid grid-cols-1 gap-2
-          p-4 pt-0 rounded-xl
-        bg-black"
+    class="
+    min-w-[350px] max-w-[500px]
+    grid grid-cols-1 gap-2
+    p-4 pt-0 rounded-xl
+  bg-black"
   >
     <!-- full screen + name container -->
     <div

@@ -4,7 +4,7 @@
   <div
     class="hidden sm:flex gap-2 items-center"
   >
-    <p>show:</p>
+    <p>panel:</p>
     <button
       v-for="panelToggle in globalPanelOptions"
       :key="panelToggle"

@@ -3,7 +3,6 @@
   <div
     class="fixed bottom-0 z-8000
             flex place-content-start
-            w-full
             p-4"
   >
     <!-- roller card -->
