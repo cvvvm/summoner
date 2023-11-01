@@ -1,8 +1,8 @@
 <template>
   <!-- page placement container -->
   <div
-    class="fixed bottom-0
-            flex place-content-center
+    class="fixed bottom-0 z-8000
+            flex place-content-start
             w-full
             p-4"
   >
@@ -10,8 +10,7 @@
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div
-      class="z-40
-            grid grid-cols-7 items-center justify-between
+      class="grid grid-cols-7 items-center justify-between
             gap-x-2 gap-y-4
             flex-grow
             max-w-[600px]

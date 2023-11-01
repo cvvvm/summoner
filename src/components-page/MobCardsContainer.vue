@@ -27,73 +27,48 @@
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-  <!-- action buttons container -->
+  <!-- action buttons bar -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <div
-    class="fixed bottom-0 right-0
-              flex flex-col gap-4
-              p-4"
+    class="fixed bottom-0 right-0 z-[1000]
+            flex flex-col flex-wrap gap-4
+            justify-center
+            p-4 m-4 rounded-xxxl
+            bg-neutral-900"
   >
-    <!-- dice roller -->
-
     <!-- toggle open / close button -->
     <!------------------------------------------------>
     <button
-      class="z-50 p-3 rounded-xl text-yellow-950 bg-yellow-600"
+      class="py-2 px-4 rounded-xl"
       @click="toggleDiceRoller"
     >
       <!--open icon-->
-      <svg
-        v-show="!isDiceRollerOpen"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-6 h-6"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V13.5zm0 2.25h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V18zm2.498-6.75h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V13.5zm0 2.25h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V18zm2.504-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zm0 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V18zm2.498-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zM8.25 6h7.5v2.25h-7.5V6zM12 2.25c-1.892 0-3.758.11-5.593.322C5.307 2.7 4.5 3.65 4.5 4.757V19.5a2.25 2.25 0 002.25 2.25h10.5a2.25 2.25 0 002.25-2.25V4.757c0-1.108-.806-2.057-1.907-2.185A48.507 48.507 0 0012 2.25z"
-        />
-      </svg>
+      <p v-show="!isDiceRollerOpen">
+        dice
+      </p>
       <!--close icon-->
-      <svg
-        v-show="isDiceRollerOpen"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-6 h-6"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M6 18L18 6M6 6l12 12"
-        />
-      </svg>
+      <p v-show="isDiceRollerOpen">
+        close
+      </p>
     </button>
     <!-- toggle summon menu -->
     <button
       class="py-2 px-4 rounded-xl
           bg-yellow-500
-            text-xxl text-yellow-950"
+          text-yellow-950"
       @click="toggleSummonModal()"
     >
-      +
+      + summon
     </button>
   </div>
 
-  <!-- command bar -->
+  <!-- sorting bar -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <div
     class="sticky top-0 z-[1000]
-            flex flex-row flex-wrap
-            gap-x-8 gap-y-4
+            flex flex-row flex-wrap gap-4
             justify-between items-end
             p-4
             bg-neutral-900"
