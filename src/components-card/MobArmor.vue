@@ -26,7 +26,7 @@
       <div
         v-for="type in props.armor[0].desc.split(',')"
         :key="type"
-        class="label"
+        class="p-1 text-xs bg-neutral-800"
       >
         {{ type.replace('\(', '').replace('\)', '').toLowerCase() }}
       </div>
@@ -38,7 +38,7 @@
       class="grid grid-cols-1 gap-1 content-center justify-items-center"
     >
       <div
-        class="label text-center w-min"
+        class="p-1 text-xs bg-neutral-800"
       >
         none equipped
       </div>

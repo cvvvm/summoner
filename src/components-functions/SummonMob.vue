@@ -2,80 +2,91 @@
   <!-- card page container -->
   <!------------------------------------------------>
   <div
-    class="fixed z-[8000]
-              max-w-[100dvw]
-              h-[100dvh]
-              p-4"
+    class="
+    fixed z-[8000]
+    grid grid-rows-[min-content,_1fr]
+    items-center
+    h-full
+    max-w-[100dvw]
+    overflow-x-hidden
+    p-4
+    bg-neutral-950 border-r border-yellow-500"
   >
+    <!-- close button -->
+    <button
+      class="
+      place-self-start
+      px-3 py-2 hover:bg-red-600 hover:text-red-200"
+      @click="$emit('toggleSummonModal')"
+    >
+      <i class="bi bi-x-lg" />
+    </button>
     <!-- summon card -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div
-      class="grid grid-cols-1 gap-4
+      class="grid grid-cols-1 gap-x-2
             items-start justify-items-stretch
-            h-full sm:max-w-[600px]
-            p-4 rounded-xl
-            bg-neutral-950
-            border border-yellow-500"
+            p-2
+            min-w-[275px] max-w-[300px]"
     >
       <!-- input/buttons container -->
       <!------------------------------------------------>
       <div
-        class="flex flex-row flex-wrap gap-4 items-center"
+        class="
+        flex flex-row flex-wrap gap-2 mb-1"
       >
-        <!-- buttons -->
-        <button
-          class="px-1 hover:bg-red-600 hover:text-red-300"
-          @click="$emit('toggleSummonModal')"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1"
-            stroke="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-
+        <!-- results number -->
+        <p class="w-full">
+          monsters: {{ searchSuggestNum }}
+        </p>
         <!-- seach bar -->
         <input
           v-model="mobSearchInput"
-          placeholder="who to summon?"
-          class="flex-1
-                p-2 rounded-md
-                text-neutral-800
-                bg-neutral-300"
-          @input="updateSearchSuggest()"
+          placeholder="find monsters"
+          class="
+          flex-auto
+          px-2 py-1 mb-2 rounded-md
+          text-neutral-400
+          bg-neutral-800
+          border border-neutral-700 hover:border-neutral-500
+          transition colors"
+          @input="searchMobs"
         >
-        <!-- results number -->
-        <p class="text-center w-full">
-          monsters: {{ searchSuggest.length }}
-        </p>
       </div>
 
       <!-- mob search list -->
       <div
-        class="flex flex-row flex-wrap gap-2
-                place-content-start
-                h-full
-                overflow-y-auto"
+        v-show="isSearchOpen || isBrowseOpen"
+        class="
+        flex flex-col gap-2
+        place-content-start
+        overflow-y-auto
+        transition-all"
+        :class="searchSuggHt"
       >
         <button
           v-for="mob in searchSuggest"
           :key="mob"
-          class="px-4 py-2 rounded-sm text-base bg-neutral-900 hover:bg-yellow-500 hover:text-yellow-950 transition-colors"
+          class="
+          px-4 py-2 rounded-sm
+          text-sm text-left
+          bg-neutral-900 hover:bg-yellow-500
+          hover:text-yellow-950
+          transition-colors"
           @click="$emit('summonMob', mob.slug); confirmSummon(mob);"
         >
           {{ mob.name }}
         </button>
       </div><!-- end search list -->
+
+      <!-- open browser-all monsters -->
+      <button
+        class="flex-1 mt-1"
+        @click="browseAllMobs"
+      >
+        browse all
+      </button>
     </div><!-- end summon card -->
   </div> <!-- end card page container -->
 </template>
@@ -86,8 +97,13 @@ import { mobNames } from '../open5e-monster-names'
 import { ref } from 'vue'
 defineEmits(['toggleSummonModal', 'summonMob'])
 const mobSearchInput = ref('')
-const searchSuggest = ref()
+const isSearchOpen = ref(false)
+const isBrowseOpen = ref(false)
+const searchSuggest = ref([])
+const searchSuggestNum = ref(searchSuggest.value.length)
+const searchSuggHt = ref('h-[0vh]')
 
+// update search results
 function updateSearchSuggest () {
   searchSuggest.value = mobNames.list.filter(mob => mob.name.includes(mobSearchInput.value.toLowerCase()))
   // alphabetize list
@@ -101,10 +117,43 @@ function updateSearchSuggest () {
     }
     return 0
   })
+  searchSuggestNum.value = searchSuggest.value.length
 }
-// fire on load, loads all monsters
-updateSearchSuggest()
 
+// search mobs
+function searchMobs () {
+  isBrowseOpen.value = false
+  updateSearchSuggest()
+  if (mobSearchInput.value === '') {
+    searchSuggHt.value = ' h-[0vh] '
+    searchSuggestNum.value = 0
+    isSearchOpen.value = false
+  } else {
+    searchSuggHt.value = ' max-h-[60vh] '
+    isSearchOpen.value = true
+  }
+}
+
+// open suggestions
+function browseAllMobs () {
+  mobSearchInput.value = ''
+  if (isBrowseOpen.value) {
+    searchSuggHt.value = ' h-[0vh] '
+    searchSuggestNum.value = 0
+    setTimeout(() => {
+      isBrowseOpen.value = false
+    }, '225')
+  } else if (!isBrowseOpen.value) {
+    isBrowseOpen.value = true
+    updateSearchSuggest()
+    setTimeout(() => {
+      searchSuggHt.value = ' h-[60vh] '
+    }, '50')
+    isSearchOpen.value = false
+  }
+}
+
+// confirm summon text
 function confirmSummon (x) {
   const nameHold = x.name
   x.name = 'summoned'

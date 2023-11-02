@@ -52,7 +52,7 @@
           transition-colors"
       >
       <button
-        class="rounded-md hover:bg-green-800 hover:text-green-200 active:bg-green-900 active:text-green-400"
+        class="rounded-md hover:bg-green-700 hover:text-green-200 active:bg-green-900 active:text-green-400"
         @click.exact="healMob(hpChange)"
       >
         +

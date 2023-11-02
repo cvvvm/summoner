@@ -3,17 +3,14 @@
 
   <div
     class="
-    min-w-[350px] max-w-[500px]
+    max-w-[425px] sm:max-w-[375px]
     grid grid-cols-1 gap-2
-    p-4 pt-0 rounded-xl
-  bg-black"
+    p-2 rounded-xl
+  bg-neutral-950"
   >
     <!-- full screen + name container -->
     <div
-      class="flex
-      pt-4
-      top-14
-      bg-black"
+      class="flex gap-2"
     >
       <!-- FULL CARD -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -43,9 +40,11 @@
       />
       <!-- name -->
       <h1
-        class="flex-grow place-self-center
-                px-4
-                text-xl text-neutral-200"
+        class="
+        pl-2
+        flex-grow place-self-center
+        tracking-tight
+        text-lg text-neutral-200"
       >
         {{ props.name }}
       </h1>
@@ -72,7 +71,7 @@
 
     <!-- armor, HP -->
     <!------------------------------------------------>
-    <div class="grid grid-cols-2 gap-3">
+    <div class="grid grid-cols-[1fr,_.8fr] gap-2">
       <MobArmor :armor="props.armor" />
       <MobHpControls
         :base-hp="props.baseHp"
@@ -81,11 +80,11 @@
 
     <!-- panel toggles -->
     <!------------------------------------------------>
-    <div class="flex gap-2 mt-2">
+    <div class="flex gap-2">
       <button
         v-show="props.actions || props.legendaryActions"
         class="flex-1 rounded-md border"
-        :class="toggledLocalPanel == 'actions' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-400 bg-neutral-950 border-neutral-950 hover:border-b-yellow-500'"
+        :class="toggledLocalPanel == 'actions' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-400 bg-neutral-900 border-neutral-950 hover:border-b-yellow-500 hover:bg-neutral-800'"
         @click="toggledLocalPanel == 'actions' ? toggledLocalPanel = '' : toggledLocalPanel = 'actions'"
       >
         actions
@@ -94,7 +93,7 @@
       <button
         v-show="props.specialAbilities"
         class="flex-1 rounded-md border"
-        :class="toggledLocalPanel == 'abilities' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-400 bg-neutral-950 border-neutral-950 hover:border-b-yellow-500'"
+        :class="toggledLocalPanel == 'abilities' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-400 bg-neutral-900 border-neutral-950 hover:border-b-yellow-500 hover:bg-neutral-800'"
         @click="toggledLocalPanel == 'abilities' ? toggledLocalPanel = '' : toggledLocalPanel = 'abilities'"
       >
         abilities
@@ -102,7 +101,7 @@
 
       <button
         class="flex-1 rounded-md border"
-        :class="toggledLocalPanel == 'details' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-400 bg-neutral-950 border-neutral-950 hover:border-b-yellow-500'"
+        :class="toggledLocalPanel == 'details' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-400 bg-neutral-900 border-neutral-950 hover:border-b-yellow-500 hover:bg-neutral-800'"
         @click="toggledLocalPanel == 'details' ? toggledLocalPanel = '' : toggledLocalPanel = 'details'"
       >
         details
@@ -152,7 +151,7 @@
       <div
         v-show="toggledLocalPanel == 'details'"
         class="grid gap-y-4 gap-x-2
-              grid-cols-1 xs:grid-cols-[.8fr_1fr]
+              grid-cols-1
               pt-2"
       >
         <MobAbilityScores
@@ -165,17 +164,17 @@
           :type="props.type"
           :alignment="props.alignment"
           :challenge-rating="props.challengeRating"
-          class="xs:col-span-2 mt-2"
+          class=" mt-2"
         />
         <!-- details col 1 -->
-        <div class="grid gap-4 content-start col-span-2 xs:col-span-1">
+        <div class="grid gap-4 content-start col-span-2">
           <MobSenses
             :senses="props.senses"
           />
         </div>
 
         <!-- details col 2 -->
-        <div class="grid gap-4 gap-y-2 content-start col-span-2 xs:col-span-1">
+        <div class="grid gap-4 gap-y-2 content-start col-span-2">
           <MobSpeed
             :speed="props.speed"
           />
@@ -190,7 +189,7 @@
           :damage-resistances="props.damageResistances"
           :damage-immunities="props.damageImmunities"
           :condition-immunities="props.conditionImmunities"
-          class="xs:col-span-2"
+          class=""
         />
       </div> <!-- end details  -->
     </transition>

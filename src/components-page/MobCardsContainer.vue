@@ -3,10 +3,13 @@
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
+  <!-- dice roller -->
+  <Transition name="dice-roller">
+    <DiceRoller v-show="isDiceRollerOpen" />
+  </Transition>
+
   <!-- summon mob -->
-  <Transition
-    name="mob-card"
-  >
+  <Transition name="summon-mob">
     <SummonMob
       v-show="isSummonModalOpen"
       @summon-mob="addMob"
@@ -14,16 +17,7 @@
     />
   </Transition>
 
-  <!-- dice roller -->
-  <Transition name="dice-roller">
-    <DiceRoller v-show="isDiceRollerOpen" />
-  </Transition>
-
-  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
   <!-- page container -->
-
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <div
@@ -31,17 +25,27 @@
     grid grid-rows-[min-content,_1fr,_min-content]
     h-[100dvh] max-h-[100vh]"
   >
-    <!-- cards control bar -->
+    <!-- cards control -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- cards control container -->
     <div
       class="
       flex
-      place-content-around items-center
+      place-content-between items-center
       w-full
-      p-4"
+      py-2 px-4"
     >
+      <!-- toggle summon menu -->
+      <button
+        class="py-2 px-4"
+        :class="isSummonModalOpen ?
+          'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' :
+          'bg-neutral-400 text-neutral-950 hover:bg-green-500 hover:text-green-950'"
+        @click="toggleSummonModal()"
+      >
+        summon
+      </button>
       <!-- bar -->
       <div
         class="
@@ -53,34 +57,32 @@
         <ToggleMobCardPanels @refresh-panel="refreshTogglePanel += 1; toggleGlobalCardPanel = $event" />
       </div> <!-- end cards control -->
 
-      <!-- toggle summon menu -->
+      <!-- toggle dice roller -->
+      <!------------------------------------------------>
       <button
         class="py-2 px-4"
-        :class="isSummonModalOpen ?
-          'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' :
-          'bg-green-600 text-green-950 hover:bg-green-700 hover:text-green-950'"
-        @click="toggleSummonModal()"
+        :class="isDiceRollerOpen ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' : 'bg-neutral-400 text-neutral-950 hover:bg-neutral-200 hover:text-neutral-950'"
+        @click="toggleDiceRoller"
       >
-        summon
+        dice
       </button>
     </div> <!-- end cards control container -->
 
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
     <!-- card container -->
-
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- card scroll overflow -->
-    <div class="overflow-y-auto w-full">
+    <div
+      class="
+        w-full max-w-[100dvw]
+        overflow-y-auto"
+    >
       <!-- card layout -->
       <div
         class="
         flex flex-wrap flex-row
         gap-2 md:gap-4
-        p-2 sm:p-4
-        bg-neutral-700"
+        px-2 sm:px-4 pb-4 pt-2"
       >
         <!-- empty page text -->
         <div
@@ -137,27 +139,6 @@
         </TransitionGroup>
       </div> <!-- end cards layout container -->
     </div> <!-- end cards scroll container -->
-
-    <!-- action buttons bar -->
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <div
-      class="
-      flex flex-row gap-2
-      place-content-center self-start justify-self-end
-      p-2 m-2 rounded-xl
-      bg-neutral-900"
-    >
-      <!-- toggle dice roller -->
-      <!------------------------------------------------>
-      <button
-        class="py-1 px-4"
-        :class="isDiceRollerOpen ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' : ''"
-        @click="toggleDiceRoller"
-      >
-        dice
-      </button>
-    </div>
   </div> <!-- end page container -->
 </template>
 
@@ -260,6 +241,19 @@ onMounted(() => {
 }
 .dice-roller-leave-to,
 .dice-roller-enter-from {
-  transform: translateY(150%);
+  transform: translateY(200%);
+}
+
+.summon-mob-leave-active {
+  transition:
+    transform 150ms ease-out,
+}
+.summon-mob-enter-active {
+  transition:
+    transform 200ms ease-out,
+}
+.summon-mob-leave-to,
+.summon-mob-enter-from {
+  transform: translateX(-150%);
 }
 </style>

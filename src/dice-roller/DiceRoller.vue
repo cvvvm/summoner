@@ -1,8 +1,9 @@
 <template>
   <!-- page placement container -->
   <div
-    class="fixed bottom-0 z-8000
-            flex place-content-start
+    class="fixed bottom-10 z-8000
+            flex place-content-center
+            w-full
             p-4"
   >
     <!-- roller card -->

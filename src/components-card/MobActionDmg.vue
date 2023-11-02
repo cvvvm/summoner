@@ -34,7 +34,7 @@
   <!-- MATH CONTAINER -->
   <!------------------------------------------------>
   <div
-    class="grid grid-cols-1 xs:grid-cols-[max-content_1fr]
+    class="grid grid-cols-1
             gap-8 gap-y-2
             pt-2 pl-2
             "

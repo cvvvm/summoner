@@ -1,14 +1,14 @@
 <template>
   <div
     class="grid
-          grid-cols-3 xs:grid-cols-6
+          grid-cols-3
           gap-2 place-content-start"
   >
     <!-- roll math container -->
     <div
       class="grid
             grid-cols-2
-            col-span-3 xs:col-span-6
+            col-span-3
             justify-evenly
             gap-x-4 gap-y-2
             text-sm
@@ -35,24 +35,30 @@
         <!-- score button -->
         <!------------------------------------------------>
         <button
-          class="grid
-                grid-cols-[2fr_1fr] xs:grid-cols-1
-                gap-x-2
-                justify-items-start items-center xs:place-items-center
-                p-2 pb-2 rounded-md
+          class="grid grid-cols-[2fr_1fr]
+                gap-x-2 gap-y-1
+                justify-items-start items-center
+                p-2 rounded-md
              bg-neutral-800"
           :class="abilityButtonHover"
           @click="abilityRoll(Math.floor((scoreValue.score - 10) / 2))"
         >
           <div
-            class="flex gap-1
-                      justify-self-center items-center
-                      text-base font-bold text-neutral-200"
+            class="
+            flex gap-1
+            justify-self-center items-center
+            rounded-sm
+            text-sm font-bold text-neutral-200"
           >
             {{ abilityName }}<span class="text-sm text-neutral-400 font-normal">{{ calcAbilityMod(scoreValue.score) }}</span>
           </div>
-          <div class="flex gap-1 items-center">
-            <div class="text-neutral-400 text-xl font-medium">
+          <div class="flex gap-1 justify-center justify-self-stretch bg-neutral-950">
+            <div
+              class="
+                  px-2 rounded-sm
+                  text-xl font-medium
+                text-neutral-400"
+            >
               {{ scoreValue.score }}
             </div>
           </div>
@@ -62,7 +68,7 @@
         <!------------------------------------------------>
         <button
           class="flex justify-center
-                  gap-2 xs:gap-1
+                  gap-2
                   p-1 pt-0.5 mt-1 rounded-md
                   text-sm text-neutral-400
                   bg-neutral-900"
@@ -82,7 +88,7 @@ import { mobFunctions } from '@/functions/funcDiceRolls'
 
 const abilityRollResult = ref(0)
 const abilityButtonHover = ('hover:outline hover:outline-2 hover:outline-yellow-500 ' +
-                            'hover:bg-neutral-900 hover:text-yellow-500 ' +
+                            'hover:bg-neutral-700 hover:text-yellow-500 ' +
                             'active:bg-neutral-900 active:text-neutral-300 transition-colors')
 
 function abilityRoll (mod) {
