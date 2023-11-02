@@ -9,9 +9,12 @@
   </Transition>
 
   <!-- summon mob -->
-  <Transition name="summon-mob">
+  <Transition
+    name="summon-mob"
+    appear
+  >
     <SummonMob
-      v-show="isSummonModalOpen"
+      v-show="isSummonModalOpen || mobs.length === 0"
       @summon-mob="addMob"
       @toggle-summon-modal="toggleSummonModal"
     />
@@ -93,14 +96,6 @@
         gap-2 md:gap-4
         px-2 sm:px-4 pb-4 pt-2"
       >
-        <!-- empty page text -->
-        <div
-          v-show="mobs.length === 0"
-          class="grow text-center"
-        >
-          summon a monster to begin your command
-        </div>
-
         <!-- mob cards container -->
         <TransitionGroup name="scale-fade">
           <div
