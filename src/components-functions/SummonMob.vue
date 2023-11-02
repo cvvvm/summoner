@@ -7,7 +7,7 @@
     grid grid-rows-[1fr,_min-content] xs:grid-rows-[min-content,_1fr]
     items-center
     h-full
-    max-w-[100dvw]
+    w-full sm:w-fit max-w-[100dvw]
     overflow-x-hidden
     p-4
     bg-neutral-950 border-r border-yellow-500"
