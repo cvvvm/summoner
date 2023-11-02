@@ -3,8 +3,7 @@
   <button
     class="
     justify-self-start self-start
-    p-2
-    text-base leading-none
+    p-2 text-base leading-none h-[32px] w-[32px]
     hidden md:inline-block"
     @click="toggleFullCard()"
   >
@@ -56,8 +55,7 @@
             <button
               class="
               justify-self-center self-start
-              p-2
-              text-base leading-none"
+              p-2 text-base leading-none h-[32px] w-[32px]"
               @click="toggleFullCard()"
             >
               <i class="bi bi-arrows-angle-contract" />

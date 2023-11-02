@@ -51,7 +51,7 @@
       </h1>
       <!-- clone / dupe -->
       <div
-        class="flex flex-row gap-2 justify-end items-start"
+        class="flex flex-row gap-2 justify-end items-center"
       >
         <CloneMob
           :mob-index="props.mobIndex"

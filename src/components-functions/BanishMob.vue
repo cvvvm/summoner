@@ -2,7 +2,7 @@
   <!-- open modal button -->
   <button
     class="
-    p-2 text-lg leading-none
+    p-2 text-base leading-none h-[32px] w-[32px]
     hover:bg-red-700 hover:text-red-200 active:bg-red-800 active:text-red-400"
     @click="toggleBanishModal"
   >
