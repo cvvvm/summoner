@@ -4,7 +4,7 @@
   <div
     class="
     fixed z-[8000]
-    grid grid-rows-[min-content,_1fr]
+    grid grid-rows-[1fr,_min-content] xs:grid-rows-[min-content,_1fr]
     items-center
     h-full
     max-w-[100dvw]
@@ -15,7 +15,8 @@
     <!-- close button -->
     <button
       class="
-      place-self-start
+      order-2 xs:order-1
+      self-end justify-self-start xs:place-self-start
       px-3 py-2 hover:bg-red-600 hover:text-red-200"
       @click="$emit('toggleSummonModal')"
     >
@@ -25,10 +26,12 @@
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div
-      class="grid grid-cols-1 gap-x-2
-            items-start justify-items-stretch
-            p-2
-            min-w-[275px] max-w-[300px]"
+      class="
+      order-1 xs:order-2
+      grid grid-cols-1 gap-x-2
+      items-start justify-items-stretch
+      p-2
+      w-full sm:min-w-[275px] sm:max-w-[300px]"
     >
       <!-- input/buttons container -->
       <!------------------------------------------------>

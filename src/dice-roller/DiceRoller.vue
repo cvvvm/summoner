@@ -1,16 +1,16 @@
 <template>
   <!-- page placement container -->
   <div
-    class="fixed bottom-10 z-8000
+    class="fixed bottom-16 xs:bottom-0 z-8000
             flex place-content-center
             w-full
-            p-4"
+            p-2"
   >
     <!-- roller card -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div
-      class="grid grid-cols-7 items-center justify-between
+      class="grid grid-cols-4 xs:grid-cols-7 items-center justify-between
             gap-x-2 gap-y-4
             flex-grow
             max-w-[600px]

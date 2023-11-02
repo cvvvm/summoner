@@ -22,7 +22,7 @@
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <div
     class="
-    grid grid-rows-[min-content,_1fr,_min-content]
+    grid grid-rows-[1fr,_min-content] xs:grid-rows-[min-content,_1fr]
     h-[100dvh] max-h-[100vh]"
   >
     <!-- cards control -->
@@ -31,7 +31,8 @@
     <!-- cards control container -->
     <div
       class="
-      flex
+      order-2 xs:order-1
+      flex gap-2
       place-content-between items-center
       w-full
       py-2 px-4"
@@ -49,11 +50,18 @@
       <!-- bar -->
       <div
         class="
-        flex flex-row flex-wrap gap-8
+        flex flex-row flex-wrap
         p-2 rounded-xl
         bg-neutral-900"
       >
         <SortMobs :mobs-obj="mobs" />
+      </div>
+      <div
+        class="
+        hidden sm:flex flex-row flex-wrap
+        p-2 rounded-xl
+        bg-neutral-900"
+      >
         <ToggleMobCardPanels @refresh-panel="refreshTogglePanel += 1; toggleGlobalCardPanel = $event" />
       </div> <!-- end cards control -->
 
@@ -74,6 +82,7 @@
     <!-- card scroll overflow -->
     <div
       class="
+      order-0 xs:order-1
         w-full max-w-[100dvw]
         overflow-y-auto"
     >
@@ -206,12 +215,12 @@ function handlePassedMob (e) {
 }
 
 onMounted(() => {
-  addMob('aatxe')
+  /* addMob('aatxe')
   addMob('cave goat')
   addMob('giant spider')
   addMob('silenal')
   addMob('zmey')
-  addMob('abaasy')
+  addMob('abaasy') */
 })
 
 </script>
@@ -233,7 +242,7 @@ onMounted(() => {
 
 .dice-roller-leave-active {
   transition:
-    transform 150ms ease-out,
+    transform 150ms ease-in,
 }
 .dice-roller-enter-active {
   transition:
@@ -246,7 +255,7 @@ onMounted(() => {
 
 .summon-mob-leave-active {
   transition:
-    transform 150ms ease-out,
+    transform 150ms ease-in,
 }
 .summon-mob-enter-active {
   transition:
