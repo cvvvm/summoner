@@ -2,13 +2,18 @@
   <!-- attributes -->
   <div class="flex flex-wrap gap-2">
     <p class="py-0.5 px-2 bg-neutral-900">
-      {{ props.size }} {{ props.type.toLowerCase() }}
+      {{ props.size.replace(/small/,'sm')
+        .replace(/small/, 'sm.')
+        .replace(/medium/, 'md')
+        .replace(/large/, 'lg')
+      }}
+      {{ props.type.toLowerCase() }}
     </p>
     <p class="py-0.5 px-2 bg-neutral-900">
       {{ props.alignment ? props.alignment : 'unaligned' }}
     </p>
     <p class="py-0.5 px-2 bg-neutral-900">
-      challenge: {{ props.challengeRating }}
+      chal: {{ props.challengeRating }}
     </p>
   </div>
 </template>

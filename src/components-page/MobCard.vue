@@ -5,7 +5,7 @@
     class="
     max-w-[425px] sm:max-w-[375px]
     grid grid-cols-1 gap-2
-    p-2 rounded-xl
+    p-3 rounded-xl
   bg-neutral-950"
   >
     <!-- full screen + name container -->
@@ -44,7 +44,8 @@
         pl-2
         flex-grow place-self-center
         tracking-tight
-        text-lg text-neutral-200"
+        text-lg text-neutral-200
+        truncate"
       >
         {{ props.name }}
       </h1>
