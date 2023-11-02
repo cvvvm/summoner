@@ -25,7 +25,6 @@
 }
 
 body::-webkit-scrollbar-thumb {
-  border-radius: 4px;
   background: rgba(255, 255, 255, 0.5);
   color: inherit;
   width: 4px;
@@ -33,7 +32,6 @@ body::-webkit-scrollbar-thumb {
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 4px;
   background: rgba(202, 138, 4, 1);
   color: inherit;
   width: 4px;

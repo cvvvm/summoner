@@ -25,7 +25,9 @@
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <div
     class="
-    grid grid-rows-[1fr,_min-content] xs:grid-rows-[min-content,_1fr]
+    grid
+    grid-rows-[1fr,_min-content]
+    xs:grid-rows-[min-content,_1fr]
     h-[100dvh] max-h-[100vh]"
   >
     <!-- cards control -->
@@ -86,13 +88,14 @@
     <div
       class="
       order-0 xs:order-1
-        w-full max-w-[100dvw]
-        overflow-y-auto"
+      w-full max-w-[100dvw]
+      overflow-y-auto"
     >
       <!-- card layout -->
       <div
         class="
         flex flex-wrap flex-row
+        place-content-center
         gap-2 md:gap-4
         px-2 sm:px-4 pb-4 pt-2"
       >
