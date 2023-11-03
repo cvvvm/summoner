@@ -50,7 +50,7 @@
           'bg-neutral-400 text-neutral-950 hover:bg-green-500 hover:text-green-950'"
         @click="toggleSummonModal()"
       >
-        {{ isSummonModalOpen || mobs.length === 0 ? 'close' : 'summon' }}
+        summon
       </button>
       <!-- bar -->
       <div

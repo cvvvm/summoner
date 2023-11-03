@@ -52,10 +52,16 @@
           >
             {{ abilityName }}<span class="text-sm text-neutral-400 font-normal">{{ calcAbilityMod(scoreValue.score) }}</span>
           </div>
-          <div class="flex gap-1 justify-center justify-self-stretch bg-neutral-950">
+          <div
+            class="
+            flex gap-1
+            justify-center justify-self-stretch
+            rounded-sm
+            bg-neutral-950"
+          >
             <div
               class="
-                  px-2 rounded-sm
+                  px-2
                   text-xl font-medium
                 text-neutral-400"
             >
