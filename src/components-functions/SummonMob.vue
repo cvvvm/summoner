@@ -9,28 +9,58 @@
     left-2
     right-2 xs:right-auto
     grid gap-2
-    grid-rows-[36px,_1fr,_min-content]
+    grid-rows-[min-content,_1fr,_min-content]
     max-w-full xs:w-[450px]
-    p-4 rounded-xl
+    p-2 rounded-xl
     bg-neutral-950 border border-yellow-500"
   >
-    <!-- search bar -->
-    <input
-      v-model="mobSearchInput"
-      :placeholder="searchPlacehold"
-      spellcheck="false"
+    <!-- search + toggles container -->
+    <!------------------------------------------------>
+    <div
       class="
-      flex-auto
-      px-2 py-1 rounded-md
-      text-neutral-400
-      bg-neutral-800
-      border border-neutral-700 hover:border-neutral-400
-      transition colors"
-      @input="searchMobs"
+      grid grid-cols-[max-content,_1fr]
+      gap-2
+      items-center
+      m-2"
     >
+      <!-- toggle all/favorites -->
+      <div>
+        <button
+          :class="isSearchOpen ?
+            'text-yellow-950 hover:text-yellow-900 bg-yellow-500 hover:bg-yellow-600' :
+            'bg-neutral-800 hover:bg-neutral-700 hover:text-yellow-500'"
+          class="
+          bi bi-search leading-none
+          p-3 rounded-e-none"
+          @click="toggleAllOrFavs"
+        />
+        <button
+          :class="!isSearchOpen ?
+            'bi-heart-fill text-pink-230 hover:text-pink-300 bg-pink-500 hover:bg-pink-600' :
+            'bi-heart bg-neutral-800 hover:bg-neutral-700 hover:text-pink-500'"
+          class="
+          bi leading-none
+          p-3 rounded-s-none"
+          @click="toggleAllOrFavs"
+        />
+      </div>
+      <!-- search bar -->
+      <input
+        v-model="mobSearchInput"
+        :placeholder="searchPlacehold"
+        spellcheck="false"
+        class="
+        p-2 rounded-md
+        text-neutral-400
+        bg-neutral-800
+        border border-neutral-700 hover:border-neutral-400
+        transition colors"
+        @input="searchMobs"
+      >
+    </div>
     <SummonMobAll
       v-show="isSearchOpen"
-      :mobs="searchSuggest"
+      :mobs="searchAllResult"
       :search-limit="searchLimitAmount"
       @update-search-limit="updateSearchLimit()"
       @summon-mob="$emit('summonMob', $event)"
@@ -39,43 +69,26 @@
     />
     <SummonMobFavs
       v-show="!isSearchOpen"
-      :fav-mobs="favMobsList"
+      :fav-mobs="searchFavResult"
       :search-limit="searchLimitAmount"
       @update-search-limit="updateSearchLimit()"
       @summon-mob="$emit('summonMob', $event)"
       @toggle-summon-modal="$emit('toggleSummonModal')"
+      @remove-fav="removeFav($event)"
     />
 
     <!-- buttons, results bar -->
     <!------------------------------------------------>
-    <div class="flex gap-2 items-center justify-between">
-      <!-- reset /show all -->
-      <button
-        class="
-        border border-neutral-700
-        bg-neutral-900"
-        @click="browseAllMobs"
-      >
-        {{ mobSearchInput ? 'reset' : 'all' }}
-      </button>
-
+    <div
+      class="
+      flex gap-2
+      items-center justify-between
+      m-2"
+    >
       <!-- results number -->
       <p class="text-center">
-        monsters: {{ searchNum }}
+        {{ isSearchOpen ? 'monsters:' : 'favorites:' }} {{ isSearchOpen ? searchAllNum : searchFavNum }}
       </p>
-      <p>search: {{ isSearchOpen }}</p>
-
-      <!-- toggle all/favorites -->
-      <button
-        :class="isSearchOpen ? 'bi-heart' : 'bi-search'"
-        class="
-        bi
-        p-2 leading-none
-        border border-neutral-700
-        hover:text-yellow-500
-        bg-neutral-900 hover:bg-neutral-800"
-        @click="toggleAllOrFavs"
-      />
     </div>
   </div> <!-- end card -->
 </template>
@@ -87,17 +100,25 @@ import SummonMobFavs from './SummonMobFavs.vue'
 import { reactive, ref } from 'vue'
 defineEmits(['toggleSummonModal', 'summonMob'])
 const mobSearchInput = ref('')
-const isSearchOpen = ref(false)
-const searchPlacehold = ref('search favorites')
-const searchSuggest = ref([])
-const favMobsList = reactive([{ name: 'a-mi-kuk', slug: 'a-mi-kuk' }, { name: 'gassy', slug: 'gay' }])
-const searchNum = ref(searchSuggest.value.length)
+const isSearchOpen = ref(true)
+const searchPlacehold = ref('search all monsters')
+const searchAllResult = ref([])
+const searchFavResult = ref([])
+const favMobsList = reactive([])
+const searchAllNum = ref(searchAllResult.value.length)
+const searchFavNum = ref(searchFavResult.value.length)
 const searchLimitAmount = ref(100)
 
 // toggle between search all / search faves
 function toggleAllOrFavs () {
   isSearchOpen.value = !isSearchOpen.value
-  if (!isSearchOpen.value) { searchPlacehold.value = 'search favorites' } else if (isSearchOpen.value) { searchPlacehold.value = 'search all monsters' }
+  if (!isSearchOpen.value) {
+    updateSearchFavResult()
+    searchPlacehold.value = 'search favorites'
+  } else if (isSearchOpen.value) {
+    updateSearchAllResult()
+    searchPlacehold.value = 'search all monsters'
+  }
 }
 
 // add fav mob
@@ -111,17 +132,29 @@ function addFav (e) {
   }
 }
 
+// remove fav mob
+function removeFav (e) {
+  let i = 0
+  favMobsList.forEach(fav => {
+    if (fav.name === e.name) {
+      favMobsList.splice(i, 1)
+    }
+    i++
+  })
+  updateSearchFavResult()
+}
+
 // update search limit
 function updateSearchLimit () {
   searchLimitAmount.value += 100
 }
 
 // update search results - all
-function updateSearchSuggestAll () {
-  searchSuggest.value = mobNames.list.filter(mob => mob.name.includes(mobSearchInput.value.toLowerCase()))
-  searchNum.value = searchSuggest.value.length
+function updateSearchAllResult () {
+  searchAllResult.value = mobNames.list.filter(mob => mob.name.includes(mobSearchInput.value.toLowerCase()))
+  searchAllNum.value = searchAllResult.value.length
   // alphabetize list
-  searchSuggest.value = searchSuggest.value.sort((a, b) => {
+  searchAllResult.value = searchAllResult.value.sort((a, b) => {
     const fa = a.name.toLowerCase(); const fb = b.name.toLowerCase()
     if (fa < fb) {
       return -1
@@ -133,11 +166,11 @@ function updateSearchSuggestAll () {
   })
 }
 // update search results - favs
-function updateSearchSuggestFavs () {
-  searchSuggest.value = favMobsList.filter(mob => mob.name.includes(mobSearchInput.value.toLowerCase()))
-  searchNum.value = searchSuggest.value.length
+function updateSearchFavResult () {
+  searchFavResult.value = favMobsList.filter(mob => mob.name.includes(mobSearchInput.value.toLowerCase()))
+  searchFavNum.value = searchFavResult.value.length
   // alphabetize list
-  searchSuggest.value = searchSuggest.value.sort((a, b) => {
+  searchFavResult.value = searchFavResult.value.sort((a, b) => {
     const fa = a.name.toLowerCase(); const fb = b.name.toLowerCase()
     if (fa < fb) {
       return -1
@@ -148,25 +181,19 @@ function updateSearchSuggestFavs () {
     return 0
   })
 }
-updateSearchSuggestAll()
-
-// open suggestions
-function browseAllMobs () {
-  mobSearchInput.value = ''
-  updateSearchSuggestAll()
-  searchLimitAmount.value = 100
-}
+updateSearchAllResult()
+updateSearchFavResult()
 
 // search mobs
 function searchMobs () {
   searchLimitAmount.value = 100
   if (isSearchOpen.value) {
-    updateSearchSuggestAll()
+    updateSearchAllResult()
     if (mobSearchInput.value === '') {
-      searchNum.value = 0
+      searchAllNum.value = 0
     }
   } else if (!isSearchOpen.value) {
-    updateSearchSuggestFavs()
+    updateSearchFavResult()
   }
 }
 

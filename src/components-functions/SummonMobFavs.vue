@@ -58,7 +58,7 @@
             p-3 rounded-sm
             bg-neutral-900 hover:bg-neutral-800
             text-neutral-400 hover:text-red-500"
-          @click="faveList.push(mob.name)"
+          @click="$emit('removeFav', { name: mob.name, slug: mob.slug })"
         />
       </div>
       <button
@@ -72,7 +72,7 @@
 </template>
 
 <script setup>
-defineEmits(['toggleSummonModal', 'summonMob', 'updateSearchLimit'])
+defineEmits(['toggleSummonModal', 'summonMob', 'updateSearchLimit', 'removeFav'])
 const props = defineProps({
   favMobs: { type: Object, default: () => { } },
   searchLimit: { type: Number, default: 100 }
