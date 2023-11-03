@@ -1,142 +1,125 @@
 <template>
-  <!-- card page container -->
+  <!-- card -->
   <!------------------------------------------------>
   <div
     class="
     fixed z-[8000]
-    grid
-    grid-rows-[1fr,_min-content]
-    xs:grid-rows-[min-content,_1fr]
-    items-center
-    h-full
-    w-full max-w-[100dvw] sm:w-fit
-    overflow-x-hidden
-    p-4
-    bg-neutral-950 border-r border-yellow-500"
+    top-2 xs:top-14
+    bottom-16 xs:bottom-4
+    left-2
+    right-2 xs:right-auto
+    grid gap-2
+    grid-rows-[36px,_1fr,_min-content]
+    max-w-full xs:w-[450px]
+    p-4 rounded-xl
+    bg-neutral-950 border border-yellow-500"
   >
-    <!-- close button -->
-    <button
+    <!-- search bar -->
+    <input
+      v-model="mobSearchInput"
+      :placeholder="searchPlacehold"
+      spellcheck="false"
       class="
-      order-2 xs:order-1
-      self-end justify-self-start xs:place-self-start
-      px-3 py-2 hover:bg-red-600 hover:text-red-200"
-      @click="$emit('toggleSummonModal')"
-    >
-      <i class="bi bi-x-lg" />
-    </button>
-    <!-- summon card -->
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <div
-      class="
-      order-1 xs:order-2
-      grid grid-cols-1
-      items-start justify-items-stretch
-      p-2
-      w-full sm:min-w-[275px] sm:max-w-[300px]"
-    >
-      <!-- input/buttons container -->
-      <!------------------------------------------------>
-      <div
-        class="
-        flex flex-row flex-wrap gap-2"
-      >
-        <!-- seach bar -->
-        <input
-          v-model="mobSearchInput"
-          placeholder="find monsters"
-          spellcheck="false"
-          class="
       flex-auto
       px-2 py-1 rounded-md
       text-neutral-400
       bg-neutral-800
-      border border-neutral-700 hover:border-neutral-500
+      border border-neutral-700 hover:border-neutral-400
       transition colors"
-          @input="searchMobs"
-        >
-        <!-- results number -->
-        <p class="w-full text-center mb-2">
-          monsters: {{ searchSuggestNum }}
-        </p>
-      </div>
-
-      <!-- mob search list -->
-      <div
-        v-show="isSearchOpen || isBrowseOpen"
-        class="
-        flex flex-col gap-2
-        place-content-start
-        overflow-y-auto
-        transition-all"
-        :class="searchSuggHt"
-      >
-        <div
-          v-for="mob in searchSuggest.slice(0, searchLimitAmount)"
-          :key="mob"
-          class="
-          grid grid-cols-[1fr,_min-content] gap-1
-          items-center
-          transition-colors"
-        >
-          <button
-            class="
-            px-4 py-2 rounded-sm
-            text-sm text-left
-            bg-neutral-900 hover:bg-yellow-500
-            hover:text-yellow-950"
-            @click="$emit('summonMob', mob.slug); confirmSummon(mob);"
-          >
-            {{ mob.name }}
-          </button>
-          <!-- pin to faves -->
-          <!-- <i
-            class="
-            bi bi-pin-angle-fill
-            p-2 rounded-sm
-            text-sm text-left
-            bg-neutral-900 hover:bg-yellow-500
-            hover:text-yellow-950"
-            @click="faveList.push(mob.name)"
-          /> -->
-        </div>
-        <button
-          v-show="searchSuggestNum >= searchLimitAmount"
-          @click="searchLimitAmount += 50"
-        >
-          load more
-        </button>
-      </div><!-- end search list -->
-    </div><!-- end summon card -->
-
-    <!-- open browser-all monsters -->
-    <button
-      class="order-3 justify-self-start"
-      @click="browseAllMobs"
+      @input="searchMobs"
     >
-      browse all
-    </button>
-  </div> <!-- end card page container -->
+    <SummonMobAll
+      v-show="isSearchOpen"
+      :mobs="searchSuggest"
+      :search-limit="searchLimitAmount"
+      @update-search-limit="updateSearchLimit()"
+      @summon-mob="$emit('summonMob', $event)"
+      @toggle-summon-modal="$emit('toggleSummonModal')"
+      @add-fav="addFav($event)"
+    />
+    <SummonMobFavs
+      v-show="!isSearchOpen"
+      :fav-mobs="favMobsList"
+      :search-limit="searchLimitAmount"
+      @update-search-limit="updateSearchLimit()"
+      @summon-mob="$emit('summonMob', $event)"
+      @toggle-summon-modal="$emit('toggleSummonModal')"
+    />
+
+    <!-- buttons, results bar -->
+    <!------------------------------------------------>
+    <div class="flex gap-2 items-center justify-between">
+      <!-- reset /show all -->
+      <button
+        class="
+        border border-neutral-700
+        bg-neutral-900"
+        @click="browseAllMobs"
+      >
+        {{ mobSearchInput ? 'reset' : 'all' }}
+      </button>
+
+      <!-- results number -->
+      <p class="text-center">
+        monsters: {{ searchNum }}
+      </p>
+      <p>search: {{ isSearchOpen }}</p>
+
+      <!-- toggle all/favorites -->
+      <button
+        :class="isSearchOpen ? 'bi-heart' : 'bi-search'"
+        class="
+        bi
+        p-2 leading-none
+        border border-neutral-700
+        hover:text-yellow-500
+        bg-neutral-900 hover:bg-neutral-800"
+        @click="toggleAllOrFavs"
+      />
+    </div>
+  </div> <!-- end card -->
 </template>
 
 <script setup>
 import { mobNames } from '../open5e-monster-names'
-// import { allMobs } from '../../public/mobs-txt/open5e-monsters'
-import { ref } from 'vue'
+import SummonMobAll from './SummonMobAll.vue'
+import SummonMobFavs from './SummonMobFavs.vue'
+import { reactive, ref } from 'vue'
 defineEmits(['toggleSummonModal', 'summonMob'])
 const mobSearchInput = ref('')
 const isSearchOpen = ref(false)
-const isBrowseOpen = ref(false)
+const searchPlacehold = ref('search favorites')
 const searchSuggest = ref([])
-const searchLimitAmount = ref(50)
-// const faveList = ref([])
-const searchSuggestNum = ref(searchSuggest.value.length)
-const searchSuggHt = ref('h-[0vh]')
+const favMobsList = reactive([{ name: 'a-mi-kuk', slug: 'a-mi-kuk' }, { name: 'gassy', slug: 'gay' }])
+const searchNum = ref(searchSuggest.value.length)
+const searchLimitAmount = ref(100)
 
-// update search results
-function updateSearchSuggest () {
+// toggle between search all / search faves
+function toggleAllOrFavs () {
+  isSearchOpen.value = !isSearchOpen.value
+  if (!isSearchOpen.value) { searchPlacehold.value = 'search favorites' } else if (isSearchOpen.value) { searchPlacehold.value = 'search all monsters' }
+}
+
+// add fav mob
+function addFav (e) {
+  let match = false
+  favMobsList.forEach(fav => {
+    if (fav.name === e.name) match = true
+  })
+  if (!match) {
+    favMobsList.push({ name: e.name, slug: e.slug })
+  }
+}
+
+// update search limit
+function updateSearchLimit () {
+  searchLimitAmount.value += 100
+}
+
+// update search results - all
+function updateSearchSuggestAll () {
   searchSuggest.value = mobNames.list.filter(mob => mob.name.includes(mobSearchInput.value.toLowerCase()))
-  searchSuggestNum.value = searchSuggest.value.length
+  searchNum.value = searchSuggest.value.length
   // alphabetize list
   searchSuggest.value = searchSuggest.value.sort((a, b) => {
     const fa = a.name.toLowerCase(); const fb = b.name.toLowerCase()
@@ -149,49 +132,42 @@ function updateSearchSuggest () {
     return 0
   })
 }
-
-// search mobs
-function searchMobs () {
-  isBrowseOpen.value = false
-  searchLimitAmount.value = 50
-  updateSearchSuggest()
-  if (mobSearchInput.value === '') {
-    searchSuggHt.value = ' h-[0vh] '
-    searchSuggestNum.value = 0
-    isSearchOpen.value = false
-  } else {
-    searchSuggHt.value = ' max-h-[60vh] p-2 pt-0'
-    isSearchOpen.value = true
-  }
+// update search results - favs
+function updateSearchSuggestFavs () {
+  searchSuggest.value = favMobsList.filter(mob => mob.name.includes(mobSearchInput.value.toLowerCase()))
+  searchNum.value = searchSuggest.value.length
+  // alphabetize list
+  searchSuggest.value = searchSuggest.value.sort((a, b) => {
+    const fa = a.name.toLowerCase(); const fb = b.name.toLowerCase()
+    if (fa < fb) {
+      return -1
+    }
+    if (fa > fb) {
+      return 1
+    }
+    return 0
+  })
 }
+updateSearchSuggestAll()
 
 // open suggestions
 function browseAllMobs () {
   mobSearchInput.value = ''
-  searchLimitAmount.value = 50
-  if (isBrowseOpen.value) {
-    searchSuggHt.value = ' h-[0vh] '
-    searchSuggestNum.value = 0
-    setTimeout(() => {
-      isBrowseOpen.value = false
-    }, '225')
-  } else if (!isBrowseOpen.value) {
-    isBrowseOpen.value = true
-    updateSearchSuggest()
-    setTimeout(() => {
-      searchSuggHt.value = ' h-[60vh] p-2 pt-0'
-    }, '50')
-    isSearchOpen.value = false
-  }
+  updateSearchSuggestAll()
+  searchLimitAmount.value = 100
 }
 
-// confirm summon text
-function confirmSummon (x) {
-  const nameHold = x.name
-  x.name = 'summoned'
-  setTimeout(() => {
-    x.name = nameHold
-  }, '750')
+// search mobs
+function searchMobs () {
+  searchLimitAmount.value = 100
+  if (isSearchOpen.value) {
+    updateSearchSuggestAll()
+    if (mobSearchInput.value === '') {
+      searchNum.value = 0
+    }
+  } else if (!isSearchOpen.value) {
+    updateSearchSuggestFavs()
+  }
 }
 
 </script>

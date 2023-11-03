@@ -45,12 +45,12 @@
       <!-- toggle summon menu -->
       <button
         class="py-2 px-4"
-        :class="isSummonModalOpen ?
+        :class="isSummonModalOpen || mobs.length === 0 ?
           'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' :
           'bg-neutral-400 text-neutral-950 hover:bg-green-500 hover:text-green-950'"
         @click="toggleSummonModal()"
       >
-        summon
+        {{ isSummonModalOpen || mobs.length === 0 ? 'close' : 'summon' }}
       </button>
       <!-- bar -->
       <div
@@ -169,7 +169,7 @@ const refreshTogglePanel = ref(0)
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // toggle summoning modal
 // -----------------------------------------------------------
-const isSummonModalOpen = ref(false)
+const isSummonModalOpen = ref(true)
 function toggleSummonModal () {
   isSummonModalOpen.value = !isSummonModalOpen.value
 }
