@@ -11,7 +11,6 @@
   <!-- summon loading -->
   <Transition name="summon-load">
     <SummonLoading v-show="isLoading" />
-    <!-- <SummonLoading /> -->
   </Transition>
 
   <!-- summon mob -->
@@ -240,7 +239,7 @@ function addMob (name) {
     .then(data => {
       setTimeout(() => {
         mobs.unshift(data)
-      }, '500')
+      }, '400')
       isLoading.value = false
     })
   // .then(data => { mobsLocalArr.push(data) })
@@ -278,7 +277,7 @@ onMounted(() => {
 }
 .mob-card-move,
 .mob-card-enter-active {
-  transition: all 200ms ease-out,
+  transition: all 300ms ease-out,
 }
 .mob-card-leave-active {
   position: absolute;

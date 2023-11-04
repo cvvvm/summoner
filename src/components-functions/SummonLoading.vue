@@ -1,38 +1,36 @@
 <template>
   <div
     class="
-    z-50 sm:z-[9999]
-    fixed top-0 bottom-0 left-0
-    h-[100vh]
-    w-[50vh]
-    blur-sm"
+
+    fixed bottom-0 left-0 right-0
+    h-[35vw]
+    w-[100vw]
+    blur-[14px]"
   >
     <div
       v-for="(color, index) in gradColors"
       :key="color"
       :class="gradColors[index]"
       class="
-      absolute left-0
-      rounded-e-[100%]
-      w-[50%] h-full
-      bg-gradient-to-r
-      "
+      absolute bottom-0
+      w-[50%] h-[200%]
+      rounded-[300px]
+      bg-gradient-to-r"
     />
+    <!-- rounded-e-[100%] -->
     <!-- scale-x-[100%] scale-y-[100%] -->
   </div>
 </template>
 
 <script setup>
 const gradColors = [
-  'blur-xxxl translate-x-[-50%] scale-x-[80%] scale-y-[80%] bg-yellow-800',
-  'blur-xxxl translate-x-[-50%] scale-x-[65%] scale-y-[65%] bg-yellow-600',
-  'blur-xxxl translate-x-[-50%] scale-x-[50%] scale-y-[50%] bg-orange-700',
-  'blur-xxl translate-x-[-50%] scale-x-[45%] scale-y-[45%] bg-red-600',
-  'blur-xxl translate-x-[-50%] scale-x-[35%] scale-y-[35%] bg-fuchsia-700',
-  'blur-xxl translate-x-[-50%] scale-x-[25%] scale-y-[25%] bg-violet-700',
-  'blur-xl translate-x-[-50%] scale-x-[15%] scale-y-[15%] bg-indigo-700',
-  'blur-xl translate-x-[-50%] scale-x-[10%] scale-y-[10%] bg-blue-800',
-  'blur-xl translate-x-[-50%] scale-x-[7%] scale-y-[7%] bg-blue-700'
+  'blur-xxxl translate-x-[50%] translate-y-[50%] scale-x-[80%] scale-y-[55%] bg-yellow-700',
+  'blur-xxl translate-x-[50%] translate-y-[50%] scale-x-[45%] scale-y-[40%] bg-orange-600',
+  'blur-xxl translate-x-[50%] translate-y-[50%] scale-x-[35%] scale-y-[30%] bg-red-600',
+  'blur-xxl translate-x-[50%] translate-y-[50%] scale-x-[25%] scale-y-[20%] bg-fuchsia-700',
+  'blur-xxl translate-x-[50%] translate-y-[50%] scale-x-[20%] scale-y-[15%] bg-violet-700',
+  'blur-xxl translate-x-[50%] translate-y-[50%] scale-x-[15%] scale-y-[10%] bg-indigo-700',
+  'blur-sm translate-x-[50%] translate-y-[50%] scale-x-[10%] scale-y-[5%] bg-blue-500'
 ]
 
 </script>
@@ -55,6 +53,6 @@ const gradColors = [
 }
 .summon-load-enter-from {
     opacity: 0;
-    translate: -50% 0;
+    translate: 0% -50;
 }
 </style>
