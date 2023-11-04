@@ -11,6 +11,7 @@
   <!-- summon loading -->
   <Transition name="summon-load">
     <SummonLoading v-show="isLoading" />
+    <!-- <SummonLoading /> -->
   </Transition>
 
   <!-- summon mob -->
@@ -178,29 +179,39 @@ import DiceRoller from '../dice-roller/DiceRoller.vue'
 const mobs = reactive([])
 // mobs.value = JSON.parse(localStorage.getItem('localMobs'))
 const isLoading = ref(false)
-const mobContainer = ref(null)
-const yScroll = ref(1)
-onMounted(() => {
-  mobContainer.value.addEventListener('scroll', () => {
-    yScroll.value += yScroll.value
-  })
-})
 
 const toggleGlobalCardPanel = ref('')
 const refreshTogglePanel = ref(0)
+const isSummonModalOpen = ref(false)
+const isDiceRollerOpen = ref(false)
+
+const mobContainer = ref(null)
+const yScroll = ref(1)
+onMounted(() => {
+  mobContainer.value.addEventListener('scroll', function () { // or window.addEventListener("scroll"....
+    const st = mobContainer.value.pageYOffset || mobContainer.value.scrollTop
+    if (st > yScroll.value) {
+      // downscroll code
+    } else if (st < yScroll.value) {
+      // upscroll code
+    } // else was horizontal scroll
+    yScroll.value = st <= 0 ? 0 : st
+  }, false)
+  /* ('scroll', () => {
+    yScroll.value++
+  }) */
+})
 
 // modal toggles
 // ------------------------------------------------------------------------------------
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 // toggle summoning modal
-const isSummonModalOpen = ref(true)
 function toggleSummonModal () {
   isSummonModalOpen.value = !isSummonModalOpen.value
   if (isDiceRollerOpen.value) isDiceRollerOpen.value = false
 }
 // toggle dice roller
-const isDiceRollerOpen = ref(false)
 function toggleDiceRoller () {
   isDiceRollerOpen.value = !isDiceRollerOpen.value
   if (isSummonModalOpen.value) isSummonModalOpen.value = false
@@ -227,9 +238,10 @@ function addMob (name) {
   fetch('https://api.open5e.com/monsters/' + name)
     .then(res => res.json())
     .then(data => {
-      mobs.unshift(data); setTimeout(() => {
-        isLoading.value = false
+      setTimeout(() => {
+        mobs.unshift(data)
       }, '500')
+      isLoading.value = false
     })
   // .then(data => { mobsLocalArr.push(data) })
     .catch(err => console.log(err.message))
