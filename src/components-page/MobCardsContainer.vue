@@ -112,7 +112,7 @@
         class="
         z-0
         sticky top-0
-        w-full h-14
+        w-full h-10
         bg-gradient-to-b from-neutral-600"
       />
       <div
@@ -175,7 +175,7 @@
         class="
         z-0
         sticky bottom-0
-        w-full h-14
+        w-full h-10
         bg-gradient-to-t from-neutral-600"
       />
     </div> <!-- end cards scroll wrapper -->
@@ -262,8 +262,10 @@ function addMob (name) {
     .then(data => {
       setTimeout(() => {
         mobs.unshift(data)
-      }, '400')
-      isLoading.value = false
+      }, '200')
+      setTimeout(() => {
+        isLoading.value = false
+      }, '450')
     })
   // .then(data => { mobsLocalArr.push(data) })
     .catch(err => console.log(err.message))
