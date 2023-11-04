@@ -8,50 +8,40 @@
     <DiceRoller v-show="isDiceRollerOpen" />
   </Transition>
 
+  <!-- summon loading -->
+  <Transition name="summon-load">
+    <SummonLoading v-show="isLoading" />
+  </Transition>
+
   <!-- summon mob -->
   <Transition
     name="summon-mob"
     appear
   >
     <SummonMob
-      v-show="isSummonModalOpen || mobs.length === 0"
+      v-show="isSummonModalOpen"
       @summon-mob="addMob"
       @toggle-summon-modal="toggleSummonModal"
     />
   </Transition>
 
   <!-- page container -->
-  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <div
     class="
-    grid
-    grid-rows-[1fr,_min-content]
-    xs:grid-rows-[min-content,_1fr]
+    grid grid-rows-[min-content,_1fr,_min-content]
     h-[100dvh] max-h-[100vh]"
   >
-    <!-- cards control -->
+    <!-- sort/panels -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <!-- cards control container -->
     <div
       class="
-      order-2 xs:order-1
       flex gap-2
       place-content-between items-center
       w-full
-      py-2 px-4"
+      p-2 sm:px-4"
     >
-      <!-- toggle summon menu -->
-      <button
-        class="py-2 px-4"
-        :class="isSummonModalOpen || mobs.length === 0 ?
-          'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' :
-          'bg-neutral-400 text-neutral-950 hover:bg-green-500 hover:text-green-950'"
-        @click="toggleSummonModal()"
-      >
-        summon
-      </button>
+      {{ yScroll }}
       <!-- bar -->
       <div
         class="
@@ -63,44 +53,67 @@
       </div>
       <div
         class="
-        hidden sm:flex flex-row flex-wrap
+        flex flex-row flex-wrap
         p-2 rounded-xl
         bg-neutral-900"
       >
         <ToggleMobCardPanels @refresh-panel="refreshTogglePanel += 1; toggleGlobalCardPanel = $event" />
       </div> <!-- end cards control -->
+    </div> <!-- end cards control container -->
 
+    <!-- summon + dice -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <div
+      class="
+      order-3
+      flex place-content-center
+      gap-2 sm:gap-4
+      p-2 sm:px-4
+      w-full"
+    >
       <!-- toggle dice roller -->
       <!------------------------------------------------>
       <button
-        class="py-2 px-4"
-        :class="isDiceRollerOpen ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' : 'bg-neutral-400 text-neutral-950 hover:bg-neutral-200 hover:text-neutral-950'"
+        class="py-2 px-4 z-0"
+        :class="isDiceRollerOpen ?
+          'z-[9001] bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950'
+          : 'bg-neutral-400 text-neutral-950 hover:bg-neutral-200 hover:text-neutral-950 z-[9999]'"
         @click="toggleDiceRoller"
       >
         dice
       </button>
-    </div> <!-- end cards control container -->
+      <!-- toggle summon menu -->
+      <button
+        class="py-2 px-4 z-0"
+        :class="isSummonModalOpen || mobs.length == 0 ?
+          'z-[8001] bg-green-500 text-green-950 hover:bg-green-600 hover:text-green-950'
+          : 'bg-neutral-400 text-neutral-950 hover:bg-green-500 hover:text-green-950'"
+        @click="toggleSummonModal()"
+      >
+        summon
+      </button>
+    </div>
 
-    <!-- card container -->
+    <!-- mob cards container -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <!-- card scroll overflow -->
+    <!-- cards scroll wrapper -->
     <div
+      ref="mobContainer"
       class="
-      order-0 xs:order-1
-      w-full max-w-[100dvw]
       overflow-y-auto"
     >
-      <!-- card layout -->
       <div
         class="
         flex flex-wrap flex-row
         place-content-center
         gap-2 md:gap-4
-        px-2 sm:px-4 pb-4 pt-2"
+        p-2 sm:p-4
+        overflow-y-auto"
       >
-        <!-- mob cards container -->
-        <TransitionGroup name="scale-fade">
+        <!-- mob cards -->
+        <TransitionGroup name="mob-card">
           <div
             v-for="mob, index in mobs"
             :key="mob"
@@ -144,39 +157,53 @@
             />
           </div>
         </TransitionGroup>
-      </div> <!-- end cards layout container -->
-    </div> <!-- end cards scroll container -->
+      </div> <!-- end cards container -->
+    </div> <!-- end cards scroll wrapper -->
   </div> <!-- end page container -->
+  <!-- {{ mobs }} -->
 </template>
 
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
 import MobCard from './MobCard.vue'
 import SummonMob from '../components-functions/SummonMob.vue'
+import SummonLoading from '../components-functions/SummonLoading.vue'
 import SortMobs from '../components-functions/SortMobs.vue'
 import ToggleMobCardPanels from '../components-functions/ToggleMobCardPanels.vue'
 import DiceRoller from '../dice-roller/DiceRoller.vue'
 
 // currently summoned mob(s)
+// const mobsLocalArr = reactive([])
+// mobsLocalArr.value = JSON.parse(localStorage.getItem('localMobs'))
 const mobs = reactive([])
+// mobs.value = JSON.parse(localStorage.getItem('localMobs'))
+const isLoading = ref(false)
+const mobContainer = ref(null)
+const yScroll = ref(1)
+onMounted(() => {
+  mobContainer.value.addEventListener('scroll', () => {
+    yScroll.value += yScroll.value
+  })
+})
 
-// toggled global panel
 const toggleGlobalCardPanel = ref('')
 const refreshTogglePanel = ref(0)
 
 // modal toggles
 // ------------------------------------------------------------------------------------
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 // toggle summoning modal
-// -----------------------------------------------------------
 const isSummonModalOpen = ref(true)
 function toggleSummonModal () {
   isSummonModalOpen.value = !isSummonModalOpen.value
+  if (isDiceRollerOpen.value) isDiceRollerOpen.value = false
 }
 // toggle dice roller
 const isDiceRollerOpen = ref(false)
 function toggleDiceRoller () {
   isDiceRollerOpen.value = !isDiceRollerOpen.value
+  if (isSummonModalOpen.value) isSummonModalOpen.value = false
 }
 
 // EDIT MOBS
@@ -195,17 +222,26 @@ function processMobName (name) {
 
 // add new mob
 function addMob (name) {
+  isLoading.value = true
   name = name.replace(/ /gm, '-').replace(/-$/gm, '').toLowerCase()
   fetch('https://api.open5e.com/monsters/' + name)
     .then(res => res.json())
-    .then(data => { mobs.push(data) })
+    .then(data => {
+      mobs.unshift(data); setTimeout(() => {
+        isLoading.value = false
+      }, '500')
+    })
+  // .then(data => { mobsLocalArr.push(data) })
     .catch(err => console.log(err.message))
+
+  // localStorage.setItem('localMobs', JSON.stringify(mobsLocalArr))
+  // mobs.value = JSON.parse(localStorage.getItem('localMobs'))
 }
 
 // remove mob
 function handlePassedMob (e) {
   console.log(e.type + ' index ' + e.data + ' passed from app')
-  if (e.type === 'banish') mobs.splice(e.data, 1)
+  if (e.type === 'banish') mobs.value.splice(e.data, 1)
   if (e.type === 'clone') {
     e.data = e.data.replace(/ /, '-')
     addMob(e.data)
@@ -213,54 +249,32 @@ function handlePassedMob (e) {
 }
 
 onMounted(() => {
-  /* addMob('aatxe')
-  addMob('cave goat')
+  addMob('aatxe')
   addMob('giant spider')
   addMob('silenal')
   addMob('zmey')
-  addMob('abaasy') */
+  addMob('abaasy')
 })
 
 </script>
 
 <style>
-
+/* mob card summoned */
+.mob-card-move,
 .mob-card-leave-active {
-  transition:
-    transform 150ms ease-out,
+  transition: all 200ms ease-out,
 }
+.mob-card-move,
 .mob-card-enter-active {
-  transition:
-    transform 200ms ease-out,
+  transition: all 200ms ease-out,
 }
+.mob-card-leave-active {
+  position: absolute;
+}
+
 .mob-card-leave-to,
 .mob-card-enter-from {
-  transform: translateX(-150%);
-}
-
-.dice-roller-leave-active {
-  transition:
-    transform 150ms ease-in,
-}
-.dice-roller-enter-active {
-  transition:
-    transform 200ms ease-out,
-}
-.dice-roller-leave-to,
-.dice-roller-enter-from {
-  transform: translateY(200%);
-}
-
-.summon-mob-leave-active {
-  transition:
-    transform 150ms ease-in,
-}
-.summon-mob-enter-active {
-  transition:
-    transform 200ms ease-out,
-}
-.summon-mob-leave-to,
-.summon-mob-enter-from {
-  transform: translateX(-150%);
+  scale: 0.5;
+  translate: -150% 100%;
 }
 </style>

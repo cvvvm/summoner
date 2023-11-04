@@ -2,14 +2,15 @@
   <!-- panel toggles -->
   <!------------------------------------------------>
   <div
-    class="hidden sm:flex gap-2 items-center"
+    class="flex gap-2 items-center"
   >
-    <p class="hidden md:inline-block">
+    <p class="hidden md:inline-block pl-2">
       panel:
     </p>
     <button
       v-for="panelToggle in globalPanelOptions"
       :key="panelToggle"
+      class="px-2 sm:px-3"
       :class="toggledMobCardPanel == panelToggle && panelToggle != 'none' ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' : ''"
       @click="updateToggledPanel(panelToggle)"
     >
@@ -22,8 +23,8 @@
 import { ref } from 'vue'
 
 const emit = defineEmits(['refreshPanel'])
-const toggledMobCardPanel = ref('none')
-const globalPanelOptions = ['none', 'actions', 'abilities', 'details']
+const toggledMobCardPanel = ref('')
+const globalPanelOptions = ['actions', 'abilities', 'details']
 
 function updateToggledPanel (p) {
   if (toggledMobCardPanel.value === p) toggledMobCardPanel.value = 'none'

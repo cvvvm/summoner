@@ -1,10 +1,9 @@
 <template>
   <!-- page placement container -->
   <div
-    class="fixed bottom-16 xs:bottom-0 z-8000
-            flex place-content-center
-            w-full
-            p-2"
+    class="fixed bottom-14 z-[9000]
+            flex place-content-center items-end
+            w-full"
   >
     <!-- roller card -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -13,6 +12,7 @@
       class="grid grid-cols-4 xs:grid-cols-7 items-center justify-between
             gap-x-2 gap-y-4
             flex-grow
+            h-min
             max-w-[600px]
             p-4 rounded-xl
             border border-solid border-yellow-500
@@ -146,4 +146,22 @@ function rollSingleDie (dieType) {
 </script>
 
 <style>
+/* dice roller modal */
+.dice-roller-leave-active {
+  transition:
+    transform 150ms ease-in,
+    scale 200ms ease-in-out
+    ;
+}
+.dice-roller-enter-active {
+  transition:
+    transform 200ms ease-out,
+    scale 200ms ease-in-out
+    ;
+}
+.dice-roller-leave-to,
+.dice-roller-enter-from {
+  transform: translateY(150%);
+  scale: .9;
+}
 </style>

@@ -27,29 +27,6 @@
           items-center
           transition-colors"
       >
-        <!-- summon multiple -->
-        <i
-          class="
-          bi bi-plus-lg
-          text-sm leading-none
-          p-3 rounded-sm
-          bg-neutral-900 hover:bg-yellow-500
-          hover:text-yellow-950"
-          @click="$emit('summonMob', mob.slug); confirmSummon(mob);"
-        />
-        <!-- name / summon & close -->
-        <button
-          class="
-          self-stretch
-          p-2 rounded-sm
-          text-sm text-left
-          bg-neutral-900 hover:bg-yellow-500
-          hover:text-yellow-950"
-          @click="$emit('summonMob', mob.slug);
-                  $emit('toggleSummonModal')"
-        >
-          {{ mob.name }}
-        </button>
         <!-- pin to faves -->
         <i
           class="
@@ -59,6 +36,29 @@
             bg-neutral-900 hover:bg-neutral-800
             text-neutral-400 hover:text-red-500"
           @click="$emit('removeFav', { name: mob.name, slug: mob.slug })"
+        />
+        <!-- name / summon & close -->
+        <button
+          class="
+          self-stretch
+          p-2 rounded-sm
+          text-sm text-left
+          bg-neutral-900 hover:bg-pink-400
+          hover:text-pink-950"
+          @click="$emit('summonMob', mob.slug);
+                  $emit('toggleSummonModal')"
+        >
+          {{ mob.name }}
+        </button>
+        <!-- summon multiple -->
+        <i
+          class="
+          bi bi-plus-lg
+          text-sm leading-none
+          p-3 rounded-sm
+          bg-neutral-900 hover:bg-pink-400
+          hover:text-pink-950"
+          @click="$emit('summonMob', mob.slug); confirmSummon(mob);"
         />
       </div>
       <button
@@ -81,9 +81,40 @@ const props = defineProps({
 // confirm summon text
 function confirmSummon (x) {
   const nameHold = x.name
-  x.name = 'summoned'
+  x.name = 'summoning...'
   setTimeout(() => {
     x.name = nameHold
   }, '1000')
 }
 </script>
+
+<style scoped>
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  color: inherit;
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(236, 72, 153, 0.5);
+  color: inherit;
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(236, 72, 153, 1);
+  color: inherit;
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar:window-inactive {
+  visibility: hidden;
+}
+</style>

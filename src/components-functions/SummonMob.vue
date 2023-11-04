@@ -4,31 +4,32 @@
   <div
     class="
     fixed z-[8000]
-    top-2 xs:top-14
-    bottom-16 xs:bottom-4
-    left-2
-    right-2 xs:right-auto
+    top-16
+    bottom-14
+    right-2 xs:right-4
+    left-2 xs:left-auto
     grid gap-2
     grid-rows-[min-content,_1fr,_min-content]
     max-w-full xs:w-[450px]
     p-2 rounded-xl
-    bg-neutral-950 border border-yellow-500"
+    bg-neutral-950 border"
+    :class="isSearchOpen ? 'border-green-500 ' : 'border-pink-400 '"
   >
     <!-- search + toggles container -->
     <!------------------------------------------------>
     <div
       class="
-      grid grid-cols-[max-content,_1fr]
+      grid grid-cols-1 xxs:grid-cols-[max-content,_1fr]
       gap-2
-      items-center
+      content-center
       m-2"
     >
       <!-- toggle all/favorites -->
       <div>
         <button
           :class="isSearchOpen ?
-            'text-yellow-950 hover:text-yellow-900 bg-yellow-500 hover:bg-yellow-600' :
-            'bg-neutral-800 hover:bg-neutral-700 hover:text-yellow-500'"
+            'text-green-950 hover:text-green-900 bg-green-500 hover:bg-green-600' :
+            'bg-neutral-800 hover:bg-neutral-700 hover:text-green-500'"
           class="
           bi bi-search leading-none
           p-3 rounded-e-none"
@@ -41,7 +42,7 @@
           class="
           bi leading-none
           p-3 rounded-s-none"
-          @click="toggleAllOrFavs"
+          @click="toggleAllOrFavs()"
         />
       </div>
       <!-- search bar -->
@@ -50,7 +51,8 @@
         :placeholder="searchPlacehold"
         spellcheck="false"
         class="
-        p-2 rounded-md
+        w-full
+        px-2 py-1 rounded-md
         text-neutral-400
         bg-neutral-800
         border border-neutral-700 hover:border-neutral-400
@@ -58,6 +60,7 @@
         @input="searchMobs"
       >
     </div>
+
     <SummonMobAll
       v-show="isSearchOpen"
       :mobs="searchAllResult"
@@ -67,6 +70,7 @@
       @toggle-summon-modal="$emit('toggleSummonModal')"
       @add-fav="addFav($event)"
     />
+
     <SummonMobFavs
       v-show="!isSearchOpen"
       :fav-mobs="searchFavResult"
@@ -94,11 +98,13 @@
 </template>
 
 <script setup>
+import { reactive, ref } from 'vue'
 import { mobNames } from '../open5e-monster-names'
 import SummonMobAll from './SummonMobAll.vue'
 import SummonMobFavs from './SummonMobFavs.vue'
-import { reactive, ref } from 'vue'
+
 defineEmits(['toggleSummonModal', 'summonMob'])
+
 const mobSearchInput = ref('')
 const isSearchOpen = ref(true)
 const searchPlacehold = ref('search all monsters')
@@ -200,4 +206,22 @@ function searchMobs () {
 </script>
 
 <style>
+/* summon modal */
+.summon-mob-leave-active {
+  transition:
+    transform 150ms ease-in,
+    scale 200ms ease-in-out,
+    ;
+}
+.summon-mob-enter-active {
+  transition:
+    transform 200ms ease-out,
+    scale 200ms ease-in-out,
+    ;
+}
+.summon-mob-leave-to,
+.summon-mob-enter-from {
+  transform: translateX(150%);
+  scale:.8;
+}
 </style>

@@ -2,13 +2,22 @@
   <!-- sort-->
   <!------------------------------------------------>
   <div class="flex gap-2 items-center">
-    <button @click="alphaSort(props.mobsObj)">
+    <button
+      class="px-2 sm:px-3"
+      @click="alphaSort(props.mobsObj)"
+    >
       {{ alphaSortDirection }}
     </button>
-    <button @click="hpSort(props.mobsObj)">
+    <button
+      class="px-2 sm:px-3"
+      @click="hpSort(props.mobsObj)"
+    >
       {{ hpSortDirection }}
     </button>
-    <button @click="acSort(props.mobsObj)">
+    <button
+      class="px-2 sm:px-3"
+      @click="acSort(props.mobsObj)"
+    >
       {{ acSortDirection }}
     </button>
   </div>
