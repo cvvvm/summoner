@@ -36,6 +36,7 @@
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div
       class="
+      z-[2]
       flex gap-2
       place-content-between items-center
       w-full
@@ -66,6 +67,7 @@
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div
       class="
+      z-[2]
       order-3
       flex place-content-center
       gap-2 sm:gap-4
@@ -102,8 +104,17 @@
     <div
       ref="mobContainer"
       class="
+      relative
       overflow-y-auto"
     >
+      <!-- top fade -->
+      <div
+        class="
+        z-0
+        sticky top-0
+        w-full h-14
+        bg-gradient-to-b from-neutral-600"
+      />
       <div
         class="
         flex flex-wrap flex-row
@@ -158,6 +169,15 @@
           </div>
         </TransitionGroup>
       </div> <!-- end cards container -->
+
+      <!-- bottom fade -->
+      <div
+        class="
+        z-0
+        sticky bottom-0
+        w-full h-14
+        bg-gradient-to-t from-neutral-600"
+      />
     </div> <!-- end cards scroll wrapper -->
   </div> <!-- end page container -->
   <!-- {{ mobs }} -->
@@ -184,11 +204,14 @@ const refreshTogglePanel = ref(0)
 const isSummonModalOpen = ref(false)
 const isDiceRollerOpen = ref(false)
 
+// show shadows on scroll
 const mobContainer = ref(null)
 const yScroll = ref(1)
+// const mobFadeTop = ref(false)
+// const mobFadeBtm = ref(true)
 onMounted(() => {
   mobContainer.value.addEventListener('scroll', function () { // or window.addEventListener("scroll"....
-    const st = mobContainer.value.pageYOffset || mobContainer.value.scrollTop
+    const st = mobContainer.value.scrollTop
     if (st > yScroll.value) {
       // downscroll code
     } else if (st < yScroll.value) {
@@ -252,7 +275,7 @@ function addMob (name) {
 // remove mob
 function handlePassedMob (e) {
   console.log(e.type + ' index ' + e.data + ' passed from app')
-  if (e.type === 'banish') mobs.value.splice(e.data, 1)
+  if (e.type === 'banish') mobs.splice(e.data, 1)
   if (e.type === 'clone') {
     e.data = e.data.replace(/ /, '-')
     addMob(e.data)
@@ -260,11 +283,11 @@ function handlePassedMob (e) {
 }
 
 onMounted(() => {
-  addMob('aatxe')
+  /* addMob('aatxe')
   addMob('giant spider')
   addMob('silenal')
   addMob('zmey')
-  addMob('abaasy')
+  addMob('abaasy') */
 })
 
 </script>
