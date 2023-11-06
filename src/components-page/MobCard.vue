@@ -44,7 +44,7 @@
         pl-2
         flex-grow place-self-center
         tracking-tight
-        text-lg text-neutral-200
+        text-xl text-neutral-200
         truncate"
       >
         {{ props.name }}

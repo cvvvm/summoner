@@ -146,10 +146,7 @@
                 { cha: {'score': mob.charisma, 'saveMod': mob.charisma_save} },
               ]"
               :base-hp="mob.hit_points"
-              :armor="[{
-                class: mob.armor_class,
-                desc: mob.armor_desc,
-              }]"
+              :armor="mob.armor_class"
               :challenge-rating="mob.cr"
               :xp-gained="mob.xp"
               :damage-vulnerabilities="mob.damage_vulnerabilities"
@@ -199,7 +196,7 @@ const mobs = reactive([])
 // mobs.value = JSON.parse(localStorage.getItem('localMobs'))
 const isLoading = ref(false)
 
-const toggleGlobalCardPanel = ref('')
+const toggleGlobalCardPanel = ref('details')
 const refreshTogglePanel = ref(0)
 const isSummonModalOpen = ref(false)
 const isDiceRollerOpen = ref(false)
@@ -257,7 +254,7 @@ function processMobName (name) {
 function addMob (name) {
   isLoading.value = true
   name = name.replace(/ /gm, '-').replace(/-$/gm, '').toLowerCase()
-  fetch('https://api.open5e.com/monsters/' + name)
+  fetch('https://www.dnd5eapi.co/api/monsters/' + name)
     .then(res => res.json())
     .then(data => {
       setTimeout(() => {
@@ -285,11 +282,10 @@ function handlePassedMob (e) {
 }
 
 onMounted(() => {
-  addMob('aatxe')
-  addMob('giant spider')
-  addMob('silenal')
-  addMob('zmey')
-  addMob('abaasy')
+  /* addMob('giant spider')
+  addMob('goblin')
+  addMob('adult-red-dragon')
+  addMob('horned-devil') */
 })
 
 </script>

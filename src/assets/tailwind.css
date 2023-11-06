@@ -69,18 +69,39 @@ button.warn {
   active:text-red-950 active:bg-red-600;
 }
 
-.label {
-  @apply flex flex-grow flex-shrink-0 gap-1
-          align-baseline self-start
-          px-2 py-1 rounded-sm
-          text-sm
-          text-neutral-300 bg-neutral-800;
-}
-
 .val-container {
   @apply grid grid-cols-1 grid-rows-[min-content_1fr] gap-0 place-items-center px-6 py-2 bg-neutral-950 rounded-md;
 }
 
+/* label */
+.label-val-container {
+  @apply flex flex-row
+  place-content-start items-center
+  w-fit
+  gap-2
+  pr-2 rounded-md
+  text-sm text-neutral-500 hover:text-neutral-400
+  bg-neutral-900
+  border border-neutral-800 hover:border-neutral-700
+  overflow-hidden
+  transition-colors;
+}
+
+.label {
+  @apply flex  flex-shrink-0
+  gap-1
+  align-baseline self-start
+  px-2 py-0.5 rounded-[.25rem]
+  text-sm font-light tracking-[-.0125rem]
+  text-neutral-400
+  bg-neutral-800
+  transition-colors;
+}
+
+.label-val-container:hover span.label {
+  @apply text-neutral-300
+  bg-neutral-700;
+}
 :root {
   /* SIZING */
   --border-w: 1px solid;

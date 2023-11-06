@@ -14,27 +14,27 @@
         AC
       </h4>
       <div class="text-xl text-neutral-200">
-        {{ props.armor[0].class }}
+        {{ props.armor[0].value }}
       </div>
     </div>
 
     <!-- IF desc armor -->
     <div
-      v-if="props.armor[0].desc"
+      v-if="props.armor[0].armor"
       class="grid grid-cols-1 gap-1 content-center"
     >
       <div
-        v-for="type in props.armor[0].desc.split(',')"
-        :key="type"
-        class="p-1 text-xs bg-neutral-800"
+        v-for="armorEquip in props.armor[0].armor"
+        :key="armorEquip"
+        class="label"
       >
-        {{ type.replace('\(', '').replace('\)', '').toLowerCase() }}
+        {{ armorEquip.name.toLowerCase() }}
       </div>
     </div>
 
     <!-- NO desc armor -->
     <div
-      v-if="!props.armor[0].desc"
+      v-if="!props.armor[0].armor"
       class="grid grid-cols-1 gap-1 content-center justify-items-center"
     >
       <div
@@ -48,7 +48,7 @@
 
 <script setup>
 const props = defineProps({
-  armor: { type: Object, default: () => { } }
+  armor: { type: Object, default: () => {} }
 })
 </script>
 

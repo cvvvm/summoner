@@ -4,14 +4,11 @@
           justify-items-start gap-2"
   >
     <div
-      v-for="(senseVal, senseType, index) in props.senses.split(',')"
+      v-for="(senseVal, senseType, index) in props.senses"
       :key="index"
-      class="py-0.5 px-2 text-sm text-neutral-400 bg-neutral-900"
+      class="label-val-container"
     >
-      {{ senseVal.toLowerCase().replace('\'', ' ft.') }}
-      <!-- <span class="val-sm"> -->
-      <!-- add value when able to parse -->
-      <!-- </span> -->
+      <span class="label">{{ senseType.toLowerCase().replace(/_/, ' ') }}</span>{{ senseVal }}
     </div>
   </div>
 </template>
@@ -21,6 +18,3 @@ const props = defineProps({
   senses: { type: String, default: '' }
 })
 </script>
-
-<style>
-</style>
