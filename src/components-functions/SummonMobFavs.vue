@@ -12,7 +12,7 @@
     <!-- search list -->
     <div
       class="
-      flex flex-col gap-2
+      flex flex-col gap-1
       place-content-start
       overflow-y-auto
       h-full
@@ -25,6 +25,7 @@
           grid gap-1
           grid-cols-[min-content,_1fr,_min-content]
           items-center
+          border border-neutral-950
           transition-colors"
       >
         <!-- pin to faves -->

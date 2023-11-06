@@ -14,6 +14,8 @@
     p-2 rounded-xl
     bg-neutral-950 border"
     :class="isSearchOpen ? 'border-green-500 ' : 'border-pink-400 '"
+    @keydown.down="selectNextMobResult"
+    @keydown.up="selectLastMobResult"
   >
     <!-- search + toggles container -->
     <!------------------------------------------------>
@@ -63,6 +65,7 @@
 
     <SummonMobAll
       v-show="isSearchOpen"
+      id="summonPanel"
       :mobs="searchAllResult"
       :search-limit="searchLimitAmount"
       @update-search-limit="updateSearchLimit()"
@@ -73,6 +76,7 @@
 
     <SummonMobFavs
       v-show="!isSearchOpen"
+      id="summonPanel"
       :fav-mobs="searchFavResult"
       :search-limit="searchLimitAmount"
       @update-search-limit="updateSearchLimit()"
@@ -89,6 +93,7 @@
       items-center justify-between
       m-2"
     >
+      {{ selectIndex }}
       <!-- results number -->
       <p class="text-center">
         {{ isSearchOpen ? 'monsters:' : 'favorites:' }} {{ isSearchOpen ? searchAllNum : searchFavNum }}
@@ -114,6 +119,34 @@ const favMobsList = reactive([])
 const searchAllNum = ref(searchAllResult.value.length)
 const searchFavNum = ref(searchFavResult.value.length)
 const searchLimitAmount = ref(100)
+
+// arrow select mob
+// -----------------------------------------------------------
+const selectIndex = ref(0)
+// select last
+function selectLastMobResult () {
+  if (selectIndex.value === 0) selectIndex.value = (searchLimitAmount.value - 1)
+  //
+  const mob = document.querySelector('#summonPanel')
+    .children[0].children[selectIndex.value]
+  //
+  mob.setAttribute('tabindex', '0')
+  mob.focus()
+  //
+  selectIndex.value--
+}
+// select next
+function selectNextMobResult () {
+  if (selectIndex.value === searchLimitAmount.value - 1) selectIndex.value = 0
+  //
+  const mob = document.querySelector('#summonPanel')
+    .children[0].children[selectIndex.value]
+  //
+  mob.setAttribute('tabindex', '0')
+  mob.focus()
+  //
+  selectIndex.value++
+}
 
 // toggle between search all / search faves
 function toggleAllOrFavs () {
@@ -206,6 +239,9 @@ function searchMobs () {
 </script>
 
 <style>
+#summonPanel div:focus {
+  @apply border-green-500
+}
 /* summon modal */
 .summon-mob-leave-active {
   transition:
