@@ -27,6 +27,8 @@
           items-center
           border border-neutral-950
           transition-colors"
+        @keypress.enter="$emit('summonMob', mob.url);
+                         $emit('toggleSummonModal')"
       >
         <!-- pin to faves -->
         <i
@@ -36,7 +38,7 @@
             p-3 rounded-sm
             bg-neutral-900 hover:bg-neutral-800
             text-neutral-400 hover:text-red-500"
-          @click="$emit('removeFav', { name: mob.name, slug: mob.slug })"
+          @click="$emit('removeFav', { name: mob.name, url: mob.url })"
         />
         <!-- name / summon & close -->
         <button
@@ -46,10 +48,10 @@
           text-sm text-left
           bg-neutral-900 hover:bg-pink-400
           hover:text-pink-950"
-          @click="$emit('summonMob', mob.slug);
+          @click="$emit('summonMob', mob.url);
                   $emit('toggleSummonModal')"
         >
-          {{ mob.name }}
+          {{ mob.name.toLowerCase() }}
         </button>
         <!-- summon multiple -->
         <i
@@ -59,7 +61,7 @@
           p-3 rounded-sm
           bg-neutral-900 hover:bg-pink-400
           hover:text-pink-950"
-          @click="$emit('summonMob', mob.slug); confirmSummon(mob);"
+          @click="$emit('summonMob', mob.url); confirmSummon(mob);"
         />
       </div>
       <button

@@ -28,7 +28,9 @@
   <!-- page container -->
   <div
     class="
-    grid grid-rows-[min-content,_1fr,_min-content]
+    grid
+    grid-cols-[1fr,_min-content]
+    grid-rows-[min-content,_1fr]
     h-[100dvh] max-h-[100vh]"
   >
     <!-- sort/panels -->
@@ -68,11 +70,12 @@
     <div
       class="
       z-[2]
-      order-3
-      flex place-content-center
+      row-span-2
+      flex flex-col
+      place-content-center
       gap-2 sm:gap-4
       p-2 sm:px-4
-      w-full"
+      h-screen"
     >
       <!-- toggle dice roller -->
       <!------------------------------------------------>
@@ -105,23 +108,15 @@
       ref="mobContainer"
       class="
       relative
+      h-full
       overflow-y-auto"
     >
-      <!-- top fade -->
-      <div
-        class="
-        z-0
-        sticky top-0
-        w-full h-10
-        bg-gradient-to-b from-neutral-600"
-      />
       <div
         class="
         flex flex-wrap flex-row
         place-content-center
         gap-2 md:gap-4
-        p-2 sm:p-4
-        overflow-y-auto"
+        p-2 sm:p-4"
       >
         <!-- mob cards -->
         <TransitionGroup name="mob-card">
@@ -133,7 +128,7 @@
               :key="refreshTogglePanel"
               :mob-index="index"
               :name="processMobName(mob.name)"
-              :slug="mob.slug"
+              :url="mob.url"
               :alignment="mob.alignment"
               :size="mob.size.toLowerCase()"
               :type="mob.type"
@@ -166,15 +161,6 @@
           </div>
         </TransitionGroup>
       </div> <!-- end cards container -->
-
-      <!-- bottom fade -->
-      <div
-        class="
-        z-0
-        sticky bottom-0
-        w-full h-10
-        bg-gradient-to-t from-neutral-600"
-      />
     </div> <!-- end cards scroll wrapper -->
   </div> <!-- end page container -->
   <!-- {{ mobs }} -->
@@ -198,7 +184,7 @@ const isLoading = ref(false)
 
 const toggleGlobalCardPanel = ref('details')
 const refreshTogglePanel = ref(0)
-const isSummonModalOpen = ref(true)
+const isSummonModalOpen = ref(false)
 const isDiceRollerOpen = ref(false)
 
 // show shadows on scroll
@@ -206,8 +192,9 @@ const mobContainer = ref(null)
 const yScroll = ref(1)
 // const mobFadeTop = ref(false)
 // const mobFadeBtm = ref(true)
+
 onMounted(() => {
-  mobContainer.value.addEventListener('scroll', function () { // or window.addEventListener("scroll"....
+  mobContainer.value.addEventListener('scroll', function () {
     const st = mobContainer.value.scrollTop
     if (st > yScroll.value) {
       // downscroll code
@@ -254,21 +241,17 @@ function processMobName (name) {
 function addMob (name) {
   isLoading.value = true
   name = name.replace(/ /gm, '-').replace(/-$/gm, '').toLowerCase()
-  fetch('https://www.dnd5eapi.co/api/monsters/' + name)
+  fetch('https://www.dnd5eapi.co' + name)
     .then(res => res.json())
     .then(data => {
       setTimeout(() => {
         mobs.unshift(data)
       }, '200')
-      setTimeout(() => {
-        isLoading.value = false
-      }, '450')
     })
-  // .then(data => { mobsLocalArr.push(data) })
     .catch(err => console.log(err.message))
-
-  // localStorage.setItem('localMobs', JSON.stringify(mobsLocalArr))
-  // mobs.value = JSON.parse(localStorage.getItem('localMobs'))
+  setTimeout(() => {
+    isLoading.value = false
+  }, '450')
 }
 
 // remove mob
@@ -282,10 +265,10 @@ function handlePassedMob (e) {
 }
 
 onMounted(() => {
-  /* addMob('giant spider')
-  addMob('goblin')
-  addMob('adult-red-dragon')
-  addMob('horned-devil') */
+/*   addMob('/api/monsters/giant spider')
+  addMob('/api/monsters/goblin')
+  addMob('/api/monsters/adult-red-dragon')
+  addMob('/api/monsters/horned-devil') */
 })
 
 </script>
@@ -307,6 +290,6 @@ onMounted(() => {
 .mob-card-leave-to,
 .mob-card-enter-from {
   scale: 0.5;
-  translate: -150% 100%;
+  translate: -200% 50%;
 }
 </style>

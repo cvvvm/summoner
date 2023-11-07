@@ -5,8 +5,8 @@
     class="
     fixed z-[8000]
     top-16
-    bottom-14
-    right-2 xs:right-4
+    bottom-2
+    right-2 xs:right-24
     left-2 xs:left-auto
     grid gap-2
     grid-rows-[min-content,_1fr,_min-content]
@@ -15,7 +15,7 @@
     bg-neutral-950 border"
     :class="isSearchOpen ? 'border-green-500 ' : 'border-pink-400 '"
     @keydown.down="selectNextMobResult"
-    @keydown.up="selectLastMobResult"
+    @keydown.up="selectPrevMobResult"
   >
     <!-- search + toggles container -->
     <!------------------------------------------------>
@@ -68,7 +68,7 @@
       id="summonPanel"
       :mobs="searchAllResult"
       :search-limit="searchLimitAmount"
-      @update-search-limit="updateSearchLimit()"
+      @update-search-limit="searchLimitAmount += 100"
       @summon-mob="$emit('summonMob', $event)"
       @toggle-summon-modal="$emit('toggleSummonModal')"
       @add-fav="addFav($event)"
@@ -79,7 +79,7 @@
       id="summonPanel"
       :fav-mobs="searchFavResult"
       :search-limit="searchLimitAmount"
-      @update-search-limit="updateSearchLimit()"
+      @update-search-limit="searchLimitAmount += 100"
       @summon-mob="$emit('summonMob', $event)"
       @toggle-summon-modal="$emit('toggleSummonModal')"
       @remove-fav="removeFav($event)"
@@ -93,7 +93,12 @@
       items-center justify-between
       m-2"
     >
-      {{ selectIndex }}
+      <p>
+        select index: {{ selectIndex }}
+      </p>
+      <p>
+        {{ status }}
+      </p>
       <!-- results number -->
       <p class="text-center">
         {{ isSearchOpen ? 'monsters:' : 'favorites:' }} {{ isSearchOpen ? searchAllNum : searchFavNum }}
@@ -103,12 +108,13 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
-import { mobNames } from '../open5e-monster-names'
+import { db } from '../../db'
+import { onMounted, reactive, ref } from 'vue'
 import SummonMobAll from './SummonMobAll.vue'
 import SummonMobFavs from './SummonMobFavs.vue'
 
 defineEmits(['toggleSummonModal', 'summonMob'])
+const mobNames = reactive([])
 
 const mobSearchInput = ref('')
 const isSearchOpen = ref(true)
@@ -120,32 +126,87 @@ const searchAllNum = ref(searchAllResult.value.length)
 const searchFavNum = ref(searchFavResult.value.length)
 const searchLimitAmount = ref(100)
 
+const status = ref()
+
+// ON MOUNT
+// -----------------------------------------------------------
+onMounted(() => {
+  APIgetSearchList()
+})
+
+// API get all monsters for search
+// -----------------------------------------------------------
+function APIgetSearchList () {
+  fetch('https://www.dnd5eapi.co/api/monsters')
+    .then(res => res.json())
+    .then(data => {
+      populateAllMobTable(data.results)
+    })
+}
+
+// add mobs to table
+async function populateAllMobTable (d) {
+  db.on('ready', function () {
+    return db.allMobs.count(function (count) {
+      if (count > 0) status.value = 'ready'
+      else {
+        d.forEach(async mob => {
+          try {
+            // add next mob
+            await db.allMobs.add({
+              index: mob.index,
+              name: mob.name.toLowerCase(),
+              url: mob.url
+            })
+
+            status.value = 'filled and ready'
+          } catch (error) {
+            status.value = `Failed to add
+                ${mob.name}: ${error}`
+          }
+        })
+      }
+    })
+  })
+
+  await db.allMobs.each(mob => {
+    mobNames.push({ index: mob.index, name: mob.name, url: mob.url })
+  })
+  updateSearchAllResult()
+  updateSearchFavResult()
+}
+
 // arrow select mob
 // -----------------------------------------------------------
 const selectIndex = ref(0)
+const lastSelect = ref('')
 // select last
-function selectLastMobResult () {
-  if (selectIndex.value === 0) selectIndex.value = (searchLimitAmount.value - 1)
-  //
+function selectPrevMobResult () {
+  if (lastSelect.value === 'next') selectIndex.value = selectIndex.value - 2
+  if (selectIndex.value <= 0) selectIndex.value = (searchLimitAmount.value)
+  // set element to find
   const mob = document.querySelector('#summonPanel')
     .children[0].children[selectIndex.value]
-  //
+  // set focus + style
   mob.setAttribute('tabindex', '0')
   mob.focus()
-  //
+  // prep for next
   selectIndex.value--
+  lastSelect.value = 'prev'
 }
 // select next
 function selectNextMobResult () {
-  if (selectIndex.value === searchLimitAmount.value - 1) selectIndex.value = 0
-  //
+  if (lastSelect.value === 'prev') selectIndex.value = selectIndex.value + 2
+  if (selectIndex.value > searchLimitAmount.value) selectIndex.value = 0
+  // set element to find
   const mob = document.querySelector('#summonPanel')
     .children[0].children[selectIndex.value]
-  //
+  // set focus + style
   mob.setAttribute('tabindex', '0')
   mob.focus()
-  //
+  // prep for next
   selectIndex.value++
+  lastSelect.value = 'next'
 }
 
 // toggle between search all / search faves
@@ -167,7 +228,7 @@ function addFav (e) {
     if (fav.name === e.name) match = true
   })
   if (!match) {
-    favMobsList.push({ name: e.name, slug: e.slug })
+    favMobsList.push({ name: e.name, url: e.url })
   }
 }
 
@@ -183,14 +244,10 @@ function removeFav (e) {
   updateSearchFavResult()
 }
 
-// update search limit
-function updateSearchLimit () {
-  searchLimitAmount.value += 100
-}
-
 // update search results - all
 function updateSearchAllResult () {
-  searchAllResult.value = mobNames.list.filter(mob => mob.name.includes(mobSearchInput.value.toLowerCase()))
+  selectIndex.value = 0
+  searchAllResult.value = mobNames.filter(mob => mob.name.toLowerCase().includes(mobSearchInput.value.toLowerCase()))
   searchAllNum.value = searchAllResult.value.length
   // alphabetize list
   searchAllResult.value = searchAllResult.value.sort((a, b) => {
@@ -206,7 +263,8 @@ function updateSearchAllResult () {
 }
 // update search results - favs
 function updateSearchFavResult () {
-  searchFavResult.value = favMobsList.filter(mob => mob.name.includes(mobSearchInput.value.toLowerCase()))
+  selectIndex.value = 0
+  searchFavResult.value = favMobsList.filter(mob => mob.name.toLowerCase().includes(mobSearchInput.value.toLowerCase()))
   searchFavNum.value = searchFavResult.value.length
   // alphabetize list
   searchFavResult.value = searchFavResult.value.sort((a, b) => {
@@ -220,17 +278,12 @@ function updateSearchFavResult () {
     return 0
   })
 }
-updateSearchAllResult()
-updateSearchFavResult()
 
 // search mobs
 function searchMobs () {
   searchLimitAmount.value = 100
   if (isSearchOpen.value) {
     updateSearchAllResult()
-    if (mobSearchInput.value === '') {
-      searchAllNum.value = 0
-    }
   } else if (!isSearchOpen.value) {
     updateSearchFavResult()
   }
@@ -239,6 +292,9 @@ function searchMobs () {
 </script>
 
 <style>
+#summonPanel button:focus {
+  @apply bg-green-500 text-green-950
+}
 #summonPanel div:focus {
   @apply border-green-500
 }

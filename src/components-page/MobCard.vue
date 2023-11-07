@@ -55,7 +55,7 @@
       >
         <CloneMob
           :mob-index="props.mobIndex"
-          :slug="props.slug"
+          :url="props.url"
           @pass-mob="$emit('passMob', $event);
                      console.log($event.type + ' index ' +
                        $event.data + ' passed from card')"
@@ -223,7 +223,7 @@ const props = defineProps({
   mobIndex: { type: Number, default: 0 },
 
   name: { type: String, default: '' },
-  slug: { type: String, default: '' },
+  url: { type: String, default: '' },
   size: { type: String, default: '' },
   type: { type: String, default: '' },
   alignment: { type: String, default: '' },

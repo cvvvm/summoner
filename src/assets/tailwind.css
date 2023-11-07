@@ -80,7 +80,7 @@ button.warn {
   w-fit
   gap-2
   pr-2 rounded-md
-  text-sm text-neutral-500 hover:text-neutral-400
+  text-sm text-neutral-400 hover:text-neutral-300
   bg-neutral-900
   border border-neutral-800 hover:border-neutral-700
   overflow-hidden
@@ -93,13 +93,13 @@ button.warn {
   align-baseline self-start
   px-2 py-0.5 rounded-[.25rem]
   text-sm font-light tracking-[-.0125rem]
-  text-neutral-400
+  text-neutral-300
   bg-neutral-800
   transition-colors;
 }
 
 .label-val-container:hover span.label {
-  @apply text-neutral-300
+  @apply text-neutral-200
   bg-neutral-700;
 }
 :root {
