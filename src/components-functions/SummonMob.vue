@@ -6,7 +6,7 @@
     fixed z-[8000]
     top-16
     bottom-2
-    right-2 xs:right-24
+    right-2 xs:right-28
     left-2 xs:left-auto
     grid gap-2
     grid-rows-[min-content,_1fr,_min-content]
@@ -49,6 +49,7 @@
       </div>
       <!-- search bar -->
       <input
+        id="searchBar"
         v-model="mobSearchInput"
         :placeholder="searchPlacehold"
         spellcheck="false"
@@ -66,10 +67,10 @@
     <SummonMobAll
       v-show="isSearchOpen"
       id="summonPanel"
-      :mobs="searchAllResult"
+      :mobs-all="searchAllResult"
       :search-limit="searchLimitAmount"
       @update-search-limit="searchLimitAmount += 100"
-      @summon-mob="$emit('summonMob', $event)"
+      @summon-mob="$emit('summonMob', $event); updateStatus('summoning')"
       @toggle-summon-modal="$emit('toggleSummonModal')"
       @add-fav="addFav($event)"
     />
@@ -80,7 +81,7 @@
       :fav-mobs="searchFavResult"
       :search-limit="searchLimitAmount"
       @update-search-limit="searchLimitAmount += 100"
-      @summon-mob="$emit('summonMob', $event)"
+      @summon-mob="$emit('summonMob', $event); updateStatus('summoning')"
       @toggle-summon-modal="$emit('toggleSummonModal')"
       @remove-fav="removeFav($event)"
     />
@@ -91,17 +92,18 @@
       class="
       flex gap-2
       items-center justify-between
-      m-2"
+      mx-2 mb-2"
     >
-      <p>
-        select index: {{ selectIndex }}
-      </p>
-      <p>
-        {{ status }}
-      </p>
       <!-- results number -->
       <p class="text-center">
         {{ isSearchOpen ? 'monsters:' : 'favorites:' }} {{ isSearchOpen ? searchAllNum : searchFavNum }}
+      </p>
+      <!-- status -->
+      <p
+        id="summmonStatus"
+        class="px-2 py-0 text-green-950 bg-green-500 transition-opacity opacity-0"
+      >
+        {{ status }}
       </p>
     </div>
   </div> <!-- end card -->
@@ -109,29 +111,85 @@
 
 <script setup>
 import { db } from '../../db'
-import { onMounted, reactive, ref } from 'vue'
+import { onBeforeMount, onMounted, reactive, ref } from 'vue'
 import SummonMobAll from './SummonMobAll.vue'
 import SummonMobFavs from './SummonMobFavs.vue'
 
 defineEmits(['toggleSummonModal', 'summonMob'])
-const mobNames = reactive([])
-
 const mobSearchInput = ref('')
+const mobNamesList = reactive([])
+const mobFavsList = reactive([])
+
 const isSearchOpen = ref(true)
 const searchPlacehold = ref('search all monsters')
 const searchAllResult = ref([])
 const searchFavResult = ref([])
-const favMobsList = reactive([])
+
 const searchAllNum = ref(searchAllResult.value.length)
 const searchFavNum = ref(searchFavResult.value.length)
+
 const searchLimitAmount = ref(100)
+
+const selectIndex = ref(0)
+const lastSelect = ref('')
 
 const status = ref()
 
-// ON MOUNT
+/*
+mount:
+  - check for db init, local data
+  - create search lists (all mobs, all favs)
+  - populate window with search lists
+
+search:
+  - filter search lists
+
+fav:
+  add:
+    - check for dupes
+    - add to favs db
+    - update fav search list
+  remove:
+    - remove from favs db
+    - update fav search list
+
+all/fav swap:
+
+*/
+
+// update status
 // -----------------------------------------------------------
-onMounted(() => {
+function updateStatus (msg) {
+  const statText = document.getElementById('summmonStatus')
+  status.value = msg
+  statText.classList.toggle('opacity-0')
+  setTimeout(() => {
+    statText.classList.toggle('opacity-0')
+  }, '1000')
+}
+
+// BEFORE / ON MOUNT
+// ------------------------------------------------------------------------------------
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+onBeforeMount(() => {
+  // get mobs
   APIgetSearchList()
+})
+
+onMounted(() => {
+  // fill lists
+  db.allMobs.each(mob => {
+    mobNamesList.push({ index: mob.index, name: mob.name, url: mob.url })
+  })
+  db.favMobs.each(fav => {
+    mobFavsList.push({ index: fav.index, name: fav.name, url: fav.url })
+  })
+
+  // populate card
+  setTimeout(() => {
+    if (isSearchOpen.value) updateSearchAllResult()
+    else updateSearchFavResult()
+  }, '100')
 })
 
 // API get all monsters for search
@@ -145,10 +203,11 @@ function APIgetSearchList () {
 }
 
 // add mobs to table
+// -----------------------------------------------------------
 async function populateAllMobTable (d) {
   db.on('ready', function () {
     return db.allMobs.count(function (count) {
-      if (count > 0) status.value = 'ready'
+      if (count > 0) updateStatus('ready')
       else {
         d.forEach(async mob => {
           try {
@@ -159,27 +218,100 @@ async function populateAllMobTable (d) {
               url: mob.url
             })
 
-            status.value = 'filled and ready'
+            updateStatus('filled & ready')
           } catch (error) {
-            status.value = `Failed to add
-                ${mob.name}: ${error}`
+            updateStatus('something went wrong. try refreshing')
           }
         })
       }
     })
   })
+}
 
-  await db.allMobs.each(mob => {
-    mobNames.push({ index: mob.index, name: mob.name, url: mob.url })
+// fav mobs
+// ------------------------------------------------------------------------------------
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// add fav mob
+async function addFav (e) {
+  const match = ref(false)
+  db.favMobs.each(fav => {
+    if (fav.index === e.index) match.value = true
+    updateStatus('already added')
   })
-  updateSearchAllResult()
+
+  if (!match.value) {
+    await db.favMobs.add({
+      index: e.index,
+      name: e.name.toLowerCase(),
+      url: e.url
+    })
+    mobFavsList.push({ index: e.index, name: e.name, url: e.url })
+    updateStatus('added')
+  }
+}
+
+// remove fav mob
+async function removeFav (e) {
+  db.favMobs.delete(e.index)
+  const idx = mobFavsList.findIndex(m => m.name === e.name)
+  mobFavsList.splice(idx, 1)
   updateSearchFavResult()
 }
 
+// search
+// ------------------------------------------------------------------------------------
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// update search results - all
+function updateSearchAllResult () {
+  selectIndex.value = 0
+  searchAllResult.value = mobNamesList.filter(mob => mob.name.toLowerCase().includes(mobSearchInput.value.toLowerCase()))
+  searchAllNum.value = searchAllResult.value.length
+  // alphabetize list
+  searchAllResult.value = searchAllResult.value.sort((a, b) => {
+    const fa = a.name.toLowerCase(); const fb = b.name.toLowerCase()
+    if (fa < fb) {
+      return -1
+    }
+    if (fa > fb) {
+      return 1
+    }
+    return 0
+  })
+}
+// update search results - favs
+function updateSearchFavResult () {
+  selectIndex.value = 0
+  searchFavResult.value = mobFavsList.filter(mob => mob.name.toLowerCase().includes(mobSearchInput.value.toLowerCase()))
+  searchFavNum.value = searchFavResult.value.length
+  // alphabetize list
+  searchFavResult.value = searchFavResult.value.sort((a, b) => {
+    const fa = a.name.toLowerCase(); const fb = b.name.toLowerCase()
+    if (fa < fb) {
+      return -1
+    }
+    if (fa > fb) {
+      return 1
+    }
+    return 0
+  })
+}
+
+// search mobs
+function searchMobs () {
+  searchLimitAmount.value = 100
+  if (isSearchOpen.value) {
+    updateSearchAllResult()
+  } else if (!isSearchOpen.value) {
+    updateSearchFavResult()
+  }
+}
+
+// page functions
+// ------------------------------------------------------------------------------------
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 // arrow select mob
 // -----------------------------------------------------------
-const selectIndex = ref(0)
-const lastSelect = ref('')
 // select last
 function selectPrevMobResult () {
   if (lastSelect.value === 'next') selectIndex.value = selectIndex.value - 2
@@ -210,6 +342,7 @@ function selectNextMobResult () {
 }
 
 // toggle between search all / search faves
+// -----------------------------------------------------------
 function toggleAllOrFavs () {
   isSearchOpen.value = !isSearchOpen.value
   if (!isSearchOpen.value) {
@@ -218,74 +351,6 @@ function toggleAllOrFavs () {
   } else if (isSearchOpen.value) {
     updateSearchAllResult()
     searchPlacehold.value = 'search all monsters'
-  }
-}
-
-// add fav mob
-function addFav (e) {
-  let match = false
-  favMobsList.forEach(fav => {
-    if (fav.name === e.name) match = true
-  })
-  if (!match) {
-    favMobsList.push({ name: e.name, url: e.url })
-  }
-}
-
-// remove fav mob
-function removeFav (e) {
-  let i = 0
-  favMobsList.forEach(fav => {
-    if (fav.name === e.name) {
-      favMobsList.splice(i, 1)
-    }
-    i++
-  })
-  updateSearchFavResult()
-}
-
-// update search results - all
-function updateSearchAllResult () {
-  selectIndex.value = 0
-  searchAllResult.value = mobNames.filter(mob => mob.name.toLowerCase().includes(mobSearchInput.value.toLowerCase()))
-  searchAllNum.value = searchAllResult.value.length
-  // alphabetize list
-  searchAllResult.value = searchAllResult.value.sort((a, b) => {
-    const fa = a.name.toLowerCase(); const fb = b.name.toLowerCase()
-    if (fa < fb) {
-      return -1
-    }
-    if (fa > fb) {
-      return 1
-    }
-    return 0
-  })
-}
-// update search results - favs
-function updateSearchFavResult () {
-  selectIndex.value = 0
-  searchFavResult.value = favMobsList.filter(mob => mob.name.toLowerCase().includes(mobSearchInput.value.toLowerCase()))
-  searchFavNum.value = searchFavResult.value.length
-  // alphabetize list
-  searchFavResult.value = searchFavResult.value.sort((a, b) => {
-    const fa = a.name.toLowerCase(); const fb = b.name.toLowerCase()
-    if (fa < fb) {
-      return -1
-    }
-    if (fa > fb) {
-      return 1
-    }
-    return 0
-  })
-}
-
-// search mobs
-function searchMobs () {
-  searchLimitAmount.value = 100
-  if (isSearchOpen.value) {
-    updateSearchAllResult()
-  } else if (!isSearchOpen.value) {
-    updateSearchFavResult()
   }
 }
 
@@ -301,14 +366,14 @@ function searchMobs () {
 /* summon modal */
 .summon-mob-leave-active {
   transition:
-    transform 150ms ease-in,
-    scale 200ms ease-in-out,
+    transform 150ms ease-out,
+    scale 200ms ease-out,
     ;
 }
 .summon-mob-enter-active {
   transition:
-    transform 200ms ease-out,
-    scale 200ms ease-in-out,
+    transform 175ms ease-out,
+    scale 200ms ease-out,
     ;
 }
 .summon-mob-leave-to,

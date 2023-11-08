@@ -3,6 +3,7 @@
 
   <div
     class="
+    relative
     max-w-[425px] sm:max-w-[375px]
     grid grid-cols-1 gap-2
     p-3 rounded-xl
@@ -38,6 +39,10 @@
         :lang="props.lang"
         @pass-hp-card="updateHpVal($event)"
       />
+
+      <!-- CARD -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- name -->
       <h1
         class="
@@ -56,16 +61,12 @@
         <CloneMob
           :mob-index="props.mobIndex"
           :url="props.url"
-          @pass-mob="$emit('passMob', $event);
-                     console.log($event.type + ' index ' +
-                       $event.data + ' passed from card')"
+          @pass-mob="$emit('passMob', $event)"
         />
         <BanishMob
           :mob-index="props.mobIndex"
           :name="props.name"
-          @pass-mob="$emit('passMob', $event);
-                     console.log($event.type + ' index ' +
-                       $event.data + ' passed from card')"
+          @pass-mob="$emit('passMob', $event)"
         />
       </div>
     </div>

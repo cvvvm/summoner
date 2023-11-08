@@ -9,31 +9,23 @@
     <i class="bi bi-x-circle" />
   </button>
 
-  <!-- backdrop -->
-  <!------------------------------------------------>
-  <div
-    v-show="isBanishModalOpen"
-    class="
-      fixed flex-initial flex
-      place-content-center place-items-center
-      z-[9999]
-      top-0 left-0 h-full w-full
-      bg-neutral-700 bg-opacity-75"
-    @click.self="toggleBanishModal"
-  >
+  <Transition name="fade">
     <!-- modal -->
     <!------------------------------------------------>
     <div
+      v-show="!isBanishModalOpen"
       class="
-      grid gap-6
-      relative flex-initial
-      max-w-sm
+      top-0
+      left-0 right-0
+      absolute
+      grid gap-4
+      items-center content-center
+      w-full h-full max-h-[190px]
       p-8 rounded-xl
-      bg-neutral-950 text-neutral-400
-      border border-yellow-600"
+      bg-neutral-950 text-neutral-400"
     >
       <!-- text container -->
-      <div class="flex flex-col gap-2 px-3">
+      <div class="flex flex-col">
         <h2 class="text-xl font-semibold text-neutral-100">
           beginning banishment...
         </h2>
@@ -49,15 +41,14 @@
         <!-- confirm button -->
         <button
           autofocus
-          class="bg-purple-700 text-purple-100 warn"
-          @click="$emit('passMob', {data: mobIndex, type: 'banish'});
-                  console.log('banish index ' + mobIndex + ' passed from button')"
+          class="warn"
+          @click="$emit('passMob', {name: name, data: mobIndex, type: 'banish'})"
         >
           banish
         </button>
       </div>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <script setup>
@@ -68,7 +59,7 @@ defineProps({
   name: { type: String, default: '' }
 })
 
-const isBanishModalOpen = ref(false)
+const isBanishModalOpen = ref(true)
 function toggleBanishModal () {
   isBanishModalOpen.value = !isBanishModalOpen.value
 }

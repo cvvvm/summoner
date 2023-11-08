@@ -38,7 +38,7 @@
             p-3 rounded-sm
             bg-neutral-900 hover:bg-neutral-800
             text-neutral-400 hover:text-red-500"
-          @click="$emit('removeFav', { name: mob.name, url: mob.url })"
+          @click="$emit('removeFav', { name: mob.name, url: mob.url, index: mob.index})"
         />
         <!-- name / summon & close -->
         <button
@@ -61,7 +61,7 @@
           p-3 rounded-sm
           bg-neutral-900 hover:bg-pink-400
           hover:text-pink-950"
-          @click="$emit('summonMob', mob.url); confirmSummon(mob);"
+          @click="$emit('summonMob', mob.url);"
         />
       </div>
       <button
@@ -81,14 +81,6 @@ const props = defineProps({
   searchLimit: { type: Number, default: 100 }
 })
 
-// confirm summon text
-function confirmSummon (x) {
-  const nameHold = x.name
-  x.name = 'summoning...'
-  setTimeout(() => {
-    x.name = nameHold
-  }, '1000')
-}
 </script>
 
 <style scoped>

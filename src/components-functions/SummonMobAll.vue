@@ -19,7 +19,7 @@
       pr-2"
     >
       <div
-        v-for="mob in props.mobs.slice(0, props.searchLimit)"
+        v-for="mob in props.mobsAll.slice(0, props.searchLimit)"
         :key="mob"
         class="
           grid gap-1
@@ -38,7 +38,7 @@
             p-3 rounded-sm
             bg-neutral-900 hover:bg-neutral-800
             text-neutral-700 hover:text-pink-500"
-          @click="$emit('addFav', { name: mob.name, url: mob.url })"
+          @click="$emit('addFav', { index: mob.index, name: mob.name, url: mob.url})"
         />
         <!-- name / summon & close -->
         <button
@@ -61,11 +61,11 @@
           p-3 rounded-sm
           bg-neutral-900 hover:bg-green-400
           hover:text-green-950"
-          @click="$emit('summonMob', mob.url); confirmSummon(mob);"
+          @click="$emit('summonMob', mob.url)"
         />
       </div>
       <button
-        v-show="props.mobs.length >= props.searchLimit"
+        v-show="props.mobsAll.length >= props.searchLimit"
         @click="$emit('updateSearchLimit')"
       >
         load more
@@ -81,18 +81,10 @@ defineEmits([
   'updateSearchLimit',
   'addFav'])
 const props = defineProps({
-  mobs: { type: Object, default: () => {} },
+  mobsAll: { type: Object, default: () => {} },
   searchLimit: { type: Number, default: 100 }
 })
 
-// confirm summon text
-function confirmSummon (x) {
-  const nameHold = x.name
-  x.name = 'summoning...'
-  setTimeout(() => {
-    x.name = nameHold
-  }, '1000')
-}
 </script>
 
 <style scoped>

@@ -20,7 +20,7 @@
   >
     <SummonMob
       v-show="isSummonModalOpen"
-      @summon-mob="addMob"
+      @summon-mob="summonMob"
       @toggle-summon-modal="toggleSummonModal"
     />
   </Transition>
@@ -52,7 +52,7 @@
         p-2 rounded-xl
         bg-neutral-900"
       >
-        <SortMobs :mobs-obj="mobs" />
+        <SortMobs :mobs-obj="summonedMobsList" />
       </div>
       <div
         class="
@@ -91,7 +91,7 @@
       <!-- toggle summon menu -->
       <button
         class="py-2 px-4 z-0"
-        :class="isSummonModalOpen || mobs.length == 0 ?
+        :class="isSummonModalOpen || summonedMobsList.length == 0 ?
           'z-[8001] bg-green-500 text-green-950 hover:bg-green-600 hover:text-green-950'
           : 'bg-neutral-400 text-neutral-950 hover:bg-green-500 hover:text-green-950'"
         @click="toggleSummonModal()"
@@ -121,13 +121,13 @@
         <!-- mob cards -->
         <TransitionGroup name="mob-card">
           <div
-            v-for="mob, index in mobs"
+            v-for="mob, index in summonedMobsList"
             :key="mob"
           >
             <MobCard
               :key="refreshTogglePanel"
               :mob-index="index"
-              :name="processMobName(mob.name)"
+              :name="mob.name.toLowerCase()"
               :url="mob.url"
               :alignment="mob.alignment"
               :size="mob.size.toLowerCase()"
@@ -167,6 +167,7 @@
 </template>
 
 <script setup>
+import { db } from '../../db'
 import { ref, reactive, onMounted } from 'vue'
 import MobCard from './MobCard.vue'
 import SummonMob from '../components-functions/SummonMob.vue'
@@ -175,14 +176,10 @@ import SortMobs from '../components-functions/SortMobs.vue'
 import ToggleMobCardPanels from '../components-functions/ToggleMobCardPanels.vue'
 import DiceRoller from '../dice-roller/DiceRoller.vue'
 
-// currently summoned mob(s)
-// const mobsLocalArr = reactive([])
-// mobsLocalArr.value = JSON.parse(localStorage.getItem('localMobs'))
-const mobs = reactive([])
-// mobs.value = JSON.parse(localStorage.getItem('localMobs'))
+const summonedMobsList = reactive([])
 const isLoading = ref(false)
 
-const toggleGlobalCardPanel = ref('details')
+const toggleGlobalCardPanel = ref('')
 const refreshTogglePanel = ref(0)
 const isSummonModalOpen = ref(false)
 const isDiceRollerOpen = ref(false)
@@ -194,6 +191,8 @@ const yScroll = ref(1)
 // const mobFadeBtm = ref(true)
 
 onMounted(() => {
+  loadAllLocalSummonedList()
+
   mobContainer.value.addEventListener('scroll', function () {
     const st = mobContainer.value.scrollTop
     if (st > yScroll.value) {
@@ -211,7 +210,6 @@ onMounted(() => {
 // modal toggles
 // ------------------------------------------------------------------------------------
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 // toggle summoning modal
 function toggleSummonModal () {
   isSummonModalOpen.value = !isSummonModalOpen.value
@@ -227,49 +225,71 @@ function toggleDiceRoller () {
 // ------------------------------------------------------------------------------------
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-// process mob name
-function processMobName (name) {
-  if (name.indexOf(',') === -1) {
-    return name.toLowerCase()
-  } else {
-    // return name.push(name.splice(1, 1)[0])
-    return (name.split(',')[1] + ' ' + name.split(',')[0]).toLowerCase()
-  }
-}
-
-// add new mob
-function addMob (name) {
+// summon new mob
+function summonMob (e) {
   isLoading.value = true
-  name = name.replace(/ /gm, '-').replace(/-$/gm, '').toLowerCase()
-  fetch('https://www.dnd5eapi.co' + name)
+  fetch('https://www.dnd5eapi.co' + e)
     .then(res => res.json())
     .then(data => {
+      addToSummonedMobs(data)
       setTimeout(() => {
-        mobs.unshift(data)
+        addToLocalSummonedList(data)
       }, '200')
     })
     .catch(err => console.log(err.message))
+
+  // hide summoning status
   setTimeout(() => {
     isLoading.value = false
   }, '450')
 }
 
 // remove mob
-function handlePassedMob (e) {
-  console.log(e.type + ' index ' + e.data + ' passed from app')
-  if (e.type === 'banish') mobs.splice(e.data, 1)
+async function handlePassedMob (e) {
+  console.log(e)
+
+  if (e.type === 'banish') {
+    summonedMobsList.splice(e.data, 1)
+    await db.summonedMobs
+      .where('name')
+      .equalsIgnoreCase(e.name)
+      .limit(1)
+      .delete()
+  }
   if (e.type === 'clone') {
     e.data = e.data.replace(/ /, '-')
-    addMob(e.data)
+    summonMob(e.data)
   }
 }
 
-onMounted(() => {
-/*   addMob('/api/monsters/giant spider')
-  addMob('/api/monsters/goblin')
-  addMob('/api/monsters/adult-red-dragon')
-  addMob('/api/monsters/horned-devil') */
-})
+// remove fav mob
+/* async function removeFav(e) {
+  db.favMobs.delete(e.index)
+  const idx = mobFavsList.findIndex(m => m.name === e.name)
+  mobFavsList.splice(idx, 1)
+  updateSearchFavResult()
+} */
+
+// load local summoned mobs from db
+async function loadAllLocalSummonedList () {
+  await db.summonedMobs.each(mob => {
+    summonedMobsList.push(mob.data)
+  })
+}
+
+// save summoned to local db
+async function addToSummonedMobs (m) {
+  // add next mob
+  await db.summonedMobs.add({
+    name: m.name,
+    data: m
+  })
+}
+
+// add to summoned mob list
+function addToLocalSummonedList (m) {
+  summonedMobsList.unshift(m)
+}
 
 </script>
 
@@ -290,6 +310,6 @@ onMounted(() => {
 .mob-card-leave-to,
 .mob-card-enter-from {
   scale: 0.5;
-  translate: -200% 50%;
+  translate: -300% 50%;
 }
 </style>
