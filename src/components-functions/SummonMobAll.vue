@@ -12,20 +12,23 @@
     <!-- search list -->
     <div
       class="
-      flex flex-col gap-2
+      flex flex-col gap-1
       place-content-start
       overflow-y-auto
       h-full
       pr-2"
     >
       <div
-        v-for="mob in props.mobs.slice(0, props.searchLimit)"
+        v-for="mob in props.mobsAll.slice(0, props.searchLimit)"
         :key="mob"
         class="
           grid gap-1
           grid-cols-[min-content,_1fr,_min-content]
           items-center
+          border border-neutral-950
           transition-colors"
+        @keypress.enter="$emit('summonMob', mob.url);
+                         $emit('toggleSummonModal')"
       >
         <!-- pin to faves -->
         <i
@@ -35,7 +38,7 @@
             p-3 rounded-sm
             bg-neutral-900 hover:bg-neutral-800
             text-neutral-700 hover:text-pink-500"
-          @click="$emit('addFav', { name: mob.name, slug: mob.slug })"
+          @click="$emit('addFav', { index: mob.index, name: mob.name, url: mob.url})"
         />
         <!-- name / summon & close -->
         <button
@@ -45,24 +48,24 @@
           text-sm text-left
           bg-neutral-900 hover:bg-green-400
           hover:text-green-950"
-          @click="$emit('summonMob', mob.slug);
+          @click="$emit('summonMob', mob.url);
                   $emit('toggleSummonModal')"
         >
-          {{ mob.name }}
+          {{ mob.name.toLowerCase() }}
         </button>
         <!-- summon multiple -->
-        <i
+        <button
           class="
           bi bi-plus-lg
           text-sm leading-none
           p-3 rounded-sm
           bg-neutral-900 hover:bg-green-400
           hover:text-green-950"
-          @click="$emit('summonMob', mob.slug); confirmSummon(mob);"
+          @click="$emit('summonMob', mob.url)"
         />
       </div>
       <button
-        v-show="props.mobs.length >= props.searchLimit"
+        v-show="props.mobsAll.length >= props.searchLimit"
         @click="$emit('updateSearchLimit')"
       >
         load more
@@ -78,18 +81,10 @@ defineEmits([
   'updateSearchLimit',
   'addFav'])
 const props = defineProps({
-  mobs: { type: Object, default: () => {} },
+  mobsAll: { type: Object, default: () => {} },
   searchLimit: { type: Number, default: 100 }
 })
 
-// confirm summon text
-function confirmSummon (x) {
-  const nameHold = x.name
-  x.name = 'summoning...'
-  setTimeout(() => {
-    x.name = nameHold
-  }, '1000')
-}
 </script>
 
 <style scoped>

@@ -57,28 +57,89 @@ p {
   @apply text-sm;
 }
 
+/* buttons */
+/*------------------------------------------------------------------------------------ */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 button {
-  @apply text-sm font-normal text-neutral-300 hover:text-neutral-200
-      bg-neutral-700 hover:bg-neutral-600
-      py-1 px-3 rounded-md transition-colors;
+  @apply font-normal leading-none
+  py-[.375rem] px-3 rounded-md
+  text-sm
+  text-neutral-300 hover:text-neutral-200
+  bg-neutral-700 hover:bg-neutral-600
+  transition-colors;
+}
+
+button.base {
+  @apply font-medium
+  pt-2 pb-[.625rem] px-3
+  text-neutral-950 hover:text-neutral-950 active:text-neutral-950
+  bg-neutral-500 hover:bg-neutral-600 active:bg-neutral-600
+  transition-colors;
 }
 
 button.warn {
-  @apply font-bold text-yellow-950 bg-yellow-500 py-1 px-3 rounded-md transition-colors
-  hover:text-orange-950 hover:bg-orange-600
-  active:text-red-950 active:bg-red-600;
+  @apply font-bold
+  py-2 px-3
+  text-yellow-950 hover:text-orange-950 active:text-red-950
+  bg-yellow-500 hover:bg-orange-600 active:bg-red-600
+  transition-colors;
 }
 
-.label {
-  @apply flex flex-grow flex-shrink-0 gap-1
-          align-baseline self-start
-          px-2 py-1 rounded-sm
-          text-sm
-          text-neutral-300 bg-neutral-800;
+button.danger {
+  @apply font-bold
+  py-2 px-3
+  text-red-200 hover:text-red-300 active:text-red-400
+  bg-red-600 hover:bg-red-700 active:bg-red-800
+  transition-colors;
 }
 
 .val-container {
   @apply grid grid-cols-1 grid-rows-[min-content_1fr] gap-0 place-items-center px-6 py-2 bg-neutral-950 rounded-md;
+}
+
+/* labels */
+/*------------------------------------------------------------------------------------ */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* label base */
+.label {
+  @apply flex
+  align-baseline self-start
+  px-2 py-1 rounded-[.25rem]
+  text-sm font-light tracking-[-.0125rem]
+  text-neutral-300
+  bg-neutral-900
+  transition-colors;
+}
+
+/* label val */
+.label-val {
+  @apply flex flex-row flex-wrap
+  items-center justify-start justify-items-start
+  w-fit rounded-md
+  text-sm text-neutral-200 hover:text-neutral-300
+  bg-neutral-800 hover:bg-neutral-700
+  border-2 border-neutral-800 hover:border-neutral-700
+  overflow-hidden
+  transition-colors;
+}
+.label-val .label {
+  @apply flex-auto
+  self-stretch items-center
+  px-2 py-0.5 rounded-none
+  text-sm font-light tracking-[-.0125rem]
+  bg-neutral-800
+  text-neutral-300
+  transition-colors;
+}
+.label-val > * {
+  @apply z-[1] flex-grow
+  self-center
+  px-2 py-0.5 rounded-[.25rem]
+  bg-neutral-950;
+}
+.label-val:hover span.label {
+  @apply text-neutral-200
+  bg-neutral-700;
 }
 
 :root {
@@ -158,21 +219,19 @@ button.warn {
   @apply grid bg-neutral-900;
 }
 
-/* -------------------------------------------------------- */
-/* -------------------------------------------------------- */
-
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/*                                                                                                   */
 /* animations */
-
-/* -------------------------------------------------------- */
-/* -------------------------------------------------------- */
+/*                                                                                                   */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 /* FADE */
 /* -------------------------------------------------------- */
-.fade-leave-active {
-  transition: opacity 0.2s ease-in;
-}
+.fade-leave-active,
 .fade-enter-active {
-  transition: opacity 0.2s ease-out;
+  transition: opacity 200ms ease-out;
 }
 .fade-leave-to,
 .fade-enter-from {

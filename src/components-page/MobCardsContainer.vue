@@ -20,64 +20,63 @@
   >
     <SummonMob
       v-show="isSummonModalOpen"
-      @summon-mob="addMob"
+      @summon-mob="summonMob"
       @toggle-summon-modal="toggleSummonModal"
     />
   </Transition>
 
-  <!-- page container -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+  <!--  page container  -->
+
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <div
     class="
-    grid grid-rows-[min-content,_1fr,_min-content]
+    relative
+    grid
+    grid-rows-[min-content,_1fr,_min-content]
     h-[100dvh] max-h-[100vh]"
   >
-    <!-- sort/panels -->
+    <!-- sort/panels bar -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div
       class="
+      order-1
       z-[2]
       flex gap-2
       place-content-between items-center
       w-full
-      p-2 sm:px-4"
+      p-2 sm:p-4
+      bg-neutral-950"
     >
-      {{ yScroll }}
       <!-- bar -->
-      <div
-        class="
-        flex flex-row flex-wrap
-        p-2 rounded-xl
-        bg-neutral-900"
-      >
-        <SortMobs :mobs-obj="mobs" />
-      </div>
-      <div
-        class="
-        flex flex-row flex-wrap
-        p-2 rounded-xl
-        bg-neutral-900"
-      >
-        <ToggleMobCardPanels @refresh-panel="refreshTogglePanel += 1; toggleGlobalCardPanel = $event" />
-      </div> <!-- end cards control -->
-    </div> <!-- end cards control container -->
+      <SortMobs :mobs-obj="summonedMobsList" />
+
+      <ToggleMobCardPanels @refresh-panel="refreshTogglePanel += 1; toggleGlobalCardPanel = $event" />
+    </div> <!-- end sort bar -->
 
     <!-- summon + dice -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div
       class="
-      z-[2]
       order-3
-      flex place-content-center
+      z-[5000]
+      flex flex-row
+      place-content-center
       gap-2 sm:gap-4
-      p-2 sm:px-4
-      w-full"
+      p-2 sm:p-4
+      w-screen
+      bg-neutral-950
+      "
     >
       <!-- toggle dice roller -->
       <!------------------------------------------------>
       <button
-        class="py-2 px-4 z-0"
+        class="py-2 px-4"
         :class="isDiceRollerOpen ?
           'z-[9001] bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950'
           : 'bg-neutral-400 text-neutral-950 hover:bg-neutral-200 hover:text-neutral-950 z-[9999]'"
@@ -87,8 +86,8 @@
       </button>
       <!-- toggle summon menu -->
       <button
-        class="py-2 px-4 z-0"
-        :class="isSummonModalOpen || mobs.length == 0 ?
+        class="py-2 px-4"
+        :class="isSummonModalOpen || summonedMobsList.length == 0 ?
           'z-[8001] bg-green-500 text-green-950 hover:bg-green-600 hover:text-green-950'
           : 'bg-neutral-400 text-neutral-950 hover:bg-green-500 hover:text-green-950'"
         @click="toggleSummonModal()"
@@ -104,36 +103,42 @@
     <div
       ref="mobContainer"
       class="
+      order-2
       relative
+      h-full w-full
       overflow-y-auto"
     >
-      <!-- top fade -->
+      <!-- fade top -->
       <div
+        id="fadeTop"
+        :class="yScroll > 10 ? '' : 'opacity-0'"
         class="
-        z-0
-        sticky top-0
-        w-full h-10
-        bg-gradient-to-b from-neutral-600"
+        z-10 pointer-events-none
+        fixed top-[2.75rem] sm:top-14
+        h-8 w-full
+        bg-gradient-to-b from-neutral-950
+        transition-opacity"
       />
+      <!-- cards container -->
       <div
+        id="cardsContainer"
         class="
         flex flex-wrap flex-row
-        place-content-center
+        place-content-start
         gap-2 md:gap-4
-        p-2 sm:p-4
-        overflow-y-auto"
+        p-2 sm:p-4 mb-12"
       >
         <!-- mob cards -->
         <TransitionGroup name="mob-card">
           <div
-            v-for="mob, index in mobs"
+            v-for="mob, index in summonedMobsList"
             :key="mob"
           >
             <MobCard
               :key="refreshTogglePanel"
               :mob-index="index"
-              :name="processMobName(mob.name)"
-              :slug="mob.slug"
+              :name="mob.name.toLowerCase()"
+              :url="mob.url"
               :alignment="mob.alignment"
               :size="mob.size.toLowerCase()"
               :type="mob.type"
@@ -146,10 +151,7 @@
                 { cha: {'score': mob.charisma, 'saveMod': mob.charisma_save} },
               ]"
               :base-hp="mob.hit_points"
-              :armor="[{
-                class: mob.armor_class,
-                desc: mob.armor_desc,
-              }]"
+              :armor="mob.armor_class"
               :challenge-rating="mob.cr"
               :xp-gained="mob.xp"
               :damage-vulnerabilities="mob.damage_vulnerabilities"
@@ -170,13 +172,16 @@
         </TransitionGroup>
       </div> <!-- end cards container -->
 
-      <!-- bottom fade -->
+      <!-- fade bottom -->
       <div
+        id="fadeBottom"
+        :class="yScroll > 10 ? '' : 'opacity-0'"
         class="
-        z-0
-        sticky bottom-0
-        w-full h-10
-        bg-gradient-to-t from-neutral-600"
+        z-10 pointer-events-none
+        fixed bottom-[3.25rem] sm:bottom-16
+        h-8 w-full
+        bg-gradient-to-t from-neutral-950
+        transition-opacity"
       />
     </div> <!-- end cards scroll wrapper -->
   </div> <!-- end page container -->
@@ -184,6 +189,7 @@
 </template>
 
 <script setup>
+import { db } from '../../db'
 import { ref, reactive, onMounted } from 'vue'
 import MobCard from './MobCard.vue'
 import SummonMob from '../components-functions/SummonMob.vue'
@@ -192,14 +198,10 @@ import SortMobs from '../components-functions/SortMobs.vue'
 import ToggleMobCardPanels from '../components-functions/ToggleMobCardPanels.vue'
 import DiceRoller from '../dice-roller/DiceRoller.vue'
 
-// currently summoned mob(s)
-// const mobsLocalArr = reactive([])
-// mobsLocalArr.value = JSON.parse(localStorage.getItem('localMobs'))
-const mobs = reactive([])
-// mobs.value = JSON.parse(localStorage.getItem('localMobs'))
+const summonedMobsList = reactive([])
 const isLoading = ref(false)
 
-const toggleGlobalCardPanel = ref('')
+const toggleGlobalCardPanel = ref('details')
 const refreshTogglePanel = ref(0)
 const isSummonModalOpen = ref(false)
 const isDiceRollerOpen = ref(false)
@@ -209,25 +211,15 @@ const mobContainer = ref(null)
 const yScroll = ref(1)
 // const mobFadeTop = ref(false)
 // const mobFadeBtm = ref(true)
+
 onMounted(() => {
-  mobContainer.value.addEventListener('scroll', function () { // or window.addEventListener("scroll"....
-    const st = mobContainer.value.scrollTop
-    if (st > yScroll.value) {
-      // downscroll code
-    } else if (st < yScroll.value) {
-      // upscroll code
-    } // else was horizontal scroll
-    yScroll.value = st <= 0 ? 0 : st
-  }, false)
-  /* ('scroll', () => {
-    yScroll.value++
-  }) */
+  scrollFader()
+  loadAllLocalSummonedList()
 })
 
 // modal toggles
 // ------------------------------------------------------------------------------------
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 // toggle summoning modal
 function toggleSummonModal () {
   isSummonModalOpen.value = !isSummonModalOpen.value
@@ -243,55 +235,90 @@ function toggleDiceRoller () {
 // ------------------------------------------------------------------------------------
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-// process mob name
-function processMobName (name) {
-  if (name.indexOf(',') === -1) {
-    return name.toLowerCase()
-  } else {
-    // return name.push(name.splice(1, 1)[0])
-    return (name.split(',')[1] + ' ' + name.split(',')[0]).toLowerCase()
-  }
-}
-
-// add new mob
-function addMob (name) {
+// summon new mob
+function summonMob (e) {
   isLoading.value = true
-  name = name.replace(/ /gm, '-').replace(/-$/gm, '').toLowerCase()
-  fetch('https://api.open5e.com/monsters/' + name)
+  fetch('https://www.dnd5eapi.co' + e)
     .then(res => res.json())
     .then(data => {
+      addToSummonedMobs(data)
       setTimeout(() => {
-        mobs.unshift(data)
+        addToLocalSummonedList(data)
       }, '200')
-      setTimeout(() => {
-        isLoading.value = false
-      }, '450')
     })
-  // .then(data => { mobsLocalArr.push(data) })
     .catch(err => console.log(err.message))
 
-  // localStorage.setItem('localMobs', JSON.stringify(mobsLocalArr))
-  // mobs.value = JSON.parse(localStorage.getItem('localMobs'))
+  // hide summoning status
+  setTimeout(() => {
+    isLoading.value = false
+  }, '450')
 }
 
 // remove mob
-function handlePassedMob (e) {
-  console.log(e.type + ' index ' + e.data + ' passed from app')
-  if (e.type === 'banish') mobs.splice(e.data, 1)
+async function handlePassedMob (e) {
+  console.log(e)
+
+  if (e.type === 'banish') {
+    summonedMobsList.splice(e.data, 1)
+    await db.summonedMobs
+      .where('name')
+      .equalsIgnoreCase(e.name)
+      .limit(1)
+      .delete()
+  }
   if (e.type === 'clone') {
     e.data = e.data.replace(/ /, '-')
-    addMob(e.data)
+    summonMob(e.data)
   }
 }
 
-onMounted(() => {
-  addMob('aatxe')
-  addMob('giant spider')
-  addMob('silenal')
-  addMob('zmey')
-  addMob('abaasy')
-})
+// remove fav mob
+/* async function removeFav(e) {
+  db.favMobs.delete(e.index)
+  const idx = mobFavsList.findIndex(m => m.name === e.name)
+  mobFavsList.splice(idx, 1)
+  updateSearchFavResult()
+} */
 
+// load local summoned mobs from db
+async function loadAllLocalSummonedList () {
+  await db.summonedMobs.each(mob => {
+    summonedMobsList.push(mob.data)
+  })
+}
+
+// save summoned to local db
+async function addToSummonedMobs (m) {
+  // add next mob
+  await db.summonedMobs.add({
+    name: m.name,
+    data: m
+  })
+}
+
+// add to summoned mob list
+function addToLocalSummonedList (m) {
+  summonedMobsList.unshift(m)
+}
+
+// misc
+// ------------------------------------------------------------------------------------
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// scroll fader
+function scrollFader () {
+  // const top = document.getElementById('fadeTop')
+  // const bottom = document.getElementById('fadeBottom')
+
+  mobContainer.value.addEventListener('scroll', function () {
+    const st = mobContainer.value.scrollTop
+    if (st > yScroll.value) {
+      // downscroll code
+    } else if (st < yScroll.value) {
+      // upscroll code
+    } // else was horizontal scroll
+    yScroll.value = st <= 0 ? 0 : st
+  }, false)
+}
 </script>
 
 <style>
@@ -311,6 +338,6 @@ onMounted(() => {
 .mob-card-leave-to,
 .mob-card-enter-from {
   scale: 0.5;
-  translate: -150% 100%;
+  translate: -300% 50vh;
 }
 </style>

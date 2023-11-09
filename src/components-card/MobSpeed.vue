@@ -5,19 +5,14 @@
       :key="index"
       class="flex gap-1 items-center"
     >
-      <span
+      <div
         v-if="speedVal != 0"
-        class="py-0.5 px-2 rounded-sm bg-neutral-900 text-sm"
-      >{{ speedType }}:{{ speedVal }}</span>
+        class="label-val"
+      >
+        <span class="label"> {{ speedType }}</span><span>{{ speedVal }}</span>
+      </div>
     </div>
   </div>
-
-  <!-- SPEED -->
-  <!-- <div>
-    <h3>speed</h3>
-
-    <p>{{ speedType }}: {{ speedVal }}</p>
-  </div> -->
 </template>
 
 <script setup>

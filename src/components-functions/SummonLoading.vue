@@ -1,10 +1,13 @@
 <template>
   <div
     class="
-    z-[1]
+    z-[1000]
     fixed bottom-0 left-0 right-0
     h-[35vw]
     w-[100vw]
+    xl:scale-x-75
+    xl:scale-y-[50%]
+    xl:translate-y-[25%]
     blur-xl md:blur-xxl xxl:blur-xxxl"
   >
     <div

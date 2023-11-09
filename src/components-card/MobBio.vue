@@ -1,7 +1,7 @@
 <template>
   <!-- attributes -->
   <div class="flex flex-wrap gap-2">
-    <p class="py-0.5 px-2 bg-neutral-900">
+    <p class="label">
       {{ props.size.replace(/small/,'sm')
         .replace(/small/, 'sm.')
         .replace(/medium/, 'md')
@@ -9,10 +9,10 @@
       }}
       {{ props.type.toLowerCase() }}
     </p>
-    <p class="py-0.5 px-2 bg-neutral-900">
+    <p class="label">
       {{ props.alignment ? props.alignment : 'unaligned' }}
     </p>
-    <p class="py-0.5 px-2 bg-neutral-900">
+    <p class="label">
       chal: {{ props.challengeRating }}
     </p>
   </div>
