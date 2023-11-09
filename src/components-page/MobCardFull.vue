@@ -2,8 +2,8 @@
   <!-- open button -->
   <button
     class="
+    icon-btn
     justify-self-start self-start
-    p-2 text-base leading-none h-[32px] w-[32px]
     hidden md:inline-block"
     @click="toggleFullCard()"
   >
@@ -33,7 +33,7 @@
             gap-x-4 gap-y-12 lg:gap-x-8 lg:gap-y-0
             content-start items-start
             p-4 rounded-xl
-            bg-black"
+            bg-neutral-800"
       >
         <!--  COLUMN 1  -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -47,9 +47,7 @@
         >
           <!-- close + name container -->
           <div
-            class="flex sticky top-0
-                shadow-[0px_8px_12px] shadow-black
-                bg-black"
+            class="flex sticky top-0"
           >
             <!-- close button -->
             <button
@@ -124,22 +122,20 @@
             class="sticky top-0
                     flex justify-center
                     gap-4
-                    pt-4 pb-4
-                    shadow-[0px_8px_12px] shadow-black
-                    bg-black"
+                    pt-4 pb-4"
           >
             <button
               v-show="props.actions"
-              class="flex-1 rounded-md border"
-              :class="toggledLocalPanel == 'actions' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-400 bg-neutral-950 border-neutral-950 hover:border-b-yellow-500'"
+              class="flex-1"
+              :class="toggledLocalPanel == 'actions' ? 'panel-btn-active' : 'panel-btn-inactive'"
               @click="toggledLocalPanel = 'actions'"
             >
               actions
             </button>
             <button
               v-show="props.specialAbilities"
-              class="flex-1 rounded-md border"
-              :class="toggledLocalPanel == 'abilities' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-400 bg-neutral-950 border-neutral-950 hover:border-b-yellow-500'"
+              class="flex-1"
+              :class="toggledLocalPanel == 'abilities' ? 'panel-btn-active' : 'panel-btn-inactive'"
               @click="toggledLocalPanel = 'abilities'"
             >
               abilities

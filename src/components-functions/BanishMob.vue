@@ -2,9 +2,7 @@
   <!-- open modal button -->
   <button
     class="
-    p-2
-    h-[32px] w-[32px]
-    text-base leading-none
+    icon-btn
     hover:text-red-200 active:text-red-400
     hover:bg-red-700 active:bg-red-800"
     @click="toggleBanishModal"
@@ -21,9 +19,9 @@
         absolute overflow-y-hidden
         flex place-content-end place-items-end
         top-0 left-0 right-0
-        h-[44px]
-        rounded-xl
-        bg-neutral-800
+        h-[48px]
+        rounded-t-xl
+        bg-gradient-to-t from-[rgb(51,51,51)] bg-neutral-700
         "
     >
       <!-- layout -->
@@ -41,7 +39,7 @@
           truncate tracking-tight
           text-xl text-neutral-100
           font-medium
-          pl-2 pb-0.5
+          pl-2 pb-1
           "
         >
           {{ name }}
@@ -53,7 +51,7 @@
           <!-- confirm -->
           <button
             autofocus
-            class="danger self-stretch h-[32px]"
+            class="danger self-stretch h-[36px]"
             @click="$emit('passMob', {name: name, data: mobIndex, type: 'banish'})"
           >
             banish
@@ -62,9 +60,7 @@
           <!-- cancel -->
           <button
             class="
-            p-2
-            h-[32px] w-[32px]
-            text-base leading-none"
+            icon-btn"
             @click="toggleBanishModal"
           >
             <i class="bi bi-x-circle" />

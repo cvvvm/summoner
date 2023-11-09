@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row flex-wrap gap-2">
+  <div class="flex flex-row flex-wrap gap-1">
     <div
       v-for="(speedVal, speedType, index) in props.speed"
       :key="index"

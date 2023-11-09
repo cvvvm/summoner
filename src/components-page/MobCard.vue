@@ -7,7 +7,8 @@
     max-w-[425px] sm:max-w-[375px]
     grid grid-cols-1 gap-2
     p-3 rounded-xl
-  bg-neutral-800"
+    bg-gradient-to-b from-neutral-700 via-neutral-800 to-neutral-900
+    border-2 border-neutral-700"
   >
     <!-- full screen + name container -->
     <div
@@ -73,7 +74,11 @@
 
     <!-- armor, HP -->
     <!------------------------------------------------>
-    <div class="grid grid-cols-[1fr,_.8fr] gap-2">
+    <div
+      class="
+      grid grid-cols-[1fr,_.65fr] gap-2
+      "
+    >
       <MobArmor :armor="props.armor" />
       <MobHpControls
         :base-hp="props.baseHp"
@@ -85,8 +90,8 @@
     <div class="flex gap-2">
       <button
         v-show="props.actions.length > 0 || props.legendaryActions.length > 0"
-        class="flex-1 rounded-md border-2"
-        :class="toggledLocalPanel == 'actions' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-300 bg-neutral-700 border-neutral-900 hover:border-b-yellow-500 hover:bg-neutral-600'"
+        class="flex-1"
+        :class="toggledLocalPanel == 'actions' ? 'panel-btn-active' : 'panel-btn-inactive'"
         @click="toggledLocalPanel == 'actions' ? toggledLocalPanel = '' : toggledLocalPanel = 'actions'"
       >
         actions
@@ -94,16 +99,16 @@
 
       <button
         v-show="props.specialAbilities.length > 0"
-        class="flex-1 rounded-md border-2"
-        :class="toggledLocalPanel == 'abilities' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-300 bg-neutral-700 border-neutral-900 hover:border-b-yellow-500 hover:bg-neutral-600'"
+        class="flex-1"
+        :class="toggledLocalPanel == 'abilities' ? 'panel-btn-active' : 'panel-btn-inactive'"
         @click="toggledLocalPanel == 'abilities' ? toggledLocalPanel = '' : toggledLocalPanel = 'abilities'"
       >
         abilities
       </button>
 
       <button
-        class="flex-1 rounded-md border-2"
-        :class="toggledLocalPanel == 'details' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-300 bg-neutral-700 border-neutral-900 hover:border-b-yellow-500 hover:bg-neutral-600'"
+        class="flex-1"
+        :class="toggledLocalPanel == 'details' ? 'panel-btn-active' : 'panel-btn-inactive'"
         @click="toggledLocalPanel == 'details' ? toggledLocalPanel = '' : toggledLocalPanel = 'details'"
       >
         details
@@ -257,6 +262,7 @@ function updateHpVal (e) {
   currHP.value = e
   console.log(e)
 } */
+
 </script>
 
 <style>

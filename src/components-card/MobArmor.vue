@@ -1,24 +1,30 @@
 <template>
   <div
-    class="grid grid-cols-[max-content_1fr] grid-rows-1 gap-2
-    p-2 rounded-lg
-    bg-neutral-900"
+    class="
+    grid grid-cols-[max-content_1fr] grid-rows-1 gap-2
+    p-2 rounded-xl
+  bg-gradient-to-b from-neutral-900 to-neutral-800
+    shadow-[inset_0px_0px_4px_2px] shadow-neutral-950
+    "
   >
     <div
-      class="grid grid-cols-1 place-content-center place-items-center
-            py-1 px-3 rounded-md
-            bg-neutral-950"
+      class="
+      grid grid-cols-1
+      place-content-center place-items-center
+      py-1 px-3 rounded-lg
+      bg-gradient-to-b from-neutral-950 to-neutral-900"
     >
       <!-- AC VALUE -->
-      <h4 class="text-xl">
+      <h4 class="text-base">
         AC
       </h4>
-      <div class="text-xl text-neutral-200">
+      <div class="text-lg font-medium text-neutral-200">
         {{ props.armor[0].value }}
       </div>
     </div>
 
     <!-- IF desc armor -->
+    <!------------------------------------------------>
     <div
       v-if="props.armor[0].armor"
       class="grid grid-cols-1 gap-1 content-center"
@@ -26,7 +32,7 @@
       <div
         v-for="armorEquip in props.armor[0].armor"
         :key="armorEquip"
-        class="label"
+        class="label text-xs"
       >
         {{ armorEquip.name.toLowerCase() }}
       </div>
@@ -35,10 +41,10 @@
     <!-- NO desc armor -->
     <div
       v-if="!props.armor[0].armor"
-      class="grid grid-cols-1 gap-1 content-center justify-items-center"
+      class="grid grid-cols-1 gap-1 content-center"
     >
       <div
-        class="label"
+        class="label text-xs"
       >
         none equipped
       </div>

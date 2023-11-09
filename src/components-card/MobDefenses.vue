@@ -1,6 +1,6 @@
 <template>
   <!-- DEFENSES -->
-  <div class="grid grid-cols-1 gap-2">
+  <div class="grid grid-cols-1 gap-1">
     <!-- damage vul -->
     <div
       v-if="props.damageVulnerabilities.length != 0"

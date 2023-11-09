@@ -7,12 +7,12 @@
     <div
       v-for="ability in props.specialAbilities"
       :key="ability"
-      class="sp-ability-block container-lvl2"
+      class="title-content"
     >
-      <h3 class="text-neutral-100">
+      <h3 class="title">
         {{ ability.name.toLowerCase() }}
       </h3>
-      <div class="grid gap-2">
+      <div class="content">
         <p>{{ ability.desc.toLowerCase() }}</p>
         <div v-if="ability.usage">
           <p>

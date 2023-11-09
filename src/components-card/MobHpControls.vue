@@ -1,62 +1,72 @@
 <template>
   <div
-    class="grid grid-cols-1 grid-rows-[1fr_min-content] gap-2
-    p-2 pt-2 rounded-lg
-    bg-neutral-900"
+    class="grid grid-cols-1 grid-rows-[1fr_min-content]
+    p-2 rounded-xl
+    bg-gradient-to-b from-neutral-900 to-neutral-800
+    shadow-[inset_0px_0px_4px_2px] shadow-neutral-950
+    transition-colors"
     :class="HPbgColor"
   >
-    <!-- HP CONTAINER -->
-    <!------------------------------------------------>
-    <div
-      class="grid grid-cols-[max-content_2fr] gap-2
-              place-content-center place-items-center
-              p-1 rounded-md
-              bg-neutral-950"
-    >
-      <!-- HP VALUE -->
-      <h4 class="pl-1 text-xl">
-        HP
-      </h4>
-
-      <!-- HP VALUE CONTAINER-->
-      <div class="grid grid-cols-1 place-content-center place-items-baseline">
-        <p
-          :class="HPcolor"
-          class="text-xl font-medium transition-colors"
-        >
-          {{ currHpVal }}<span class="text-xl text-neutral-400 font-light">/{{ props.baseHp }}</span>
-        </p>
-      </div>
-    </div>
-
-    <!-- math & buttons container -->
-    <div
-      class="grid grid-cols-[.25fr_minmax(35px,_1fr)_.25fr] gap-2 place-self-center"
-      @click="checkHP(); $emit('passHpFullCard', currHP)"
-    >
-      <button
-        class="rounded-md hover:bg-red-700 hover:text-red-200 active:bg-red-800 active:text-red-400"
-        @click.exact="dmgMob(hpChange)"
-      >
-        -
-      </button>
-      <!-- HP MOD INPUT -->
+    <!-- container wrapper -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <div class="bg-neutral-950 rounded-lg">
+      <!-- HP CONTAINER -->
       <!------------------------------------------------>
-      <input
-        v-model="hpChange"
-        type="number"
-        class="text-center
-          px-1 rounded-md
-        text-neutral-200 bg-neutral-900
-          border border-neutral-500 hover:border-neutral-300
-          transition-colors"
+      <div
+        class="grid grid-cols-[max-content_2fr] gap-2
+              content-center items-baseline
+              px-2 pb-1 pt-1.5 rounded-t-lg
+              bg-gradient-to-b from-neutral-950 to-neutral-900"
       >
-      <button
-        class="rounded-md hover:bg-green-700 hover:text-green-200 active:bg-green-900 active:text-green-400"
-        @click.exact="healMob(hpChange)"
+        <!-- HP VALUE -->
+        <h4 class="text-base">
+          HP
+        </h4>
+
+        <!-- HP VALUE CONTAINER-->
+        <div class="grid grid-cols-1 items-baseline justify-self-end">
+          <p
+            :class="HPcolor"
+            class="text-lg font-medium transition-colors"
+          >
+            {{ currHpVal }}<span class="text-base text-neutral-400 font-light">/{{ props.baseHp }}</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- math & buttons container -->
+      <div
+        class="grid grid-cols-[.25fr_minmax(35px,_1fr)_.25fr]"
+        @click="checkHP(); $emit('passHpFullCard', currHP)"
       >
-        +
-      </button>
+        <button
+          class="rounded-none rounded-es-lg px-3.5 hover:bg-red-700 hover:text-red-200 active:bg-red-800 active:text-red-400"
+          @click.exact="dmgMob(hpChange)"
+          @click.shift="dmgMob(10)"
+        >
+          -
+        </button>
+        <!-- HP MOD INPUT -->
+        <!------------------------------------------------>
+        <input
+          v-model="hpChange"
+          type="number"
+          class="
+        px-1 pt-0.5
+        text-center text-neutral-200
+        border-y-2 border-x border-neutral-900 hover:border-yellow-600
+        bg-gradient-to-t from-neutral-700 to-neutral-900
+        transition-colors"
+        >
+        <button
+          class="rounded-none rounded-ee-lg px-3.5 hover:bg-green-700 hover:text-green-200 active:bg-green-900 active:text-green-400"
+          @click.exact="healMob(hpChange)"
+          @click.shift="healMob(10)"
+        >
+          +
+        </button>
+      </div>
     </div>
   </div>
 </template>

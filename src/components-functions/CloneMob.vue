@@ -2,7 +2,7 @@
   <!-- open modal button -->
   <button
     class="
-    p-2 text-base leading-none h-[32px] w-[32px]
+    icon-btn
     hover:bg-blue-700 hover:text-emerald-200"
     @click="$emit('passMob', { data: url, type: 'clone' });
             console.log('clone ' + url + ' passed from button')"
