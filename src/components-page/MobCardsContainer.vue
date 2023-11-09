@@ -203,7 +203,7 @@ const isLoading = ref(false)
 
 const toggleGlobalCardPanel = ref('details')
 const refreshTogglePanel = ref(0)
-const isSummonModalOpen = ref(false)
+const isSummonModalOpen = ref(true)
 const isDiceRollerOpen = ref(false)
 
 // show shadows on scroll

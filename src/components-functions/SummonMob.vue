@@ -5,7 +5,7 @@
     class="
     fixed z-[8000]
     top-16
-    bottom-2 xs:bottom-4
+    bottom-14 sm:bottom-[4.5rem]
     right-2 xs:right-4
     left-2 xs:left-auto
     grid gap-2
@@ -84,6 +84,13 @@
         {{ status }}
       </p>
     </div>
+    <button
+      v-show="mobNamesList.length === 0"
+      class="place-self-center"
+      @click="reloadPg"
+    >
+      reload
+    </button>
 
     <SummonMobAll
       v-show="isSearchOpen"
@@ -157,6 +164,10 @@ all/fav swap:
 
 */
 
+function reloadPg () {
+  location.reload()
+}
+
 // update status
 // -----------------------------------------------------------
 function updateStatus (msg) {
@@ -187,19 +198,19 @@ onMounted(() => {
 
   // populate card
   setTimeout(() => {
-    if (isSearchOpen.value) updateSearchAllResult()
-    else updateSearchFavResult()
-  }, '100')
+    updateSearchAllResult()
+  }, '500')
 })
 
 // API get all monsters for search
 // -----------------------------------------------------------
-function APIgetSearchList () {
-  fetch('https://www.dnd5eapi.co/api/monsters')
+async function APIgetSearchList () {
+  await fetch('https://www.dnd5eapi.co/api/monsters')
     .then(res => res.json())
     .then(data => {
       populateAllMobTable(data.results)
     })
+  updateStatus('ready')
 }
 
 // add mobs to table
@@ -217,8 +228,6 @@ async function populateAllMobTable (d) {
               name: mob.name.toLowerCase(),
               url: mob.url
             })
-
-            updateStatus('filled & ready')
           } catch (error) {
             updateStatus('something went wrong. try refreshing')
           }
