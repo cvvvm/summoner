@@ -63,19 +63,20 @@
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div
       class="
+      z-[9999]
       order-3
       flex flex-row
-      place-content-center
+      justify-self-center
       gap-2 sm:gap-4
-      p-2 sm:p-4
-      w-screen
+      p-2 sm:p-3
+      rounded-xxl
       bg-neutral-950
       "
     >
       <!-- toggle dice roller -->
       <!------------------------------------------------>
       <button
-        class="py-2 px-4 z-[8000]"
+        class="px-5 py-3 sm:py-3 sm:px-4"
         :class="isDiceRollerOpen ?
           'z-[9001] bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950'
           : 'bg-neutral-400 text-neutral-950 hover:bg-neutral-200 hover:text-neutral-950 z-[9999]'"
@@ -85,7 +86,7 @@
       </button>
       <!-- toggle summon menu -->
       <button
-        class="py-2 px-4 z-[8000]"
+        class="px-5 py-3 sm:py-2 sm:px-4"
         :class="isSummonModalOpen || summonedMobsList.length == 0 ?
           'z-[8001] bg-green-500 text-green-950 hover:bg-green-600 hover:text-green-950'
           : 'bg-neutral-400 text-neutral-950 hover:bg-green-500 hover:text-green-950'"
@@ -170,18 +171,6 @@
           </div>
         </TransitionGroup>
       </div> <!-- end cards container -->
-
-      <!-- fade bottom -->
-      <div
-        id="fadeBottom"
-        :class="yScroll > 10 ? '' : 'opacity-0'"
-        class="
-        z-10 pointer-events-none
-        fixed bottom-[3.25rem] sm:bottom-16
-        h-8 w-full
-        bg-gradient-to-t from-neutral-950
-        transition-opacity"
-      />
     </div> <!-- end cards scroll wrapper -->
   </div> <!-- end page container -->
   <!-- {{ mobs }} -->

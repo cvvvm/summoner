@@ -1,7 +1,7 @@
 <template>
   <!-- page placement container -->
   <div
-    class="fixed bottom-14 z-[9000]
+    class="fixed bottom-[4.5rem] z-[9000]
             flex place-content-center items-end
             w-full"
   >
