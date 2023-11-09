@@ -23,7 +23,7 @@
         top-0 left-0 right-0
         h-[44px]
         rounded-xl
-        bg-neutral-950
+        bg-neutral-800
         "
     >
       <!-- layout -->

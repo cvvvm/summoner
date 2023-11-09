@@ -9,7 +9,8 @@
         v-if="speedVal != 0"
         class="label-val"
       >
-        <span class="label"> {{ speedType }}</span><span>{{ speedVal }}</span>
+        <span class="label"> {{ speedType }}</span>
+        <span class="val">{{ speedVal }}</span>
       </div>
     </div>
   </div>

@@ -8,7 +8,7 @@
       :key="index"
       class="label-val"
     >
-      <span class="label">{{ senseType.toLowerCase().replace(/_/, ' ') }}</span><span>{{ senseVal }}</span>
+      <span class="label">{{ senseType.toLowerCase().replace(/_/, ' ') }}</span><span class="val">{{ senseVal }}</span>
     </div>
   </div>
 </template>

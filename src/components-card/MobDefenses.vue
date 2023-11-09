@@ -10,7 +10,7 @@
       <span
         v-for="def in props.damageVulnerabilities"
         :key="def"
-        class="px-2"
+        class="val"
       >
         {{ def }}
       </span>
@@ -25,7 +25,7 @@
       <span
         v-for="def in props.damageResistances"
         :key="def"
-        class="px-2"
+        class="val"
       >
         {{ def }}
       </span>
@@ -40,7 +40,7 @@
       <span
         v-for="def in props.damageImmunities"
         :key="def"
-        class="px-2"
+        class="val"
       >
         {{ def }}
       </span>
@@ -55,7 +55,7 @@
       <span
         v-for="def in props.conditionImmunities"
         :key="def"
-        class="px-2"
+        class="val"
       >
         {{ def.name.toLowerCase() }}
       </span>

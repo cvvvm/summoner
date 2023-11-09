@@ -7,76 +7,92 @@
     <div
       v-for="action in props.actions"
       :key="action"
-      class="action-block
-      bg-neutral-900"
+      class="title-content"
     >
       <!-- NAME -->
-      <h3 class="text-neutral-100">
+      <h3 class="title">
         {{ action.name.toLowerCase() }}
       </h3>
-      {{ processAtkText(action.desc.toLowerCase()) }}
 
-      <!-- DESC -->
-      <p
-        v-show="!atkObj.type"
-        class="text-neutral-400"
+      <span
+        class="content
+      flex flex-col gap-2"
       >
-        {{ action.desc.toLowerCase() }}
-      </p>
+        <p class="text-red-500">{{ processAtkText(action.desc.toLowerCase()) }}</p>
 
-      <div
-        v-show="atkObj.type"
-        class="flex flex-wrap gap-x-4 gap-2"
-      >
-        <!-- type/range -->
-        <p class="flex gap-1 text-neutral-100">
-          <span class="text-neutral-400 bg-neutral-950 px-1">{{ atkObj.type }}</span>{{ atkObj.range }} ft.
-        </p>
-        <!-- dmg type -->
+        <!-- desc (no attack) -->
+        <!------------------------------------------------>
         <p
-          v-show="atkObj.dmgTypes"
-          class="flex gap-1 text-neutral-100"
+          v-show="!atkObj.type"
+          class="text-neutral-300"
         >
-          <span class="text-neutral-400 bg-neutral-950 px-1">dmg</span> {{ atkObj.dmgTypes }}
-        </p>
-        <!-- save -->
-        <p
-          v-show="atkObj.saveThrow"
-          class="flex gap-1 text-neutral-100"
-        >
-          <span class="text-neutral-400 bg-neutral-950 px-1">dc</span> {{ atkObj.saveThrow }}
-        </p>
-        <!-- desc -->
-        <p class="text-neutral-500">
           {{ action.desc.toLowerCase() }}
         </p>
-      </div>
 
-      <div v-if="action.usage">
-        <p v-if="action.usage.dice">
-          {{ action.usage.type }} of <span class="val-sm">{{ action.usage.min_value }}</span> with <span class="val-sm">{{ action.usage.dice }}</span>
-        </p>
-
-        <p v-if="action.usage.times">
-          {{ action.usage.type }}:
-          <span
-            v-for="index in action.usage.times"
-            :key="index"
+        <!-- attack exists -->
+        <!------------------------------------------------>
+        <div
+          v-show="atkObj.type"
+          class="flex flex-wrap gap-2"
+        >
+          <!-- type/range -->
+          <p class="label-val">
+            <span class="label">{{ atkObj.type }}</span>
+            <span class="val">{{ atkObj.range }} ft.</span>
+          </p>
+          <!-- dmg type -->
+          <p
+            v-show="atkObj.dmgTypes"
+            class="label-val"
           >
-            <input type="checkbox">
-          </span>
-        </p>
-      </div>
-      <!-- </div> -->
+            <span class="label">dmg</span>
+            <span class="val">{{ atkObj.dmgTypes }}</span>
+          </p>
+          <!-- save -->
+          <p
+            v-show="atkObj.saveThrow"
+            class="label-val"
+          >
+            <span class="label">dc</span>
+            <span class="val"> {{ atkObj.saveThrow }}</span>
+          </p>
+          <!-- desc (with attack) -->
+          <p class="text-neutral-500">
+            {{ action.desc.toLowerCase() }}
+          </p>
+        </div>
 
-      <!-- DMG -->
-      <div v-if="atkObj.dice">
-        <MobActionDmg
-          :hit-mod="atkObj.hitMod"
-          :dice="atkObj.dice.split('+')"
-          :dmg-mod="atkObj.dmgMod"
-        />
-      </div>
+        <div v-if="action.usage">
+          <p v-if="action.usage.dice">
+            {{ action.usage.type }} of <span class="val-sm">{{ action.usage.min_value }}</span> with <span class="val-sm">{{ action.usage.dice }}</span>
+          </p>
+
+          <!-- usage per day -->
+          <!------------------------------------------------>
+          <p
+            v-if="action.usage.times"
+            class="flex gap-1"
+          >
+            {{ action.usage.type }}:
+            <span
+              v-for="index in action.usage.times"
+              :key="index"
+            >
+              <input type="checkbox">
+            </span>
+          </p>
+        </div>
+        <!-- </div> -->
+
+        <!-- DMG -->
+        <div v-if="atkObj.dice">
+          <MobActionDmg
+            :hit-mod="atkObj.hitMod"
+            :dice="atkObj.dice.split('+')"
+            :dmg-mod="atkObj.dmgMod"
+          />
+        </div>
+      </span>
     </div>
   </div>
 </template>

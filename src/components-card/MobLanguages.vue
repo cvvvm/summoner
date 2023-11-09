@@ -6,11 +6,13 @@
     </span>
     <span
       v-if="lang && lang !== '—'"
+      class="val"
     >
       {{ props.lang.toLowerCase() }}
     </span>
     <span
       v-if="!lang || lang === '—'"
+      class="val"
     >
       none
     </span>

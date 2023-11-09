@@ -1,14 +1,14 @@
 <template>
   <div
     class="grid
-          grid-cols-3
+          grid-cols-6
           gap-2 place-content-start"
   >
     <!-- roll math container -->
     <div
       class="grid
             grid-cols-2
-            col-span-3
+            col-span-6
             justify-evenly
             gap-x-4 gap-y-2
             text-sm
