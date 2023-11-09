@@ -64,7 +64,6 @@
     <div
       class="
       order-3
-      z-[5000]
       flex flex-row
       place-content-center
       gap-2 sm:gap-4
@@ -76,7 +75,7 @@
       <!-- toggle dice roller -->
       <!------------------------------------------------>
       <button
-        class="py-2 px-4"
+        class="py-2 px-4 z-[8000]"
         :class="isDiceRollerOpen ?
           'z-[9001] bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950'
           : 'bg-neutral-400 text-neutral-950 hover:bg-neutral-200 hover:text-neutral-950 z-[9999]'"
@@ -86,7 +85,7 @@
       </button>
       <!-- toggle summon menu -->
       <button
-        class="py-2 px-4"
+        class="py-2 px-4 z-[8000]"
         :class="isSummonModalOpen || summonedMobsList.length == 0 ?
           'z-[8001] bg-green-500 text-green-950 hover:bg-green-600 hover:text-green-950'
           : 'bg-neutral-400 text-neutral-950 hover:bg-green-500 hover:text-green-950'"

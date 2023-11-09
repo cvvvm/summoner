@@ -1,7 +1,7 @@
 <template>
   <div
     class="
-    z-[1000]
+    z-[4000]
     fixed bottom-0 left-0 right-0
     h-[35vw]
     w-[100vw]
