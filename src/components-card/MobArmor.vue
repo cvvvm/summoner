@@ -38,7 +38,7 @@
       class="grid grid-cols-1 gap-1 content-center justify-items-center"
     >
       <div
-        class="p-1 text-xs bg-neutral-800"
+        class="label"
       >
         none equipped
       </div>

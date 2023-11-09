@@ -46,10 +46,10 @@
       class="
       order-1
       z-[2]
-      flex gap-2
-      place-content-between items-center
+      flex gap-2 sm:gap-8
+      place-content-between sm:place-content-center items-center
       w-full
-      p-2 sm:p-4
+      p-2 sm:p-3
       bg-neutral-950"
     >
       <!-- bar -->
@@ -69,6 +69,7 @@
       justify-self-center
       gap-2 sm:gap-4
       p-2 sm:p-3
+      m-1
       rounded-xxl
       bg-neutral-950
       "
@@ -114,7 +115,7 @@
         :class="yScroll > 10 ? '' : 'opacity-0'"
         class="
         z-10 pointer-events-none
-        fixed top-[2.75rem] sm:top-14
+        fixed top-[2.5rem] sm:top-12
         h-8 w-full
         bg-gradient-to-b from-neutral-950
         transition-opacity"
@@ -189,7 +190,7 @@ import DiceRoller from '../dice-roller/DiceRoller.vue'
 const summonedMobsList = reactive([])
 const isLoading = ref(false)
 
-const toggleGlobalCardPanel = ref('')
+const toggleGlobalCardPanel = ref('details')
 const refreshTogglePanel = ref(0)
 const isSummonModalOpen = ref(false)
 const isDiceRollerOpen = ref(false)
