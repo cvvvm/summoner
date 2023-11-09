@@ -84,7 +84,7 @@
     <!------------------------------------------------>
     <div class="flex gap-2">
       <button
-        v-show="props.actions || props.legendaryActions"
+        v-show="props.actions.length > 0 || props.legendaryActions.length > 0"
         class="flex-1 rounded-md border"
         :class="toggledLocalPanel == 'actions' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-400 bg-neutral-900 border-neutral-950 hover:border-b-yellow-500 hover:bg-neutral-800'"
         @click="toggledLocalPanel == 'actions' ? toggledLocalPanel = '' : toggledLocalPanel = 'actions'"
@@ -93,7 +93,7 @@
       </button>
 
       <button
-        v-show="props.specialAbilities"
+        v-show="props.specialAbilities.length > 0"
         class="flex-1 rounded-md border"
         :class="toggledLocalPanel == 'abilities' ? 'bg-yellow-500 text-yellow-950 border-yellow-600 hover:bg-yellow-600 hover:text-yellow-950' : 'text-neutral-400 bg-neutral-900 border-neutral-950 hover:border-b-yellow-500 hover:bg-neutral-800'"
         @click="toggledLocalPanel == 'abilities' ? toggledLocalPanel = '' : toggledLocalPanel = 'abilities'"
@@ -119,7 +119,7 @@
       appear
     >
       <MobSpecialAbilities
-        v-show="toggledLocalPanel == 'abilities'"
+        v-show="toggledLocalPanel == 'abilities' && props.specialAbilities.length > 0"
         class="pt-2"
         :special-abilities="props.specialAbilities"
       />
@@ -131,7 +131,7 @@
       appear
     >
       <MobActions
-        v-show="toggledLocalPanel == 'actions'"
+        v-show="toggledLocalPanel == 'actions' && props.actions.length > 0"
         class="pt-2"
         :actions="props.actions"
       />
@@ -139,7 +139,7 @@
 
     <!-- actions (legendary) -->
     <MobActionsLegendary
-      v-show="toggledLocalPanel == 'actions'"
+      v-show="toggledLocalPanel == 'actions' && props.legendaryActions.length > 0"
       class="pt-2"
       :legendary-actions="props.legendaryActions"
       :legendary-desc="props.legendaryDesc"

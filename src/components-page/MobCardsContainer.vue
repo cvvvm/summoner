@@ -25,12 +25,18 @@
     />
   </Transition>
 
-  <!-- page container -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+  <!--  page container  -->
+
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <div
     class="
+    relative
     grid
-    grid-cols-[1fr,_min-content]
-    grid-rows-[min-content,_1fr]
+    grid-rows-[min-content,_1fr,_min-content]
     h-[100dvh] max-h-[100vh]"
   >
     <!-- sort/panels -->
@@ -38,6 +44,7 @@
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div
       class="
+      order-1
       z-[2]
       flex gap-2
       place-content-between items-center
@@ -69,18 +76,18 @@
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div
       class="
-      z-[2]
-      row-span-2
-      flex flex-col
+      order-3
+      z-[5000]
+      flex flex-row
       place-content-center
       gap-2 sm:gap-4
-      p-2 sm:px-4
-      h-screen"
+      p-2 sm:p-4
+      w-screen"
     >
       <!-- toggle dice roller -->
       <!------------------------------------------------>
       <button
-        class="py-2 px-4 z-0"
+        class="py-2 px-4"
         :class="isDiceRollerOpen ?
           'z-[9001] bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950'
           : 'bg-neutral-400 text-neutral-950 hover:bg-neutral-200 hover:text-neutral-950 z-[9999]'"
@@ -90,7 +97,7 @@
       </button>
       <!-- toggle summon menu -->
       <button
-        class="py-2 px-4 z-0"
+        class="py-2 px-4"
         :class="isSummonModalOpen || summonedMobsList.length == 0 ?
           'z-[8001] bg-green-500 text-green-950 hover:bg-green-600 hover:text-green-950'
           : 'bg-neutral-400 text-neutral-950 hover:bg-green-500 hover:text-green-950'"
@@ -107,16 +114,30 @@
     <div
       ref="mobContainer"
       class="
+      order-2
       relative
-      h-full
+      h-full w-full
       overflow-y-auto"
     >
+      <!-- fade top -->
       <div
+        id="fadeTop"
+        :class="yScroll > 10 ? '' : 'opacity-0'"
+        class="
+        z-10
+        fixed top-14
+        h-12 w-full
+        bg-gradient-to-b from-neutral-950
+        transition-opacity"
+      />
+      <!-- cards container -->
+      <div
+        id="cardsContainer"
         class="
         flex flex-wrap flex-row
-        place-content-center
+        place-content-start
         gap-2 md:gap-4
-        p-2 sm:p-4"
+        px-2 sm:p-4"
       >
         <!-- mob cards -->
         <TransitionGroup name="mob-card">
@@ -161,6 +182,18 @@
           </div>
         </TransitionGroup>
       </div> <!-- end cards container -->
+
+      <!-- fade bottom -->
+      <div
+        id="fadeBottom"
+        :class="yScroll > 10 ? '' : 'opacity-0'"
+        class="
+        z-10
+        fixed bottom-[3.25rem] sm:bottom-16
+        h-12 w-full
+        bg-gradient-to-t from-neutral-950
+        transition-opacity"
+      />
     </div> <!-- end cards scroll wrapper -->
   </div> <!-- end page container -->
   <!-- {{ mobs }} -->
@@ -191,20 +224,8 @@ const yScroll = ref(1)
 // const mobFadeBtm = ref(true)
 
 onMounted(() => {
+  scrollFader()
   loadAllLocalSummonedList()
-
-  mobContainer.value.addEventListener('scroll', function () {
-    const st = mobContainer.value.scrollTop
-    if (st > yScroll.value) {
-      // downscroll code
-    } else if (st < yScroll.value) {
-      // upscroll code
-    } // else was horizontal scroll
-    yScroll.value = st <= 0 ? 0 : st
-  }, false)
-  /* ('scroll', () => {
-    yScroll.value++
-  }) */
 })
 
 // modal toggles
@@ -291,6 +312,24 @@ function addToLocalSummonedList (m) {
   summonedMobsList.unshift(m)
 }
 
+// misc
+// ------------------------------------------------------------------------------------
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// scroll fader
+function scrollFader () {
+  // const top = document.getElementById('fadeTop')
+  // const bottom = document.getElementById('fadeBottom')
+
+  mobContainer.value.addEventListener('scroll', function () {
+    const st = mobContainer.value.scrollTop
+    if (st > yScroll.value) {
+      // downscroll code
+    } else if (st < yScroll.value) {
+      // upscroll code
+    } // else was horizontal scroll
+    yScroll.value = st <= 0 ? 0 : st
+  }, false)
+}
 </script>
 
 <style>
@@ -310,6 +349,6 @@ function addToLocalSummonedList (m) {
 .mob-card-leave-to,
 .mob-card-enter-from {
   scale: 0.5;
-  translate: -300% 50%;
+  translate: -300% 50vh;
 }
 </style>

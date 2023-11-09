@@ -5,11 +5,11 @@
     class="
     fixed z-[8000]
     top-16
-    bottom-2
-    right-2 xs:right-28
+    bottom-2 xs:bottom-4
+    right-2 xs:right-4
     left-2 xs:left-auto
     grid gap-2
-    grid-rows-[min-content,_1fr,_min-content]
+    grid-rows-[min-content,_min-content,_1fr]
     max-w-full xs:w-[450px]
     p-2 rounded-xl
     bg-neutral-950 border"
@@ -64,6 +64,27 @@
       >
     </div>
 
+    <!-- buttons, results bar -->
+    <!------------------------------------------------>
+    <div
+      class="
+      flex gap-2
+      items-center justify-between
+      mx-2 mb-2"
+    >
+      <!-- results number -->
+      <p class="text-center">
+        {{ isSearchOpen ? 'monsters:' : 'favorites:' }} {{ isSearchOpen ? searchAllNum : searchFavNum }}
+      </p>
+      <!-- status -->
+      <p
+        id="summmonStatus"
+        class="px-2 py-0 text-green-950 bg-green-500 transition-opacity opacity-0"
+      >
+        {{ status }}
+      </p>
+    </div>
+
     <SummonMobAll
       v-show="isSearchOpen"
       id="summonPanel"
@@ -85,27 +106,6 @@
       @toggle-summon-modal="$emit('toggleSummonModal')"
       @remove-fav="removeFav($event)"
     />
-
-    <!-- buttons, results bar -->
-    <!------------------------------------------------>
-    <div
-      class="
-      flex gap-2
-      items-center justify-between
-      mx-2 mb-2"
-    >
-      <!-- results number -->
-      <p class="text-center">
-        {{ isSearchOpen ? 'monsters:' : 'favorites:' }} {{ isSearchOpen ? searchAllNum : searchFavNum }}
-      </p>
-      <!-- status -->
-      <p
-        id="summmonStatus"
-        class="px-2 py-0 text-green-950 bg-green-500 transition-opacity opacity-0"
-      >
-        {{ status }}
-      </p>
-    </div>
   </div> <!-- end card -->
 </template>
 

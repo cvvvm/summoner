@@ -2,8 +2,11 @@
   <!-- open modal button -->
   <button
     class="
-    p-2 text-base leading-none h-[32px] w-[32px]
-    hover:bg-red-700 hover:text-red-200 active:bg-red-800 active:text-red-400"
+    p-2
+    h-[32px] w-[32px]
+    text-base leading-none
+    hover:text-red-200 active:text-red-400
+    hover:bg-red-700 active:bg-red-800"
     @click="toggleBanishModal"
   >
     <i class="bi bi-x-circle" />
@@ -21,32 +24,30 @@
       grid gap-4
       items-center content-center
       w-full h-full max-h-[190px]
-      p-8 rounded-xl
+      p-8 pt-6 rounded-xl
       bg-neutral-950 text-neutral-400"
     >
-      <!-- text container -->
-      <div class="flex flex-col">
-        <h2 class="text-xl font-semibold text-neutral-100">
-          beginning banishment...
-        </h2>
-        <p>surely this <strong>{{ name }}</strong> has served it's purpose.</p>
-      </div>
+      <!-- name -->
+      <p class="text-lg font-medium text-neutral-100">
+        <span class="text-red-500">banish</span> {{ name }}
+      </p>
 
-      <div class="grid grid-cols-2 gap-4 place-content-between">
-        <!-- cancel button -->
-        <button @click="toggleBanishModal">
-          not yet
-        </button>
+      <!-- confirm button -->
+      <button
+        autofocus
+        class="danger"
+        @click="$emit('passMob', {name: name, data: mobIndex, type: 'banish'})"
+      >
+        banish
+      </button>
 
-        <!-- confirm button -->
-        <button
-          autofocus
-          class="warn"
-          @click="$emit('passMob', {name: name, data: mobIndex, type: 'banish'})"
-        >
-          banish
-        </button>
-      </div>
+      <!-- cancel button -->
+      <button
+        class="base"
+        @click="toggleBanishModal"
+      >
+        not yet
+      </button>
     </div>
   </Transition>
 </template>
