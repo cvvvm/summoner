@@ -190,7 +190,7 @@ import DiceRoller from '../dice-roller/DiceRoller.vue'
 const summonedMobsList = reactive([])
 const isLoading = ref(false)
 
-const toggleGlobalCardPanel = ref('details')
+const toggleGlobalCardPanel = ref('')
 const refreshTogglePanel = ref(0)
 const isSummonModalOpen = ref(false)
 const isDiceRollerOpen = ref(false)
