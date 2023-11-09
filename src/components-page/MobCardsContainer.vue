@@ -39,7 +39,7 @@
     grid-rows-[min-content,_1fr,_min-content]
     h-[100dvh] max-h-[100vh]"
   >
-    <!-- sort/panels -->
+    <!-- sort/panels bar -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div
@@ -49,27 +49,14 @@
       flex gap-2
       place-content-between items-center
       w-full
-      p-2 sm:px-4
+      p-2 sm:p-4
       bg-neutral-950"
     >
       <!-- bar -->
-      <div
-        class="
-        flex flex-row flex-wrap
-        p-2 rounded-xl
-        bg-neutral-900"
-      >
-        <SortMobs :mobs-obj="summonedMobsList" />
-      </div>
-      <div
-        class="
-        flex flex-row flex-wrap
-        p-2 rounded-xl
-        bg-neutral-900"
-      >
-        <ToggleMobCardPanels @refresh-panel="refreshTogglePanel += 1; toggleGlobalCardPanel = $event" />
-      </div> <!-- end cards control -->
-    </div> <!-- end cards control container -->
+      <SortMobs :mobs-obj="summonedMobsList" />
+
+      <ToggleMobCardPanels @refresh-panel="refreshTogglePanel += 1; toggleGlobalCardPanel = $event" />
+    </div> <!-- end sort bar -->
 
     <!-- summon + dice -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -127,8 +114,8 @@
         :class="yScroll > 10 ? '' : 'opacity-0'"
         class="
         z-10 pointer-events-none
-        fixed top-14
-        h-12 w-full
+        fixed top-[2.75rem] sm:top-14
+        h-8 w-full
         bg-gradient-to-b from-neutral-950
         transition-opacity"
       />
@@ -139,7 +126,7 @@
         flex flex-wrap flex-row
         place-content-start
         gap-2 md:gap-4
-        px-2 sm:p-4"
+        p-2 sm:p-4 mb-12"
       >
         <!-- mob cards -->
         <TransitionGroup name="mob-card">
@@ -192,7 +179,7 @@
         class="
         z-10 pointer-events-none
         fixed bottom-[3.25rem] sm:bottom-16
-        h-12 w-full
+        h-8 w-full
         bg-gradient-to-t from-neutral-950
         transition-opacity"
       />
