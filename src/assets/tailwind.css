@@ -94,35 +94,51 @@ button.danger {
   @apply grid grid-cols-1 grid-rows-[min-content_1fr] gap-0 place-items-center px-6 py-2 bg-neutral-950 rounded-md;
 }
 
-/* label */
-.label-val-container {
-  @apply flex flex-row
-  place-content-start items-center
-  w-fit
-  gap-2
-  pr-2 rounded-md
-  text-sm text-neutral-400 hover:text-neutral-300
+/* labels */
+/*------------------------------------------------------------------------------------ */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* label base */
+.label {
+  @apply flex
+  align-baseline self-start
+  px-2 py-1 rounded-[.25rem]
+  text-sm font-light tracking-[-.0125rem]
+  text-neutral-300
   bg-neutral-900
-  border border-neutral-800 hover:border-neutral-700
+  transition-colors;
+}
+
+/* label val */
+.label-val {
+  @apply flex flex-row flex-wrap
+  items-center justify-start justify-items-start
+  w-fit rounded-md
+  text-sm text-neutral-200 hover:text-neutral-300
+  bg-neutral-800 hover:bg-neutral-700
+  border-2 border-neutral-800 hover:border-neutral-700
   overflow-hidden
   transition-colors;
 }
-
-.label {
-  @apply flex  flex-shrink-0
-  gap-1
-  align-baseline self-start
-  px-2 py-0.5 rounded-[.25rem]
+.label-val .label {
+  @apply flex-auto
+  self-stretch items-center
+  px-2 py-0.5 rounded-none
   text-sm font-light tracking-[-.0125rem]
-  text-neutral-300
   bg-neutral-800
+  text-neutral-300
   transition-colors;
 }
-
-.label-val-container:hover span.label {
+.label-val > * {
+  @apply z-[1] flex-grow
+  self-center
+  px-2 py-0.5 rounded-[.25rem]
+  bg-neutral-950;
+}
+.label-val:hover span.label {
   @apply text-neutral-200
   bg-neutral-700;
 }
+
 :root {
   /* SIZING */
   --border-w: 1px solid;
@@ -200,13 +216,13 @@ button.danger {
   @apply grid bg-neutral-900;
 }
 
-/* -------------------------------------------------------- */
-/* -------------------------------------------------------- */
-
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/*                                                                                                   */
 /* animations */
-
-/* -------------------------------------------------------- */
-/* -------------------------------------------------------- */
+/*                                                                                                   */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 /* FADE */
 /* -------------------------------------------------------- */

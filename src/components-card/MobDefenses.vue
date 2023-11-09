@@ -1,52 +1,64 @@
 <template>
   <!-- DEFENSES -->
-  <div class="grid grid-cols-1 gap-4">
+  <div class="grid grid-cols-1 gap-2">
     <!-- damage vul -->
     <div
       v-if="props.damageVulnerabilities.length != 0"
-      class="grid grid-cols-1 gap-2
-        text-sm"
+      class="label-val"
     >
       <span class="label">damage vulnerabilities:</span>
-      <p class="px-2">
-        {{ props.damageVulnerabilities }}
-      </p>
+      <span
+        v-for="def in props.damageVulnerabilities"
+        :key="def"
+        class="px-2"
+      >
+        {{ def }}
+      </span>
     </div>
 
     <!-- damage res -->
     <div
       v-if="props.damageResistances.length != 0"
-      class="grid grid-cols-1 gap-2
-        text-sm"
+      class="label-val"
     >
-      <span class="label">damage resistances:</span>
-      <p class="px-2">
-        {{ props.damageResistances }}
-      </p>
+      <span class="label">damage resistances</span>
+      <span
+        v-for="def in props.damageResistances"
+        :key="def"
+        class="px-2"
+      >
+        {{ def }}
+      </span>
     </div>
 
     <!-- damage imm -->
     <div
       v-if="props.damageImmunities.length != 0"
-      class="grid grid-cols-1 gap-2
-        text-sm"
+      class="label-val"
     >
-      <span class="label">damage immunities:</span>
-      <p class="px-2">
-        {{ props.damageImmunities }}
-      </p>
+      <span class="label">damage immunities</span>
+      <span
+        v-for="def in props.damageImmunities"
+        :key="def"
+        class="px-2"
+      >
+        {{ def }}
+      </span>
     </div>
 
     <!-- cond imm -->
     <div
       v-if="props.conditionImmunities.length != 0"
-      class="grid grid-cols-1 gap-2
-        text-sm"
+      class="label-val"
     >
-      <span class="label">condition immunities:</span>
-      <p class="px-2">
-        {{ props.conditionImmunities }}
-      </p>
+      <span class="label">condition immunities</span>
+      <span
+        v-for="def in props.conditionImmunities"
+        :key="def"
+        class="px-2"
+      >
+        {{ def.name.toLowerCase() }}
+      </span>
     </div>
   </div>
 </template>

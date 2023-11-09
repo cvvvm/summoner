@@ -176,7 +176,7 @@
         </div>
 
         <!-- details col 2 -->
-        <div class="grid gap-4 gap-y-2 content-start col-span-2">
+        <div class="grid gap-4 gap-y-4 content-start col-span-2">
           <MobSpeed
             :speed="props.speed"
           />
@@ -186,7 +186,7 @@
         </div>
 
         <MobDefenses
-          v-if="props.damageVulnerabilities || props.damageResistances || props.damageImmunities || props.conditionImmunities"
+          v-if="props.damageVulnerabilities.length > 0 || props.damageResistances.length > 0 || props.damageImmunities.length > 0 || props.conditionImmunities.length > 0"
           :damage-vulnerabilities="props.damageVulnerabilities"
           :damage-resistances="props.damageResistances"
           :damage-immunities="props.damageImmunities"

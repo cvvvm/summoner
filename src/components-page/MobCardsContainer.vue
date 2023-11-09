@@ -49,9 +49,9 @@
       flex gap-2
       place-content-between items-center
       w-full
-      p-2 sm:px-4"
+      p-2 sm:px-4
+      bg-neutral-950"
     >
-      {{ yScroll }}
       <!-- bar -->
       <div
         class="
@@ -82,7 +82,9 @@
       place-content-center
       gap-2 sm:gap-4
       p-2 sm:p-4
-      w-screen"
+      w-screen
+      bg-neutral-950
+      "
     >
       <!-- toggle dice roller -->
       <!------------------------------------------------>
@@ -124,7 +126,7 @@
         id="fadeTop"
         :class="yScroll > 10 ? '' : 'opacity-0'"
         class="
-        z-10
+        z-10 pointer-events-none
         fixed top-14
         h-12 w-full
         bg-gradient-to-b from-neutral-950
@@ -188,7 +190,7 @@
         id="fadeBottom"
         :class="yScroll > 10 ? '' : 'opacity-0'"
         class="
-        z-10
+        z-10 pointer-events-none
         fixed bottom-[3.25rem] sm:bottom-16
         h-12 w-full
         bg-gradient-to-t from-neutral-950
@@ -212,7 +214,7 @@ import DiceRoller from '../dice-roller/DiceRoller.vue'
 const summonedMobsList = reactive([])
 const isLoading = ref(false)
 
-const toggleGlobalCardPanel = ref('')
+const toggleGlobalCardPanel = ref('details')
 const refreshTogglePanel = ref(0)
 const isSummonModalOpen = ref(false)
 const isDiceRollerOpen = ref(false)

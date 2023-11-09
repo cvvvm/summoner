@@ -1,13 +1,19 @@
 <template>
   <!-- LANGUAGES -->
-  <div class="label-val-container">
-    <span class="label">languages: </span>
+  <div class="label-val">
+    <span class="label">
+      languages
+    </span>
     <span
       v-if="lang && lang !== '—'"
-    >{{ props.lang.toLowerCase() }}</span>
+    >
+      {{ props.lang.toLowerCase() }}
+    </span>
     <span
       v-if="!lang || lang === '—'"
-    >none</span>
+    >
+      none
+    </span>
   </div>
 </template>
 

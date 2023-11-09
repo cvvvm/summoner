@@ -6,9 +6,9 @@
     <div
       v-for="(senseVal, senseType, index) in props.senses"
       :key="index"
-      class="label-val-container"
+      class="label-val"
     >
-      <span class="label">{{ senseType.toLowerCase().replace(/_/, ' ') }}</span>{{ senseVal }}
+      <span class="label">{{ senseType.toLowerCase().replace(/_/, ' ') }}</span><span>{{ senseVal }}</span>
     </div>
   </div>
 </template>
