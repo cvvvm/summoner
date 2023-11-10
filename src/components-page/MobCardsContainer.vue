@@ -54,7 +54,6 @@
     >
       <!-- bar -->
       <SortMobs :mobs-obj="summonedMobsList" />
-
       <ToggleMobCardPanels @refresh-panel="refreshTogglePanel += 1; toggleGlobalCardPanel = $event" />
     </div> <!-- end sort bar -->
 

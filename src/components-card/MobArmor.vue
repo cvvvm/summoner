@@ -1,18 +1,18 @@
 <template>
   <div
     class="
-    grid grid-cols-[max-content_1fr] grid-rows-1 gap-2
-    p-2 rounded-xl
+    grid grid-cols-[max-content_1fr] grid-rows-1
+    p-0 rounded-xl
     bg-neutral-800
-    shadow-[-1px_-1px_4px_2px] shadow-neutral-950
+    border-shadow
     "
   >
     <div
       class="
       grid grid-cols-1
       place-content-center place-items-center
-      py-2 px-3 rounded-lg
-      bg-gradient-to-b from-neutral-950 to-neutral-900"
+      py-2 px-3 rounded-s-xl rounded-e-none
+      bg-neutral-950"
     >
       <!-- AC VALUE -->
       <h4 class="text-base">
@@ -27,7 +27,7 @@
     <!------------------------------------------------>
     <div
       v-if="props.armor[0].armor"
-      class="grid grid-cols-1 gap-1 content-center"
+      class="grid grid-cols-1 gap-1 content-center p-2"
     >
       <div
         v-for="armorEquip in props.armor[0].armor"
@@ -41,7 +41,7 @@
     <!-- NO desc armor -->
     <div
       v-if="!props.armor[0].armor"
-      class="grid grid-cols-1 gap-1 content-center"
+      class="grid grid-cols-1 gap-1 content-center p-2"
     >
       <div
         class="label text-xs"

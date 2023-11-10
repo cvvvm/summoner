@@ -60,12 +60,12 @@ p {
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 button {
   @apply font-normal leading-none
-  py-[.375rem] px-3 rounded-xxl
+  py-2 px-3 rounded-xxl
   text-sm
   text-neutral-300 hover:text-neutral-200
   bg-neutral-600 hover:bg-neutral-700
   border border-neutral-950
-  shadow-[inset_-1px_-1px_4px_0px] shadow-neutral-950
+  /* shadow-[inset_0px_0px_3px_1px] shadow-neutral-950 */
   transition-colors;
 }
 
@@ -109,15 +109,15 @@ button.danger {
   text-yellow-950 hover:text-yellow-950
   bg-yellow-600
   hover:bg-yellow-700
-  shadow-[inset_-1px_-2px_4px_0px] shadow-yellow-900;
+  /* shadow-[inset_0px_0px_3px_1px] shadow-yellow-900 */;
 }
 
 .panel-btn-inactive {
   @apply pb-2
   text-neutral-950
   bg-neutral-400
-  hover:bg-neutral-700
-  shadow-[inset_-1px_-2px_4px_0px] shadow-neutral-950;
+  hover:bg-neutral-600
+  /* shadow-[inset_0px_0px_3px_1px] shadow-neutral-950 */;
 }
 
 /* labels */
@@ -127,11 +127,11 @@ button.danger {
 .label {
   @apply flex
   align-baseline self-start
-  pl-2 pr-2.5 pb-1.5 pt-1
-  rounded-[.25rem]
-  text-neutral-300  font-medium tracking-[-.0125rem]
-  bg-gradient-to-t from-neutral-900 to-neutral-950
-  shadow-[-1px_-1px_2px_1px] shadow-neutral-950
+  pl-2 pr-2.5 py-1
+  rounded-md
+  text-neutral-950 font-medium tracking-[-.0125rem]
+bg-neutral-500
+  border border-neutral-950
   transition-colors;
 }
 
@@ -142,26 +142,27 @@ button.danger {
   items-center justify-start justify-items-start
   w-fit rounded-md
   text-sm text-neutral-300
-  bg-gradient-to-t from-neutral-900 to-neutral-950
-  shadow-[-1px_-1px_2px_1px] shadow-neutral-950
+  bg-neutral-500
+  border-2 border-neutral-500
+  outline outline-1 outline-neutral-950
   overflow-hidden
   transition-colors;
 }
 .label-val .label {
   @apply flex-auto
   self-stretch items-center
-  pl-1.5 px-2 pt-0.5 pb-1 rounded-none
-  text-neutral-400 font-light tracking-[-.0125rem]
-  bg-gradient-to-t from-neutral-900 to-neutral-800
+  pl-1.5 pr-2 py-0.5 rounded-none
+  text-neutral-950 font-light tracking-[-.0125rem]
+  bg-neutral-500
+  border-none
   transition-colors;
 }
 .label-val .val {
-  @apply z-[1] flex-grow
-  self-center
+  @apply flex-grow
+  self-stretch content-stretch
   font-normal
-  px-2 py-0.5 rounded-e-[.25rem]
-  bg-gradient-to-t from-neutral-800 to-neutral-950
-  shadow-[inset_0px_0px_4px_2px] shadow-neutral-950;
+  px-2 py-0.5 rounded-e-md
+  bg-neutral-950;
 }
 
 /* title content */
@@ -170,9 +171,9 @@ button.danger {
   @apply flex flex-row flex-wrap
   items-center justify-start justify-items-start
   w-fit rounded-md
-  bg-neutral-800
-  border-4 border-neutral-800
-  shadow-[-1px_-1px_4px_2px] shadow-neutral-950
+  bg-neutral-500
+  border-4 border-neutral-500
+  outline outline-1 outline-neutral-950
   overflow-hidden
   transition-colors;
 }
@@ -180,27 +181,25 @@ button.danger {
   @apply flex-auto
   self-stretch items-center
   px-2 py-0.5 rounded-none
-  text-neutral-400
-  font-light
-  bg-neutral-800
+  text-neutral-950 font-light
+  bg-neutral-500
   transition-colors;
 }
 .title-content .content {
   @apply z-[1] flex-grow
   self-center
-  p-3 rounded-[.25rem]
+  p-3 rounded-md
   text-neutral-200 font-light
-  bg-neutral-900
-  shadow-[inset_2px_2px_6px_2px] shadow-neutral-950;
+  bg-neutral-900;
 }
 
 /* effects */
 /*------------------------------------------------------------------------------------ */
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 .border-shadow {
-  @apply border border-neutral-950
-  shadow-[0px_0px_4px_1px] shadow-neutral-900;
+  @apply border border-neutral-950;
 }
+
 :root {
   /* SIZING */
   --border-w: 1px solid;

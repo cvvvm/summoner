@@ -75,7 +75,7 @@
     <!------------------------------------------------>
     <div
       class="
-      grid grid-cols-[1fr,_.65fr] gap-3
+      grid grid-cols-[1fr,_.65fr] gap-2
       "
     >
       <MobArmor :armor="props.armor" />
@@ -125,7 +125,7 @@
     >
       <MobSpecialAbilities
         v-show="toggledLocalPanel == 'abilities' && props.specialAbilities.length > 0"
-        class="pt-2"
+        class="py-2"
         :special-abilities="props.specialAbilities"
       />
     </transition>
@@ -138,7 +138,7 @@
     >
       <MobActions
         v-show="toggledLocalPanel == 'actions' && props.actions.length > 0"
-        class="pt-2"
+        class="py-2"
         :actions="props.actions"
       />
     </transition>
@@ -146,7 +146,7 @@
     <!-- actions (legendary) -->
     <MobActionsLegendary
       v-show="toggledLocalPanel == 'actions' && props.legendaryActions.length > 0"
-      class="pt-2"
+      class="py-2"
       :legendary-actions="props.legendaryActions"
       :legendary-desc="props.legendaryDesc"
     />
@@ -160,9 +160,9 @@
       <div
         v-show="toggledLocalPanel == 'details'"
         class="
-        grid gap-y-4 gap-x-2
+        grid gap-2
         grid-cols-1
-        pt-2"
+        py-2"
       >
         <MobAbilityScores
           :ability-scores="props.abilityScores"
@@ -175,14 +175,14 @@
           :challenge-rating="props.challengeRating"
         />
         <!-- details col 1 -->
-        <div class="grid gap-4 content-start">
+        <div class="grid gap-2 content-start">
           <MobSenses
             :senses="props.senses"
           />
         </div>
 
         <!-- details col 2 -->
-        <div class="grid gap-4 gap-y-4 content-start">
+        <div class="grid gap-2 content-start">
           <MobSpeed
             :speed="props.speed"
           />

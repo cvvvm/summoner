@@ -2,30 +2,32 @@
   <div
     class="
     flex flex-row
-    gap-2 place-content-start"
+    gap-2 place-content-start
+    p-2 rounded-xxl
+    bg-neutral-500
+    border-shadow"
   >
     <!-- roll math container -->
     <!------------------------------------------------>
     <div
       class="
       grid grid-cols-1 row-span-2
-      gap-3
-      p-1 pb-0
+      gap-2
       "
     >
       <div
         class="
             grid grid-rows-[min-content,_1fr] gap-1
-            p-1 rounded-xl
+            rounded-xl
           bg-neutral-800
-            shadow-[-1px_-1px_4px_2px] shadow-neutral-950"
+            border-shadow"
       >
-        <span class="place-self-center px-5 text-neutral-400 text-sm">roll</span>
+        <span class="place-self-center px-5 pt-2 pb-1 text-neutral-400 text-sm">roll</span>
         <span
           class="
-          grid grid-rows-2 gap-2 place-items-center
-          py-4 rounded-b-xl
-          bg-gradient-to-t from-neutral-900 to-neutral-950"
+          grid grid-rows-2 place-items-center
+          py-2 rounded-b-xl
+          bg-neutral-950"
         >
           <span class="text-lg text-neutral-300">
             {{ abilityRollResult[0] }}
@@ -54,10 +56,11 @@
           <!-- score button -->
           <!------------------------------------------------>
           <button
-            class="grid grid-cols-1 gap-1
-                justify-items-start items-center
-                p-2 pt-1.5 rounded-xl
-              bg-neutral-400"
+            class="
+            grid grid-cols-1 gap-1
+            justify-items-start items-center
+            p-2 pt-1.5 rounded-xl
+            bg-neutral-600"
             :class="abilityButtonHover"
             @click="abilityRoll(Math.floor((scoreValue.score - 10) / 2))"
           >
@@ -66,10 +69,10 @@
             flex gap-1
             justify-self-center items-baseline
             rounded-sm
-            text-sm text-neutral-950"
+            text-sm text-neutral-200"
             >
               {{ abilityName }}
-              <span class="text-sm text-neutral-800">
+              <span class="text-sm text-neutral-300">
                 {{ calcAbilityMod(scoreValue.score) }}
               </span>
             </div>
@@ -78,7 +81,7 @@
             justify-center justify-self-stretch
             text-base
             pt-1 pb-0.5 rounded-md
-            bg-gradient-to-b from-neutral-950 to-neutral-900"
+            bg-neutral-950"
             >
               {{ scoreValue.score }}
             </div>
@@ -94,8 +97,7 @@ import { ref } from 'vue'
 import { mobFunctions } from '@/functions/funcDiceRolls'
 
 const abilityRollResult = ref(0)
-const abilityButtonHover = ('hover:outline hover:outline-1 hover:outline-yellow-500 ' +
-                            'hover:bg-neutral-500 ' +
+const abilityButtonHover = ('hover:bg-neutral-700 ' +
                             'active:bg-neutral-600 active:text-neutral-300 transition-colors')
 
 function abilityRoll (mod) {

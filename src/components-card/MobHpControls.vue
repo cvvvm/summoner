@@ -1,23 +1,25 @@
 <template>
   <div
-    class="grid grid-cols-1 grid-rows-[1fr_min-content]
-    p-2 rounded-xl
+    class="
+    grid grid-cols-1 grid-rows-[1fr_min-content]
+    rounded-xl
     bg-neutral-800
-    shadow-[-1px_-1px_4px_2px] shadow-neutral-950
+    border-shadow
     transition-colors"
     :class="HPbgColor"
   >
     <!-- container wrapper -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <div class="bg-neutral-950 rounded-lg">
+    <div class="">
       <!-- HP CONTAINER -->
       <!------------------------------------------------>
       <div
         class="grid grid-cols-[max-content_2fr] gap-2
               content-center items-baseline
-              px-2 pb-1 pt-1.5 rounded-t-lg
-              bg-gradient-to-b from-neutral-950 to-neutral-900"
+              px-3 pb-1 pt-1.5 rounded-t-xl
+              bg-neutral-950
+              "
       >
         <!-- HP VALUE -->
         <h4 class="text-base">
@@ -39,7 +41,7 @@
       <div
         class="
         grid grid-cols-[.25fr_minmax(35px,_1fr)_.25fr] gap-1
-        bg-gradient-to-b from-neutral-900 to-neutral-800"
+        p-2 pt-1.5 rounded-b-xl"
         @click="checkHP(); $emit('passHpFullCard', currHP)"
       >
         <button

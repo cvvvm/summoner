@@ -13,7 +13,6 @@
   <Transition name="fade">
     <!-- masking container -->
     <!------------------------------------------------>
-    <!-- bg-gradient-to-t from-[rgb(51,51,51)] bg-neutral-700 -->
     <div
       v-show="isBanishModalOpen"
       class="
