@@ -58,7 +58,8 @@
         relative
         flex gap-4 sm:gap-8
         place-content-between sm:place-content-center items-center
-        p-2 sm:p-3 rounded-xxxl
+        px-2 py-1.5 sm:p-3 sm:py-2.5
+        rounded-xxxl
         bg-neutral-500
         border-shadow"
       >
@@ -88,8 +89,8 @@
         relative
         flex flex-row
         gap-2
-        p-2 sm:p-3
-        rounded-xxxl
+        px-2 py-1.5 sm:p-3 sm:py-2.5
+        rounded-full
         bg-neutral-500
         border-shadow
       "
@@ -97,7 +98,7 @@
         <!-- toggle dice roller -->
         <!------------------------------------------------>
         <button
-          class="px-5 py-3 sm:py-3 sm:px-4"
+          class="px-5 py-3 sm:py-3 sm:px-4 rounded-full"
           :class="isDiceRollerOpen ?
             'z-[9001] bg-orange-500 text-orange-950 hover:bg-orange-600 hover:text-orange-950'
             : 'bg-neutral-600 text-neutral-200 hover:bg-orange-500 hover:text-orange-950'"
@@ -107,7 +108,7 @@
         </button>
         <!-- toggle summon menu -->
         <button
-          class="px-5 py-3 sm:py-2 sm:px-4"
+          class="px-5 py-3 sm:py-2 sm:px-4 rounded-full"
           :class="isSummonModalOpen || summonedMobsList.length == 0 ?
             'z-[9001] bg-green-500 text-green-950 hover:bg-green-600 hover:text-green-950'
             : 'bg-neutral-600 text-neutral-200 hover:bg-green-500 hover:text-green-950'"
