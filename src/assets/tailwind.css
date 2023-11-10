@@ -179,15 +179,15 @@ button.danger {
   @apply flex-auto
   self-stretch items-center
   px-2 py-0.5 rounded-none
-  text-neutral-300
-  font-medium tracking-[-.0125rem]
+  text-neutral-400
+  font-light
   bg-neutral-800
   transition-colors;
 }
 .title-content .content {
   @apply z-[1] flex-grow
   self-center
-  p-2 rounded-[.25rem]
+  p-3 rounded-[.25rem]
   text-neutral-200 font-normal
   bg-neutral-900
   shadow-[inset_2px_2px_6px_2px] shadow-neutral-950;

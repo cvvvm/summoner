@@ -8,7 +8,7 @@
     <!------------------------------------------------>
     <div
       class="
-      grid grid-cols-1
+      grid grid-cols-1 row-span-2
       gap-3
       p-1 pb-0
       "
@@ -16,40 +16,23 @@
       <div
         class="
             grid grid-rows-[min-content,_1fr] gap-1
-            p-1 pt-1 rounded-xl
-            text-sm
-          bg-neutral-800
-            shadow-[-1px_-1px_3px_2px] shadow-neutral-950"
-      >
-        <span class="place-self-center px-5 text-neutral-400">1d20</span>
-        <span
-          class="
-          flex place-items-center place-content-center
-          px-2 rounded-b-xl
-          text-neutral-300
-          bg-gradient-to-t from-neutral-900 to-neutral-950"
-        >
-          {{ abilityRollResult[1] }}
-        </span>
-      </div>
-
-      <div
-        class="
-            grid grid-rows-[min-content,_1fr] gap-1
             p-1 rounded-xl
-            text-sm
           bg-neutral-800
-            shadow-[-1px_-1px_3px_2px] shadow-neutral-950"
+            shadow-[-1px_-1px_4px_2px] shadow-neutral-950"
       >
-        <span class="place-self-center px-5 text-neutral-400">roll</span>
+        <span class="place-self-center px-5 text-neutral-400 text-sm">roll</span>
         <span
           class="
-          flex place-items-center place-content-center
-          px-2 rounded-b-xl
-          text-neutral-300
+          grid grid-rows-2 gap-2 place-items-center
+          py-4 rounded-b-xl
           bg-gradient-to-t from-neutral-900 to-neutral-950"
         >
-          {{ abilityRollResult[0] }}
+          <span class="text-lg text-neutral-300">
+            {{ abilityRollResult[0] }}
+          </span>
+          <span class="text-sm text-neutral-400">
+            {{ abilityRollResult[1] }}
+          </span>
         </span>
       </div>
     </div>
