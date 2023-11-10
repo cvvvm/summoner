@@ -126,7 +126,7 @@
         class="
         flex flex-wrap flex-row
         place-content-start
-        gap-2 md:gap-4
+        gap-4 md:gap-6
         p-2 sm:p-4 mb-12"
       >
         <!-- mob cards -->

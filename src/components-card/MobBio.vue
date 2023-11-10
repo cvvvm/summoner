@@ -1,6 +1,6 @@
 <template>
   <!-- attributes -->
-  <div class="flex flex-wrap gap-1">
+  <div class="flex flex-wrap gap-2">
     <p class="label">
       {{ props.size.replace(/small/,'sm')
         .replace(/small/, 'sm.')

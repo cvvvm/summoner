@@ -13,6 +13,7 @@
   <Transition name="fade">
     <!-- masking container -->
     <!------------------------------------------------>
+    <!-- bg-gradient-to-t from-[rgb(51,51,51)] bg-neutral-700 -->
     <div
       v-show="isBanishModalOpen"
       class="
@@ -20,8 +21,8 @@
         flex place-content-end place-items-end
         top-0 left-0 right-0
         h-[48px]
-        rounded-t-xl
-        bg-gradient-to-t from-[rgb(51,51,51)] bg-neutral-700
+        rounded-t-xxxl
+        bg-neutral-700
         "
     >
       <!-- layout -->
@@ -39,7 +40,7 @@
           truncate tracking-tight
           text-xl text-neutral-100
           font-medium
-          pl-2 pb-1
+          pl-1 pb-1
           "
         >
           {{ name }}

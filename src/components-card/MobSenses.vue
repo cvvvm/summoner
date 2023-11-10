@@ -1,7 +1,7 @@
 <template>
   <div
     class="flex flex-wrap
-          justify-items-start gap-1"
+          justify-items-start gap-2"
   >
     <div
       v-for="(senseVal, senseType, index) in props.senses"

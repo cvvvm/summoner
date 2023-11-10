@@ -33,7 +33,7 @@
             gap-x-4 gap-y-12 lg:gap-x-8 lg:gap-y-0
             content-start items-start
             p-4 rounded-xl
-            bg-neutral-800"
+            bg-neutral-700"
       >
         <!--  COLUMN 1  -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -53,7 +53,7 @@
             <button
               class="
               justify-self-center self-start
-              p-2 text-base leading-none h-[32px] w-[32px]"
+              icon-btn"
               @click="toggleFullCard()"
             >
               <i class="bi bi-arrows-angle-contract" />

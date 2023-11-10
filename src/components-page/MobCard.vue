@@ -4,50 +4,23 @@
   <div
     class="
     relative
-    max-w-[425px] sm:max-w-[375px]
+    max-w-[425px] sm:max-w-[400px]
     grid grid-cols-1 gap-2
-    p-3 rounded-xl
-    bg-gradient-to-b from-neutral-700 via-neutral-800 to-neutral-900
-    border-2 border-neutral-700"
+    p-2 rounded-xxxl
+    bg-neutral-700
+    border-4 border-neutral-800"
   >
     <!-- full screen + name container -->
     <div
-      class="flex gap-2"
+      class="px-1 pt-1 flex gap-2"
     >
-      <!-- FULL CARD -->
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <MobCardFull
-        :mob-index="props.mobIndex"
-        :name="props.name"
-        :alignment="props.alignment"
-        :size="props.size"
-        :type="props.type"
-        :ability-scores="props.abilityScores"
-        :base-hp="props.baseHp"
-        :armor="props.armor"
-        :challenge-rating="props.challengeRating"
-        :damage-vulnerabilities="props.damageVulnerabilities"
-        :damage-resistances="props.damageResistances"
-        :damage-immunities="props.damageImmunities"
-        :condition-immunities="props.conditionImmunities"
-        :special-abilities="props.specialAbilities"
-        :actions="props.actions"
-        :legendary-actions="props.legendaryActions"
-        :legendary-desc="props.legendaryDesc"
-        :speed="props.speed"
-        :senses="props.senses"
-        :lang="props.lang"
-        @pass-hp-card="updateHpVal($event)"
-      />
-
       <!-- CARD -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- name -->
       <h1
         class="
-        pl-2
+        pl-1
         flex-grow place-self-center
         tracking-tight
         text-xl text-neutral-200
@@ -59,6 +32,32 @@
       <div
         class="flex flex-row gap-2 justify-end items-center"
       >
+        <!-- FULL CARD -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <MobCardFull
+          :mob-index="props.mobIndex"
+          :name="props.name"
+          :alignment="props.alignment"
+          :size="props.size"
+          :type="props.type"
+          :ability-scores="props.abilityScores"
+          :base-hp="props.baseHp"
+          :armor="props.armor"
+          :challenge-rating="props.challengeRating"
+          :damage-vulnerabilities="props.damageVulnerabilities"
+          :damage-resistances="props.damageResistances"
+          :damage-immunities="props.damageImmunities"
+          :condition-immunities="props.conditionImmunities"
+          :special-abilities="props.specialAbilities"
+          :actions="props.actions"
+          :legendary-actions="props.legendaryActions"
+          :legendary-desc="props.legendaryDesc"
+          :speed="props.speed"
+          :senses="props.senses"
+          :lang="props.lang"
+          @pass-hp-card="updateHpVal($event)"
+        />
         <CloneMob
           :mob-index="props.mobIndex"
           :url="props.url"
@@ -76,7 +75,7 @@
     <!------------------------------------------------>
     <div
       class="
-      grid grid-cols-[1fr,_.65fr] gap-2
+      grid grid-cols-[1fr,_.65fr] gap-3
       "
     >
       <MobArmor :armor="props.armor" />
@@ -119,6 +118,7 @@
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- special abilities -->
+    <!------------------------------------------------>
     <transition
       name="slide-down"
       appear
@@ -131,6 +131,7 @@
     </transition>
 
     <!-- actions -->
+    <!------------------------------------------------>
     <transition
       name="slide-down"
       appear
@@ -151,37 +152,37 @@
     />
 
     <!-- details-->
+    <!------------------------------------------------>
     <transition
       name="slide-down"
       appear
     >
       <div
         v-show="toggledLocalPanel == 'details'"
-        class="grid gap-y-4 gap-x-2
-              grid-cols-1
-              pt-2"
+        class="
+        grid gap-y-4 gap-x-2
+        grid-cols-1
+        pt-2"
       >
         <MobAbilityScores
           :ability-scores="props.abilityScores"
           :ability-saves="props.abilitySaves"
-          class="col-span-2"
         />
         <MobBio
           :size="props.size"
           :type="props.type"
           :alignment="props.alignment"
           :challenge-rating="props.challengeRating"
-          class=" mt-2"
         />
         <!-- details col 1 -->
-        <div class="grid gap-4 content-start col-span-2">
+        <div class="grid gap-4 content-start">
           <MobSenses
             :senses="props.senses"
           />
         </div>
 
         <!-- details col 2 -->
-        <div class="grid gap-4 gap-y-4 content-start col-span-2">
+        <div class="grid gap-4 gap-y-4 content-start">
           <MobSpeed
             :speed="props.speed"
           />

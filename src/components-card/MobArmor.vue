@@ -3,15 +3,15 @@
     class="
     grid grid-cols-[max-content_1fr] grid-rows-1 gap-2
     p-2 rounded-xl
-  bg-gradient-to-b from-neutral-900 to-neutral-800
-    shadow-[inset_0px_0px_4px_2px] shadow-neutral-950
+    bg-neutral-800
+    shadow-[-1px_-1px_4px_2px] shadow-neutral-950
     "
   >
     <div
       class="
       grid grid-cols-1
       place-content-center place-items-center
-      py-1 px-3 rounded-lg
+      py-2 px-3 rounded-lg
       bg-gradient-to-b from-neutral-950 to-neutral-900"
     >
       <!-- AC VALUE -->

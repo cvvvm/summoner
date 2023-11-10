@@ -2,8 +2,8 @@
   <div
     class="grid grid-cols-1 grid-rows-[1fr_min-content]
     p-2 rounded-xl
-    bg-gradient-to-b from-neutral-900 to-neutral-800
-    shadow-[inset_0px_0px_4px_2px] shadow-neutral-950
+    bg-neutral-800
+    shadow-[-1px_-1px_4px_2px] shadow-neutral-950
     transition-colors"
     :class="HPbgColor"
   >
@@ -37,11 +37,13 @@
 
       <!-- math & buttons container -->
       <div
-        class="grid grid-cols-[.25fr_minmax(35px,_1fr)_.25fr]"
+        class="
+        grid grid-cols-[.25fr_minmax(35px,_1fr)_.25fr] gap-1
+        bg-gradient-to-b from-neutral-900 to-neutral-800"
         @click="checkHP(); $emit('passHpFullCard', currHP)"
       >
         <button
-          class="rounded-none rounded-es-lg px-3.5 hover:bg-red-700 hover:text-red-200 active:bg-red-800 active:text-red-400"
+          class="px-3 rounded-lg hover:bg-red-700 hover:text-red-200 active:bg-red-800 active:text-red-400"
           @click.exact="dmgMob(hpChange)"
           @click.shift="dmgMob(10)"
         >
@@ -53,14 +55,14 @@
           v-model="hpChange"
           type="number"
           class="
-        px-1 pt-0.5
+        px-1 pt-0.5 rounded-lg
         text-center text-neutral-200
         border-y-2 border-x border-neutral-900 hover:border-yellow-600
-        bg-gradient-to-t from-neutral-700 to-neutral-900
+        bg-neutral-950
         transition-colors"
         >
         <button
-          class="rounded-none rounded-ee-lg px-3.5 hover:bg-green-700 hover:text-green-200 active:bg-green-900 active:text-green-400"
+          class="px-3 rounded-lg hover:bg-green-700 hover:text-green-200 active:bg-green-900 active:text-green-400"
           @click.exact="healMob(hpChange)"
           @click.shift="healMob(10)"
         >
