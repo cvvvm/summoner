@@ -2,15 +2,15 @@
   <!-- panel toggles -->
   <!------------------------------------------------>
   <div
-    class="flex gap-2 items-center"
+    class="flex gap-1 items-center"
   >
-    <p class="hidden md:inline-block pl-2">
+    <p class="hidden md:inline-block pl-2 text-neutral-950">
       panel:
     </p>
     <button
       v-for="panelToggle in globalPanelOptions"
       :key="panelToggle"
-      class="px-2 sm:px-3"
+      class="px-3 sm:px-3 py-1.5"
       :class="toggledMobCardPanel == panelToggle && panelToggle != 'none' ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950' : ''"
       @click="updateToggledPanel(panelToggle)"
     >

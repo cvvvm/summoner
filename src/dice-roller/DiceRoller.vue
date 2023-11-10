@@ -1,22 +1,25 @@
 <template>
   <!-- page placement container -->
   <div
-    class="fixed bottom-[4.5rem] z-[9000]
-            flex place-content-center items-end
-            w-full"
+    class="
+    pointer-events-none
+    fixed bottom-20 sm:bottom-24 z-[9000]
+    flex place-content-center place-items-center
+    w-full"
   >
     <!-- roller card -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div
-      class="grid grid-cols-4 xs:grid-cols-7 items-center justify-between
-            gap-x-2 gap-y-4
-            flex-grow
-            h-min
-            max-w-[600px]
-            p-4 rounded-xl
-            border border-solid border-yellow-500
-            bg-neutral-900"
+      class="
+      pointer-events-auto
+      grid grid-cols-2 xs:grid-cols-3
+      items-center justify-between
+      gap-2
+      h-min w-max max-w-[300px] xs:max-w-[450px]
+      p-2 rounded-xl
+      border-2 border-solid border-orange-500
+      bg-neutral-600"
     >
       <div
         v-for="die, name in diceToRoll2"
@@ -32,50 +35,37 @@
 
       <!-- buttons + math container -->
       <div
-        class="flex gap-2
-                  col-span-full"
+        class="
+        grid grid-cols-[1fr,min-content] gap-1
+        col-span-2
+        pt-1"
       >
-        <!-- reset dice button -->
-        <button
-          class="flex justify-center self-center
-                    p-2 rounded-md
-                    hover:bg-red-500 hover:text-red-950"
-          @click="resetDice"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1"
-            stroke="currentColor"
-            class="w-5 h-5"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
-            />
-          </svg>
-        </button>
-
         <!-- roll math -->
         <!------------------------------------------------>
         <div
-          class="overflow-x-auto break-normal
-                flex-grow
-                px-4 py-2 rounded-md
-                text-sm
-                bg-neutral-950"
+          class="
+          overflow-x-auto break-normal whitespace-nowrap
+          col-span-full
+          h-min w-full
+          px-4 py-2 rounded-md
+          text-sm
+          bg-neutral-950"
         >
           {{ diceRollMath }}
         </div>
-
         <!-- roll dice button -->
         <button
-          class="py-2 px-4 rounded-md self-center"
+          class="py-2 px-4 rounded-xxxl justify-items-center"
           @click="rollAllDice"
         >
           roll
+        </button>
+        <!-- reset dice button -->
+        <button
+          class="icon-btn"
+          @click="resetDice"
+        >
+          <i class="bi bi-arrow-counterclockwise" />
         </button>
       </div>
       <!-- end buttons + math container -->

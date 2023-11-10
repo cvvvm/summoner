@@ -36,7 +36,7 @@
     class="
     relative
     grid
-    grid-rows-[min-content,_1fr,_min-content]
+    grid-rows-1
     h-[100dvh] max-h-[100vh]"
   >
     <!-- sort/panels bar -->
@@ -44,57 +44,79 @@
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div
       class="
-      order-1
-      z-[2]
-      flex gap-2 sm:gap-8
-      place-content-between sm:place-content-center items-center
+      pointer-events-none
+      fixed z-[9999] top-0
+      flex justify-center
       w-full
-      p-2 sm:p-3
-      bg-neutral-950"
+      pt-4
+      bg-gradient-to-b from-neutral-950
+      "
     >
-      <!-- bar -->
-      <SortMobs :mobs-obj="summonedMobsList" />
-      <ToggleMobCardPanels @refresh-panel="refreshTogglePanel += 1; toggleGlobalCardPanel = $event" />
-    </div> <!-- end sort bar -->
+      <div
+        class="
+        pointer-events-auto
+        relative
+        flex gap-4 sm:gap-8
+        place-content-between sm:place-content-center items-center
+        p-2 sm:p-3 rounded-xxxl
+        bg-neutral-500
+        border-shadow"
+      >
+        <!-- bar -->
+        <SortMobs :mobs-obj="summonedMobsList" />
+        <ToggleMobCardPanels @refresh-panel="refreshTogglePanel += 1; toggleGlobalCardPanel = $event" />
+      </div>
+    </div> <!-- end sort bar wrapper -->
 
     <!-- summon + dice -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- wrapper -->
     <div
       class="
-      z-[9999]
-      order-3
-      flex flex-row
-      justify-self-center
-      gap-2 sm:gap-4
-      p-2 sm:p-3
-      m-1
-      rounded-xxl
-      bg-neutral-950
+      pointer-events-none
+      fixed z-[9999] bottom-0
+      flex justify-center
+      w-full
+      pb-4
+      bg-gradient-to-t from-neutral-950
       "
     >
-      <!-- toggle dice roller -->
-      <!------------------------------------------------>
-      <button
-        class="px-5 py-3 sm:py-3 sm:px-4"
-        :class="isDiceRollerOpen ?
-          'z-[9001] bg-yellow-500 text-yellow-950 hover:bg-yellow-600 hover:text-yellow-950'
-          : 'bg-neutral-400 text-neutral-950 hover:bg-neutral-200 hover:text-neutral-950 z-[9999]'"
-        @click="toggleDiceRoller"
+      <div
+        class="
+        pointer-events-auto
+        relative
+        flex flex-row
+        gap-2
+        p-2 sm:p-3
+        rounded-xxxl
+        bg-neutral-500
+        border-shadow
+      "
       >
-        dice
-      </button>
-      <!-- toggle summon menu -->
-      <button
-        class="px-5 py-3 sm:py-2 sm:px-4"
-        :class="isSummonModalOpen || summonedMobsList.length == 0 ?
-          'z-[8001] bg-green-500 text-green-950 hover:bg-green-600 hover:text-green-950'
-          : 'bg-neutral-400 text-neutral-950 hover:bg-green-500 hover:text-green-950'"
-        @click="toggleSummonModal()"
-      >
-        summon
-      </button>
-    </div>
+        <!-- toggle dice roller -->
+        <!------------------------------------------------>
+        <button
+          class="px-5 py-3 sm:py-3 sm:px-4"
+          :class="isDiceRollerOpen ?
+            'z-[9001] bg-orange-500 text-orange-950 hover:bg-orange-600 hover:text-orange-950'
+            : 'bg-neutral-600 text-neutral-200 hover:bg-orange-500 hover:text-orange-950'"
+          @click="toggleDiceRoller"
+        >
+          dice
+        </button>
+        <!-- toggle summon menu -->
+        <button
+          class="px-5 py-3 sm:py-2 sm:px-4"
+          :class="isSummonModalOpen || summonedMobsList.length == 0 ?
+            'z-[9001] bg-green-500 text-green-950 hover:bg-green-600 hover:text-green-950'
+            : 'bg-neutral-600 text-neutral-200 hover:bg-green-500 hover:text-green-950'"
+          @click="toggleSummonModal()"
+        >
+          summon
+        </button>
+      </div>
+    </div> <!-- end summon + dice wrapper -->
 
     <!-- mob cards container -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -108,25 +130,15 @@
       h-full w-full
       overflow-y-auto"
     >
-      <!-- fade top -->
-      <div
-        id="fadeTop"
-        :class="yScroll > 10 ? '' : 'opacity-0'"
-        class="
-        z-10 pointer-events-none
-        fixed top-[2.5rem] sm:top-12
-        h-8 w-full
-        bg-gradient-to-b from-neutral-950
-        transition-opacity"
-      />
       <!-- cards container -->
+      <!-- flex flex-wrap flex-row -->
       <div
         id="cardsContainer"
         class="
-        flex flex-wrap flex-row
-        place-content-start
+        grid grid-cols-[repeat(auto-fit,_minmax(375px,400px))]
+        place-content-center
         gap-4 md:gap-6
-        p-2 sm:p-4 mb-12"
+        p-2 sm:px-4 mt-[4.5rem] sm:mt-20 mb-28"
       >
         <!-- mob cards -->
         <TransitionGroup name="mob-card">
@@ -196,12 +208,10 @@ const isDiceRollerOpen = ref(false)
 
 // show shadows on scroll
 const mobContainer = ref(null)
-const yScroll = ref(1)
 // const mobFadeTop = ref(false)
 // const mobFadeBtm = ref(true)
 
 onMounted(() => {
-  scrollFader()
   loadAllLocalSummonedList()
 })
 
@@ -292,21 +302,6 @@ function addToLocalSummonedList (m) {
 // misc
 // ------------------------------------------------------------------------------------
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// scroll fader
-function scrollFader () {
-  // const top = document.getElementById('fadeTop')
-  // const bottom = document.getElementById('fadeBottom')
-
-  mobContainer.value.addEventListener('scroll', function () {
-    const st = mobContainer.value.scrollTop
-    if (st > yScroll.value) {
-      // downscroll code
-    } else if (st < yScroll.value) {
-      // upscroll code
-    } // else was horizontal scroll
-    yScroll.value = st <= 0 ? 0 : st
-  }, false)
-}
 </script>
 
 <style>

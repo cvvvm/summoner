@@ -97,7 +97,7 @@ button.danger {
 /*----------------------------------------------------------- */
 .icon-btn {
   @apply h-[36px] w-[36px]
-  p-2
+  p-2 rounded-full
   text-neutral-200 text-base leading-none
   bg-neutral-800;
 }

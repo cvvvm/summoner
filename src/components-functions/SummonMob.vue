@@ -3,16 +3,16 @@
   <!------------------------------------------------>
   <div
     class="
-    fixed z-[8000]
-    top-16
-    bottom-14 sm:bottom-[4.5rem]
+    fixed z-[10000]
+    top-4 sm:top-20
+    bottom-20 sm:bottom-24
     right-2 xs:right-4
     left-2 xs:left-auto
     grid gap-2
     grid-rows-[min-content,_min-content,_1fr]
     max-w-full xs:w-[450px]
     p-2 rounded-xl
-    bg-neutral-950 border"
+    bg-neutral-950 border-2"
     :class="isSearchOpen ? 'border-green-500 ' : 'border-pink-400 '"
     @keydown.down="selectNextMobResult"
     @keydown.up="selectPrevMobResult"
@@ -34,7 +34,7 @@
             'bg-neutral-800 hover:bg-neutral-700 hover:text-green-500'"
           class="
           bi bi-search leading-none
-          p-3 rounded-e-none"
+          p-3 rounded-e-none rounded-s-lg"
           @click="toggleAllOrFavs"
         />
         <button
@@ -43,7 +43,7 @@
             'bi-heart bg-neutral-800 hover:bg-neutral-700 hover:text-pink-500'"
           class="
           bi leading-none
-          p-3 rounded-s-none"
+          p-3 rounded-s-none rounded-e-lg"
           @click="toggleAllOrFavs()"
         />
       </div>

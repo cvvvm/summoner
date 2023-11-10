@@ -1,21 +1,21 @@
 <template>
   <!-- sort-->
   <!------------------------------------------------>
-  <div class="flex gap-2 items-center">
+  <div class="flex gap-1 items-center">
     <button
-      class="px-2 sm:px-3"
+      class="px-3 sm:px-3 py-1.5"
       @click="alphaSort(props.mobsObj)"
     >
       {{ alphaSortDirection }}
     </button>
     <button
-      class="px-2 sm:px-3"
+      class="px-3 sm:px-3 py-1.5"
       @click="hpSort(props.mobsObj)"
     >
       {{ hpSortDirection }}
     </button>
     <button
-      class="px-2 sm:px-3"
+      class="px-3 sm:px-3 py-1.5"
       @click="acSort(props.mobsObj)"
     >
       {{ acSortDirection }}

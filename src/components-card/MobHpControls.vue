@@ -17,7 +17,7 @@
       <div
         class="grid grid-cols-[max-content_2fr] gap-2
               content-center items-baseline
-              px-3 pb-1 pt-1.5 rounded-t-xl
+              px-3 pb-1 pt-1.5 rounded-t-[.625rem]
               bg-neutral-950
               "
       >
