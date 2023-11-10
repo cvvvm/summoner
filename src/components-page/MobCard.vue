@@ -12,7 +12,7 @@
   >
     <!-- full screen + name container -->
     <div
-      class="px-1 pt-1 flex gap-2"
+      class="px-1 py-1 flex gap-2"
     >
       <!-- CARD -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
