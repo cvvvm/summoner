@@ -1,37 +1,38 @@
 <template>
   <div
-    class="grid grid-cols-1 gap-1
-            justtify-items-stretch
-            p-2 rounded-xl
+    class="flex flex-row gap-1
+            items-center content-center
+            p-1 rounded-xl rounded-e-full
             bg-neutral-700
             border-2
             transition-colors
             "
-    :class="numDiceToRoll > 0 ? 'border-orange-500' : 'border-neutral-800'"
+    :class="numDiceToRoll > 0 ? 'border-orange-500' : 'border-neutral-700'"
   >
     <button
-      class="w-full
-            px-2 rounded-lg
-            text-sm tracking-wide
-            text-orange-950 hover:text-orange-900 active:text-orange-950
-            bg-orange-500 hover:bg-orange-400 active:bg-orange-500"
+      class="
+      w-[54px] min-w-[54px]
+      px-2 mr-1 rounded-lg
+      text-sm tracking-wide
+      text-orange-950 hover:text-orange-900 active:text-orange-950
+      bg-orange-500 hover:bg-orange-400 active:bg-orange-500"
       @click="
         $emit('rollSingleDie')"
     >
       d{{ props.dieType }}
     </button>
-
-    <!-- increase -->
+    <!-- decrease -->
     <button
       class="
-      py-1 px-2 rounded-lg
+      py-0 px-2 rounded-xxl
       text-xl
       text-neutral-950 hover:text-neutral-950 active:text-neutral-950
       bg-neutral-400 hover:bg-neutral-300 active:bg-neutral-400"
-      @click="numDiceToRoll++; $emit('updateDiceNum', { type: props.dieType, num: numDiceToRoll })"
+      @click="numDiceToRoll > 1 ? numDiceToRoll-- : numDiceToRoll = 0; $emit('updateDiceNum', { type: props.dieType, num: numDiceToRoll })"
     >
-      +
+      -
     </button>
+
     <!-- input number -->
     <input
       v-model="numDiceToRoll"
@@ -44,16 +45,16 @@
       text-center hover:text-neutral-100"
       @change="$emit('updateDiceNum', { type: props.dieType, num: numDiceToRoll })"
     >
-    <!-- decrease -->
+    <!-- increase -->
     <button
       class="
-      py-1 px-2 rounded-lg
+      py-0 px-2 rounded-xxl
       text-xl
       text-neutral-950 hover:text-neutral-950 active:text-neutral-950
       bg-neutral-400 hover:bg-neutral-300 active:bg-neutral-400"
-      @click="numDiceToRoll > 1 ? numDiceToRoll-- : numDiceToRoll = 0; $emit('updateDiceNum', { type: props.dieType, num: numDiceToRoll })"
+      @click="numDiceToRoll++; $emit('updateDiceNum', { type: props.dieType, num: numDiceToRoll })"
     >
-      -
+      +
     </button>
   </div>
 </template>

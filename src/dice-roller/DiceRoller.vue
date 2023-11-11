@@ -1,82 +1,77 @@
 <template>
-  <!-- page placement container -->
+  <!-- roller card -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <!-- top-4 sm:top-20 [@media(min-width:1420px)]:top-4 -->
   <div
     class="
-    pointer-events-none
-    fixed bottom-20 sm:bottom-24 z-[4000]
-    flex place-content-center place-items-center
-    w-full"
+    fixed z-[8000]
+    top-auto
+    bottom-20 sm:bottom-[5.5rem] [@media(min-width:1150px)]:bottom-4
+    right-2 xs:right-auto
+    left-2 xs:left-4
+    grid gap-2
+    max-w-[210px]
+    p-2 rounded-xxl
+    bg-neutral-950
+    border-2 border-solid border-orange-600
+    transition-[height_200ms_ease-in-out]"
   >
-    <!-- roller card -->
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <div
+      v-for="die, name in diceToRoll2"
+      :key="die"
+    >
+      <InputNumDice
+        :key="forceRefeshKey"
+        :die-type="parseInt(name)"
+        @update-dice-num="updateDiceNums"
+        @roll-single-die="rollSingleDie(parseInt(name))"
+      />
+    </div>
+
+    <!-- buttons + math container -->
     <div
       class="
-      pointer-events-auto
-      grid grid-cols-4 xs:grid-cols-7
-      items-center justify-between
-      gap-2
-      h-min max-w-[95%] xs:max-w-[600px]
-      p-3 rounded-xxxl
-      border-2 border-solid border-orange-600
-      bg-neutral-950"
-    >
-      <div
-        v-for="die, name in diceToRoll2"
-        :key="die"
-      >
-        <InputNumDice
-          :key="forceRefeshKey"
-          :die-type="parseInt(name)"
-          @update-dice-num="updateDiceNums"
-          @roll-single-die="rollSingleDie(parseInt(name))"
-        />
-      </div>
-
-      <!-- buttons + math container -->
-      <div
-        class="
         grid grid-cols-[1fr,min-content] gap-2
         col-span-full
         p-2 rounded-xl
         bg-neutral-700"
-      >
-        <!-- roll math -->
-        <!------------------------------------------------>
-        <div
-          class="
+    >
+      <!-- roll math -->
+      <!------------------------------------------------>
+      <div
+        class="
           overflow-x-auto break-normal whitespace-nowrap
           col-span-full
           h-min w-full
           px-4 py-2 rounded-xl
           text-sm
           bg-neutral-950"
-        >
-          {{ diceRollMath }}
-        </div>
+      >
+        {{ diceRollMath }}
+      </div>
 
-        <!-- roll dice button -->
-        <button
-          class="
+      <!-- roll dice button -->
+      <button
+        class="
           justify-items-center
           py-2 px-4 rounded-xxxl
           text-neutral-950 hover:text-neutral-950 active:text-neutral-950
           bg-neutral-400 hover:bg-neutral-500 active:bg-neutral-600"
-          @click="rollAllDice"
-        >
-          roll
-        </button>
-        <!-- reset dice button -->
-        <button
-          class="icon-btn"
-          @click="resetDice"
-        >
-          <i class="bi bi-arrow-counterclockwise" />
-        </button>
-      </div>
-      <!-- end buttons + math container -->
-    </div> <!-- end roller card -->
-  </div>
+        @click="rollAllDice"
+      >
+        roll
+      </button>
+      <!-- reset dice button -->
+      <button
+        class="icon-btn"
+        @click="resetDice"
+      >
+        <i class="bi bi-arrow-counterclockwise" />
+      </button>
+    </div>
+    <!-- end buttons + math container -->
+  </div> <!-- end roller card -->
 </template>
 
 <script setup>
@@ -145,19 +140,19 @@ function rollSingleDie (dieType) {
 /* dice roller modal */
 .dice-roller-leave-active {
   transition:
-    transform 150ms ease-in,
-    scale 200ms ease-in-out
+    transform 150ms ease-out,
+    scale 200ms ease-out,
     ;
 }
 .dice-roller-enter-active {
   transition:
-    transform 200ms ease-out,
-    scale 200ms ease-in-out
+    transform 175ms ease-out,
+    scale 200ms ease-out,
     ;
 }
 .dice-roller-leave-to,
 .dice-roller-enter-from {
-  transform: translateY(150%);
-  scale: .9;
+  transform: translateX(-150%);
+  scale:.8;
 }
 </style>
