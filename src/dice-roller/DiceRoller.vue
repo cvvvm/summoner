@@ -12,7 +12,7 @@
     left-2 xs:left-4
     grid gap-2
     max-w-[210px]
-    p-2 rounded-xxl
+    p-3 rounded-[2.25rem]
     bg-neutral-950
     border-2 border-solid border-orange-600
     transition-[height_200ms_ease-in-out]"
@@ -29,28 +29,27 @@
       />
     </div>
 
-    <!-- buttons + math container -->
+    <!-- roll math -->
+    <!------------------------------------------------>
+    <div
+      class="
+      overflow-x-auto
+      col-span-full
+      h-min w-full
+      px-4 py-2 rounded-xl
+      text-sm break-normal whitespace-nowrap
+      bg-neutral-950"
+    >
+      {{ diceRollMath }}
+    </div>
+    <!-- buttons container -->
     <div
       class="
         grid grid-cols-[1fr,min-content] gap-2
         col-span-full
-        p-2 rounded-xl
+        p-2 rounded-full
         bg-neutral-700"
     >
-      <!-- roll math -->
-      <!------------------------------------------------>
-      <div
-        class="
-          overflow-x-auto break-normal whitespace-nowrap
-          col-span-full
-          h-min w-full
-          px-4 py-2 rounded-xl
-          text-sm
-          bg-neutral-950"
-      >
-        {{ diceRollMath }}
-      </div>
-
       <!-- roll dice button -->
       <button
         class="
