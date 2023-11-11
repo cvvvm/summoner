@@ -11,7 +11,7 @@
       v-for="panelToggle in globalPanelOptions"
       :key="panelToggle"
       class="px-3 sm:px-3 py-1.5"
-      :class="toggledMobCardPanel == panelToggle && panelToggle != 'none' ? 'bg-violet-600 text-violet-200 hover:bg-violet-700 hover:text-violet-300' : ''"
+      :class="toggledMobCardPanel == panelToggle && panelToggle != 'none' ? 'bg-violet-700 text-violet-200 hover:bg-violet-800 hover:text-violet-300' : ''"
       @click="updateToggledPanel(panelToggle)"
     >
       {{ panelToggle.substring(0, 3) }}

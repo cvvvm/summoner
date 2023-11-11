@@ -125,7 +125,7 @@
     >
       <MobSpecialAbilities
         v-show="toggledLocalPanel == 'abilities' && props.specialAbilities.length > 0"
-        class="py-3"
+        class="pb-4 pt-1"
         :special-abilities="props.specialAbilities"
       />
     </transition>
@@ -138,7 +138,7 @@
     >
       <MobActions
         v-show="toggledLocalPanel == 'actions' && props.actions.length > 0"
-        class="py-3"
+        class="pb-4 pt-1"
         :actions="props.actions"
       />
     </transition>
@@ -146,7 +146,7 @@
     <!-- actions (legendary) -->
     <MobActionsLegendary
       v-show="toggledLocalPanel == 'actions' && props.legendaryActions.length > 0"
-      class="py-3"
+      class="pb-4 pt-1"
       :legendary-actions="props.legendaryActions"
       :legendary-desc="props.legendaryDesc"
     />
@@ -162,7 +162,7 @@
         class="
         grid gap-2
         grid-cols-1
-        py-3"
+        pb-4 pt-1"
       >
         <MobAbilityScores
           :ability-scores="props.abilityScores"

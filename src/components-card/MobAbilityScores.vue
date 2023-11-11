@@ -11,7 +11,7 @@
     <!------------------------------------------------>
     <div
       class="
-      grid grid-cols-1 row-span-2
+      grid grid-cols-1
       gap-2
       "
     >
@@ -29,7 +29,7 @@
           grid grid-rows-2 place-items-center
           py-1 rounded-b-xl"
         >
-          <span class="text-lg text-neutral-200">
+          <span class="text-lg text-blue-300">
             {{ abilityRollResult[0] }}
           </span>
           <span class="text-sm text-neutral-300">
@@ -58,35 +58,19 @@
           <button
             class="
             overflow-hidden
-            grid grid-cols-2 p-0
-            rounded-lg
-          bg-neutral-950 hover:bg-neutral-900 active:bg-neutral-950
-          border-2 border-neutral-400"
+            grid grid-cols-2 gap-y-1
+            place-items-center place-content-center
+            py-2 rounded-lg
+            text-lg leading-none
+            bg-neutral-950 hover:bg-neutral-950 active:bg-neutral-950
+            border-2 border-blue-500 hover:border-blue-600"
             :class="abilityButtonHover"
             @click="abilityRoll(Math.floor((scoreValue.score - 10) / 2))"
           >
-            <!-- ability score -->
-            <div
-              class="
-              place-self-center
-              text-base
-              rounded-md"
-            >
-              {{ scoreValue.score }}
-            </div>
-            <!-- name + modifier -->
-            <div
-              class="
-              flex flex-col gap-1
-              place-content-center place-items-center
-              px-2 py-1.5
-              bg-neutral-400"
-            >
-              <span class="leading-none text-sm text-neutral-950">{{ abilityName }}</span>
-              <span class="pr-0.5 leading-none text-sm text-neutral-800">
-                {{ calcAbilityMod(scoreValue.score) }}
-              </span>
-            </div>
+            <!-- name, ability score, modifier -->
+            <span class="leading-none col-span-2 text-base text-neutral-400">{{ abilityName }}</span>
+            <span class="justify-self-end">{{ scoreValue.score }}</span>
+            <span class="justify-self-start pl-1 leading-none text-sm text-neutral-400 font-normal">{{ calcAbilityMod(scoreValue.score) }}</span>
           </button>
         </div>
       </div>
