@@ -124,7 +124,7 @@
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- cards scroll wrapper -->
     <div
-      ref="mobContainer"
+      id="mobContainer"
       class="
       order-2
       relative
@@ -139,7 +139,8 @@
         grid grid-cols-[repeat(auto-fit,_minmax(375px,400px))]
         place-content-center
         gap-4 md:gap-6
-        p-2 sm:px-4 mt-[4.5rem] sm:mt-20 mb-28"
+        p-2 sm:px-4 mt-[4.5rem] sm:mt-20 mb-28
+        transition-[margin_200ms_ease-out]"
       >
         <!-- mob cards -->
         <TransitionGroup name="mob-card">
@@ -207,11 +208,6 @@ const refreshTogglePanel = ref(0)
 const isSummonModalOpen = ref(false)
 const isDiceRollerOpen = ref(false)
 
-// show shadows on scroll
-const mobContainer = ref(null)
-// const mobFadeTop = ref(false)
-// const mobFadeBtm = ref(true)
-
 onMounted(() => {
   loadAllLocalSummonedList()
 })
@@ -222,12 +218,20 @@ onMounted(() => {
 // toggle summoning modal
 function toggleSummonModal () {
   isSummonModalOpen.value = !isSummonModalOpen.value
-  if (isDiceRollerOpen.value) isDiceRollerOpen.value = false
+  document.getElementById('cardsContainer').classList.toggle('[@media(min-width:800px)]:mr-[390px]')
+  if (isDiceRollerOpen.value) {
+    document.getElementById('cardsContainer').classList.toggle('[@media(min-width:700px)]:ml-[235px]')
+    isDiceRollerOpen.value = false
+  }
 }
 // toggle dice roller
 function toggleDiceRoller () {
   isDiceRollerOpen.value = !isDiceRollerOpen.value
-  if (isSummonModalOpen.value) isSummonModalOpen.value = false
+  document.getElementById('cardsContainer').classList.toggle('[@media(min-width:700px)]:ml-[235px]')
+  if (isSummonModalOpen.value) {
+    document.getElementById('cardsContainer').classList.toggle('[@media(min-width:800px)]:mr-[390px]')
+    isSummonModalOpen.value = false
+  }
 }
 
 // EDIT MOBS

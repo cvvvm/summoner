@@ -2,75 +2,80 @@
   <!-- roller card -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-  <!-- top-4 sm:top-20 [@media(min-width:1420px)]:top-4 -->
+  <!-- bottom-20 sm:bottom-[5.5rem] [@media(min-width:1150px)]:bottom-4 -->
   <div
     class="
+    pointer-events-none
     fixed z-[8000]
-    top-auto
-    bottom-20 sm:bottom-[5.5rem] [@media(min-width:1150px)]:bottom-4
-    right-2 xs:right-auto
-    left-2 xs:left-4
-    grid gap-2
-    max-w-[210px]
-    p-3 rounded-[2.25rem]
-    bg-neutral-950
-    border-2 border-solid border-orange-600
-    transition-[height_200ms_ease-in-out]"
+    top-0 bottom-0 left-0 right-0 [@media(min-width:500px)]:right-auto
+    flex items-center
+    pl-2 xs:pl-4"
   >
     <div
-      v-for="die, name in diceToRoll2"
-      :key="die"
-    >
-      <InputNumDice
-        :key="forceRefeshKey"
-        :die-type="parseInt(name)"
-        @update-dice-num="updateDiceNums"
-        @roll-single-die="rollSingleDie(parseInt(name))"
-      />
-    </div>
-
-    <!-- roll math -->
-    <!------------------------------------------------>
-    <div
       class="
+      pointer-events-auto
+      relative
+      grid gap-2
+      max-w-[215px]
+      p-3 rounded-[2.25rem]
+      bg-neutral-950
+      border-2 border-solid border-orange-600
+      transition-[height_200ms_ease-in-out]"
+    >
+      <div
+        v-for="die, name in diceToRoll2"
+        :key="die"
+      >
+        <InputNumDice
+          :key="forceRefeshKey"
+          :die-type="parseInt(name)"
+          @update-dice-num="updateDiceNums"
+          @roll-single-die="rollSingleDie(parseInt(name))"
+        />
+      </div>
+
+      <!-- roll math -->
+      <!------------------------------------------------>
+      <div
+        class="
       overflow-x-auto
       col-span-full
       h-min w-full
       px-4 py-2 rounded-xl
       text-sm break-normal whitespace-nowrap
       bg-neutral-950"
-    >
-      {{ diceRollMath }}
-    </div>
-    <!-- buttons container -->
-    <div
-      class="
+      >
+        {{ diceRollMath }}
+      </div>
+      <!-- buttons container -->
+      <div
+        class="
         grid grid-cols-[1fr,min-content] gap-2
         col-span-full
         p-2 rounded-full
         bg-neutral-700"
-    >
-      <!-- roll dice button -->
-      <button
-        class="
+      >
+        <!-- roll dice button -->
+        <button
+          class="
           justify-items-center
           py-2 px-4 rounded-xxxl
           text-neutral-950 hover:text-neutral-950 active:text-neutral-950
           bg-neutral-400 hover:bg-neutral-500 active:bg-neutral-600"
-        @click="rollAllDice"
-      >
-        roll
-      </button>
-      <!-- reset dice button -->
-      <button
-        class="icon-btn"
-        @click="resetDice"
-      >
-        <i class="bi bi-arrow-counterclockwise" />
-      </button>
+          @click="rollAllDice"
+        >
+          roll
+        </button>
+        <!-- reset dice button -->
+        <button
+          class="icon-btn"
+          @click="resetDice"
+        >
+          <i class="bi bi-arrow-counterclockwise" />
+        </button>
+      </div>
     </div>
-    <!-- end buttons + math container -->
-  </div> <!-- end roller card -->
+  </div>
 </template>
 
 <script setup>
