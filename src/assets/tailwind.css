@@ -78,15 +78,15 @@ button.base {
 }
 
 button.warn {
-  @apply font-bold
+  @apply font-medium
   py-2 px-3
-  text-yellow-950 hover:text-orange-950 active:text-red-950
-  bg-yellow-500 hover:bg-orange-600 active:bg-red-600
+  text-amber-950 hover:text-amber-950 active:text-amber-950
+  bg-amber-500 hover:bg-amber-600 active:bg-amber-700
   transition-colors;
 }
 
 button.danger {
-  @apply font-bold
+  @apply font-medium
   py-2 px-3
   text-red-200 hover:text-red-300 active:text-red-400
   bg-red-600 hover:bg-red-700 active:bg-red-800
@@ -106,18 +106,16 @@ button.danger {
 /*----------------------------------------------------------- */
 .panel-btn-active {
   @apply pb-2
-  text-yellow-950 hover:text-yellow-950
-  bg-yellow-600
-  hover:bg-yellow-700
-  /* shadow-[inset_0px_0px_3px_1px] shadow-yellow-900 */;
+  text-violet-200 hover:text-violet-300
+  bg-violet-600
+  hover:bg-violet-700;
 }
 
 .panel-btn-inactive {
   @apply pb-2
-  text-neutral-950
-  bg-neutral-400
-  hover:bg-neutral-600
-  /* shadow-[inset_0px_0px_3px_1px] shadow-neutral-950 */;
+  text-neutral-300
+  bg-neutral-800
+  hover:bg-neutral-900;
 }
 
 /* labels */
@@ -130,7 +128,7 @@ button.danger {
   pl-2 pr-2.5 py-1
   rounded-md
   text-neutral-950 font-medium tracking-[-.0125rem]
-bg-neutral-500
+bg-neutral-400
   border border-neutral-950
   transition-colors;
 }
@@ -142,8 +140,8 @@ bg-neutral-500
   items-center justify-start justify-items-start
   w-fit rounded-md
   text-sm text-neutral-300
-  bg-neutral-500
-  border-2 border-neutral-500
+  bg-neutral-400
+  border-2 border-neutral-400
   outline outline-1 outline-neutral-950
   overflow-hidden
   transition-colors;
@@ -153,7 +151,7 @@ bg-neutral-500
   self-stretch items-center
   pl-1.5 pr-2 py-0.5 rounded-none
   text-neutral-950 font-light tracking-[-.0125rem]
-  bg-neutral-500
+  bg-neutral-400
   border-none
   transition-colors;
 }
@@ -171,8 +169,8 @@ bg-neutral-500
   @apply flex flex-row flex-wrap
   items-center justify-start justify-items-start
   w-fit rounded-md
-  bg-neutral-500
-  border-4 border-neutral-500
+  bg-neutral-400
+  border-2 border-neutral-400
   outline outline-1 outline-neutral-950
   overflow-hidden
   transition-colors;
@@ -180,9 +178,9 @@ bg-neutral-500
 .title-content .title {
   @apply flex-auto
   self-stretch items-center
-  px-2 py-0.5 rounded-none
+  px-2 pt-0.5 pb-1 rounded-none
   text-neutral-950 font-light
-  bg-neutral-500
+  bg-neutral-400
   transition-colors;
 }
 .title-content .content {
@@ -245,11 +243,7 @@ bg-neutral-500
 }
 
 /* -------------------------------------------------------- */
-.val-md {
-  color: var(--text-color);
-  font-size: var(--h-size-sm);
-  font-weight: 600;
-}
+
 .val-sm {
   color: var(--text-color);
   font-size: var(--p-size-xs);

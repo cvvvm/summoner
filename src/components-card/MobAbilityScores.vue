@@ -17,22 +17,22 @@
     >
       <div
         class="
-            grid grid-rows-[min-content,_1fr] gap-1
-            rounded-xl
-          bg-neutral-700
-            border-shadow"
+        grid grid-rows-[min-content,_1fr]
+        rounded-xl
+        border-shadow
+        bg-neutral-950
+        "
       >
-        <span class="place-self-center px-5 pt-2 pb-1 text-neutral-400 text-sm">roll</span>
+        <span class="place-self-center px-5 pt-1 pb-0 text-neutral-400 text-sm font-light">roll</span>
         <span
           class="
           grid grid-rows-2 place-items-center
-          py-2 rounded-b-xl
-          bg-neutral-950"
+          py-1 rounded-b-xl"
         >
-          <span class="text-lg text-neutral-300">
+          <span class="text-lg text-neutral-200">
             {{ abilityRollResult[0] }}
           </span>
-          <span class="text-sm text-neutral-400">
+          <span class="text-sm text-neutral-300">
             {{ abilityRollResult[1] }}
           </span>
         </span>
@@ -57,33 +57,35 @@
           <!------------------------------------------------>
           <button
             class="
-            grid grid-cols-1 gap-1
-            justify-items-start items-center
-            p-2 pt-1.5 rounded-xl
-            bg-neutral-500"
+            overflow-hidden
+            grid grid-cols-2 p-0
+            rounded-lg
+          bg-neutral-950 hover:bg-neutral-900 active:bg-neutral-950
+          border-2 border-neutral-400"
             :class="abilityButtonHover"
             @click="abilityRoll(Math.floor((scoreValue.score - 10) / 2))"
           >
+            <!-- ability score -->
             <div
               class="
-            flex gap-1
-            justify-self-center items-baseline
-            rounded-sm
-            text-sm text-neutral-950"
-            >
-              {{ abilityName }}
-              <span class="text-sm text-neutral-800">
-                {{ calcAbilityMod(scoreValue.score) }}
-              </span>
-            </div>
-            <div
-              class="
-            justify-center justify-self-stretch
-            text-base
-            pt-1 pb-0.5 rounded-md
-            bg-neutral-950"
+              place-self-center
+              text-base
+              rounded-md"
             >
               {{ scoreValue.score }}
+            </div>
+            <!-- name + modifier -->
+            <div
+              class="
+              flex flex-col gap-1
+              place-content-center place-items-center
+              px-2 py-1.5
+              bg-neutral-400"
+            >
+              <span class="leading-none text-sm text-neutral-950">{{ abilityName }}</span>
+              <span class="pr-0.5 leading-none text-sm text-neutral-800">
+                {{ calcAbilityMod(scoreValue.score) }}
+              </span>
             </div>
           </button>
         </div>
@@ -97,8 +99,9 @@ import { ref } from 'vue'
 import { mobFunctions } from '@/functions/funcDiceRolls'
 
 const abilityRollResult = ref(0)
-const abilityButtonHover = ('hover:bg-neutral-600 ' +
-                            'active:bg-neutral-600 active:text-neutral-300 transition-colors')
+const abilityButtonHover = ('active:text-neutral-300 ' +
+                            'hover:bg-neutral-500 active:bg-neutral-600 ' +
+                            'transition-colors ')
 
 function abilityRoll (mod) {
   abilityRollResult.value = mobFunctions.rollDice(1, 20, mod)

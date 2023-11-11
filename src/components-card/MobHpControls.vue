@@ -59,7 +59,7 @@
           class="
         px-1 pt-0.5 rounded-lg
         text-center text-neutral-200
-        border-y-2 border-x border-neutral-900 hover:border-yellow-600
+        border-y-2 border-x border-neutral-900 hover:border-violet-600
         bg-neutral-950
         transition-colors"
         >

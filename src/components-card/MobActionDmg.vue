@@ -13,19 +13,21 @@
           overflow-clip"
     >
       <!-- hit col -->
-      <div>
-        hit: <span class="val-md">{{ hitResult }}</span>
+      <div class="text-sm font-light">
+        <span>hit: </span>
+        <span class="text-lg text-amber-400">{{ hitResult }}</span>
       </div>
 
       <!-- dmg col -->
-      <div>
-        dmg: <span class="val-md">{{ dmgResult }}</span>
+      <div class="text-sm font-light">
+        <span>dmg: </span>
+        <span class="text-lg text-amber-400">{{ dmgResult }}</span>
       </div>
     </div>
 
     <!-- atk roll button -->
     <button
-      class="hover:text-red-200 hover:bg-red-600 active:text-red-200 active:bg-red-700"
+      class="warn hover:text-red-200 hover:bg-red-600 active:text-red-200 active:bg-red-700"
       @click="rollAttackDmg(props.dice, numDmgs, props.dmgMod, props.hitMod)"
     >
       attack
