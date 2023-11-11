@@ -18,7 +18,7 @@
       gap-2
       h-min w-max max-w-[300px] xs:max-w-[450px]
       p-2 rounded-xl
-      border-2 border-solid border-orange-500
+      border-2 border-solid border-orange-600
       bg-neutral-600"
     >
       <div

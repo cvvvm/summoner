@@ -4,16 +4,17 @@
   <div
     class="
     fixed z-[10000]
-    top-4 sm:top-20
-    bottom-20 sm:bottom-24
+    top-4 sm:top-20 [@media(min-width:1420px)]:top-4
+    bottom-20 sm:bottom-24 [@media(min-width:1150px)]:bottom-4
     right-2 xs:right-4
     left-2 xs:left-auto
     grid gap-2
     grid-rows-[min-content,_min-content,_1fr]
     max-w-full xs:w-[450px]
-    p-2 rounded-xl
-    bg-neutral-950 border-2"
-    :class="isSearchOpen ? 'border-green-500 ' : 'border-pink-400 '"
+    p-2 rounded-xxl
+    bg-neutral-950 border-2
+    transition-[height_200ms_ease-in-out]"
+    :class="isSearchOpen ? 'border-green-500 ' : 'border-pink-500 '"
     @keydown.down="selectNextMobResult"
     @keydown.up="selectPrevMobResult"
   >

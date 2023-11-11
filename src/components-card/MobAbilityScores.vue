@@ -4,7 +4,7 @@
     flex flex-row
     gap-2 place-content-start
     p-2 rounded-xxl
-    bg-neutral-500
+    bg-neutral-800
     border-shadow"
   >
     <!-- roll math container -->
@@ -19,7 +19,7 @@
         class="
             grid grid-rows-[min-content,_1fr] gap-1
             rounded-xl
-          bg-neutral-800
+          bg-neutral-700
             border-shadow"
       >
         <span class="place-self-center px-5 pt-2 pb-1 text-neutral-400 text-sm">roll</span>
@@ -42,7 +42,7 @@
     <!-- ABILITY SCORES MAP -->
     <!------------------------------------------------>
     <!-- scores wrapper -->
-    <div class="grid grid-cols-3 gap-1 grow">
+    <div class="grid grid-cols-3 gap-2 grow">
       <div
         v-for="(ability, index) in props.abilityScores"
         :key="index"
@@ -60,7 +60,7 @@
             grid grid-cols-1 gap-1
             justify-items-start items-center
             p-2 pt-1.5 rounded-xl
-            bg-neutral-600"
+            bg-neutral-500"
             :class="abilityButtonHover"
             @click="abilityRoll(Math.floor((scoreValue.score - 10) / 2))"
           >
@@ -69,10 +69,10 @@
             flex gap-1
             justify-self-center items-baseline
             rounded-sm
-            text-sm text-neutral-200"
+            text-sm text-neutral-950"
             >
               {{ abilityName }}
-              <span class="text-sm text-neutral-300">
+              <span class="text-sm text-neutral-800">
                 {{ calcAbilityMod(scoreValue.score) }}
               </span>
             </div>
@@ -97,7 +97,7 @@ import { ref } from 'vue'
 import { mobFunctions } from '@/functions/funcDiceRolls'
 
 const abilityRollResult = ref(0)
-const abilityButtonHover = ('hover:bg-neutral-700 ' +
+const abilityButtonHover = ('hover:bg-neutral-600 ' +
                             'active:bg-neutral-600 active:text-neutral-300 transition-colors')
 
 function abilityRoll (mod) {

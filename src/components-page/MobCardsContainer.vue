@@ -109,7 +109,7 @@
         <!-- toggle summon menu -->
         <button
           class="px-5 py-3 sm:py-2 sm:px-4 rounded-full"
-          :class="isSummonModalOpen || summonedMobsList.length == 0 ?
+          :class="isSummonModalOpen ?
             'z-[9001] bg-green-500 text-green-950 hover:bg-green-600 hover:text-green-950'
             : 'bg-neutral-600 text-neutral-200 hover:bg-green-500 hover:text-green-950'"
           @click="toggleSummonModal()"

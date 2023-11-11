@@ -125,7 +125,7 @@
     >
       <MobSpecialAbilities
         v-show="toggledLocalPanel == 'abilities' && props.specialAbilities.length > 0"
-        class="py-2"
+        class="py-3"
         :special-abilities="props.specialAbilities"
       />
     </transition>
@@ -138,7 +138,7 @@
     >
       <MobActions
         v-show="toggledLocalPanel == 'actions' && props.actions.length > 0"
-        class="py-2"
+        class="py-3"
         :actions="props.actions"
       />
     </transition>
@@ -146,7 +146,7 @@
     <!-- actions (legendary) -->
     <MobActionsLegendary
       v-show="toggledLocalPanel == 'actions' && props.legendaryActions.length > 0"
-      class="py-2"
+      class="py-3"
       :legendary-actions="props.legendaryActions"
       :legendary-desc="props.legendaryDesc"
     />
@@ -162,43 +162,52 @@
         class="
         grid gap-2
         grid-cols-1
-        py-2"
+        py-3"
       >
         <MobAbilityScores
           :ability-scores="props.abilityScores"
           :ability-saves="props.abilitySaves"
         />
-        <MobBio
-          :size="props.size"
-          :type="props.type"
-          :alignment="props.alignment"
-          :challenge-rating="props.challengeRating"
-        />
-        <!-- details col 1 -->
-        <div class="grid gap-2 content-start">
-          <MobSenses
-            :senses="props.senses"
+        <div
+          class="
+          grid grid-cols-1 gap-2
+          p-2 rounded-lg
+          bg-neutral-800
+          border-shadow
+          "
+        >
+          <MobBio
+            :size="props.size"
+            :type="props.type"
+            :alignment="props.alignment"
+            :challenge-rating="props.challengeRating"
+          />
+          <!-- details col 1 -->
+          <div class="grid gap-2 content-start">
+            <MobSenses
+              :senses="props.senses"
+            />
+          </div>
+
+          <!-- details col 2 -->
+          <div class="grid gap-2 content-start">
+            <MobSpeed
+              :speed="props.speed"
+            />
+            <MobLanguages
+              :lang="props.lang"
+            />
+          </div>
+
+          <MobDefenses
+            v-if="props.damageVulnerabilities.length > 0 || props.damageResistances.length > 0 || props.damageImmunities.length > 0 || props.conditionImmunities.length > 0"
+            :damage-vulnerabilities="props.damageVulnerabilities"
+            :damage-resistances="props.damageResistances"
+            :damage-immunities="props.damageImmunities"
+            :condition-immunities="props.conditionImmunities"
+            class=""
           />
         </div>
-
-        <!-- details col 2 -->
-        <div class="grid gap-2 content-start">
-          <MobSpeed
-            :speed="props.speed"
-          />
-          <MobLanguages
-            :lang="props.lang"
-          />
-        </div>
-
-        <MobDefenses
-          v-if="props.damageVulnerabilities.length > 0 || props.damageResistances.length > 0 || props.damageImmunities.length > 0 || props.conditionImmunities.length > 0"
-          :damage-vulnerabilities="props.damageVulnerabilities"
-          :damage-resistances="props.damageResistances"
-          :damage-immunities="props.damageImmunities"
-          :condition-immunities="props.conditionImmunities"
-          class=""
-        />
       </div> <!-- end details  -->
     </transition>
   </div> <!-- card end -->
