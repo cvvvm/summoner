@@ -45,7 +45,7 @@
     <div
       class="
       pointer-events-none
-      fixed z-[9999] top-0
+      fixed z-[5000] top-0
       flex justify-center
       w-full
       pt-4
@@ -76,7 +76,7 @@
     <div
       class="
       pointer-events-none
-      fixed z-[9999] bottom-0
+      fixed z-[5000] bottom-0
       flex justify-center
       w-full
       pb-4
@@ -100,7 +100,7 @@
         <button
           class="px-5 py-3 sm:py-3 sm:px-4 rounded-full"
           :class="isDiceRollerOpen ?
-            'z-[9001] bg-orange-500 text-orange-950 hover:bg-orange-600 hover:text-orange-950'
+            'z-[5001] bg-orange-500 text-orange-950 hover:bg-orange-600 hover:text-orange-950'
             : 'bg-neutral-600 text-neutral-200 hover:bg-orange-500 hover:text-orange-950'"
           @click="toggleDiceRoller"
         >
@@ -110,7 +110,7 @@
         <button
           class="px-5 py-3 sm:py-2 sm:px-4 rounded-full"
           :class="isSummonModalOpen ?
-            'z-[9001] bg-green-500 text-green-950 hover:bg-green-600 hover:text-green-950'
+            'z-[5001] bg-green-500 text-green-950 hover:bg-green-600 hover:text-green-950'
             : 'bg-neutral-600 text-neutral-200 hover:bg-green-500 hover:text-green-950'"
           @click="toggleSummonModal()"
         >

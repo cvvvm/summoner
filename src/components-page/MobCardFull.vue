@@ -29,12 +29,38 @@
     >
       <div
         class="relative w-fit max-w-[95vw] h-fit max-h-[95vh]
-            grid grid-cols-1 md:grid-cols-[minmax(425px,_500px)_minmax(300px,_500px)]
+            grid grid-cols-1 md:grid-cols-[400px_minmax(300px,_500px)]
             gap-x-4 gap-y-12 lg:gap-x-8 lg:gap-y-0
             content-start items-start
-            p-4 rounded-xl
-            bg-neutral-700"
+            p-4 rounded-xxxl
+            bg-neutral-700
+            border-8 border-neutral-800"
       >
+        <!-- close + name container -->
+        <div
+          class="
+          flex justify-between items-end
+          col-span-2
+          pb-4 pl-4"
+        >
+          <!-- name -->
+          <h1
+            class="
+            text-center
+            text-xxl font-normal text-neutral-200"
+          >
+            {{ props.name }}
+          </h1>
+          <!-- close button -->
+          <button
+            class="
+              justify-self-center self-start
+              icon-btn"
+            @click="toggleFullCard()"
+          >
+            <i class="bi bi-arrows-angle-contract" />
+          </button>
+        </div>
         <!--  COLUMN 1  -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -45,30 +71,6 @@
                 px-1
                 overflow-y-auto h-full"
         >
-          <!-- close + name container -->
-          <div
-            class="flex sticky top-0"
-          >
-            <!-- close button -->
-            <button
-              class="
-              justify-self-center self-start
-              icon-btn"
-              @click="toggleFullCard()"
-            >
-              <i class="bi bi-arrows-angle-contract" />
-            </button>
-
-            <!-- name -->
-            <h1
-              class="flex-grow
-                text-center
-                text-xxl text-neutral-200"
-            >
-              {{ props.name }}
-            </h1>
-          </div>
-
           <!-- armor, HP -->
           <div class="grid grid-cols-2 gap-4">
             <MobArmor :armor="props.armor" />
@@ -89,17 +91,14 @@
             :alignment="props.alignment"
             :challenge-rating="props.challengeRating"
           />
-          <!-- details sub grid -->
-          <!------------------------------------------------>
-          <div class="grid grid-cols-[.8fr_1fr] gap-4 gap-y-2">
-            <div class="grid gap-4 gap-y-2 content-start">
-              <MobSenses :senses="props.senses" />
-            </div>
-            <div class="grid gap-4 gap-y-2 content-start">
-              <MobSpeed :speed="props.speed" />
-              <MobLanguages :lang="props.lang" />
-            </div>
+          <div class="grid gap-4 gap-y-2 content-start">
+            <MobSenses :senses="props.senses" />
           </div>
+          <div class="grid gap-4 gap-y-2 content-start">
+            <MobSpeed :speed="props.speed" />
+            <MobLanguages :lang="props.lang" />
+          </div>
+
           <MobDefenses
             :damage-vulnerabilities="props.damageVulnerabilities"
             :damage-resistances="props.damageResistances"
@@ -112,20 +111,28 @@
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div
-          class="grid gap-4
-                max-h-[90vh]
-                items-start
-                overflow-y-auto"
+          class="
+          relative
+          grid gap-4
+          max-h-[90vh]
+          items-start
+          overflow-y-auto
+          px-1 pb-8"
         >
           <!-- toggle buttons -->
           <div
-            class="sticky top-0
-                    flex justify-center
-                    gap-4
-                    pt-4 pb-4"
+            class="
+            sticky top-0 z-10
+            flex justify-center
+            w-full
+            gap-2
+            pb-2
+            bg-neutral-700
+            outline outline-4 outline-neutral-700
+            "
           >
             <button
-              v-show="props.actions"
+              v-show="props.actions.length > 0"
               class="flex-1"
               :class="toggledLocalPanel == 'actions' ? 'panel-btn-active' : 'panel-btn-inactive'"
               @click="toggledLocalPanel = 'actions'"
@@ -133,7 +140,7 @@
               actions
             </button>
             <button
-              v-show="props.specialAbilities"
+              v-show="props.specialAbilities.length > 0"
               class="flex-1"
               :class="toggledLocalPanel == 'abilities' ? 'panel-btn-active' : 'panel-btn-inactive'"
               @click="toggledLocalPanel = 'abilities'"
@@ -150,7 +157,8 @@
             />
             <!-- actions (legendary) -->
             <MobActionsLegendary
-              class="pt-8"
+              v-show="props.legendaryActions > 0"
+              class="pt-4"
               :legendary-actions="props.legendaryActions"
               :legendary-desc="props.legendaryDesc"
             />
@@ -175,7 +183,7 @@
   >
     <div
       v-show="isFullCardOpen"
-      class="fixed z-[8000]
+      class="fixed z-[9000]
     flex
     place-content-center place-items-center
     top-0 bottom-0 left-0 right-0

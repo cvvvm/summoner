@@ -3,7 +3,7 @@
   <!------------------------------------------------>
   <div
     class="
-    fixed z-[10000]
+    fixed z-[8000]
     top-4 sm:top-20 [@media(min-width:1420px)]:top-4
     bottom-20 sm:bottom-24 [@media(min-width:1150px)]:bottom-4
     right-2 xs:right-4

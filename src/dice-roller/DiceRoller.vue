@@ -3,7 +3,7 @@
   <div
     class="
     pointer-events-none
-    fixed bottom-20 sm:bottom-24 z-[9000]
+    fixed bottom-20 sm:bottom-24 z-[4000]
     flex place-content-center place-items-center
     w-full"
   >

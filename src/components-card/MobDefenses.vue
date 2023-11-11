@@ -7,12 +7,14 @@
       class="label-val"
     >
       <span class="label">damage vulnerabilities:</span>
-      <span
-        v-for="def in props.damageVulnerabilities"
-        :key="def"
-        class="val"
-      >
-        {{ def }}
+      <span class="val flex flex-col gap-2">
+
+        <span
+          v-for="def in props.damageVulnerabilities"
+          :key="def"
+        >
+          {{ def }}
+        </span>
       </span>
     </div>
 
@@ -22,12 +24,14 @@
       class="label-val"
     >
       <span class="label">damage resistances</span>
-      <span
-        v-for="def in props.damageResistances"
-        :key="def"
-        class="val"
-      >
-        {{ def }}
+      <span class="val flex flex-col gap-2">
+
+        <span
+          v-for="def in props.damageResistances"
+          :key="def"
+        >
+          {{ def }}
+        </span>
       </span>
     </div>
 
@@ -37,12 +41,14 @@
       class="label-val"
     >
       <span class="label">damage immunities</span>
-      <span
-        v-for="def in props.damageImmunities"
-        :key="def"
-        class="val"
-      >
-        {{ def }}
+      <span class="val flex flex-col gap-2">
+
+        <span
+          v-for="def in props.damageImmunities"
+          :key="def"
+        >
+          {{ def }}
+        </span>
       </span>
     </div>
 
@@ -52,12 +58,14 @@
       class="label-val"
     >
       <span class="label">condition immunities</span>
-      <span
-        v-for="def in props.conditionImmunities"
-        :key="def"
-        class="val"
-      >
-        {{ def.name.toLowerCase() }}
+      <span class="val flex flex-col gap-2">
+
+        <span
+          v-for="def in props.conditionImmunities"
+          :key="def"
+        >
+          {{ def.name.toLowerCase() }}
+        </span>
       </span>
     </div>
   </div>
