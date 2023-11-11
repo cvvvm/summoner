@@ -222,7 +222,7 @@ import MobCardFull from './MobCardFull'
 
 import MobBio from '../components-card/MobBio.vue'
 import MobHpControls from '../components-card/MobHpControls.vue'
-import MobAbilityScores from '../components-card/MobAbilityScores.vue'
+import MobAbilityScores from '../components-card/MobAbilityScores'
 import MobArmor from '../components-card/MobArmor.vue'
 import MobDefenses from '../components-card/MobDefenses.vue'
 import MobSpecialAbilities from '../components-card/MobSpecialAbilities.vue'

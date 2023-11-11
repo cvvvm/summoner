@@ -62,8 +62,8 @@ button {
   @apply font-normal leading-none
   py-2 px-3 rounded-xxl
   text-sm
-  text-neutral-300 hover:text-neutral-200
-  bg-neutral-600 hover:bg-neutral-700
+  text-neutral-300 hover:text-neutral-200 active:text-neutral-300
+  bg-neutral-600 hover:bg-neutral-500 active:bg-neutral-600
   border border-neutral-950
   /* shadow-[inset_0px_0px_3px_1px] shadow-neutral-950 */
   transition-colors;
@@ -98,24 +98,23 @@ button.danger {
 .icon-btn {
   @apply h-[36px] w-[36px]
   p-2 rounded-full
-  text-neutral-200 text-base leading-none
-  bg-neutral-800;
+  text-base leading-none
+  text-neutral-200 hover:text-neutral-100 active:text-neutral-200
+  bg-neutral-800 hover:bg-neutral-600 active:bg-neutral-800;
 }
 
 /* panel toggles */
 /*----------------------------------------------------------- */
 .panel-btn-active {
   @apply pb-2
-  text-violet-200 hover:text-violet-300
-  bg-violet-700
-  hover:bg-violet-800;
+  text-violet-200 hover:text-violet-100 active:text-violet-200
+  bg-violet-700 hover:bg-violet-600 active:bg-violet-700;
 }
 
 .panel-btn-inactive {
   @apply pb-2
-  text-neutral-300
-  bg-neutral-800
-  hover:bg-neutral-900;
+  text-neutral-300 hover:text-neutral-200 active:text-neutral-300
+  bg-neutral-800 hover:bg-neutral-600 active:bg-neutral-600;
 }
 
 /* labels */

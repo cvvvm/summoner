@@ -13,13 +13,13 @@
     <div
       class="
       pointer-events-auto
-      grid grid-cols-2 xs:grid-cols-3
+      grid grid-cols-4 xs:grid-cols-7
       items-center justify-between
       gap-2
-      h-min w-max max-w-[300px] xs:max-w-[450px]
-      p-2 rounded-xl
+      h-min max-w-[95%] xs:max-w-[600px]
+      p-3 rounded-xxxl
       border-2 border-solid border-orange-600
-      bg-neutral-600"
+      bg-neutral-950"
     >
       <div
         v-for="die, name in diceToRoll2"
@@ -36,9 +36,10 @@
       <!-- buttons + math container -->
       <div
         class="
-        grid grid-cols-[1fr,min-content] gap-1
-        col-span-2
-        pt-1"
+        grid grid-cols-[1fr,min-content] gap-2
+        col-span-full
+        p-2 rounded-xl
+        bg-neutral-700"
       >
         <!-- roll math -->
         <!------------------------------------------------>
@@ -47,15 +48,20 @@
           overflow-x-auto break-normal whitespace-nowrap
           col-span-full
           h-min w-full
-          px-4 py-2 rounded-md
+          px-4 py-2 rounded-xl
           text-sm
           bg-neutral-950"
         >
           {{ diceRollMath }}
         </div>
+
         <!-- roll dice button -->
         <button
-          class="py-2 px-4 rounded-xxxl justify-items-center"
+          class="
+          justify-items-center
+          py-2 px-4 rounded-xxxl
+          text-neutral-950 hover:text-neutral-950 active:text-neutral-950
+          bg-neutral-400 hover:bg-neutral-500 active:bg-neutral-600"
           @click="rollAllDice"
         >
           roll

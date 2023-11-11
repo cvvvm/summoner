@@ -29,7 +29,7 @@
           grid grid-rows-2 place-items-center
           py-1 rounded-b-xl"
         >
-          <span class="text-lg text-blue-400">
+          <span class="text-lg text-yellow-500">
             {{ abilityRollResult[0] }}
           </span>
           <span class="text-sm text-neutral-300">
@@ -68,7 +68,7 @@
             @click="abilityRoll(Math.floor((scoreValue.score - 10) / 2))"
           >
             <!-- name, ability score, modifier -->
-            <span class="leading-none col-span-2 text-base text-blue-400">{{ abilityName }}</span>
+            <span class="leading-none col-span-2 text-base text-yellow-500">{{ abilityName }}</span>
             <span class="justify-self-end">{{ scoreValue.score }}</span>
             <span class="justify-self-start pl-1 leading-none text-sm text-neutral-400 font-normal">{{ calcAbilityMod(scoreValue.score) }}</span>
           </button>
