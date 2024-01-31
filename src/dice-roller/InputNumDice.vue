@@ -1,8 +1,8 @@
 <template>
   <div
-    class="flex flex-row gap-1
+    class="flex flex-row gap-1.5
             items-center content-center
-            p-1 rounded-full
+            p-1 pr-2 rounded-full
             bg-neutral-700
             border-2
             transition-colors
@@ -11,8 +11,8 @@
   >
     <button
       class="
-      w-[54px] min-w-[54px]
-      px-2 mr-1 rounded-lg rounded-s-xxxl
+      w-[64px] min-w-[64px]
+      px-2 mr-4 rounded-xxxl
       text-sm tracking-wide
       text-orange-950 hover:text-orange-900 active:text-orange-950
       bg-orange-500 hover:bg-orange-400 active:bg-orange-500"

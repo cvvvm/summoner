@@ -28,14 +28,14 @@
       >
         {{ props.name }}
       </h1>
-      <!-- clone / dupe -->
+      <!-- clone / banish -->
       <div
         class="flex flex-row gap-2 justify-end items-center"
       >
         <!-- FULL CARD -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <MobCardFull
+        <!--    <MobCardFull
           :mob-index="props.mobIndex"
           :name="props.name"
           :alignment="props.alignment"
@@ -57,7 +57,7 @@
           :senses="props.senses"
           :lang="props.lang"
           @pass-hp-card="updateHpVal($event)"
-        />
+        /> -->
         <CloneMob
           :mob-index="props.mobIndex"
           :url="props.url"
@@ -218,7 +218,7 @@ import { ref } from 'vue'
 
 import BanishMob from '../components-functions/BanishMob'
 import CloneMob from '@/components-functions/CloneMob'
-import MobCardFull from './MobCardFull'
+// import MobCardFull from './MobCardFull'
 
 import MobBio from '../components-card/MobBio.vue'
 import MobHpControls from '../components-card/MobHpControls.vue'

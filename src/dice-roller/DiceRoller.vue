@@ -16,7 +16,7 @@
       pointer-events-auto
       relative
       grid gap-2
-      max-w-[215px]
+      max-w-[250px]
       p-3 rounded-[2.25rem]
       bg-neutral-950
       border-2 border-solid border-orange-600
