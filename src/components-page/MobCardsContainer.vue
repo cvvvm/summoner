@@ -48,7 +48,7 @@
       fixed z-[5000] top-0
       flex justify-center
       w-full
-      pt-4
+      pt-0
       bg-gradient-to-b from-neutral-950
       "
     >
@@ -59,7 +59,7 @@
         flex gap-4 sm:gap-8
         place-content-between sm:place-content-center items-center
         px-2 py-1.5 sm:p-3 sm:py-2.5
-        rounded-xxxl
+        rounded-b-[20px] sm:rounded-b-xxxl
         bg-neutral-500
         border-shadow"
       >
