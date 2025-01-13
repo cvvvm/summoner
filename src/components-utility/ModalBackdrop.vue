@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-defineProps({
+defineProps( {
   closeEmit: { type: String, default: '' }
-})
+} )
 </script>

@@ -12,11 +12,11 @@
 </template>
 
 <script setup>
-defineEmits(['passMob'])
-defineProps({
+defineEmits( ['passMob'] )
+defineProps( {
   mobIndex: { type: Number, default: 0 },
   url: { type: String, default: '' }
-})
+} )
 
 </script>
 

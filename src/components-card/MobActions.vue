@@ -18,7 +18,7 @@
         class="content
       flex flex-col gap-2"
       >
-        <p class="text-red-500">{{ processAtkText(action.desc.toLowerCase()) }}</p>
+        <p class="text-red-500">{{ processAtkText( action.desc.toLowerCase() ) }}</p>
 
         <!-- desc (no attack) -->
         <!------------------------------------------------>
@@ -64,7 +64,11 @@
 
         <div v-if="action.usage">
           <p v-if="action.usage.dice">
-            {{ action.usage.type }} of <span class="val-sm">{{ action.usage.min_value }}</span> with <span class="val-sm">{{ action.usage.dice }}</span>
+            {{ action.usage.type }} of <span class="val-sm">{{
+              action.usage.min_value
+            }}</span> with <span class="val-sm">{{
+              action.usage.dice
+            }}</span>
           </p>
 
           <!-- usage per day -->
@@ -87,9 +91,9 @@
         <!-- DMG -->
         <div v-if="atkObj.dice">
           <MobActionDmg
-            :hit-mod="atkObj.hitMod"
             :dice="atkObj.dice.split('+')"
             :dmg-mod="atkObj.dmgMod"
+            :hit-mod="atkObj.hitMod"
           />
         </div>
       </span>
@@ -100,113 +104,117 @@
 <script setup>
 import MobActionDmg from './MobActionDmg.vue'
 
-const props = defineProps({
-  actions: { type: Object, default: () => { } }
-})
-const atkObj = ({ type: '', hitMod: 0, dmgMod: 0, range: '', numTargets: '', dice: '', dmgTypes: '', saveThrow: '' })
+const props = defineProps( {
+  actions: {
+    type: Object,
+    default: () => {
+    }
+  }
+} )
+const atkObj = ( { type: '', hitMod: 0, dmgMod: 0, range: '', numTargets: '', dice: '', dmgTypes: '', saveThrow: '' } )
 
 // process actions attack text
 // ------------------------------------------------------------------------------------
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // 1. find atk type
-function findAtkType (s) {
-  if (s.match(/.* or .* weapon attack/)) {
+function findAtkType ( s ) {
+  if ( s.match( /.* or .* weapon attack/ ) ) {
     const atkType = 'melee/ranged'
     return atkType
-  } else if (s.includes('melee weapon attack')) {
+  } else if ( s.includes( 'melee weapon attack' ) ) {
     const atkType = 'melee'
     return atkType
-  } else if (s.includes('ranged weapon attack')) {
+  } else if ( s.includes( 'ranged weapon attack' ) ) {
     const atkType = 'ranged'
     return atkType
   }
 }
 
 // 2. find hit bonus
-function findHitBon (s) {
-  if (s.match(/\+.*to hit/)) {
-    return s.replace('+', '').replace(/ to hit.*/, '')
+function findHitBon ( s ) {
+  if ( s.match( /\+.*to hit/ ) ) {
+    return s.replace( '+', '' ).replace( / to hit.*/, '' )
   }
 }
 
 // 3. find reach/range
-function findAtkReach (s) {
-  if (s.match(/reach.*ft/)) {
-    return s.replace(/reach /, '').replace(/ ft.*/, '')
-  } else if (s.match(/range.*ft/)) {
-    return s.replace(/range /, '').replace(/ ft.*/, '').replace('/', '-')
-  } else if (s.match(/ ft/)) {
-    return s.replace(/ ft.*/, '').replace('/', '-')
+function findAtkReach ( s ) {
+  if ( s.match( /reach.*ft/ ) ) {
+    return s.replace( /reach /, '' ).replace( / ft.*/, '' )
+  } else if ( s.match( /range.*ft/ ) ) {
+    return s.replace( /range /, '' ).replace( / ft.*/, '' ).replace( '/', '-' )
+  } else if ( s.match( / ft/ ) ) {
+    return s.replace( / ft.*/, '' ).replace( '/', '-' )
   }
 }
 
 // 4. find num atk targets
-function findNumAtkTargets (s) {
-  if (s.match(/ target/)) return s.replace(/ target.*| targets.*| creature.*| creatures.*/, '')
+function findNumAtkTargets ( s ) {
+  if ( s.match( / target/ ) ) return s.replace( / target.*| targets.*| creature.*| creatures.*/, '' )
 }
 
 // 5. find dmg dice
-function findDmgDice (s) {
-  s = s.replace(' + ', '+')
-  return s.match(/\(\d{1,2}d\d{1,2}(?:|\+\d{1,2})\) \w+/gm)
+function findDmgDice ( s ) {
+  s = s.replace( ' + ', '+' )
+  return s.match( /\(\d{1,2}d\d{1,2}(?:|\+\d{1,2})\) \w+/gm )
 }
 
 // 6. find dmg type
-function findDmgTypes (o) {
+function findDmgTypes ( o ) {
   const diceArray = []
   const dmgTypesArray = []
-  if (o) {
-    for (let i = 0; i < o.length; i++) {
-      const splitArray = o[i].split(' ')
-      diceArray.push(splitArray[0].replace(/\(|\)/gm, ''))
-      dmgTypesArray.push(splitArray[1])
+  if ( o ) {
+    for ( let i = 0; i < o.length; i++ ) {
+      const splitArray = o[i].split( ' ' )
+      diceArray.push( splitArray[0].replace( /\(|\)/gm, '' ) )
+      dmgTypesArray.push( splitArray[1] )
     }
   }
   return [diceArray, dmgTypesArray]
 }
 
 // 7. find save
-function findSaveThrow (o) {
-  const foundMatch = o.match(/dc \d{1,3} .../)
-  if (foundMatch) {
-    return foundMatch[0].replace(/ saving.*| check.*| save.*/, '').replace('dc ', '')
+function findSaveThrow ( o ) {
+  const foundMatch = o.match( /dc \d{1,3} .../ )
+  if ( foundMatch ) {
+    return foundMatch[0].replace( / saving.*| check.*| save.*/, '' ).replace( 'dc ', '' )
   }
 }
 
 // final: process atk
 // -----------------------------------------------------------
-function processAtkText (a) {
+function processAtkText ( a ) {
   // remove difficult characters
-  let processStr = a.replace(/'/, ' ft').replace(/[^a-z | \d | + | / | ( | ) ]/g, '')
+  let processStr = a.replace( /'/, ' ft' ).replace( /[^a-z | \d | + | / | ( | ) ]/g, '' )
 
   // 1
-  const atkType = findAtkType(processStr)
-  processStr = processStr.replace(/.* weapon attack | .* or .* weapon attack/, '')
+  const atkType = findAtkType( processStr )
+  processStr = processStr.replace( /.* weapon attack | .* or .* weapon attack/, '' )
   atkObj.type = atkType
 
   // 2
-  const hitBon = findHitBon(processStr)
-  processStr = processStr.replace('+' + hitBon + ' to hit ', '')
-  atkObj.hitMod = parseInt(hitBon)
+  const hitBon = findHitBon( processStr )
+  processStr = processStr.replace( '+' + hitBon + ' to hit ', '' )
+  atkObj.hitMod = parseInt( hitBon )
 
   // 3
-  const atkRange = findAtkReach(processStr)
-  processStr = processStr.replace(atkRange + ' ft ', '').replace('range ', '').replace('reach ', '')
+  const atkRange = findAtkReach( processStr )
+  processStr = processStr.replace( atkRange + ' ft ', '' ).replace( 'range ', '' ).replace( 'reach ', '' )
   atkObj.range = atkRange
 
   // 4
-  const numTarget = findNumAtkTargets(processStr)
-  processStr = processStr.replace(numTarget + ' target ', '').replace('hit ', '')
+  const numTarget = findNumAtkTargets( processStr )
+  processStr = processStr.replace( numTarget + ' target ', '' ).replace( 'hit ', '' )
   atkObj.numTargets = numTarget
 
   // 5 + 6
-  const diceDmgs = findDmgTypes(findDmgDice(processStr))
-  atkObj.dice = diceDmgs[0].join('+').replace(/\+\d{1,3}/, '')
-  atkObj.dmgTypes = diceDmgs[1].join(', ')
-  atkObj.dmgMod = parseInt(diceDmgs[0].join('+').replace(/\d{1,3}d\d{1,3}\+/, '').replace(/\+\d{1,3}d\d{1,3}/, ''))
+  const diceDmgs = findDmgTypes( findDmgDice( processStr ) )
+  atkObj.dice = diceDmgs[0].join( '+' ).replace( /\+\d{1,3}/, '' )
+  atkObj.dmgTypes = diceDmgs[1].join( ', ' )
+  atkObj.dmgMod = parseInt( diceDmgs[0].join( '+' ).replace( /\d{1,3}d\d{1,3}\+/, '' ).replace( /\+\d{1,3}d\d{1,3}/, '' ) )
 
   // 7
-  const saveThrow = findSaveThrow(processStr)
+  const saveThrow = findSaveThrow( processStr )
   atkObj.saveThrow = saveThrow
 
   // console.log('looped')
@@ -215,18 +223,18 @@ function processAtkText (a) {
 
 <style>
 
-  .action-block {
-      display: grid;
-      gap: var(--space-md);
-      padding: var(--space-md);
-      border-radius: var(--space-xs);
-      place-content: start stretch;
-      place-items: start stretch;
-  }
+.action-block {
+  display:       grid;
+  place-content: start stretch;
+  place-items:   start stretch;
+  padding:       var(--space-md);
+  border-radius: var(--space-xs);
+  gap:           var(--space-md);
+}
 
-  .action-desc-block {
-      display: grid;
-      gap: var(--space-md);
-      color: var(--grey-lt);
-  }
+.action-desc-block {
+  display: grid;
+  color:   var(--grey-lt);
+  gap:     var(--space-md);
+}
 </style>

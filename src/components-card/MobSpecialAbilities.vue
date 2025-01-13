@@ -2,8 +2,7 @@
   <!-- SPECIAL ABILITIES -->
   <div class="grid grid-cols-1 items-start justify-items-stretch gap-4">
     <!-- abilities map -->
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-------------------------------------------------->
     <div
       v-for="ability in props.specialAbilities"
       :key="ability"
@@ -30,21 +29,20 @@
 </template>
 
 <script setup>
-const props = defineProps({
+const props = defineProps( {
   specialAbilities: { type: Array, default: () => [''] }
-})
+} )
 
 </script>
 
 <style>
-
-  .sp-ability-block {
-    display: grid;
-    gap: var(--space-md);
-    place-content: start;
-    padding: var(--space-md);
-    border-radius: var(--space-xs);
-    background: var(--grey-dk);
-  }
+.sp-ability-block {
+  display:       grid;
+  place-content: start;
+  padding:       var(--space-md);
+  border-radius: var(--space-xs);
+  background:    var(--grey-dk);
+  gap:           var(--space-md);
+}
 
 </style>

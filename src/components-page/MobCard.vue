@@ -89,26 +89,26 @@
     <div class="flex gap-2">
       <button
         v-show="props.actions.length > 0 || props.legendaryActions.length > 0"
+        :class="toggledLocalPanel === 'actions' ? 'panel-btn-active' : 'panel-btn-inactive'"
         class="flex-1"
-        :class="toggledLocalPanel == 'actions' ? 'panel-btn-active' : 'panel-btn-inactive'"
-        @click="toggledLocalPanel == 'actions' ? toggledLocalPanel = '' : toggledLocalPanel = 'actions'"
+        @click="toggledLocalPanel === 'actions' ? toggledLocalPanel = '' : toggledLocalPanel = 'actions'"
       >
         actions
       </button>
 
       <button
         v-show="props.specialAbilities.length > 0"
+        :class="toggledLocalPanel === 'abilities' ? 'panel-btn-active' : 'panel-btn-inactive'"
         class="flex-1"
-        :class="toggledLocalPanel == 'abilities' ? 'panel-btn-active' : 'panel-btn-inactive'"
-        @click="toggledLocalPanel == 'abilities' ? toggledLocalPanel = '' : toggledLocalPanel = 'abilities'"
+        @click="toggledLocalPanel === 'abilities' ? toggledLocalPanel = '' : toggledLocalPanel = 'abilities'"
       >
         abilities
       </button>
 
       <button
+        :class="toggledLocalPanel === 'details' ? 'panel-btn-active' : 'panel-btn-inactive'"
         class="flex-1"
-        :class="toggledLocalPanel == 'details' ? 'panel-btn-active' : 'panel-btn-inactive'"
-        @click="toggledLocalPanel == 'details' ? toggledLocalPanel = '' : toggledLocalPanel = 'details'"
+        @click="toggledLocalPanel === 'details' ? toggledLocalPanel = '' : toggledLocalPanel = 'details'"
       >
         details
       </button>
@@ -121,53 +121,53 @@
     <!------------------------------------------------>
 
     <transition
-      name="slide-down"
       appear
+      name="slide-down"
     >
       <MobSpecialAbilities
-        v-show="toggledLocalPanel == 'abilities' && props.specialAbilities.length > 0"
-        class="pb-4 pt-1"
+        v-show="toggledLocalPanel === 'abilities' && props.specialAbilities.length > 0"
         :special-abilities="props.specialAbilities"
+        class="pb-4 pt-1"
       />
     </transition>
 
     <!-- actions -->
     <!------------------------------------------------>
     <transition
-      name="slide-down"
       appear
+      name="slide-down"
     >
       <MobActions
-        v-show="toggledLocalPanel == 'actions' && props.actions.length > 0"
-        class="pb-4 pt-1"
+        v-show="toggledLocalPanel === 'actions' && props.actions.length > 0"
         :actions="props.actions"
+        class="pb-4 pt-1"
       />
     </transition>
 
     <!-- actions (legendary) -->
     <MobActionsLegendary
-      v-show="toggledLocalPanel == 'actions' && props.legendaryActions.length > 0"
-      class="pb-4 pt-1"
+      v-show="toggledLocalPanel === 'actions' && props.legendaryActions.length > 0"
       :legendary-actions="props.legendaryActions"
       :legendary-desc="props.legendaryDesc"
+      class="pb-4 pt-1"
     />
 
     <!-- details-->
     <!------------------------------------------------>
     <transition
-      name="slide-down"
       appear
+      name="slide-down"
     >
       <div
-        v-show="toggledLocalPanel == 'details'"
+        v-show="toggledLocalPanel === 'details'"
         class="
         grid gap-2
         grid-cols-1
         pb-4 pt-1"
       >
         <MobAbilityScores
-          :ability-scores="props.abilityScores"
           :ability-saves="props.abilitySaves"
+          :ability-scores="props.abilityScores"
         />
         <div
           class="
@@ -178,10 +178,10 @@
           "
         >
           <MobBio
-            :size="props.size"
-            :type="props.type"
             :alignment="props.alignment"
             :challenge-rating="props.challengeRating"
+            :size="props.size"
+            :type="props.type"
           />
           <!-- details col 1 -->
           <div class="grid gap-2 content-start">
@@ -202,10 +202,10 @@
 
           <MobDefenses
             v-if="props.damageVulnerabilities.length > 0 || props.damageResistances.length > 0 || props.damageImmunities.length > 0 || props.conditionImmunities.length > 0"
-            :damage-vulnerabilities="props.damageVulnerabilities"
-            :damage-resistances="props.damageResistances"
-            :damage-immunities="props.damageImmunities"
             :condition-immunities="props.conditionImmunities"
+            :damage-immunities="props.damageImmunities"
+            :damage-resistances="props.damageResistances"
+            :damage-vulnerabilities="props.damageVulnerabilities"
             class=""
           />
         </div>
@@ -233,9 +233,9 @@ import MobLanguages from '../components-card/MobLanguages.vue'
 import MobActions from '../components-card/MobActions.vue'
 import MobActionsLegendary from '../components-card/MobActionsLegendary.vue'
 
-defineEmits(['passMob'])
+defineEmits( ['passMob'] )
 
-const props = defineProps({
+const props = defineProps( {
   toggleGlobalCardPanel: { type: String, default: '' },
   mobIndex: { type: Number, default: 0 },
 
@@ -247,23 +247,51 @@ const props = defineProps({
   xpGained: { type: Number, default: 0 },
   challengeRating: { type: Number, default: 0 },
   baseHp: { type: Number, default: 0 },
-  armor: { type: Object, default: () => {} },
-  abilityScores: { type: Object, default: () => {} },
-  abilitySaves: { type: Object, default: () => {} },
-  speed: { type: Object, default: () => {} },
+  armor: {
+    type: Object,
+    default: () => {
+    }
+  },
+  abilityScores: {
+    type: Object,
+    default: () => {
+    }
+  },
+  abilitySaves: {
+    type: Object,
+    default: () => {
+    }
+  },
+  speed: {
+    type: Object,
+    default: () => {
+    }
+  },
   senses: { type: String, default: '' },
   damageVulnerabilities: { type: String, default: '' },
   damageResistances: { type: String, default: '' },
   damageImmunities: { type: String, default: '' },
   conditionImmunities: { type: String, default: '' },
-  specialAbilities: { type: Object, default: () => {} },
+  specialAbilities: {
+    type: Object,
+    default: () => {
+    }
+  },
   lang: { type: String, default: '' },
-  actions: { type: Object, default: () => {} },
-  legendaryActions: { type: Object, default: () => {} },
+  actions: {
+    type: Object,
+    default: () => {
+    }
+  },
+  legendaryActions: {
+    type: Object,
+    default: () => {
+    }
+  },
   legendaryDesc: { type: String, default: '' }
 
-})
-const toggledLocalPanel = ref(props.toggleGlobalCardPanel)
+} )
+const toggledLocalPanel = ref( props.toggleGlobalCardPanel )
 
 // HP update from full card
 // ------------------------------------------------------------------------------------

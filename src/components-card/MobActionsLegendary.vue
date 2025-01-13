@@ -40,7 +40,7 @@
           v-for="subaction in action.desc.toLowerCase().split(/\. /g)"
           :key="subaction"
         >
-          <p>{{ subaction.replace('damage plus ', 'damage + ').replace('hit: ', '').replace(/\./gm, '') }}</p>
+          <p>{{ subaction.replace( 'damage plus ', 'damage + ' ).replace( 'hit: ', '' ).replace( /\./gm, '' ) }}</p>
         </div>
       </div>
     </div>
@@ -50,32 +50,36 @@
 <script setup>
 import MobActionDmg from './MobActionDmg.vue'
 
-const props = defineProps({
-  legendaryActions: { type: Object, default: () => { } },
+const props = defineProps( {
+  legendaryActions: {
+    type: Object,
+    default: () => {
+    }
+  },
   legendaryDesc: { type: String, default: '' }
-})
+} )
 
 </script>
 
 <style>
 .legendary-actions-container {
-    grid-template-columns: 1fr;
-    place-items: start stretch;
+  grid-template-columns: 1fr;
+  place-items:           start stretch;
 }
 
 .legendary-action-block {
-    display: grid;
-    gap: var(--space-md);
-    place-content: start stretch;
-    place-items: start stretch;
+  display:       grid;
+  place-content: start stretch;
+  place-items:   start stretch;
+  padding:       var(--space-md);
 
-    padding: var(--space-md);
-    border-radius: var(--space-xs);
+  border-radius: var(--space-xs);
+  gap:           var(--space-md);
 }
 
 .legendary-action-desc-block {
-    display: grid;
-    gap: var(--space-md);
-    color: var(--grey-lt);
+  display: grid;
+  color:   var(--grey-lt);
+  gap:     var(--space-md);
 }
 </style>

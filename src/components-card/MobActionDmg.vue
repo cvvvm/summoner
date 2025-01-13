@@ -63,21 +63,21 @@
 import { ref } from 'vue'
 import { mobFunctions } from '../functions/funcDiceRolls'
 
-const dmgResult = ref(0)
-const dmgRollMath = ref('')
-const hitResult = ref(0)
-const hitRollMath = ref('')
-const props = defineProps({
+const dmgResult = ref( 0 )
+const dmgRollMath = ref( '' )
+const hitResult = ref( 0 )
+const hitRollMath = ref( '' )
+const props = defineProps( {
   hitMod: { type: Number, default: 0 },
   dice: { type: Array, default: () => [] },
   dmgMod: { type: Number, default: 0 }
-})
+} )
 
 const numDmgs = props.dice.length
 
-function rollAttackDmg (diceArray, numDmgs, rollDmgMod, rollAtkMod) {
-  const dmgRoll = mobFunctions.sumDmg(diceArray, numDmgs, rollDmgMod)
-  const hitRoll = mobFunctions.rollDice(1, 20, rollAtkMod)
+function rollAttackDmg ( diceArray, numDmgs, rollDmgMod, rollAtkMod ) {
+  const dmgRoll = mobFunctions.sumDmg( diceArray, numDmgs, rollDmgMod )
+  const hitRoll = mobFunctions.rollDice( 1, 20, rollAtkMod )
   hitResult.value = hitRoll[0]
   hitRollMath.value = hitRoll[1]
   dmgResult.value = dmgRoll[0]

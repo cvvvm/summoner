@@ -2,6 +2,7 @@
   <!-- card -->
   <!------------------------------------------------>
   <div
+    :class="isSearchOpen ? 'border-green-500 ' : 'border-pink-500 '"
     class="
     fixed z-[8000]
     top-4 sm:top-20 [@media(min-width:1280px)]:top-4
@@ -14,7 +15,6 @@
     p-2 rounded-xxl
     bg-neutral-950 border-2
     transition-[height_200ms_ease-in-out]"
-    :class="isSearchOpen ? 'border-green-500 ' : 'border-pink-500 '"
     @keydown.down="selectNextMobResult"
     @keydown.up="selectPrevMobResult"
   >
@@ -53,7 +53,6 @@
         id="searchBar"
         v-model="mobSearchInput"
         :placeholder="searchPlacehold"
-        spellcheck="false"
         class="
         w-full
         px-2 py-1 rounded-md
@@ -61,6 +60,7 @@
         bg-neutral-800
         border border-neutral-700 hover:border-neutral-400
         transition colors"
+        spellcheck="false"
         @input="searchMobs"
       >
     </div>
@@ -123,23 +123,23 @@ import { onBeforeMount, onMounted, reactive, ref } from 'vue'
 import SummonMobAll from './SummonMobAll.vue'
 import SummonMobFavs from './SummonMobFavs.vue'
 
-defineEmits(['toggleSummonModal', 'summonMob'])
-const mobSearchInput = ref('')
-const mobNamesList = reactive([])
-const mobFavsList = reactive([])
+defineEmits( ['toggleSummonModal', 'summonMob'] )
+const mobSearchInput = ref( '' )
+const mobNamesList = reactive( [] )
+const mobFavsList = reactive( [] )
 
-const isSearchOpen = ref(true)
-const searchPlacehold = ref('search all monsters')
-const searchAllResult = ref([])
-const searchFavResult = ref([])
+const isSearchOpen = ref( true )
+const searchPlacehold = ref( 'search all monsters' )
+const searchAllResult = ref( [] )
+const searchFavResult = ref( [] )
 
-const searchAllNum = ref(searchAllResult.value.length)
-const searchFavNum = ref(searchFavResult.value.length)
+const searchAllNum = ref( searchAllResult.value.length )
+const searchFavNum = ref( searchFavResult.value.length )
 
-const searchLimitAmount = ref(100)
+const searchLimitAmount = ref( 100 )
 
-const selectIndex = ref(0)
-const lastSelect = ref('')
+const selectIndex = ref( 0 )
+const lastSelect = ref( '' )
 
 const status = ref()
 
@@ -171,100 +171,100 @@ function reloadPg () {
 
 // update status
 // -----------------------------------------------------------
-function updateStatus (msg) {
-  const statText = document.getElementById('summmonStatus')
+function updateStatus ( msg ) {
+  const statText = document.getElementById( 'summmonStatus' )
   status.value = msg
-  statText.classList.toggle('opacity-0')
-  setTimeout(() => {
-    statText.classList.toggle('opacity-0')
-  }, '1000')
+  statText.classList.toggle( 'opacity-0' )
+  setTimeout( () => {
+    statText.classList.toggle( 'opacity-0' )
+  }, '1000' )
 }
 
 // BEFORE / ON MOUNT
 // ------------------------------------------------------------------------------------
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-onBeforeMount(() => {
+onBeforeMount( () => {
   // get mobs
   APIgetSearchList()
-})
+} )
 
-onMounted(() => {
+onMounted( () => {
   // fill lists
-  db.allMobs.each(mob => {
-    mobNamesList.push({ index: mob.index, name: mob.name, url: mob.url })
-  })
-  db.favMobs.each(fav => {
-    mobFavsList.push({ index: fav.index, name: fav.name, url: fav.url })
-  })
+  db.allMobs.each( mob => {
+    mobNamesList.push( { index: mob.index, name: mob.name, url: mob.url } )
+  } )
+  db.favMobs.each( fav => {
+    mobFavsList.push( { index: fav.index, name: fav.name, url: fav.url } )
+  } )
 
   // populate card
-  setTimeout(() => {
+  setTimeout( () => {
     updateSearchAllResult()
-  }, '500')
-})
+  }, '500' )
+} )
 
 // API get all monsters for search
 // -----------------------------------------------------------
 async function APIgetSearchList () {
-  await fetch('https://www.dnd5eapi.co/api/monsters')
-    .then(res => res.json())
-    .then(data => {
-      populateAllMobTable(data.results)
-    })
-  updateStatus('ready')
+  await fetch( 'https://www.dnd5eapi.co/api/monsters' )
+    .then( res => res.json() )
+    .then( data => {
+      populateAllMobTable( data.results )
+    } )
+  updateStatus( 'ready' )
 }
 
 // add mobs to table
 // -----------------------------------------------------------
-async function populateAllMobTable (d) {
-  db.on('ready', function () {
-    return db.allMobs.count(function (count) {
-      if (count > 0) updateStatus('ready')
+async function populateAllMobTable ( d ) {
+  db.on( 'ready', function () {
+    return db.allMobs.count( function ( count ) {
+      if ( count > 0 ) updateStatus( 'ready' )
       else {
-        d.forEach(async mob => {
+        d.forEach( async mob => {
           try {
             // add next mob
-            await db.allMobs.add({
+            await db.allMobs.add( {
               index: mob.index,
               name: mob.name.toLowerCase(),
               url: mob.url
-            })
-          } catch (error) {
-            updateStatus('something went wrong. try refreshing')
+            } )
+          } catch ( error ) {
+            updateStatus( 'something went wrong. try refreshing' )
           }
-        })
+        } )
       }
-    })
-  })
+    } )
+  } )
 }
 
 // fav mobs
 // ------------------------------------------------------------------------------------
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // add fav mob
-async function addFav (e) {
-  const match = ref(false)
-  db.favMobs.each(fav => {
-    if (fav.index === e.index) match.value = true
-    updateStatus('already added')
-  })
+async function addFav ( e ) {
+  const match = ref( false )
+  db.favMobs.each( fav => {
+    if ( fav.index === e.index ) match.value = true
+    updateStatus( 'already added' )
+  } )
 
-  if (!match.value) {
-    await db.favMobs.add({
+  if ( !match.value ) {
+    await db.favMobs.add( {
       index: e.index,
       name: e.name.toLowerCase(),
       url: e.url
-    })
-    mobFavsList.push({ index: e.index, name: e.name, url: e.url })
-    updateStatus('added')
+    } )
+    mobFavsList.push( { index: e.index, name: e.name, url: e.url } )
+    updateStatus( 'added' )
   }
 }
 
 // remove fav mob
-async function removeFav (e) {
-  db.favMobs.delete(e.index)
-  const idx = mobFavsList.findIndex(m => m.name === e.name)
-  mobFavsList.splice(idx, 1)
+async function removeFav ( e ) {
+  db.favMobs.delete( e.index )
+  const idx = mobFavsList.findIndex( m => m.name === e.name )
+  mobFavsList.splice( idx, 1 )
   updateSearchFavResult()
 }
 
@@ -274,44 +274,47 @@ async function removeFav (e) {
 // update search results - all
 function updateSearchAllResult () {
   selectIndex.value = 0
-  searchAllResult.value = mobNamesList.filter(mob => mob.name.toLowerCase().includes(mobSearchInput.value.toLowerCase()))
+  searchAllResult.value = mobNamesList.filter( mob => mob.name.toLowerCase().includes( mobSearchInput.value.toLowerCase() ) )
   searchAllNum.value = searchAllResult.value.length
   // alphabetize list
-  searchAllResult.value = searchAllResult.value.sort((a, b) => {
-    const fa = a.name.toLowerCase(); const fb = b.name.toLowerCase()
-    if (fa < fb) {
+  searchAllResult.value = searchAllResult.value.sort( ( a, b ) => {
+    const fa = a.name.toLowerCase()
+    const fb = b.name.toLowerCase()
+    if ( fa < fb ) {
       return -1
     }
-    if (fa > fb) {
+    if ( fa > fb ) {
       return 1
     }
     return 0
-  })
+  } )
 }
+
 // update search results - favs
 function updateSearchFavResult () {
   selectIndex.value = 0
-  searchFavResult.value = mobFavsList.filter(mob => mob.name.toLowerCase().includes(mobSearchInput.value.toLowerCase()))
+  searchFavResult.value = mobFavsList.filter( mob => mob.name.toLowerCase().includes( mobSearchInput.value.toLowerCase() ) )
   searchFavNum.value = searchFavResult.value.length
   // alphabetize list
-  searchFavResult.value = searchFavResult.value.sort((a, b) => {
-    const fa = a.name.toLowerCase(); const fb = b.name.toLowerCase()
-    if (fa < fb) {
+  searchFavResult.value = searchFavResult.value.sort( ( a, b ) => {
+    const fa = a.name.toLowerCase()
+    const fb = b.name.toLowerCase()
+    if ( fa < fb ) {
       return -1
     }
-    if (fa > fb) {
+    if ( fa > fb ) {
       return 1
     }
     return 0
-  })
+  } )
 }
 
 // search mobs
 function searchMobs () {
   searchLimitAmount.value = 100
-  if (isSearchOpen.value) {
+  if ( isSearchOpen.value ) {
     updateSearchAllResult()
-  } else if (!isSearchOpen.value) {
+  } else if ( !isSearchOpen.value ) {
     updateSearchFavResult()
   }
 }
@@ -324,27 +327,28 @@ function searchMobs () {
 // -----------------------------------------------------------
 // select last
 function selectPrevMobResult () {
-  if (lastSelect.value === 'next') selectIndex.value = selectIndex.value - 2
-  if (selectIndex.value <= 0) selectIndex.value = (searchLimitAmount.value)
+  if ( lastSelect.value === 'next' ) selectIndex.value = selectIndex.value - 2
+  if ( selectIndex.value <= 0 ) selectIndex.value = ( searchLimitAmount.value )
   // set element to find
-  const mob = document.querySelector('#summonPanel')
+  const mob = document.querySelector( '#summonPanel' )
     .children[0].children[selectIndex.value]
   // set focus + style
-  mob.setAttribute('tabindex', '0')
+  mob.setAttribute( 'tabindex', '0' )
   mob.focus()
   // prep for next
   selectIndex.value--
   lastSelect.value = 'prev'
 }
+
 // select next
 function selectNextMobResult () {
-  if (lastSelect.value === 'prev') selectIndex.value = selectIndex.value + 2
-  if (selectIndex.value > searchLimitAmount.value) selectIndex.value = 0
+  if ( lastSelect.value === 'prev' ) selectIndex.value = selectIndex.value + 2
+  if ( selectIndex.value > searchLimitAmount.value ) selectIndex.value = 0
   // set element to find
-  const mob = document.querySelector('#summonPanel')
+  const mob = document.querySelector( '#summonPanel' )
     .children[0].children[selectIndex.value]
   // set focus + style
-  mob.setAttribute('tabindex', '0')
+  mob.setAttribute( 'tabindex', '0' )
   mob.focus()
   // prep for next
   selectIndex.value++
@@ -355,10 +359,10 @@ function selectNextMobResult () {
 // -----------------------------------------------------------
 function toggleAllOrFavs () {
   isSearchOpen.value = !isSearchOpen.value
-  if (!isSearchOpen.value) {
+  if ( !isSearchOpen.value ) {
     updateSearchFavResult()
     searchPlacehold.value = 'search favorites'
-  } else if (isSearchOpen.value) {
+  } else if ( isSearchOpen.value ) {
     updateSearchAllResult()
     searchPlacehold.value = 'search all monsters'
   }
@@ -375,20 +379,16 @@ function toggleAllOrFavs () {
 }
 /* summon modal */
 .summon-mob-leave-active {
-  transition:
-    transform 150ms ease-out,
-    scale 200ms ease-out,
-    ;
+  transition: transform 150ms ease-out,
+              scale 200ms ease-out,;
 }
 .summon-mob-enter-active {
-  transition:
-    transform 175ms ease-out,
-    scale 200ms ease-out,
-    ;
+  transition: transform 175ms ease-out,
+              scale 200ms ease-out,;
 }
 .summon-mob-leave-to,
 .summon-mob-enter-from {
   transform: translateX(150%);
-  scale:.8;
+  scale: .8;
 }
 </style>

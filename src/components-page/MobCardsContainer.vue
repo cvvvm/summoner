@@ -15,8 +15,8 @@
 
   <!-- summon mob -->
   <Transition
-    name="summon-mob"
     appear
+    name="summon-mob"
   >
     <SummonMob
       v-show="isSummonModalOpen"
@@ -98,20 +98,30 @@
         <!-- toggle dice roller -->
         <!------------------------------------------------>
         <button
-          class="px-5 py-3 sm:py-3 sm:px-4 rounded-full"
           :class="isDiceRollerOpen ?
             'z-[5001] bg-orange-500 text-orange-950 hover:bg-orange-600 hover:text-orange-950'
             : 'bg-neutral-600 text-neutral-200 hover:bg-orange-500 hover:text-orange-950'"
-          @click="toggleDiceRoller"
+          class="px-5 py-3 sm:py-3 sm:px-4 rounded-full"
+          @click="toggleDiceRoller()"
         >
           dice
         </button>
         <!-- toggle summon menu -->
         <button
-          class="px-5 py-3 sm:py-2 sm:px-4 rounded-full"
           :class="isSummonModalOpen ?
             'z-[5001] bg-green-500 text-green-950 hover:bg-green-600 hover:text-green-950'
             : 'bg-neutral-600 text-neutral-200 hover:bg-green-500 hover:text-green-950'"
+          class="px-5 py-3 sm:py-2 sm:px-4 rounded-full"
+          @click="toggleSummonModal()"
+        >
+          summon
+        </button>
+        <!-- toggle summon menu -->
+        <button
+          :class="isSummonModalOpen ?
+            'z-[5001] bg-green-500 text-green-950 hover:bg-green-600 hover:text-green-950'
+            : 'bg-neutral-600 text-neutral-200 hover:bg-green-500 hover:text-green-950'"
+          class="px-5 py-3 sm:py-2 sm:px-4 rounded-full"
           @click="toggleSummonModal()"
         >
           summon
@@ -145,17 +155,11 @@
         <!-- mob cards -->
         <TransitionGroup name="mob-card">
           <div
-            v-for="mob, index in summonedMobsList"
+            v-for="(mob, index) in summonedMobsList"
             :key="mob"
           >
             <MobCard
               :key="refreshTogglePanel"
-              :mob-index="index"
-              :name="mob.name.toLowerCase()"
-              :url="mob.url"
-              :alignment="mob.alignment"
-              :size="mob.size.toLowerCase()"
-              :type="mob.type"
               :ability-scores="[
                 { str: {'score': mob.strength, 'saveMod': mob.strength_save} },
                 { dex: {'score': mob.dexterity, 'saveMod': mob.dexterity_save} },
@@ -164,22 +168,29 @@
                 { wis: {'score': mob.wisdom, 'saveMod': mob.wisdom_save} },
                 { cha: {'score': mob.charisma, 'saveMod': mob.charisma_save} },
               ]"
-              :base-hp="mob.hit_points"
-              :armor="mob.armor_class"
-              :challenge-rating="mob.cr"
-              :xp-gained="mob.xp"
-              :damage-vulnerabilities="mob.damage_vulnerabilities"
-              :damage-resistances="mob.damage_resistances"
-              :damage-immunities="mob.damage_immunities"
-              :condition-immunities="mob.condition_immunities"
-              :special-abilities="mob.special_abilities"
               :actions="mob.actions"
+              :alignment="mob.alignment"
+              :armor="mob.armor_class"
+              :base-hp="mob.hit_points"
+              :challenge-rating="mob.challenge_rating"
+
+              :condition-immunities="mob.condition_immunities"
+              :damage-immunities="mob.damage_immunities"
+              :damage-resistances="mob.damage_resistances"
+              :damage-vulnerabilities="mob.damage_vulnerabilities"
+              :lang="mob.languages"
               :legendary-actions="mob.legendary_actions"
               :legendary-desc="mob.legendary_desc"
-              :speed="mob.speed"
+              :mob-index="index"
+              :name="mob.name.toLowerCase()"
               :senses="mob.senses"
-              :lang="mob.languages"
+              :size="mob.size.toLowerCase()"
+              :special-abilities="mob.special_abilities"
+              :speed="mob.speed"
               :toggle-global-card-panel="toggleGlobalCardPanel"
+              :type="mob.type"
+              :url="mob.url"
+              :xp-gained="mob.xp"
               @pass-mob="handlePassedMob"
             />
           </div>
@@ -200,78 +211,80 @@ import SortMobs from '../components-functions/SortMobs.vue'
 import ToggleMobCardPanels from '../components-functions/ToggleMobCardPanels.vue'
 import DiceRoller from '../dice-roller/DiceRoller.vue'
 
-const summonedMobsList = reactive([])
-const isLoading = ref(false)
+const summonedMobsList = reactive( [] )
+const isLoading = ref( false )
 
-const toggleGlobalCardPanel = ref('')
-const refreshTogglePanel = ref(0)
-const isSummonModalOpen = ref(false)
-const isDiceRollerOpen = ref(false)
+const toggleGlobalCardPanel = ref( '' )
+const refreshTogglePanel = ref( 0 )
+const isSummonModalOpen = ref( false )
+const isDiceRollerOpen = ref( false )
 
-onMounted(() => {
+onMounted( () => {
   loadAllLocalSummonedList()
-})
+} )
 
-// modal toggles
-// ------------------------------------------------------------------------------------
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// toggle summoning modal
+/*-| modal toggles |-*/
+/*/==/==/==/==/==/==/==/==/==/==/==/==/==/==/==/==/*/
+
+/*-| toggle summoning modal |-*/
 function toggleSummonModal () {
   isSummonModalOpen.value = !isSummonModalOpen.value
-  document.getElementById('cardsContainer').classList.toggle('[@media(min-width:800px)]:mr-[390px]')
-  if (isDiceRollerOpen.value) {
-    document.getElementById('cardsContainer').classList.toggle('[@media(min-width:700px)]:ml-[235px]')
+  document.getElementById( 'cardsContainer' ).classList.toggle( '[@media(min-width:800px)]:mr-[390px]' )
+  if ( isDiceRollerOpen.value ) {
+    document.getElementById( 'cardsContainer' ).classList.toggle( '[@media(min-width:700px)]:ml-[235px]' )
     isDiceRollerOpen.value = false
   }
 }
-// toggle dice roller
+
+/*-| toggle dice roller |-*/
 function toggleDiceRoller () {
   isDiceRollerOpen.value = !isDiceRollerOpen.value
-  document.getElementById('cardsContainer').classList.toggle('[@media(min-width:700px)]:ml-[235px]')
-  if (isSummonModalOpen.value) {
-    document.getElementById('cardsContainer').classList.toggle('[@media(min-width:800px)]:mr-[390px]')
+  document.getElementById( 'cardsContainer' ).classList.toggle( '[@media(min-width:700px)]:ml-[235px]' )
+  if ( isSummonModalOpen.value ) {
+    document.getElementById( 'cardsContainer' ).classList.toggle( '[@media(min-width:800px)]:mr-[390px]' )
     isSummonModalOpen.value = false
   }
 }
 
-// EDIT MOBS
-// ------------------------------------------------------------------------------------
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* -| EDIT MOBS |-*/
+/* /==/==/==/==/==/==/==/==/==/==/==/==/==/==/==/==/*/
 
-// summon new mob
-function summonMob (e) {
+/* -| summon new mob |-*/
+/* ---+----+---+----+---+----+---+----+---*/
+function summonMob ( e ) {
   isLoading.value = true
-  fetch('https://www.dnd5eapi.co' + e)
-    .then(res => res.json())
-    .then(data => {
-      addToSummonedMobs(data)
-      setTimeout(() => {
-        addToLocalSummonedList(data)
-      }, '200')
-    })
-    .catch(err => console.log(err.message))
+  fetch( 'https://www.dnd5eapi.co' + e )
+    .then( res => res.json() )
+    .then( data => {
+      addToSummonedMobs( data )
+      setTimeout( () => {
+        addToLocalSummonedList( data )
+      }, 200 )
+    } )
+    .catch( err => console.log( err.message ) )
 
-  // hide summoning status
-  setTimeout(() => {
+  /* -| hide summoning status |-*/
+  setTimeout( () => {
     isLoading.value = false
-  }, '450')
+  }, '450' )
 }
 
-// remove mob
-async function handlePassedMob (e) {
-  console.log(e)
+/*-| remove mob |-*/
+/*---+----+---+----+---+----+---+----+---*/
+async function handlePassedMob ( e ) {
+  console.log( e )
 
-  if (e.type === 'banish') {
-    summonedMobsList.splice(e.data, 1)
+  if ( e.type === 'banish' ) {
+    summonedMobsList.splice( e.data, 1 )
     await db.summonedMobs
-      .where('name')
-      .equalsIgnoreCase(e.name)
-      .limit(1)
+      .where( 'name' )
+      .equalsIgnoreCase( e.name )
+      .limit( 1 )
       .delete()
   }
-  if (e.type === 'clone') {
-    e.data = e.data.replace(/ /, '-')
-    summonMob(e.data)
+  if ( e.type === 'clone' ) {
+    e.data = e.data.replace( / /, '-' )
+    summonMob( e.data )
   }
 }
 
@@ -285,23 +298,23 @@ async function handlePassedMob (e) {
 
 // load local summoned mobs from db
 async function loadAllLocalSummonedList () {
-  await db.summonedMobs.each(mob => {
-    summonedMobsList.push(mob.data)
-  })
+  await db.summonedMobs.each( mob => {
+    summonedMobsList.push( mob.data )
+  } )
 }
 
 // save summoned to local db
-async function addToSummonedMobs (m) {
+async function addToSummonedMobs ( m ) {
   // add next mob
-  await db.summonedMobs.add({
+  await db.summonedMobs.add( {
     name: m.name,
     data: m
-  })
+  } )
 }
 
 // add to summoned mob list
-function addToLocalSummonedList (m) {
-  summonedMobsList.unshift(m)
+function addToLocalSummonedList ( m ) {
+  summonedMobsList.unshift( m )
 }
 
 // misc
@@ -313,11 +326,11 @@ function addToLocalSummonedList (m) {
 /* mob card summoned */
 .mob-card-move,
 .mob-card-leave-active {
-  transition: all 200ms ease-out,
+  transition: all 200ms ease-out;
 }
 .mob-card-move,
 .mob-card-enter-active {
-  transition: all 300ms ease-out,
+  transition: all 300ms ease-out;
 }
 .mob-card-leave-active {
   position: absolute;

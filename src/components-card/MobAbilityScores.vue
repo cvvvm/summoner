@@ -56,6 +56,7 @@
           <!-- score button -->
           <!------------------------------------------------>
           <button
+            :class="abilityButtonHover"
             class="
             overflow-hidden
             grid grid-cols-2 gap-y-1
@@ -64,13 +65,14 @@
             text-lg leading-none
             bg-neutral-950 hover:bg-neutral-950 active:bg-neutral-950
             border-2 border-neutral-400 hover:border-neutral-500"
-            :class="abilityButtonHover"
             @click="abilityRoll(Math.floor((scoreValue.score - 10) / 2))"
           >
             <!-- name, ability score, modifier -->
             <span class="leading-none col-span-2 text-base text-yellow-500">{{ abilityName }}</span>
             <span class="justify-self-end">{{ scoreValue.score }}</span>
-            <span class="justify-self-start pl-1 leading-none text-sm text-neutral-400 font-normal">{{ calcAbilityMod(scoreValue.score) }}</span>
+            <span class="justify-self-start pl-1 leading-none text-sm text-neutral-400 font-normal">{{
+              calcAbilityMod( scoreValue.score )
+            }}</span>
           </button>
         </div>
       </div>
@@ -82,23 +84,31 @@
 import { ref } from 'vue'
 import { mobFunctions } from '@/functions/funcDiceRolls'
 
-const abilityRollResult = ref(0)
-const abilityButtonHover = ('active:text-neutral-300 ' +
-                            'hover:bg-neutral-500 active:bg-neutral-600 ' +
-                            'transition-colors ')
+const abilityRollResult = ref( 0 )
+const abilityButtonHover = ( 'active:text-neutral-300 ' +
+    'hover:bg-neutral-500 active:bg-neutral-600 ' +
+    'transition-colors ' )
 
-function abilityRoll (mod) {
-  abilityRollResult.value = mobFunctions.rollDice(1, 20, mod)
+function abilityRoll ( mod ) {
+  abilityRollResult.value = mobFunctions.rollDice( 1, 20, mod )
 }
 
-const props = defineProps({
-  abilityScores: { type: Object, default: () => {} },
-  abilitySaves: { type: Object, default: () => {} }
-})
+const props = defineProps( {
+  abilityScores: {
+    type: Object,
+    default: () => {
+    }
+  },
+  abilitySaves: {
+    type: Object,
+    default: () => {
+    }
+  }
+} )
 
-function calcAbilityMod (scoreVal) {
-  const modAmt = Math.floor((scoreVal - 10) / 2)
-  if (modAmt < 0) return modAmt
+function calcAbilityMod ( scoreVal ) {
+  const modAmt = Math.floor( ( scoreVal - 10 ) / 2 )
+  if ( modAmt < 0 ) return modAmt
   else return '+' + modAmt
 }
 </script>

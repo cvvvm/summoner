@@ -53,9 +53,13 @@
 </template>
 
 <script setup>
-const props = defineProps({
-  armor: { type: Object, default: () => {} }
-})
+const props = defineProps( {
+  armor: {
+    type: Object,
+    default: () => {
+    }
+  }
+} )
 </script>
 
 <style>

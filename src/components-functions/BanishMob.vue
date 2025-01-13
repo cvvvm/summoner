@@ -73,13 +73,15 @@
 
 <script setup>
 import { ref } from 'vue'
-defineEmits(['passMob'])
-defineProps({
+
+defineEmits( ['passMob'] )
+defineProps( {
   mobIndex: { type: Number, default: 0 },
   name: { type: String, default: '' }
-})
+} )
 
-const isBanishModalOpen = ref(false)
+const isBanishModalOpen = ref( false )
+
 function toggleBanishModal () {
   isBanishModalOpen.value = !isBanishModalOpen.value
 }
@@ -89,10 +91,9 @@ function toggleBanishModal () {
 <style>
 .banish-leave-active,
 .banish-enter-active {
-  transition:
-  left 200ms ease-out,
-  width 200ms ease-out,
-  translate 200ms ease-out;
+  transition: left 200ms ease-out,
+              width 200ms ease-out,
+              translate 200ms ease-out;
 }
 .banish-leave-to,
 .banish-enter-from {

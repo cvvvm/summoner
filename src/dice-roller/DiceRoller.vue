@@ -83,14 +83,14 @@ import { mobFunctions } from '../functions/funcDiceRolls'
 import { ref, reactive } from 'vue'
 import InputNumDice from './InputNumDice'
 
-const forceRefeshKey = ref(0)
-const diceRollResult = ref(0)
-const diceRollMath = ref('waiting...')
-const diceToRoll = reactive({ 4: 0, 6: 0, 8: 0, 10: 0, 12: 0, 20: 0, 100: 0 })
+const forceRefeshKey = ref( 0 )
+const diceRollResult = ref( 0 )
+const diceRollMath = ref( 'waiting...' )
+const diceToRoll = reactive( { 4: 0, 6: 0, 8: 0, 10: 0, 12: 0, 20: 0, 100: 0 } )
 
 // use this instead??
 // eslint-disable-next-line
-const diceToRoll2 = reactive({
+const diceToRoll2 = reactive( {
   4: { num: 0, result: 0, math: '' },
   6: { num: 0, result: 0, math: '' },
   8: { num: 0, result: 0, math: '' },
@@ -98,20 +98,22 @@ const diceToRoll2 = reactive({
   12: { num: 0, result: 0, math: '' },
   20: { num: 0, result: 0, math: '' },
   100: { num: 0, result: 0, math: '' }
-})
+} )
 
 // reset dice values
 function resetDice () {
   forceRefeshKey.value += 1
-  Object.keys(diceToRoll).forEach(die => {
+  Object.keys( diceToRoll ).forEach( die => {
     diceToRoll[die] = 0
-  })
+  } )
   diceRollMath.value = 'dice reset!'
-  setTimeout(() => { diceRollMath.value = 'waiting...' }, '1000')
+  setTimeout( () => {
+    diceRollMath.value = 'waiting...'
+  }, '1000' )
 }
 
 // update diceToRoll obj
-function updateDiceNums (e) {
+function updateDiceNums ( e ) {
   diceToRoll[e.type] = e.num
 }
 
@@ -119,23 +121,23 @@ function updateDiceNums (e) {
 function rollAllDice () {
   const currentRollMath = []
   // roll each die if value
-  Object.keys(diceToRoll).forEach(die => {
+  Object.keys( diceToRoll ).forEach( die => {
     const numDice = diceToRoll[die]
-    if (numDice !== 0) {
+    if ( numDice !== 0 ) {
       const dieValue = die
-      currentRollMath.push(numDice + 'd' + die)
-      currentRollMath.push(mobFunctions.rollDice(numDice, dieValue))
+      currentRollMath.push( numDice + 'd' + die )
+      currentRollMath.push( mobFunctions.rollDice( numDice, dieValue ) )
     }
-  })
+  } )
   diceRollResult.value = 0
   // update values if dice selected
-  if (currentRollMath.length === 0) diceRollMath.value = 'no dice selected!'
+  if ( currentRollMath.length === 0 ) diceRollMath.value = 'no dice selected!'
   else diceRollMath.value = currentRollMath
 }
 
 // roll single die
-function rollSingleDie (dieType) {
-  diceRollMath.value = '1d' + dieType + ': ' + mobFunctions.rollDice(1, dieType)[0]
+function rollSingleDie ( dieType ) {
+  diceRollMath.value = '1d' + dieType + ': ' + mobFunctions.rollDice( 1, dieType )[0]
 }
 
 </script>
@@ -143,20 +145,16 @@ function rollSingleDie (dieType) {
 <style>
 /* dice roller modal */
 .dice-roller-leave-active {
-  transition:
-    transform 150ms ease-out,
-    scale 200ms ease-out,
-    ;
+  transition: transform 150ms ease-out,
+              scale 200ms ease-out,;
 }
 .dice-roller-enter-active {
-  transition:
-    transform 175ms ease-out,
-    scale 200ms ease-out,
-    ;
+  transition: transform 175ms ease-out,
+              scale 200ms ease-out,;
 }
 .dice-roller-leave-to,
 .dice-roller-enter-from {
   transform: translateX(-150%);
-  scale:.8;
+  scale:     .8;
 }
 </style>

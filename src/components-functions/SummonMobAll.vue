@@ -75,15 +75,19 @@
 </template>
 
 <script setup>
-defineEmits([
+defineEmits( [
   'toggleSummonModal',
   'summonMob',
   'updateSearchLimit',
-  'addFav'])
-const props = defineProps({
-  mobsAll: { type: Object, default: () => {} },
+  'addFav'] )
+const props = defineProps( {
+  mobsAll: {
+    type: Object,
+    default: () => {
+    }
+  },
   searchLimit: { type: Number, default: 100 }
-})
+} )
 
 </script>
 
@@ -100,17 +104,17 @@ const props = defineProps({
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(37, 197, 94, 0.5);
-  color: inherit;
-  width: 4px;
+  color:      inherit;
+  width:      4px;
   height: 4px;
+  background: rgba(37, 197, 94, 0.5);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(37, 197, 94, 1);
-  color: inherit;
-  width: 4px;
+  color:      inherit;
+  width:      4px;
   height: 4px;
+  background: rgba(37, 197, 94, 1);
 }
 
 ::-webkit-scrollbar:window-inactive {

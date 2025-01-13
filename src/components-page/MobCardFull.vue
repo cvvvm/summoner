@@ -81,15 +81,15 @@
           </div>
 
           <MobAbilityScores
-            :ability-scores="props.abilityScores"
             :ability-saves="props.abilitySaves"
+            :ability-scores="props.abilityScores"
           />
 
           <MobBio
-            :size="props.size"
-            :type="props.type"
             :alignment="props.alignment"
             :challenge-rating="props.challengeRating"
+            :size="props.size"
+            :type="props.type"
           />
           <div class="grid gap-4 gap-y-2 content-start">
             <MobSenses :senses="props.senses" />
@@ -100,10 +100,10 @@
           </div>
 
           <MobDefenses
-            :damage-vulnerabilities="props.damageVulnerabilities"
-            :damage-resistances="props.damageResistances"
-            :damage-immunities="props.damageImmunities"
             :condition-immunities="props.conditionImmunities"
+            :damage-immunities="props.damageImmunities"
+            :damage-resistances="props.damageResistances"
+            :damage-vulnerabilities="props.damageVulnerabilities"
           />
         </div> <!-- end column 1 -->
 
@@ -133,16 +133,16 @@
           >
             <button
               v-show="props.actions.length > 0"
-              class="flex-1"
               :class="toggledLocalPanel == 'actions' ? 'panel-btn-active' : 'panel-btn-inactive'"
+              class="flex-1"
               @click="toggledLocalPanel = 'actions'"
             >
               actions
             </button>
             <button
               v-show="props.specialAbilities.length > 0"
-              class="flex-1"
               :class="toggledLocalPanel == 'abilities' ? 'panel-btn-active' : 'panel-btn-inactive'"
+              class="flex-1"
               @click="toggledLocalPanel = 'abilities'"
             >
               abilities
@@ -158,9 +158,9 @@
             <!-- actions (legendary) -->
             <MobActionsLegendary
               v-show="props.legendaryActions > 0"
-              class="pt-4"
               :legendary-actions="props.legendaryActions"
               :legendary-desc="props.legendaryDesc"
+              class="pt-4"
             />
           </div>
 
@@ -208,9 +208,9 @@ import MobActions from '../components-card/MobActions.vue'
 import MobActionsLegendary from '../components-card/MobActionsLegendary.vue'
 import { ref } from 'vue'
 
-defineEmits(['passMob', 'passToggleFullCard', 'passHpCard'])
+defineEmits( ['passMob', 'passToggleFullCard', 'passHpCard'] )
 
-const props = defineProps({
+const props = defineProps( {
   mobIndex: { type: Number, default: 0 },
 
   name: { type: String, default: '' },
@@ -219,26 +219,55 @@ const props = defineProps({
   alignment: { type: String, default: '' },
   challengeRating: { type: Number, default: 0 },
   baseHp: { type: Number, default: 0 },
-  armor: { type: Object, default: () => { } },
-  abilityScores: { type: Object, default: () => { } },
-  abilitySaves: { type: Object, default: () => { } },
-  speed: { type: Object, default: () => { } },
+  armor: {
+    type: Object,
+    default: () => {
+    }
+  },
+  abilityScores: {
+    type: Object,
+    default: () => {
+    }
+  },
+  abilitySaves: {
+    type: Object,
+    default: () => {
+    }
+  },
+  speed: {
+    type: Object,
+    default: () => {
+    }
+  },
   senses: { type: String, default: '' },
   damageVulnerabilities: { type: String, default: '' },
   damageResistances: { type: String, default: '' },
   damageImmunities: { type: String, default: '' },
   conditionImmunities: { type: String, default: '' },
-  specialAbilities: { type: Object, default: () => { } },
+  specialAbilities: {
+    type: Object,
+    default: () => {
+    }
+  },
   lang: { type: String, default: '' },
-  actions: { type: Object, default: () => { } },
-  legendaryActions: { type: Object, default: () => { } },
+  actions: {
+    type: Object,
+    default: () => {
+    }
+  },
+  legendaryActions: {
+    type: Object,
+    default: () => {
+    }
+  },
   legendaryDesc: { type: String, default: '' }
 
-})
+} )
 
-const toggledLocalPanel = ref('actions')
+const toggledLocalPanel = ref( 'actions' )
 
-const isFullCardOpen = ref(false)
+const isFullCardOpen = ref( false )
+
 function toggleFullCard () {
   isFullCardOpen.value = !isFullCardOpen.value
 }

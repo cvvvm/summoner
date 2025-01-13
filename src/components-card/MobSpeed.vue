@@ -16,9 +16,13 @@
 </template>
 
 <script setup>
-const props = defineProps({
-  speed: { type: Object, default: () => {} }
-})
+const props = defineProps( {
+  speed: {
+    type: Object,
+    default: () => {
+    }
+  }
+} )
 </script>
 
 <style>

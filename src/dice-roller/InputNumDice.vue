@@ -1,5 +1,6 @@
 <template>
   <div
+    :class="numDiceToRoll > 0 ? 'border-orange-500' : 'border-neutral-700'"
     class="flex flex-row gap-1.5
             items-center content-center
             p-1 pr-2 rounded-full
@@ -7,7 +8,6 @@
             border-2
             transition-colors
             "
-    :class="numDiceToRoll > 0 ? 'border-orange-500' : 'border-neutral-700'"
   >
     <button
       class="
@@ -36,13 +36,13 @@
     <!-- input number -->
     <input
       v-model="numDiceToRoll"
-      type="number"
       class="w-full
       py-1 rounded-md
       border border-solid border-neutral-950
       hover:border-neutral-400
       bg-neutral-950
       text-center hover:text-neutral-100"
+      type="number"
       @change="$emit('updateDiceNum', { type: props.dieType, num: numDiceToRoll })"
     >
     <!-- increase -->
@@ -61,10 +61,11 @@
 
 <script setup>
 import { ref } from 'vue'
-defineEmits(['updateDiceNum', 'rollSingleDie'])
-const props = defineProps({
-  dieType: { type: Number, default: 0 }
-})
 
-const numDiceToRoll = ref(0)
+defineEmits( ['updateDiceNum', 'rollSingleDie'] )
+const props = defineProps( {
+  dieType: { type: Number, default: 0 }
+} )
+
+const numDiceToRoll = ref( 0 )
 </script>

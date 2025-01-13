@@ -12,13 +12,13 @@ module.exports = {
   ],
   // uncomment this if stuff breaks?
   /*   overrides: [
-    {
-      env: {
-        node: true
-      },
-      files: ['.eslintrc.{js,cjs}']
-    }
-  ], */
+                  {
+                    env: {
+                      node: true
+                    },
+                    files: ['.eslintrc.{js,cjs}']
+                  }
+                ], */
   parser: 'vue-eslint-parser',
   parserOptions: {
     ecmaVersion: 'latest',
@@ -29,6 +29,8 @@ module.exports = {
     // quotes: ['warn', 'single'],
     semi: ['error', 'never'], // force semicolons
     indent: ['error', 2], // indent
+    'spaced-comment': ['off', 'always'],
+    'space-in-parens': ['warn', 'always'],
     'no-multi-spaces': ['error'], // avoid extraneous spaces
     'object-curly-spacing': ['error', 'always', { arraysInObjects: true }],
     'comma-dangle': ['error', 'never']

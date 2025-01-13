@@ -8,13 +8,15 @@
       :key="index"
       class="label-val"
     >
-      <span class="label">{{ senseType.toLowerCase().replace(/_/, ' ') }}</span><span class="val">{{ senseVal }}</span>
+      <span class="label">{{ senseType.toLowerCase().replace( /_/, ' ' ) }}</span><span class="val">{{
+        senseVal
+      }}</span>
     </div>
   </div>
 </template>
 
 <script setup>
-const props = defineProps({
+const props = defineProps( {
   senses: { type: String, default: '' }
-})
+} )
 </script>

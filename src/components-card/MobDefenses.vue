@@ -72,12 +72,12 @@
 </template>
 
 <script setup>
-const props = defineProps({
+const props = defineProps( {
   damageVulnerabilities: { type: String, default: '' },
   damageResistances: { type: String, default: '' },
   damageImmunities: { type: String, default: '' },
   conditionImmunities: { type: String, default: '' }
-})
+} )
 
 </script>
 

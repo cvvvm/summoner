@@ -42,21 +42,17 @@ const gradColors = [
 <style>
 /* card loading placeholder */
 .summon-load-leave-active {
-  transition:
-    opacity 300ms ease-out,
-    ;
+  transition: opacity 300ms ease-out,;
 }
 .summon-load-enter-active {
-  transition:
-    opacity 300ms ease-in-out,
-    translate 600ms ease-in-out,
-    ;
+  transition: opacity 300ms ease-in-out,
+              translate 600ms ease-in-out,;
 }
 .summon-load-leave-to {
-    opacity: 0;
+  opacity: 0;
 }
 .summon-load-enter-from {
-    opacity: 0;
-    translate: 0% -50;
+  opacity:   0;
+  translate: 0% -50;
 }
 </style>

@@ -75,11 +75,15 @@
 </template>
 
 <script setup>
-defineEmits(['toggleSummonModal', 'summonMob', 'updateSearchLimit', 'removeFav'])
-const props = defineProps({
-  favMobs: { type: Object, default: () => { } },
+defineEmits( ['toggleSummonModal', 'summonMob', 'updateSearchLimit', 'removeFav'] )
+const props = defineProps( {
+  favMobs: {
+    type: Object,
+    default: () => {
+    }
+  },
   searchLimit: { type: Number, default: 100 }
-})
+} )
 
 </script>
 
@@ -96,17 +100,17 @@ const props = defineProps({
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(236, 72, 153, 0.5);
-  color: inherit;
-  width: 4px;
+  color:      inherit;
+  width:      4px;
   height: 4px;
+  background: rgba(236, 72, 153, 0.5);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(236, 72, 153, 1);
-  color: inherit;
-  width: 4px;
+  color:      inherit;
+  width:      4px;
   height: 4px;
+  background: rgba(236, 72, 153, 1);
 }
 
 ::-webkit-scrollbar:window-inactive {
