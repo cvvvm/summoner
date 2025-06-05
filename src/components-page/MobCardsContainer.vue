@@ -42,32 +42,32 @@
     <!-- sort/panels bar -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <!--    <div
-          class="
-          pointer-events-none
-          fixed z-[5000] top-0
-          flex justify-center
-          w-full
-          pt-0
-          bg-gradient-to-b from-neutral-950
-          "
-        >
-          <div
-            class="
-            pointer-events-auto
-            relative
-            flex gap-4 sm:gap-8
-            place-content-between sm:place-content-center items-center
-            px-2 py-1.5 sm:p-3 sm:py-2.5
-            rounded-b-[20px] sm:rounded-b-xxxl
-            bg-neutral-500
-            border-shadow"
-          >
-            &lt;!&ndash; bar &ndash;&gt;
-            <SortMobs :mobs-obj="summonedMobsList" />
-            <ToggleMobCardPanels @refresh-panel="refreshTogglePanel += 1; toggleGlobalCardPanel = $event" />
-          </div>
-        </div>--> <!-- end sort bar wrapper -->
+    <div
+      class="
+      pointer-events-none
+      fixed z-[5000] top-0
+      flex justify-center
+      w-full
+      pt-0
+      bg-gradient-to-b from-neutral-950
+      "
+    >
+      <div
+        class="
+        pointer-events-auto
+        relative
+        flex gap-4 sm:gap-8
+        place-content-between sm:place-content-center items-center
+        px-2 py-1.5 sm:p-3 sm:py-2.5
+        rounded-b-[20px] sm:rounded-b-xxxl
+        bg-neutral-500
+        border-shadow"
+      >
+        <!-- bar -->
+        <SortMobs :mobs-obj="summonedMobsList" />
+        <ToggleMobCardPanels @refresh-panel="refreshTogglePanel += 1; toggleGlobalCardPanel = $event" />
+      </div>
+    </div> <!-- end sort bar wrapper -->
 
     <!-- summon + dice -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
