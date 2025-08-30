@@ -3,7 +3,7 @@
   <div class="flex flex-wrap gap-2">
     <p class="label">
       {{ props.size }}
-      {{ props.type.toLowerCase() }}
+      {{ props.type }}
     </p>
     <p class="label">
       {{ props.alignment ? props.alignment : 'unaligned' }}

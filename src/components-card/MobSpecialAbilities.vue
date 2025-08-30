@@ -9,10 +9,10 @@
       class="title-content"
     >
       <h3 class="title">
-        {{ ability.name.toLowerCase() }}
+        {{ ability.name }}
       </h3>
       <div class="content">
-        <p>{{ ability.desc.toLowerCase() }}</p>
+        <p>{{ ability.desc }}</p>
         <div v-if="ability.usage">
           <p>
             {{ ability.usage.type }}: <span

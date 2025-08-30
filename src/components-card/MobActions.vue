@@ -11,14 +11,14 @@
     >
       <!-- NAME -->
       <h3 class="title">
-        {{ action.name.toLowerCase() }}
+        {{ action.name }}
       </h3>
 
       <span
         class="content
       flex flex-col gap-2"
       >
-        <p class="text-red-500">{{ processAtkText( action.desc.toLowerCase() ) }}</p>
+        <p class="text-red-500">{{ processAtkText( action.desc ) }}</p>
 
         <!-- desc (no attack) -->
         <!------------------------------------------------>
@@ -26,7 +26,7 @@
           v-show="!atkObj.type"
           class="text-neutral-300"
         >
-          {{ action.desc.toLowerCase() }}
+          {{ action.desc }}
         </p>
 
         <!-- attack exists -->
@@ -58,7 +58,7 @@
           </p>
           <!-- desc (with attack) -->
           <p class="text-neutral-500">
-            {{ action.desc.toLowerCase() }}
+            {{ action.desc }}
           </p>
         </div>
 

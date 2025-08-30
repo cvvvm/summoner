@@ -51,7 +51,7 @@
           @click="$emit('summonMob', mob.url);
                   $emit('toggleSummonModal')"
         >
-          {{ mob.name.toLowerCase() }}
+          {{ mob.name }}
         </button>
         <!-- summon multiple -->
         <i

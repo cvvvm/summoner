@@ -64,7 +64,7 @@
           v-for="def in props.conditionImmunities"
           :key="def"
         >
-          {{ def.name.toLowerCase() }}
+          {{ def.name }}
         </span>
       </span>
     </div>

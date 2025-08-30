@@ -21,7 +21,7 @@
       class="legendary-action-block container-lvl2"
     >
       <h3 class="text-neutral-100">
-        {{ action.name.toLowerCase() }}
+        {{ action.name }}
       </h3>
       <div v-if="action.usage">
         <p>
@@ -32,12 +32,12 @@
       </div>
       <!-- damage -->
       <div v-if="action.damage">
-        <!-- <p><span class="val-sm">{{ damageFeat.damage_dice }}</span> {{ damageFeat.damage_type.name.toLowerCase() }}</p> -->
+        <!-- <p><span class="val-sm">{{ damageFeat.damage_dice }}</span> {{ damageFeat.damage_type.name }}</p> -->
         <MobActionDmg :dmg-actions="action.damage" />
       </div>
       <div class="grid gap-2">
         <div
-          v-for="subaction in action.desc.toLowerCase().split(/\. /g)"
+          v-for="subaction in action.desc.split(/\. /g)"
           :key="subaction"
         >
           <p>{{ subaction.replace( 'damage plus ', 'damage + ' ).replace( 'hit: ', '' ).replace( /\./gm, '' ) }}</p>

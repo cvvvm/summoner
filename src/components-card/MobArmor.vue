@@ -34,7 +34,7 @@
         :key="armorEquip"
         class="label text-xs"
       >
-        {{ armorEquip.name.toLowerCase() }}
+        {{ armorEquip.name }}
       </div>
     </div>
 

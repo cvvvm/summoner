@@ -8,7 +8,7 @@
       v-if="lang && lang !== '—'"
       class="val"
     >
-      {{ props.lang.toLowerCase() }}
+      {{ props.lang }}
     </span>
     <span
       v-if="!lang || lang === '—'"
